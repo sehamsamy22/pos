@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Subscription extends Model
+class Dietsystem extends Model
 {
     protected $fillable = [
-        'name', 'description','price','duration','num_meals','discount'
+         'client_subscription_id','meal_id'
     ];
 }

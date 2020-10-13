@@ -124,13 +124,13 @@
         </div>
     </div>
 @endif
+<div class="clearfix"></div>
 
-
-<div class="component_btn">
-    <button class="btn btn-purple waves-effect waves-light m-t-20"  type="button">
-        مكونات الوجبة
-    </button>
-</div>
+{{--<div class="component_btn">--}}
+{{--    <label class="label label-pink waves-effect waves-light m-t-20" >--}}
+{{--        مكونات الوجبة--}}
+{{--    </label>--}}
+{{--</div>--}}
 
 
 <div class="m-portlet__body a-smaller-input-wrapper">
@@ -212,8 +212,9 @@
     </div>
 
 </div>
+<div class="clearfix"></div>
 
-<div class="form-group text-right m-b-0">
-    <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
+<div class="form-group  col-sm-12">
+    <button class="btn btn-primary waves-effect col-sm-12" type="submit">حفظ</button>
 </div>
 

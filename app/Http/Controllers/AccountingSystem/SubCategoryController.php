@@ -98,9 +98,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
-        $subCategory->delete();
+        SubCategory::find($id)->delete();
         return redirect()->route('dashboard.subcategories.index')->with('success', __('تم الحذف بنجاح'));
 
     }

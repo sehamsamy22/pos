@@ -30,7 +30,15 @@
     <div class="form-group form-float">
         <label class="form-label"> الوحدة</label>
         <div class="form-line">
-            {!! Form::text("unit",null,['class'=>'form-control','placeholder'=>' وحدةالصنف','data-parsley-required-message'=>'من فضلك ادخل الوحدة  ','required'=>''])!!}
+            {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر'],null,['class'=>'form-control','placeholder'=>' وحدةالصنف','data-parsley-required-message'=>'من فضلك ادخل الوحدة  ','required'=>''])!!}
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-xs-6  pull-left">
+    <div class="form-group form-float">
+        <label class="form-label"> السعرات الحرارية بالمنتج</label>
+        <div class="form-line">
+            {!! Form::number("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
         </div>
     </div>
 </div>

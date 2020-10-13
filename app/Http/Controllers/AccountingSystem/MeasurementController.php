@@ -89,9 +89,9 @@ class MeasurementController extends Controller
      * @param  \App\Models\Measurement  $measurement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Measurement $measurement)
+    public function destroy($id )
     {
-        $measurement->delete();
+         Measurement::find($id)->delete();
         return redirect()->route('dashboard.measurements.index')->with('success', __('تم الحذف بنجاح'));
 
     }

@@ -100,9 +100,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id )
     {
-        $user->delete();
+        User::find($id)->delete();
         return redirect()->route('dashboard.users.index')->with('success', __('تم المسح بنجاح'));
     }
 }

@@ -15,11 +15,13 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
-            $table->string('type')->nullable();
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->string('num_days')->nullable();
-            $table->string('reserved_days')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('num_meals')->nullable();
+            $table->string('discount')->nullable();
+
             $table->timestamps();
         });
     }

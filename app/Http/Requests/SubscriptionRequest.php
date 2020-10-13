@@ -26,27 +26,23 @@ class SubscriptionRequest extends FormRequest
     {
 
        return[
-
-            "code" => "required|min:1",
-           "type" => "required|string|min:1|max:255",
+            "name" => "required|min:1",
+           "description" => "required|string|min:1|max:255",
            "price" => "required|integer|min:1",
-           "num_days" => "required|integer|min:1",
-           "reserved_days" => "required|integer|min:1",
-
-
+           "duration" => "required|string|min:1",
+           "num_meals" => "required|integer|min:1",
        ];
 
     }
     public function messages()
     {
       return [
-            'code.required'=>"الكود مطلوب",
-            'type.required'=>"النوع مطلوب",
+            'name.required'=>"اسم  الخطة مطلوب",
+            'description.required'=>"وصف  مطلوب",
             'price.required'=>"السعر مطلوب",
-            'num_days.required'=>"عدد الايام مطلوب",
-            'reserved_days.required'=>"الحصص المحجوزة مطلوب",
+            'duration.required'=>" مدة الخطة مطلوب",
+            'num_meals.required'=>" عدد الوجبات مطلوب",
         ];
-
 
     }
 }

@@ -89,9 +89,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        $product->delete();
+        Product::find($id)->delete();
         return redirect()->route('dashboard.categories.index')->with('success', __('تم الحذف بنجاح'));
 
     }

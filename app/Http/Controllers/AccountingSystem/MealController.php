@@ -123,9 +123,9 @@ class MealController extends Controller
      * @param  \App\Models\Meal  $meal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Meal $meal)
+    public function destroy($id)
     {
-        $meal->delete();
+        Meal::find($id)->delete();
         return redirect()->route('dashboard.meals.index')->with('success', __('تم الحذف بنجاح'));
 
     }

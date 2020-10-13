@@ -88,9 +88,9 @@ class SubscriptionController extends Controller
      * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscription $subscription)
+    public function destroy($id)
     {
-        $subscription->delete();
+       Subscription::find($id)->delete();
         return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم الحذف بنجاح'));
     }
 }
