@@ -92,9 +92,7 @@
                             <tr>
                                 <td>{{$row->measurement->name}}</td>
                                 <td>{{$row->value}}
-                                    @if($row->measurement->name=='الوزن')
-                                        @if($i>)
-                                    <i class="zmdi zmdi-long-arrow-down"></i>
+
                                 </td>
 
                             </tr>

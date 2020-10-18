@@ -13,12 +13,10 @@ class CreateClientVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_visits', function (Blueprint $table) {
+        Schema::create('visit_measurements', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('measurement_id')->constrained();
             $table->string('value')->nullable();
-
             $table->timestamps();
         });
     }

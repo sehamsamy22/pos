@@ -13,7 +13,7 @@ class AddVisitToClientVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::table('client_visits', function (Blueprint $table) {
+        Schema::table('visit_measurements', function (Blueprint $table) {
             $table->foreignId('visit_id')->constrained();
 
         });

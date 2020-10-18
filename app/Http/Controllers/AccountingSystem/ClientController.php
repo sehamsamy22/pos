@@ -4,7 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
-use App\Models\ClientVisit;
+use App\Models\VisitMeasurement;
 use App\Models\Meal;
 use App\Models\Measurement;
 use App\Models\Subscription;
@@ -56,7 +56,7 @@ class ClientController extends Controller
         $client=Client::create($request->all());
         foreach($requests['measurement'] as $key=>$measurements){
             foreach ($measurements as $key2=>$measurement) {
-                ClientVisit::create([
+                VisitMeasurement::create([
                     'client_id' => $client->id,
                     'date' => $requests['visits_date'][$key2],
                     'measurement_id' => $key,
@@ -95,7 +95,7 @@ class ClientController extends Controller
     public function edit(Client $client)
     {
         $measurements=Measurement::all();
-        $visits=ClientVisit::where('client_id',$client->id)->get();
+        $visits=VisitMeasurement::where('client_id',$client->id)->get();
         return view('admin.clients.edit', compact('visits','measurements'));
 
     }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientVisit extends Model
+class VisitMeasurement extends Model
 {
     protected $fillable = [
         'visit_id', 'measurement_id','value'
@@ -18,7 +18,7 @@ class ClientVisit extends Model
 
 //    public  function  value($id,$date){
 //
-//      $measurement=ClientVisit::where('measurement_id',$id)->where('date',$date)->first();
+//      $measurement=VisitMeasurement::where('measurement_id',$id)->where('date',$date)->first();
 ////      dd($measurement);
 //      return $measurement->value;
 //    }

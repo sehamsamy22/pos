@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.clients_visits.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" > رجوع لإدارة الزيارات<span class="m-l-5"><i class="fa fa-reply"></i></span></a>
+                <a href="{{route('dashboard.visits.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" > رجوع لإدارة الزيارات<span class="m-l-5"><i class="fa fa-reply"></i></span></a>
             </div>
             <h4 class="page-title"> تسجيل  زيارة جديد</h4>
         </div>
@@ -31,7 +31,7 @@
 
 
 
-                    {!!Form::open( ['route' => 'dashboard.clients_visits.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
+                    {!!Form::open( ['route' => 'dashboard.visits.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <ul>

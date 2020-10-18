@@ -8,7 +8,7 @@
         <div class="col-sm-12">
 
             <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.clients_visits.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
+                <a href="{{route('dashboard.visits.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
                    تسجيل زيارة  جديدة
                     <span class="m-l-5"><i class="fa fa-plus"></i></span>
                 </a>
@@ -40,7 +40,8 @@
                     </thead>
                     <tbody>
                     @php $i = 1; @endphp
-                    @foreach($clients_visits as $row)
+
+                    @foreach($visits as $row)
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->client->name}}</td>
@@ -49,7 +50,7 @@
                             <td>
 {{--                                <a href="{{route('dashboard.clients_subscriptions.edit',$row->id)}}" class="label label-warning">تعديل</a>--}}
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
-                                {!!Form::open( ['route' => ['dashboard.clients_visits.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['dashboard.visits.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                             </td>
                         </tr>

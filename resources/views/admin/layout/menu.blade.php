@@ -79,7 +79,7 @@
                         <li><a href="{{route('dashboard.measurements.index')}}"><i class="zmdi zmdi-view-list"></i>عرض القياسات     </a></li>
                         <li><a href="{{route('dashboard.subscriptions.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  الاشتركات    </a></li>
                         <li><a href="{{route('dashboard.clients_subscriptions.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  اشتركات   العملاء    </a></li>
-                        <li><a href="{{route('dashboard.clients_visits.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  سجل زيارات   العملاء    </a></li>
+                        <li><a href="{{route('dashboard.visits.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  سجل زيارات   العملاء    </a></li>
 
                     </ul>
                 </li>

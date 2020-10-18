@@ -13,13 +13,7 @@ class Visit extends Model
         return $this->belongsTo(Client::class,'client_id');
     }
     public function measurements(){
-        return $this->hasMany(ClientVisit::class,'visit_id');
+        return $this->hasMany(VisitMeasurement::class,'visit_id');
     }
 
-//    public  function  value($id,$date){
-//
-//      $measurement=ClientVisit::where('measurement_id',$id)->where('date',$date)->first();
-////      dd($measurement);
-//      return $measurement->value;
-//    }
 }
