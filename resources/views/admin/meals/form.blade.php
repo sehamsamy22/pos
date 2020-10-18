@@ -182,7 +182,7 @@
 
                 <label> الكمية</label>
                 <span class="required--in">*</span>
-                <input type="number" class="form-control" id="component_quantity">
+                <input type="text" class="form-control" id="component_quantity">
 {{--                <label> الوحدة </label>--}}
 {{--                <span class="required--in">*</span>--}}
 {{--                {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر'],null,['class'=>'form-control js-example-basic-single','id'=>'main_unit'])!!}--}}
