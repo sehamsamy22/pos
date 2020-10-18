@@ -83,6 +83,15 @@
 
                     </ul>
                 </li>
+
+
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>إدارة المشتريات </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{route('dashboard.suppliers.index')}}"><i class="zmdi zmdi-view-list"></i>عرض الموردين     </a></li>
+
+                    </ul>
+                </li>
             </ul>
             <div class="clearfix"></div>
         </div>

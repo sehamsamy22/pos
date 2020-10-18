@@ -8,6 +8,7 @@ use App\Models\ClientVisit;
 use App\Models\Meal;
 use App\Models\Measurement;
 use App\Models\Subscription;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -77,7 +78,12 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        $visits=Visit::where('client_id',$client->id)->get();
+
+        $measurements=Measurement::all();
+
+        return view('admin.clients.show', compact('client','visits','measurements'));
+
     }
 
     /**

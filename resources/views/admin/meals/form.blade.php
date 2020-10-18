@@ -61,26 +61,47 @@
         </div>
     </div>
 </div>
-
+@if(isset($meal))
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
         <label class="form-label">   التصنيف الرئيسى</label>
         <div class="form-line">
-            {!! Form::select("category_id",$categories,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
+            {!! Form::select("category_id",$categories,$categoryId,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
 
         </div>
     </div>
 </div>
+@else
 
+    <div class="col-sm-6 col-xs-6  pull-left">
+        <div class="form-group form-float">
+            <label class="form-label">   التصنيف الرئيسى</label>
+            <div class="form-line">
+                {!! Form::select("category_id",$categories,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
+
+            </div>
+        </div>
+    </div>
+ @endif
+@if(isset($meal))
 <div class="col-sm-6 col-xs-6  pull-left subcategories">
     <div class="form-group form-float">
         <label class="form-label">   التصنيف الفرعى</label>
         <div class="form-line">
-            {!! Form::select("sub_category_id",[],null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى أولا  '])!!}
+            {!! Form::select("sub_category_id",[$meal->subcategory->name],$meal->sub_category_id,['class'=>'form-control js-example-basic-single','required'])!!}
         </div>
     </div>
 </div>
-
+@else
+    <div class="col-sm-6 col-xs-6  pull-left subcategories">
+        <div class="form-group form-float">
+            <label class="form-label">   التصنيف الفرعى</label>
+            <div class="form-line">
+                {!! Form::select("sub_category_id",[],null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى أولا  '])!!}
+            </div>
+        </div>
+    </div>
+@endif
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
         <label class="form-label">قيمة الخصم</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد) </span>
@@ -92,7 +113,7 @@
 
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
-        <label class="form-label"> قيمة الضريبة</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد)</span>
+        <label class="form-label"> نسبة الضريبة</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد)</span>
         <div class="form-line">
             {!! Form::number("tax",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
         </div>
@@ -126,93 +147,110 @@
 @endif
 <div class="clearfix"></div>
 
-{{--<div class="component_btn">--}}
-{{--    <label class="label label-pink waves-effect waves-light m-t-20" >--}}
-{{--        مكونات الوجبة--}}
-{{--    </label>--}}
-{{--</div>--}}
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    إضافه صنف
+</button>
 
-<div class="m-portlet__body a-smaller-input-wrapper">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">مكونات الوجبة </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label> اسم المكون</label>
+                <span class="required--in">*</span>
+{{--                {!! Form::select("product_id",$products,null,['class'=>'form-control js-example-basic-single','id'=>'component_name'])!!}--}}
+                <select class="form-control js-example-basic-single"
+                        id="component_name"
+                        data-parsley-trigger="select"
+                        name="product_id[]"
+                        data-parsley-required-message="ادخل اسم الصنف">
+                    <option value="" selected disabled>اختر الصنف</option>
+                    @foreach ($products  as $product)
+                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->unit}}" value="{{$product->id}}">{{$product->ar_name}}</option>
+                    @endforeach
+                </select>
+                <label>الوحدة</label>
+                <input type="text" class="form-control" id="unit" disabled>
 
-    <div class="col-sm-6 col-xs-6  pull-lef">
-        <label>اسم الصنف</label>
-        <select class="form-control"
-                id="product"
-                data-parsley-trigger="select"
-                data-parsley-required-message="ادخل اسم الصنف">
-            <option value="" selected disabled>اختر الصنف</option>
-            @foreach ($products  as $product)
-                <option data-name="{{$product->ar_name}}" data-price="{{$product->price}}" value="{{$product->id}}">{{$product->ar_name}}</option>
-            @endforeach
-        </select>
+                <label> الكمية</label>
+                <span class="required--in">*</span>
+                <input type="number" class="form-control" id="component_quantity">
+{{--                <label> الوحدة </label>--}}
+{{--                <span class="required--in">*</span>--}}
+{{--                {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر'],null,['class'=>'form-control js-example-basic-single','id'=>'main_unit'])!!}--}}
 
-        @if($errors->has('products'))
-            <p class="help-block" style="color: #FF0000;">
-                {{ $errors->first('products') }}
-            </p>
-        @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="myFun2(event)">اضافة </button>
+            </div>
+        </div>
     </div>
-
-    <div class="col-sm-6 col-xs-6  pull-lef">
-        <label>الكمية</label>
-        <input id="qty" type="number" value="{{old('qty')}}"
-               data-parsley-trigger="keyup"
-               oninput="this.value = Math.abs(this.value)"
-               class="form-control m-input" placeholder="ادخل الكمية">
-        @if($errors->has('qty'))
-            <p class="help-block">
-                {{ $errors->first('qty') }}
-            </p>
-        @endif
-    </div>
-
-
-
-
-
-    <div class="col-md-2">
-        <button id="addProduct" class="btn btn-primary waves-effect waves-light m-t-20"  type="button">
-            اضافة
-        </button>
-    </div>
-
-
-    <div class="table-striped">
-        <table id="productsTable" class="table m-0">
-            <thead>
-            <tr>
-                <th> اسم المنتج</th>
-                <th> الكمية</th>
-                <th>حذف</th>
-            </tr>
-            </thead>
-            <tbody>
-            @if (isset($meal))
-                @foreach ($meal->products as $product)
-                    <tr>
-                        <td>{{$product->ar_name}} </td>
-                        <td>{{$product->quantity}} </td>
-
-                        <td>
-                            <a href="javascript:" id="removeProduct{{$product->id}}" data-id="{{$product->id}}" class="removeProduct btn btn-danger waves-effect waves-light btn-xs m-b-5">حذف</a>
-
-                        </td>
-
-                        <input type="hidden" name="products[]" value="id" />
-                    </tr>
-                @endforeach
-
-
-            @endif
-
-
-            </tbody>
-        </table>
-    </div>
-
 </div>
 <div class="clearfix"></div>
+<!-- component table-->
+<div class="table-striped" id="componentTable-wrap">
+    <table class="table table-striped table-bordered" >
+        <thead>
+        <tr>
+            <th> اسم الصنف</th>
+            <th>الكمية</th>
+            <th>الوحدة </th>
+            <th>العمليات</th>
+        </tr>
+        </thead>
+        <tbody class="add-components">
+        @if (isset($meal))
+            @foreach($meal->products as $product)
+                    <tr  id="single-product{{$product->id}}" >
+                        <td class="component-name">{{$product->product->ar_name}}</td>
+                        <td class="component-qty"> {{$product->quantity}}</td>
+                        <td class="component-unit">
+                            @if($product->product->unit=='kilo')
+                                كيلو
+                            @elseif($product->product->unit=='gram')
+                            جرام
+                            @else
+                                لتر
+                            @endif
+                        </td>
+                        <td>
+
+                            <a href="#"  onclick="Delete({{$product->id}})" data-toggle="tooltip" data-id="{{$product->id}}" id='delete-form'{{$product->id}}, class="delete-this-row-component" id="" data-original-title="حذف">
+                                <i class="fa fa-trash-o" style="margin-left: 10px"></i>
+{{--                                {!!Form::open( ['route' => ['dashboard.meals-products.destroy',$product->id] ,'id'=>'delete-form'.$product->id, 'method' => 'Delete']) !!}--}}
+{{--                                {!!Form::close() !!}--}}
+                            </a>
+                        </td>
+                    </tr>
+
+
+            @endforeach
+        @endif
+
+
+        </tbody>
+        <tfoot>
+        <tr style="background-color: #aec9dc;">
+            <td colspan="2"></td>
+            <td><span style="    font-size: large;">السعر التقريبى</span>  </td>
+            <td class="Approx_price">
+                @if(isset($meal)){{$meal->approx_price}} @endif
+            <input type="hidden" name="approx_price" id="total" @if(isset($meal)) value="{{$meal->approx_price}}" @endif>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- end table-->
 
 <div class="form-group  col-sm-12">
     <button class="btn btn-primary waves-effect col-sm-12" type="submit">حفظ</button>

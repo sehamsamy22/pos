@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','إدارة الأصناف والمواد الخام')
+@section('title','إدارة العملاء  ')
 
 @section('content')
 
@@ -8,11 +8,11 @@
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-15">
                 <a href="{{route('dashboard.clients.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
-                   إضافة  اشتراك جديد
+                   إضافة  عميل جديد
                     <span class="m-l-5"><i class="fa fa-plus"></i></span>
                 </a>
             </div>
-            <h4 class="page-title">عرض الاشتراكات</h4>
+            <h4 class="page-title">عرض العملاء</h4>
         </div>
     </div>
     <!--End Page-Title -->
@@ -21,7 +21,7 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
-                <h4 class="header-title m-t-0 m-b-30">كل جميع  الاشتراكات المتاحة بالنظام </h4>
+                <h4 class="header-title m-t-0 m-b-30">كل جميع  العملاء  المشتركين  بالنظام </h4>
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
@@ -47,6 +47,8 @@
                             <td>{{$row->address}}</td>
 
                             <td>
+                                <a href="{{route('dashboard.clients.show',$row->id)}}" class="label label-warning">عرض</a>
+
                                 <a href="{{route('dashboard.clients.edit',$row->id)}}" class="label label-warning">تعديل</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.clients.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}

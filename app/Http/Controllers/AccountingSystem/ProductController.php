@@ -40,7 +40,11 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->all());
+        $requests = $request->except('image');
+        if ($request->hasFile('image')) {
+            $requests['image'] = saveImage($request->image, 'photos');
+        }
+        Product::create($requests);
         return redirect()->route('dashboard.products.index')->with('success', 'تم اضافه صنف  جديد');
 
     }
@@ -78,7 +82,11 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        $requests = $request->except('image');
+        if ($request->hasFile('image')) {
+            $requests['image'] = saveImage($request->image, 'photos');
+        }
+        $product->update($requests);
         return redirect()->route('dashboard.products.index')->with('success', __('تم التعديل'));
 
     }

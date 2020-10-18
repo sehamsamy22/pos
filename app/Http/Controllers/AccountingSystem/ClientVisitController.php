@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\ClientVisit;
 use App\Models\Measurement;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 
 class ClientVisitController extends Controller
 {
     public  function  index(){
-        $clients_visits=ClientVisit::all();
+        $clients_visits=Visit::all();
         return view('admin.clients_visits.index',compact('clients_visits'));
     }
     public function create()
@@ -23,10 +24,13 @@ class ClientVisitController extends Controller
     }
 
     public function store(Request $request){
-                foreach ($request['measurement']as $key=>$measurement) {
-                    ClientVisit::create([
+                    $visit=Visit::create([
                         'client_id' => $request['client_id'],
                         'date' => $request['date'],
+                    ]);
+                foreach ($request['measurement']as $key=>$measurement) {
+                    ClientVisit::create([
+                        'visit_id' => $visit->id,
                         'measurement_id' => $key,
                         'value' => $measurement,
                     ]);

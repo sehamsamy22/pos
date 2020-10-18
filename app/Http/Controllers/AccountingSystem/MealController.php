@@ -46,19 +46,29 @@ class MealController extends Controller
      */
     public function store(MealRequest $request)
     {
+
         $requests = $request->except('image');
+
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
          $meal=Meal::create($requests);
-        $components= collect($requests['products'])->zip(collect($requests['qtys']));
+        $components= collect($requests['component_names'])->zip(collect($requests['qtys']));
+        $sum=0;
+
         foreach($components as $component){
             MealProduct::create([
                 'meal_id'=>$meal->id,
                 'product_id'=>$component[0],
                 'quantity'=>$component[1],
             ]);
+            $product=Product::find($component[0]);
+            $sum+=$product->price*$component[1];
         }
+
+        $meal->update([
+            'approx_price'=>$sum,
+        ]);
         return back()->with('success', 'تم اضافه الوجبة  ');
     }
 
@@ -84,7 +94,9 @@ class MealController extends Controller
     {
         $categories=Category::pluck('name','id')->toArray();
         $products=Product::all();
-        return view('admin.meals.edit',compact('meal','categories','products'));
+        $subcategory=SubCategory::find($meal->sub_category_id);
+        $categoryId=$subcategory->category_id;
+        return view('admin.meals.edit',compact('meal','categories','products','categoryId'));
 
     }
 
@@ -129,6 +141,14 @@ class MealController extends Controller
         return redirect()->route('dashboard.meals.index')->with('success', __('تم الحذف بنجاح'));
 
     }
+    public function delete_product(Request $request)
+    {
+
+        MealProduct::find($request['id'])->delete();
+        return response()->json([
+            'success'=>'تم الحذف بنجاح'
+        ]);
+    }
     public  function  getAllSubcategories($id){
         $subcategories=SubCategory::where('category_id',$id)->pluck('name','id')->toArray();
         return response()->json([
@@ -140,6 +160,13 @@ class MealController extends Controller
         $product = Product::find($request->id);
         return response()->json([
             'data'=>$product->qty
+        ]);
+    }
+
+    public function getProduct($id){
+        $product = Product::find($id);
+        return response()->json([
+            'data'=>$product->unit
         ]);
     }
 }

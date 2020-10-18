@@ -24,8 +24,12 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('subcategories', 'SubCategoryController');
     route::resource('products', 'ProductController');
     route::resource('meals', 'MealController');
+    route::resource('suppliers', 'SupplierController');
     Route::get('/getAllSubcategories/{id}', 'MealController@getAllSubcategories');
+    Route::get('/getProduct/{id}', 'MealController@getProduct');
+
     Route::post('/product','MealController@getAjaxProductQty')->name('meals.getAjaxProductQty');
+    Route::get('/meals-products', 'MealController@delete_product')->name('meals-products.destroy');
     route::resource('subscriptions', 'SubscriptionController');
     route::resource('measurements', 'MeasurementController');
     route::resource('clients', 'ClientController');

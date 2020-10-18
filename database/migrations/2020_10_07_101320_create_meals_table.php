@@ -18,7 +18,7 @@ class CreateMealsTable extends Migration
             $table->string('ar_name')->nullable();
             $table->string('en_name')->nullable();
             $table->foreignId('sub_category_id')->constrained();
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 8, 4);
             $table->boolean('status')->default(1);
             $table->enum('type', ['breakfast', 'lunch','dinner']);
             $table->longText('description');

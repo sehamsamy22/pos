@@ -20,8 +20,8 @@ File: Components
 /* =============
    Buttons
 ============= */
-.component_btn{
-
+.required--in{
+color: darkred;
 }
 .btn {
   border-radius: 2px;

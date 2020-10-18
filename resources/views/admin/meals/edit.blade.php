@@ -38,6 +38,7 @@
     </div>
 @endsection
 @section('scripts')
+
     @include('admin.layout.form_validation_js')
 
     <script>
@@ -55,70 +56,160 @@
         });
     </script>
     <script>
-        $('#check-all').change(function () {
-            $("input:checkbox").prop("checked", $(this).prop("checked"))
-        })
+        var bigDataComponent = [];
+
+
+        function myFun2(event) {
+            event.preventDefault();
+            var component_data = {};
+            component_data.component_name = $('#component_name option:selected').text();
+            component_data.component_name_val = $('#component_name').val();
+            component_data.component_quantity = $('#component_quantity').val();
+            component_data.component_unit = $('#component_name option:selected').data('unit');
+            component_data.component_price = $('#component_name option:selected').data('price');
+            component_data.Approx_price = Number(component_data.component_quantity *component_data.component_price);
+
+            if (component_data.component_name !== '' && component_data.component_quantity !== '' ) {
+                $("tr.editted-row").remove();
+                swal({
+                    title: "تم إضافة  المكون بنجاح",
+                    text: "",
+                    icon: "success",
+                    buttons: ["موافق"],
+                    dangerMode: true,
+                })
+
+                bigDataComponent.push(component_data);
+                $("#componentTable-wrap").show();
+                var  unit;
+                var TotalValue=parseFloat($("#total").val());
+                var appendComponent = bigDataComponent.map(function(component) {
+                    TotalValue += parseFloat(component.Approx_price) ;
+                    if(component.component_unit=='kilo'){
+                        unit ='كيلو';
+                    }else if(component.component_unit=='gram'){
+                        unit='جرام';
+                    }else{
+                        unit='لتر';
+                    }
+                    return (`
+            <tr class="single-product">
+                <td class="component-name">${component.component_name}</td>
+                <td class="component-qty">${component.component_quantity}</td>
+                <td class="component-unit">${unit}</td>
+              <td>
+
+                <a href="#" data-toggle="tooltip" class="delete-this-row-component" data-original-title="حذف">
+                    <i class="fa fa-trash-o" style="margin-left: 10px"></i>
+                </a>
+            </td>
+        <input type="hidden" name="component_names[]" value="${component.component_name_val}" >
+        <input type="hidden" name="qtys[]" value="${component.component_quantity}" >
+
+            </tr>
+            `);
+
+                });
+                $('.single-product').remove();
+                $('.add-components').append(appendComponent);
+
+                $(".Approx_price").html(TotalValue);
+                $("#total").val(TotalValue);
+                /////////////////////////////////////////////////////
+                $('.delete-this-row-component').click(function(e) {
+                    var $this = $(this);
+                    var row_index_component = $(this).parents('tr').index();
+                    e.preventDefault();
+                    swal({
+                        title: "هل أنت متأكد ",
+                        text: "هل تريد حذف هذا  المكون؟",
+                        icon: "warning",
+                        buttons: ["الغاء", "موافق"],
+                        dangerMode: true,
+                    }).then(function(isConfirm) {
+                        if (isConfirm) {
+                            $this.parents('tr').remove();
+                            bigDataComponent.splice(row_index_component, 1);
+                        } else {
+                            swal("تم االإلفاء", "حذف  المكون تم الغاؤه", 'info', {
+                                buttons: 'موافق'
+                            });
+                        }
+                    });
+                });
+                $('.edit-this-row-component').click(function(e) {
+                    var $this = $(this);
+                    e.preventDefault();
+                    // alert($('#main_unit option:selected').text());
+                    $this.parents('tr').addClass('editted-row');
+                    $('#exampleModal #component_name').val($('.component_name option:selected').text());
+                    $('#exampleModal #component_quantity').val($this.parents('tr').find('.component-qty').html());
+                    $('#exampleModal #main_unit').val($('#main_unit option:selected').text());
+                    var row_index_edit_component = $(this).parents('tr').index();
+                    bigDataComponent.splice(row_index_edit_component, 1);
+                });
+                document.getElementById("component_name").val = " ";
+                document.getElementById("component_quantity").val = " ";
+
+
+
+            } else {
+                swal({
+                    title: "من فضلك قم بملئ كل البيانات المميزة بالعلامة الحمراء",
+                    text: "",
+                    icon: "warning",
+                    buttons: ["موافق"],
+                    dangerMode: true,
+                })
+            } ///if_end
+        }
+
     </script>
     <script>
-        $('body').delegate('#addProduct','click', function(){
-
-
-            var product_name   = $('#product').find("option:selected").attr('data-name');
-            var product_id = $('#product').find("option:selected").val();
-            var deleteId = "removeProduct"+product_id;
-            var trId = "tr"+product_id;
-
-            var qty = $('#qty').val();
-            var price = $('#price').val();
-
-            if(product_name == null || qty <= 0 || qty == "" ){
-                $('#addProduct').attr('disabled')==true;
-            }else {
-                $('#addProduct').attr('disabled')==false;
-                $('#productsTable > tbody:last-child').append(
-                    '<tr id="'+trId+'">' +
-                    '<td>' + product_name + '</td>'+
-                    '<td>' + qty + '</td>'+
-                    '<td>' +
-                    '<a href="javascript:;" id="' +deleteId +'" data-id="'+product_id+'"  class="removeProduct btn btn-danger waves-effect waves-light btn-xs m-b-5">'+'حذف'+'</a>' + '</td>'+
-                    '<input type="hidden" name="products[]" value="' + product_id + '" />' +
-                    '<input type="hidden" name="qtys[]" value="' + qty + '" />' +
-                    '</tr>');
-
-                $('#product').prop('selectedIndex',0);
-                $('#qty').val('');
-            }
-
-        });
-
-
-        $('body').on('click', '.removeProduct', function () {
-            var id = $(this).attr('data-id');
-            var tr = $(this).closest($('#removeProduct' + id).parent().parent());
-
-            tr.find('td').fadeOut(500, function () {
-                tr.remove();
-            });
-        });
-
-        $('#product').change(function () {
-            var id = $(this).val();
+        function Delete(id) {
+            // var id=id;
+            // var id = $(this).data('id');
             $.ajax({
-                type: 'POST',
-                url: '{{ route('dashboard.meals.getAjaxProductQty') }}',
+                type: 'get',
+                url: '{{ route('dashboard.meals-products.destroy') }}',
                 data: {id: id},
                 dataType: 'json',
                 success: function (data) {
-                    $('#qty').attr("data-parsley-max",data.data);
-                    $('#qty').attr("data-parsley-max-message","الكمية غير متاحة "+data.data);
+
+                    document.getElementById("single-product"+id).remove();
+
+                    swal("تم الحذف", "تم  حذف المنتج", 'danger', {
+                        buttons: 'موافق',
+                        dangerMode: true,
+
+                    });
+
+
+                       }
+            });
+        };
+    </script>
+    <script>
+        $("#component_name").on('change', function() {
+            var id = $(this).val();
+            $.ajax({
+                url:"/dashboard/getProduct/"+id,
+                type:"get",
+            }).done(function (data) {
+
+                var unit_val;
+                if(data.data=='kilo'){
+                    unit_val='كيلو'  ;
+                }else if(data.data=='gram'){
+                    unit_val='جرام'  ;
+                }else{
+                    unit_val='لتر'  ;
                 }
+                $('#unit').val(unit_val);
+            }).fail(function (error) {
+                console.log(error);
             });
         });
-
-
-
     </script>
-
-
 
 @endsection

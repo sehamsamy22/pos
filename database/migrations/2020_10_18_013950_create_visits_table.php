@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientVisitsTable extends Migration
+class CreateVisitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateClientVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_visits', function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('measurement_id')->constrained();
-            $table->string('value')->nullable();
-
+            $table->foreignId('client_id')->constrained();
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateClientVisitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_visits');
+        Schema::dropIfExists('visits');
     }
 }

@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientVisit extends Model
+class Visit extends Model
 {
     protected $fillable = [
-        'visit_id', 'measurement_id','value'
+        'client_id','date'
     ];
-    public function visit(){
-        return $this->belongsTo(Visit::class,'visit_id');
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id');
     }
-    public function measurement(){
-        return $this->belongsTo(Measurement::class,'measurement_id');
+    public function measurements(){
+        return $this->hasMany(ClientVisit::class,'visit_id');
     }
 
 //    public  function  value($id,$date){
@@ -22,11 +22,4 @@ class ClientVisit extends Model
 ////      dd($measurement);
 //      return $measurement->value;
 //    }
-
-public  function lastweight($value){
-
-
-
-}
-
 }
