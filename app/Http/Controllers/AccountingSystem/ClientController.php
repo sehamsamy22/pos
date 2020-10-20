@@ -34,7 +34,7 @@ class ClientController extends Controller
     public function create()
     {
         $measurements=Measurement::all();
-        $subscriptions=Subscription::pluck('type','id')->toArray();
+        $subscriptions=Subscription::pluck('name','id')->toArray();
         $breakfasts=Meal::where('type','breakfast')->get();
         $lunches=Meal::where('type','lunch')->get();
         $dinners=Meal::where('type','dinner')->get();
@@ -51,20 +51,20 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $requests=$request->all();
-        $components= collect($requests['visits_date'])->zip(collect($requests['measurement']));
+//        $components= collect($requests['visits_date'])->zip(collect($requests['measurement']));
 
         $client=Client::create($request->all());
-        foreach($requests['measurement'] as $key=>$measurements){
-            foreach ($measurements as $key2=>$measurement) {
-                VisitMeasurement::create([
-                    'client_id' => $client->id,
-                    'date' => $requests['visits_date'][$key2],
-                    'measurement_id' => $key,
-                    'value' => $measurement,
-
-                ]);
-            }
-        }
+//        foreach($requests['measurement'] as $key=>$measurements){
+//            foreach ($measurements as $key2=>$measurement) {
+//                VisitMeasurement::create([
+//                    'client_id' => $client->id,
+//                    'date' => $requests['visits_date'][$key2],
+//                    'measurement_id' => $key,
+//                    'value' => $measurement,
+//
+//                ]);
+//            }
+//        }
 
         return back()->with('success', 'تم اضافه الزياره بنجاخ ');
 
