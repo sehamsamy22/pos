@@ -35,6 +35,9 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('clients', 'ClientController');
     route::resource('clients_subscriptions', 'ClientSubscriptionController');
     route::resource('visits', 'VisitController');
+    route::resource('purchases', 'PurchaseController');
+//    Route::get('/productsAjexPurchase/{id}', 'PurchaseController@getProductAjex');
+
 
 });
 

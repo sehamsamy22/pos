@@ -23,6 +23,25 @@ File: Components
 .required--in{
 color: darkred;
 }
+table.bill-table  button[type = "submit"] {
+    background: #10c469;
+    width: max-content;
+    border: 0;
+    padding: 5px;
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+}
+
+table.bill-table th >button[type = "button"] {
+    background: #e83707;
+    width: max-content;
+    border: 0;
+    padding: 5px;
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+}
 .btn {
   border-radius: 2px;
   padding: 6px 14px;

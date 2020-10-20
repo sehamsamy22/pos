@@ -32,7 +32,7 @@ class ProductRequest extends FormRequest
            "unit" => "required|string|min:1|max:255",
            'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
            "price" => "required",
-
+           "barcode" => "required",
         ];
 
     }
@@ -44,6 +44,7 @@ class ProductRequest extends FormRequest
           'unit.required'=>"الوحدة مطلوبة",
           'image.required'=>"صورة الصنف مطلوبة",
           'price.required'=>"سعر الصنف مطلوب",
+          'barcode.required'=>"باركود الصنف مطلوب",
         ];
 
 
