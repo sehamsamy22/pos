@@ -26,23 +26,30 @@
     </div>
 </div>
 
+
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
         <label class="form-label">الباسورد</label>
-        {!! Form::password('password',['class'=>'form-control','id'=>"pass2"]) !!}
+        {!! Form::input('password','password',null,['class'=>'form-control']) !!}
+
         <div class="form-line">
         </div>
     </div>
 </div>
 
+{{--@if( isset($user))--}}
 {{--<div class="col-sm-12 col-xs-12  pull-right">--}}
 {{--    <div class="form-group form-float">--}}
-{{--        <label class="form-label">تكرار الباسورد</label>--}}
-{{--        {!! Form::password('password_confirmation','password_confirmation',null,['class'=>'form-control','data-parsley-equalto'=>"#pass2",'data-parsley-equalto-message'=>"اعد ادخال الباسورد غير مطابق"]) !!}--}}
+{{--        <label class="form-label">الباسورد</label>--}}
+{{--        {!! Form::input('password','old_password',null,['class'=>'form-control']) !!}--}}
+
 {{--        <div class="form-line">--}}
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
+{{--@endif--}}
+
+
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
         <label class="form-label">  الجوال</label>

@@ -79,8 +79,14 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(UserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
+        $request->validate([
+            'name' => 'required|string|max:191',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'password' => 'nullable|min:6|',
+            'phone' => 'nullable|unique:users,phone,'.$user->id
+        ]);
 
         if ($request->has('old_password') && !empty($request->old_password)) {
             if (!\Hash::check($request->old_password, $user->password)) {
@@ -90,7 +96,7 @@ class UsersController extends Controller
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
-        $user->update($requests);
+        $user->update($request->all());
         return redirect()->route('dashboard.users.index')->with('success', __('تم التعديل'));
     }
 

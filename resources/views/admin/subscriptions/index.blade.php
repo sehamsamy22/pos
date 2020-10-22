@@ -30,11 +30,13 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>كود</th>
-                        <th>نوع  الاشتراك</th>
+
+                        <th>اسم  الاشتراك</th>
                         <th>  السعر</th>
-                        <th>  عدد  الايام </th>
-                        <th>  الحصص المحجوزة</th>
+                        <th>  المدة   </th>
+                        <th>   عدد الوجبات</th>
+                        <th>    الخصم</th>
+
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
@@ -43,11 +45,11 @@
                     @foreach($subscriptions as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->code}}</td>
-                            <td>{{$row->type}}</td>
+                            <td>{{$row->name}}</td>
                             <td>{{$row->price}}</td>
-                            <td>{{$row->num_days}}</td>
-                            <td>{{$row->reserved_days}}</td>
+                            <td>{{$row->duration}}</td>
+                            <td>{{$row->num_meals}}</td>
+                            <td>{{$row->discount}}</td>
 
                             <td>
                                 <a href="{{route('dashboard.subscriptions.edit',$row->id)}}" class="label label-warning">تعديل</a>

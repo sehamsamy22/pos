@@ -43,7 +43,22 @@
     </div>
 </div>
 
-
+<div class="col-sm-6 col-xs-6 pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  العنوان</label>
+        <div class="form-line">
+            {!! Form::text("address",null,['class'=>'form-control','placeholder'=>'العنوان'])!!}
+        </div>
+    </div>
+</div>
+{{--<div class="col-sm-6 col-xs-6 pull-left">--}}
+{{--    <div class="form-group form-float">--}}
+{{--        <label class="form-label">  النوع</label>--}}
+{{--        <div class="form-line">--}}
+{{--            {!! Form::text("type",['male'=>'ذكر','female'=>],null,['class'=>'form-control','placeholder'=>'النوع'])!!}--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <div class="form-group text-right m-b-0">
     <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
 </div>

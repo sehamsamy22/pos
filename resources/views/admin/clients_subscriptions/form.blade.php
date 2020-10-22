@@ -12,7 +12,7 @@
     <div class="form-group form-float">
         <label class="form-label">   اسم العميل</label>
         <div class="form-line">
-            {!! Form::select("client_id",$clients,null,['class'=>'form-control','placeholder'=>'اختر   اسم العميل '])!!}
+            {!! Form::select("client_id",$clients,isset($client)?$client->id:null,['class'=>'form-control','placeholder'=>'اختر   اسم العميل '])!!}
         </div>
     </div>
 </div>
@@ -20,7 +20,7 @@
     <div class="form-group form-float">
         <label class="form-label">  نوع الاشتراك</label>
         <div class="form-line">
-            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control','placeholder'=>'اختر نوع الاشتراك'])!!}
+            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control','placeholder'=>'اختر نوع الاشتراك' ,'id'=>'subscription_id'])!!}
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@
     <div class="form-group form-float">
         <label class="form-label">  بداية الاشتراك</label>
         <div class="form-line">
-            {!! Form::date("start",null,['class'=>'form-control','placeholder'=>'بداية الاشتراك'])!!}
+            {!! Form::date("start",null,['class'=>'form-control','placeholder'=>'بداية الاشتراك','id'=>'start_date'])!!}
         </div>
     </div>
 </div>
@@ -37,7 +37,8 @@
     <div class="form-group form-float">
         <label class="form-label">  نهاية الاشتراك</label>
         <div class="form-line">
-            {!! Form::date("end",null,['class'=>'form-control','placeholder'=>'نهاية الاشتراك'])!!}
+            <input type="text" name="end" class="form-control" id="date_end" disabled>
+{{--            {!! Form::date("end",null,['class'=>'form-control','placeholder'=>'نهاية الاشتراك'])!!}--}}
         </div>
     </div>
 </div>

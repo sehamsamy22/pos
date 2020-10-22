@@ -81,13 +81,15 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(SubCategoryRequest $request, SubCategory $subCategory)
+    public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
+
         $requests = $request->except('image');
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
-        $subCategory->update($requests);
+
+        $subcategory->update($requests);
         return redirect()->route('dashboard.subcategories.index')->with('success', __('تم التعديل'));
 
     }

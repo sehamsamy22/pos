@@ -44,7 +44,15 @@
                             <td>{{$i++}}</td>
                             <td>{{$row->ar_name}}</td>
                             <td>{{$row->en_name}}</td>
-                            <td>{{$row->unit}}</td>
+                            <td>
+                                @if($row->unit=='kilo')
+                                    كيلو
+                                @elseif($row->unit=='gram')
+                                    جرام
+                                @else
+                                    لتر
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{route('dashboard.products.edit',$row->id)}}" class="label label-warning">تعديل</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>

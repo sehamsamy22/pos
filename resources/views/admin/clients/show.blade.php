@@ -14,7 +14,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-15">
-                {{--<a href="{{route('users.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >رجوع لمستخدمي النظام<span class="m-l-5"><i class="fa fa-reply"></i></span></a>--}}
+                <a href="{{route('dashboard.visits.add_visit',$client->id)}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >  تسجيل زيارة جديدة<span class="m-l-5"><i class="fa fa-add"></i></span></a>
+            </div>
+            <div class="btn-group pull-right m-t-15">
+                <a href="{{route('dashboard.clients_subscriptions.add_subscription',$client->id)}}" class="btn btn-success dropdown-toggle waves-effect waves-light"  style="margin-left: 20px;">  تسجيل اشتراك جديد<span class="m-l-5"><i class="fa fa-add"></i></span></a>
             </div>
             <h4 class="page-title">الصفحة الشخصية</h4>
         </div>
@@ -59,6 +62,8 @@
 
 
 
+
+
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">البريد الإلكتروني*</label>
@@ -74,16 +79,45 @@
                                 </div>
                             </div>
                         </div>
-                    @foreach($visits as $visit)
                     <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <caption > <h3>{{$visit->date}}</h3></caption>
-
                         <thead>
                         <tr>
+                            <th>#</th>
+                            <th>اسم الخطة</th>
+                            <th>السعر </th>
+                            <th>مده الخطة</th>
+                            <th>عدد الوجبات </th>
+                            <th>بداية الخطة</th>
+                            <th>نهاية الخطة</th>
 
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php $i = 1; @endphp
+                        @foreach($subscriptions as $row)
+                            <tr>
+                                <td>{{$i++}}</td>
+                                <td>{{$row->subscription->name}}</td>
+                                <td>{{$row->subscription->price}}</td>
+                                <td>{{$row->subscription->duration}}</td>
+                                <td>{{$row->subscription->num_meals}}</td>
+                                <td>{{$row->start}}</td>
+                                <td>{{$row->end}}</td>
+
+
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                @foreach($visits as $visit)
+                    <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <caption > <h3>{{$visit->date}}</h3></caption>
+                        <thead>
+                        <tr>
                             <th>القياس</th>
                             <th>القيمة</th>
-
                         </tr>
                         </thead>
                         <tbody>

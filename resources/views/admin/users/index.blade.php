@@ -45,7 +45,7 @@
                             <td>{{$row->name}}</td>
                             <td>{{$row->email}}</td>
                             <td>{{$row->phone}}</td>
-                            <td><img src="{{getimg($row->image)}}"></td>
+                            <td><img src="{{getimg($row->image)}}" style="width:100px; height:100px"></td>
 
                             <td>
                                 <a href="{{route('dashboard.users.edit',$row->id)}}" class="label label-warning">تعديل</a>

@@ -44,9 +44,9 @@
 
                     <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
-                            <label class="form-label">   اسم العميل</label>
+                            <label class="form-label">اسم العميل</label>
                             <div class="form-line">
-                                {!! Form::select("client_id",$clients,null,['class'=>'form-control js-example-basic-single','placeholder'=>'اختر   اسم العميل '])!!}
+                                {!! Form::select("client_id",$clients,isset($client)?$client->id:null,['class'=>'form-control js-example-basic-single','placeholder'=>'اختر   اسم العميل '])!!}
                             </div>
                         </div>
                     </div>

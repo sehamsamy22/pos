@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.subscriptions.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" > رجوع لإدارة العملاء<span class="m-l-5"><i class="fa fa-reply"></i></span></a>
+                <a href="{{route('dashboard.clients.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" > رجوع لإدارة العملاء<span class="m-l-5"><i class="fa fa-reply"></i></span></a>
             </div>
             <h4 class="page-title">إضافة عميل جديد</h4>
         </div>

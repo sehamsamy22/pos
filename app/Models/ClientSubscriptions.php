@@ -10,7 +10,6 @@ class ClientSubscriptions extends Model
         'client_id', 'subscription_id','start','end'
     ];
 
-
     public function client(){
         return $this->belongsTo(Client::class,'client_id');
     }

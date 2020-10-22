@@ -88,7 +88,9 @@
     <div class="form-group form-float">
         <label class="form-label">   التصنيف الفرعى</label>
         <div class="form-line">
-            {!! Form::select("sub_category_id",[$meal->subcategory->name],$meal->sub_category_id,['class'=>'form-control js-example-basic-single','required'])!!}
+            <select name="sub_category_id" class="form-control js-example-basic-single" >
+                <option value="{{$meal->sub_category_id}}">{{$meal->subcategory->name}}</option>
+            </select>
         </div>
     </div>
 </div>

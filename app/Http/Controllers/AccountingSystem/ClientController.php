@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\ClientSubscriptions;
 use App\Models\VisitMeasurement;
 use App\Models\Meal;
 use App\Models\Measurement;
@@ -79,10 +80,9 @@ class ClientController extends Controller
     public function show(Client $client)
     {
         $visits=Visit::where('client_id',$client->id)->get();
-
         $measurements=Measurement::all();
-
-        return view('admin.clients.show', compact('client','visits','measurements'));
+        $subscriptions=ClientSubscriptions::where('client_id',$client->id)->get();
+        return view('admin.clients.show', compact('client','visits','measurements','subscriptions'));
 
     }
 
@@ -96,6 +96,7 @@ class ClientController extends Controller
     {
         $measurements=Measurement::all();
         $visits=VisitMeasurement::where('client_id',$client->id)->get();
+
         return view('admin.clients.edit', compact('visits','measurements'));
 
     }
@@ -118,7 +119,7 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id )
+    public function destroy($id)
     {
         Client::find($id)->delete();
         return redirect()->route('dashboard.clients.index')->with('success', __('تم الحذف بنجاح'));

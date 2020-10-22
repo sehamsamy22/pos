@@ -47,4 +47,12 @@ class VisitController extends Controller
 
     }
 
+    public function add_visit($id)
+    {
+        $measurements = Measurement::all();
+        $client = Client::find($id);
+        $clients = Client::pluck('name', 'id')->toArray();
+
+        return view('admin.visits.create', compact('measurements', 'client','clients'));
+    }
     }

@@ -49,5 +49,24 @@
 @section('scripts')
 
     @include('admin.layout.form_validation_js')
+    <script>
+        $("#start_date").on('change', function() {
+            var start_date = $(this).val();
+            var id = $('#subscription_id').val();
+            $.ajax({
+                url:"/dashboard/getEndDate/"+id,
+                type:"get",
+                data:{
+                    'id':id,
+                    'start_date':start_date
+                }
+            }).done(function (data) {
+                var d=new Date(data.data);
 
+             $('#date_end').val(d.getDate()+ "/" +d.getMonth()+ "/" +d.getFullYear());
+            }).fail(function (error) {
+                console.log(error);
+            });
+        });
+    </script>
 @endsection
