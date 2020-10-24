@@ -20,6 +20,133 @@ File: Components
 /* =============
    Buttons
 ============= */
+
+
+.categories{
+    height: 704px;
+    width: 38%;
+    /*background-color: #0066CC;*/
+    float: right;
+    padding-right: 10px;
+
+}
+
+fieldset{
+    border:1px solid #999;
+    border-radius:8px;
+    box-shadow:0 0 8px #999;
+    padding:6px;
+    height:100% ;
+    margin: 10px;
+    align-content: center;
+}
+legend{
+
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    background-color: #ffffff;
+}
+
+.meals{
+    height: 700px;
+    width: 62%;
+    /*background-color: #66CC00;*/
+    float: left;
+}
+.adds-maels{
+    height:70% ;
+}
+.category_btn{
+
+    width: 30%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.subcategory_btn{
+
+    width: 30%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+
+.meal_btn{
+
+    width: 30%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+table.sales-table{
+    height: 90%;
+    overflow-y:scroll;
+    display:block;
+    /*width: max-content;*/
+    /*width: auto !important;*/
+    table-layout: auto !important;
+
+}
+
+/*table.sales-table >tr{*/
+/*    width: 100%;*/
+/*}*/
+
+table.sales-table {
+    width: 100% !important;
+}
+table.sales-table thead th, table.sales-table tfoot th {
+    width: 25% !important;
+}
+table.sales-table tbody tr  table.sales-table thead tr{
+    width: 100% !important;
+}
+/*table.sales-table tbody tr td, table.sales-table tfoot td {*/
+/*    width: 100% !important;*/
+/*}*/
+.payments{
+    height: 30%;
+}
+.card{
+    /*width: 100%;*/
+
+    display: inline-block;
+    margin-left:20px;
+    margin-right:-10px;
+    height: auto;
+    /*align-content: center;*/
+    margin-top: 30px;
+
+}
+.AmountBeforeDiscount{
+    width: 50%;
+    /*background-color: yellow;*/
+    float: right;
+    margin-top: -20px;
+    font-size: larger;
+
+
+
+}
+.discounts{
+    width: 50%;
+    /*background-color: #6df1f1;*/
+    float: left;
+    margin-top: -20px;
+    font-size: larger;
+
+}
+.form-control[disabled], fieldset[disabled] .form-control .discounts{
+    margin-top: 8px;
+}
+.total{
+    width: 100%;
+    /*background-color: #e46df1;*/
+    margin-top: -10px;
+    font-size: larger;
+}
 .required--in{
 color: darkred;
 }

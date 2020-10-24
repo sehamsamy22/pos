@@ -40,7 +40,10 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('add_subscription/{id}', 'ClientSubscriptionController@add_subscription')->name('clients_subscriptions.add_subscription');
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
 
-//    Route::get('/productsAjexPurchase/{id}', 'PurchaseController@getProductAjex');
+      //=============================sales
+    route::resource('sales', 'SaleController');
+    Route::get('/getAllSubcategoriesSale/{id}', 'SaleController@getAllSubcategories');
+    Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
 
 
 });

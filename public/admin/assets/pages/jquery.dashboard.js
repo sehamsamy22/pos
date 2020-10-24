@@ -57,8 +57,8 @@
             colors: colors
         });
     },
-    
-    
+
+
     Dashboard1.prototype.init = function() {
 
         //creating bar chart
@@ -87,9 +87,9 @@
 
         //creating donut chart
         var $donutData = [
-                {label: "Download Sales", value: 12},
-                {label: "In-Store Sales", value: 30},
-                {label: "Mail-Order Sales", value: 20}
+                {label: "Download sales", value: 12},
+                {label: "In-Store sales", value: 30},
+                {label: "Mail-Order sales", value: 20}
             ];
         this.createDonutChart('morris-donut-example', $donutData, ['#ff8acc', '#5b69bc', "#35b8e0"]);
     },
@@ -97,7 +97,7 @@
     $.Dashboard1 = new Dashboard1, $.Dashboard1.Constructor = Dashboard1
 }(window.jQuery),
 
-//initializing 
+//initializing
 function($) {
     "use strict";
     $.Dashboard1.init();

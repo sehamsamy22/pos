@@ -90,6 +90,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.suppliers.index')}}"><i class="zmdi zmdi-view-list"></i>عرض الموردين     </a></li>
                         <li><a href="{{route('dashboard.purchases.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المشتريات     </a></li>
+                        <li ><a href="{{route('dashboard.sales.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i>عرض المبيعات     </a></li>
 
                     </ul>
                 </li>

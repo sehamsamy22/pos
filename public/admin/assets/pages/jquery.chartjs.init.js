@@ -57,7 +57,7 @@ File: Chartjs
             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September"],
             datasets: [
                 {
-                    label: "Sales Analytics",
+                    label: "sales Analytics",
                     fill: false,
                     lineTension: 0.1,
                     backgroundColor: "#10c469",
@@ -151,7 +151,7 @@ File: Chartjs
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
-                    label: "Sales Analytics",
+                    label: "sales Analytics",
                     backgroundColor: "rgba(24, 138, 226, 0.3)",
                     borderColor: "#188ae2",
                     borderWidth: 1,

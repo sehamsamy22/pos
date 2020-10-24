@@ -173,9 +173,9 @@
 
         //creating donut chart
         var $donutData = [
-                {label: "Download Sales", value: 12},
-                {label: "In-Store Sales", value: 30},
-                {label: "Mail-Order Sales", value: 20}
+                {label: "Download sales", value: 12},
+                {label: "In-Store sales", value: 30},
+                {label: "Mail-Order sales", value: 20}
             ];
         this.createDonutChart('morris-donut-example', $donutData, ['#ff8acc', '#5b69bc', "#35b8e0"]);
     },
@@ -183,7 +183,7 @@
     $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
 }(window.jQuery),
 
-//initializing 
+//initializing
 function($) {
     "use strict";
     $.MorrisCharts.init();
