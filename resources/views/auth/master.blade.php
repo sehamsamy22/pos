@@ -29,18 +29,22 @@
     <![endif]-->
 
     <script src="{{asset('/admin/assets/js/modernizr.min.js')}}"></script>
+    <link href="{{asset('admin/assets/css/customize.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
 
 <div class="account-pages"></div>
-<div class="clearfix"></div>
-<div class="wrapper-page">
-    <div class="text-center">
-        <!--        <a href="#" class="logo"><span>قطعة<span>سيارتي</span></span></a>-->
+<div class="account-pages">
+    <div class="clearfix"></div>
+    <div class="wrapper-page">
+        <div class="text-center">
+            {{--</div>--}}
+            {{--</div>--}}
 
-        {{--<h5 class="text-muted m-t-0 font-600">موقع وتطبيق</h5>--}}
+        </div>
     </div>
+
 
     @yield('content')
 

@@ -7,118 +7,6 @@ use App\Models\AccountingSystem\AccountingAccount;
 use Carbon\Carbon;
 
 
-class MyHelperAccountingAmount{
-
-    public static function amount($account, $step = 0)
-   {
-       $totalAmount = 0;
-               if($account->kind == 'sub'){
-                $totalAmount=$account->amount;
-           }else{
-            if($account->children){
-
-                $totalAmount=AccountingAccount::where('account_id',$account->id)->sum('amount')+self::amount($account->children, $step+1);
-                }
-           }
-       return $totalAmount;
-     }
-   }
-
-
-
-class MyHelper{
-
- public static function tree($accounts, $step = 0)
-{
-    $output = '';
-    $base_url = url('/ChartsAccounts/ChartsAccounts/');
-        foreach($accounts as $account)
-        {
-            $output .=
-
-            '<li name="'.$account->id.'"> '. $account->code . " -".$account->ar_name;
-
-            // '<option  value="'.$account->id.'">'.str_repeat('&nbsp;&nbsp;&nbsp;',$step). $account->ar_name.'</option>';
-            if($account->kind!='sub'){
-            if($account->children)
-            {
-                $output .= '<ul>'. self::tree($account->children, $step+1).'</ul>'.'</li>';
-            }
-        }else{
-
-                $output .= '</li>';
-
-            }
-        }
-    return $output;
-}
-
-}
-
-
-
-class MyHelperCostCenter_view{
-
-    public static function center($centers, $step = 0)
-   {
-       $output = '';
-
-      $base_url = url('/ChartsAccounts/ChartsAccounts/');
-           foreach($centers as $center)
-           {
-               $output .=
-
-               '<li name="'.$center->id.'"> '. $center->code . " -".$center->name;
-
-               // '<option  value="'.$account->id.'">'.str_repeat('&nbsp;&nbsp;&nbsp;',$step). $account->ar_name.'</option>';
-               if($center->kind!='sub'){
-               if($center->children)
-               {
-                   $output .= '<ul>'. self::center($center->children, $step+1).'</ul>'.'</li>';
-               }
-           }else{
-
-                   $output .= '</li>';
-
-                }
-           }
-       return $output;
-   }
-
-   }
-
-
-
-
-class MyHelperCostCenter{
-
-    public static function treecost($accounts, $step = 0)
-   {
-       $output = '';
-       $base_url = url('/ChartsAccounts/ChartsAccounts/');
-           foreach($accounts as $account)
-           {
-               // '<option  value="'.$account->id.'">'.str_repeat('&nbsp;&nbsp;&nbsp;',$step). $account->ar_name.'</option>';
-               if($account->kind!='sub'){
-
-                        if($account->children)
-                        {
-                            $output .=
-                            '<li name="'.$account->id.'"> '. $account->code . " -".$account->ar_name;
-                            $output .= '<ul>'. self::treecost($account->children, $step+1).'</ul>'.'</li>';
-                        }
-            }elseif($account->kind=='sub'&&$account->cost_center==1){
-                $output .=  '<li name="'.$account->id.'"> '. $account->code . " -".$account->ar_name;
-
-                    $output .='</li>';
-
-
-                }
-            }
-        return $output;
-   }
-
-   }
 function responseJson($status, $msg, $data = null, $state = 200)
 {
     $response = [
@@ -206,7 +94,7 @@ function products_purchase($purchase=null){
 
 function getsetting($name)
 {
-    $settings=App\Models\AccountingSystem\AccountingSetting::where('name',$name)->first();
+    $settings=App\Models\Setting::where('name',$name)->first();
 //    dd($settings);
     return $settings->value ??'';
 }

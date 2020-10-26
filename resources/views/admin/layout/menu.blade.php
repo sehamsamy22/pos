@@ -23,8 +23,9 @@
             <ul class="list-inline">
                 <li>
                     {{--{{route('user.get.profile')}}--}}
-                    <a href="" >
-                        <i class="zmdi zmdi-settings"></i>
+                    <a href="{{route('dashboard.settings.index')}}" >
+                        <i class="zmdi zmdi-settings">
+                        </i>
                     </a>
                 </li>
 
@@ -90,8 +91,14 @@
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.suppliers.index')}}"><i class="zmdi zmdi-view-list"></i>عرض الموردين     </a></li>
                         <li><a href="{{route('dashboard.purchases.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المشتريات     </a></li>
-                        <li ><a href="{{route('dashboard.sales.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i>عرض المبيعات     </a></li>
 
+                    </ul>
+                </li>
+
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>نقاط البيع</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li ><a href="{{route('dashboard.sales.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i>عرض فواتير المبيعات     </a></li>
                     </ul>
                 </li>
             </ul>

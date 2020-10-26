@@ -32,7 +32,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">رقم الفاتورة</label>
                             <div class="form-line">
-                                <input type="text" class="form-control" name="bill_number">
+                                <input type="text" class="form-control" name="num">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">تاريخ الفاتورة</label>
                             <div class="form-line">
-                                {!! Form::text("bill_date",null,['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' تاريخ الفاتورة','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!}
+                                {!! Form::text("date",null,['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' تاريخ الفاتورة','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!}
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         <div class="form-group form-float">
                             <label class="form-label"> اسم العميل</label>
                             <div class="form-line">
-                                {!! Form::select("client_id",$clients,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر اسم  العميل ','id'=>'supplier_id'])!!}
+                                {!! Form::select("client_id",$clients,null,['class'=>'form-control js-example-basic-single','placeholder'=>' اختر اسم  العميل ','id'=>'supplier_id'])!!}
 
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                     <div class="form-group form-float">
                                         <label class="form-label"> الاجمالى</label>
                                         <div class="form-line total">
-                                            <input type="text" class="form-control" name=""  id="AmountBeforeDiscount" disabled>
+                                            <input type="text" class="form-control" name="amount"  id="AmountBeforeDiscount" readonly>
                                         </div>
                                     </div>
 
@@ -108,7 +108,7 @@
                                 <div class="total">
                                     <div class="form-group form-float">
                                         <label class="form-label" style="display: inline"> المبلغ  بعد الخصم</label>
-                                            <input type="text" class="form-control" name="total" id="total" disabled>
+                                            <input type="text" class="form-control" name="total" id="total" readonly>
                                     </div>
                                 </div>
                             </fieldset>
@@ -119,7 +119,7 @@
                         <button type="button" class="btn btn-purple waves-effect w-md m-b-5">فاتوره جديده</button>
                         <button type="button" class="btn btn-info waves-effect w-md m-b-5"> دفع</button>
 
-                        <button type="button" class="btn btn-inverse waves-effect w-md m-b-5">حفظ</button>
+                        <button type="submit" class="btn btn-inverse waves-effect w-md m-b-5">حفظ</button>
                             <button type="button" class="btn btn-danger waves-effect w-md m-b-5">طباعه</button>
 
                     </div>
@@ -179,7 +179,7 @@
                          rowNum++;
                          $(".sales-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
 							<td class="row-num" width="40">${rowNum}</td>
-                            <input type="hidden" name="meal_id[]" value="${meal_id}">
+                            <input type="hidden" name="meal_id[${meal_id}]" value="${meal_id}">
 							<td class="meal-name " width="900">${meal_name}</td>
 							<td class="meal-quantity " width="40">
 								<input type="number" placeholder="الكمية" step="1" min="1" value="1" id="sale" class="form-control" name="quantity[${meal_id}]">

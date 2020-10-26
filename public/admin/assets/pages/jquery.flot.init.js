@@ -350,7 +350,7 @@
 		this.createPieGraph("#pie-chart #pie-chart-container", pielabels, datas, colors);
 
 		//real time data representation
-		var plot = this.createRealTimeGraph('#flotRealTime', this.randomData(), ['#71b6f9']);
+		var plot = this.createRealTimeGraph('#flotRealTime', this.randomData(), ['#3c9dff']);
 		plot.draw();
 		var $this = this;
 		function updatePlot() {

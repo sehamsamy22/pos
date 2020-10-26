@@ -106,6 +106,9 @@ table.sales-table tbody tr  table.sales-table thead tr{
 /*table.sales-table tbody tr td, table.sales-table tfoot td {*/
 /*    width: 100% !important;*/
 /*}*/
+.invoice{
+
+}
 .payments{
     height: 30%;
 }
@@ -144,7 +147,7 @@ table.sales-table tbody tr  table.sales-table thead tr{
 .total{
     width: 100%;
     /*background-color: #e46df1;*/
-    margin-top: -10px;
+    /*margin-top: -10px;*/
     font-size: larger;
 }
 .required--in{
@@ -208,8 +211,9 @@ table.bill-table th >button[type = "button"] {
   color: #ffffff !important;
 }
 .btn-custom {
-  background-color: #71b6f9;
-  border-color: #71b6f9;
+    background-color: #3c9dff;
+    border-color: #3c9dff;
+
 }
 .btn-custom:hover,
 .btn-custom:focus,
@@ -220,8 +224,9 @@ table.bill-table th >button[type = "button"] {
 .btn-custom:focus,
 .btn-custom:hover,
 .open > .dropdown-toggle.btn-custom {
-  background-color: #59a9f8 !important;
-  border: 1px solid #59a9f8 !important;
+    background-color: #3c9dff !important;
+    border: 1px solid #3c9dff !important;
+
 }
 .btn-default {
   background-color: rgba(218, 230, 236, 0.3);
@@ -365,7 +370,7 @@ table.bill-table th >button[type = "button"] {
   border-bottom: 2px solid #c2d6e0 !important;
 }
 .btn-bordred.btn-custom {
-  background-color: #71b6f9;
+    background-color: #3c9dff;
   border-bottom: 2px solid #4fa4f8 !important;
 }
 .btn-bordred.btn-primary {
@@ -404,7 +409,7 @@ table.bill-table th >button[type = "button"] {
 .btn-trans.btn-custom {
   border: 1px solid rgba(113, 182, 249, 0.1) !important;
   background-color: rgba(113, 182, 249, 0.15) !important;
-  color: #71b6f9 !important;
+    color: #3c9dff !important;
 }
 .btn-trans.btn-primary {
   border: 1px solid rgba(24, 138, 226, 0.1) !important;
@@ -591,8 +596,9 @@ table.bill-table th >button[type = "button"] {
   height: 17px;
 }
 .checkbox-custom input[type="checkbox"]:checked + label::before {
-  background-color: #71b6f9;
-  border-color: #71b6f9;
+    background-color: #3c9dff;
+    border-color: #3c9dff;
+
 }
 .checkbox-custom input[type="checkbox"]:checked + label::after {
   color: #ffffff;
@@ -726,22 +732,24 @@ table.bill-table th >button[type = "button"] {
   height: 17px;
 }
 .radio-custom input[type="radio"] + label::after {
-  background-color: #71b6f9;
+    background-color: #3c9dff;
 }
 .radio-custom input[type="radio"]:checked + label::before {
-  border-color: #71b6f9;
+    background-color: #3c9dff;
 }
 .radio-custom input[type="radio"]:checked + label::after {
-  background-color: #71b6f9;
+    background-color: #3c9dff;
 }
 .radio-primary input[type="radio"] + label::after {
-  background-color: #188ae2;
+    background-color: #3c9dff;
 }
 .radio-primary input[type="radio"]:checked + label::before {
-  border-color: #188ae2;
+    background-color: #3c9dff;
 }
 .radio-primary input[type="radio"]:checked + label::after {
-  background-color: #188ae2;
+
+    background-color: #3c9dff;
+
 }
 .radio-danger input[type="radio"] + label::after {
   background-color: #ff5b5b;
@@ -835,7 +843,7 @@ table.bill-table th >button[type = "button"] {
   color: #ffffff;
 }
 .panel-custom > .panel-heading {
-  background-color: #71b6f9;
+    background-color: #3c9dff;
 }
 .panel-primary > .panel-heading {
   background-color: #188ae2;
@@ -870,8 +878,9 @@ table.bill-table th >button[type = "button"] {
   padding: 15px 20px 20px 20px;
 }
 .panel-border.panel-custom .panel-heading {
-  border-color: #71b6f9 !important;
-  color: #71b6f9 !important;
+    border-color: #3c9dff !important;
+    color: #3c9dff !important;
+
 }
 .panel-border.panel-primary .panel-heading {
   border-color: #188ae2 !important;
@@ -975,7 +984,7 @@ table.bill-table th >button[type = "button"] {
   color: #435966 !important;
 }
 .card-tabs .nav-pills li.active a {
-  background-color: #71b6f9 !important;
+  background-color: #3c9dff !important;
   color: #ffffff !important;
 }
 .card-tabs .tab-content {
@@ -1150,7 +1159,7 @@ table.bill-table th >button[type = "button"] {
   background-color: #ff8acc;
 }
 .progress-bar-custom {
-  background-color: #71b6f9;
+  background-color: #3c9dff;
 }
 /* Custom progressbars */
 .progress-bar-custom-alt {
@@ -1297,11 +1306,11 @@ th {
   border: 1px solid #ebeff2;
 }
 table.focus-on tbody tr.focused th {
-  background-color: #71b6f9;
+  background-color: #3c9dff;
   color: #ffffff;
 }
 table.focus-on tbody tr.focused td {
-  background-color: #71b6f9;
+  background-color: #3c9dff;
   color: #ffffff;
 }
 .table-rep-plugin .table-responsive {
@@ -1370,8 +1379,8 @@ table.focus-on tbody tr.focused td {
   cursor: not-allowed;
 }
 .table-rep-plugin .checkbox-row input[type="checkbox"]:checked + label::before {
-  background-color: #71b6f9;
-  border-color: #71b6f9;
+  background-color: #3c9dff;
+  border-color: #3c9dff;
 }
 .table-rep-plugin .checkbox-row input[type="checkbox"]:checked + label::after {
   color: #ffffff;
@@ -1448,7 +1457,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 /* Key Table */
 table.dataTable th.focus,
 table.dataTable td.focus {
-  outline: 3px solid #71b6f9 !important;
+  outline: 3px solid #3c9dff !important;
   outline-offset: -1px;
 }
 table.dataTable thead .sorting:after,

@@ -8,7 +8,7 @@
         <div class="col-sm-12">
 
             {{--<div class="btn-group pull-right m-t-15">--}}
-                {{--<a href="{{route('admin.subcategories.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">--}}
+                {{--<a href="{{route('admin.news.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">--}}
                     {{--إضافةقسم فرعى جديد--}}
                     {{--<span class="m-l-5"><i class="fa fa-plus"></i></span>--}}
                 {{--</a>--}}
@@ -41,7 +41,7 @@
                             <td>{{$key+1}}</td>
 
                             <td>{{$item->page}}</td>
-                            <td><a href="{{route('admin.settings.show',$item->slug)}}"><i class="fa fa-eye"></i></a>
+                            <td><a href="{{route('dashboard.settings.show',$item->slug)}}"><i class="fa fa-eye"></i></a>
                             </td>
 
                         </tr>

@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middleware' => 'auth','as' => 'dashboard.'], function () {
     route::get('/', 'DashboardController@index')->name('index');
     //====================== Admin Routes
+    route::resource('settings', 'SettingController');
     route::resource('users', 'UsersController');
     route::resource('categories', 'CategoryController');
     route::resource('subcategories', 'SubCategoryController');

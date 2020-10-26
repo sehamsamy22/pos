@@ -30,29 +30,28 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>الإسم باللغة العربية</th>
-                        <th>الإسم باللغة الانجليزية</th>
-                        <th>  الوحدة</th>
-
+                        <th>رقم الفاتوره</th>
+                        <th>تاريخ الفاتوره</th>
+                        <th>  اجمالى الفاتوره</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php $i = 1; @endphp
-{{--                    @foreach($products as $row)--}}
-{{--                        <tr>--}}
-{{--                            <td>{{$i++}}</td>--}}
-{{--                            <td>{{$row->ar_name}}</td>--}}
-{{--                            <td>{{$row->en_name}}</td>--}}
-{{--                            <td>{{$row->unit}}</td>--}}
-{{--                            <td>--}}
-{{--                                <a href="{{route('dashboard.products.edit',$row->id)}}" class="label label-warning">تعديل</a>--}}
-{{--                                <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>--}}
-{{--                                {!!Form::open( ['route' => ['dashboard.products.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}--}}
-{{--                                {!!Form::close() !!}--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endforeach--}}
+                    @foreach($purchases as $row)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$row->num}}</td>
+                            <td>{{$row->date}}</td>
+                            <td>{{$row->total}}</td>
+                            <td>
+                                <a href="{{route('dashboard.purchases.show',$row->id)}}" class="label label-warning">عرض الفاتوره</a>
+                                <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
+                                {!!Form::open( ['route' => ['dashboard.purchases.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
 
@@ -72,7 +71,7 @@
                     console.log(item_id);
                     swal({
                         title: "هل أنت متأكد ",
-                        text: "هل تريد حذف هذا المستخدم ؟",
+                        text: "هل تريد حذف هذة الفاتورة ؟",
                         icon: "warning",
                         buttons: ["الغاء", "موافق"],
                         dangerMode: true,

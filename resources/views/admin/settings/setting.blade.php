@@ -5,14 +5,14 @@
     <link href="{{asset('admin/assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
 @endsection
 @section('content')
-    <form action="{{route('admin.settings.store')}}" data-parsley-validate="" novalidate="" method="post" enctype="multipart/form-data">
+    <form action="{{route('dashboard.settings.store')}}" data-parsley-validate="" novalidate="" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <!-- Page-Title -->
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="btn-group pull-right m-t-15">
-                            <a href="{{route('admin.layout.main')}}" class="btn btn-custom  waves-effect waves-light"
+                            <a href="{{route('dashboard.index')}}" class="btn btn-custom  waves-effect waves-light"
                             >رجوع<span class="m-l-5"><i
                                         class="fa fa-reply"></i></span>
                             </a>
@@ -23,10 +23,12 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    <div class="col-sm-12">
+
+                    <div class="card-box">
 
 
-                        {!!Form::open( ['route' => 'admin.settings.store' , 'method' => 'Post','files'=>true]) !!}
+                        {!!Form::open( ['route' => 'dashboard.settings.store' , 'method' => 'Post','files'=>true]) !!}
 
                         <div class="card">
 
@@ -45,18 +47,11 @@
 
                                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                             <div class="form-line">
-                                                <label> {{$setting->title}} بالعربي </label>
-                                                {!! Form::text($setting->name.'[]',$setting->ar_value,['class'=>'form-control'])!!}
+                                                <label> {{$setting->title}}  </label>
+                                                {!! Form::text($setting->name.'[]',$setting->value,['class'=>'form-control'])!!}
                                             </div>
                                         </div>
-                                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                            <div class="form-line">
-                                                <label> {{$setting->title}} بالانجليزي </label>
 
-                                                {!! Form::text($setting->name.'[]',$setting->en_value,['class'=>'form-control'])!!}
-
-                                            </div>
-                                        </div>
 
                                         <div class="clearfix"></div>
 
@@ -66,22 +61,15 @@
 
                                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                             <div class="form-line">
-                                                <label> {{$setting->title}} بالعربي </label>
+                                                <label> {{$setting->title}}  </label>
 
-                                                {!! Form::textarea($setting->name.'[]',$setting->ar_value,['class'=>'form-control editor'])!!}
+                                                {!! Form::textarea($setting->name.'[]',$setting->value,['class'=>'form-control editor'])!!}
                                             </div>
 
                                         </div>
 
                                         ​
 
-                                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                            <div class="form-line">
-                                                <label> {{$setting->title}} بالانجليزي </label>
-
-                                                {!! Form::textarea($setting->name.'[]',$setting->en_value,['class'=>'form-control editor'])!!}
-                                            </div>
-                                        </div>
 
                                         <div class="clearfix"></div>
 
@@ -91,7 +79,7 @@
                                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                             <div class="form-line">
                                                 <label> {{$setting->title}}</label>
-                                                {!! Form::text($setting->name.'[]',$setting->ar_value,['class'=>'form-control'])!!}
+                                                {!! Form::text($setting->name.'[]',$setting->value,['class'=>'form-control'])!!}
                                             </div>
                                         </div>
 
@@ -104,14 +92,36 @@
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label for="userName">{{$setting->title}}</label>
-                                                <input type="text" name="{{$setting->name}}[]" value="{{$setting->ar_value}}" class="form-control"
+                                                <input type="text" name="{{$setting->name}}[]" value="{{$setting->value}}" class="form-control"
                                                        {{--oninput="this.value = Math.abs(this.value)"--}}
                                                        required/>
                                                 <p class="help-block"></p>
                                             </div>
                                         </div>
 
-                                    @endif
+
+
+                                        @elseif($setting->type == 'image')
+                                            <div class="col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="userName">{{$setting->title}}</label>
+                                                    {{--                                                    <label for="userName">{{$setting->title}}</label>--}}
+                                                    <input type="file" name="{{$setting->name}}[]" value="{{$setting->value}}" class="form-control"
+                                                           {{--oninput="this.value = Math.abs(this.value)"--}}
+                                                           />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-12 col-xs-12  pull-right">
+                                                <div class="form-group form-float">
+                                                    <label>صوره  الشعار : </label>
+                                                    <img src="{{getimg($setting->value)}}" style="width:100px; height:100px">
+                                                </div>
+                                            </div>
+
+
+                                        @endif
 
                                 @endforeach
 
@@ -134,7 +144,7 @@
                             </div><!-- end col -->
                 </div>
                 <!-- end row -->
-
+      </div>
 
 @endsection
 

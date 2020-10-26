@@ -13,6 +13,7 @@
 <link href="{{asset('admin/assets/plugins/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin/assets/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+<link href="{{asset('admin/assets/css/customize.css')}}" rel="stylesheet" type="text/css" />
 
 <!-- form Uploads -->
 <link href="{{asset('admin/assets/plugins/fileuploads/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />

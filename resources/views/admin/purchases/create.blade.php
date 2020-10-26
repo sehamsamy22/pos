@@ -32,7 +32,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">رقم الفاتورة</label>
                             <div class="form-line">
-                            <input type="text" class="form-control" name="bill_number">
+                            <input type="text" class="form-control" name="num">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">تاريخ الفاتورة</label>
                             <div class="form-line">
-                                {!! Form::text("bill_date",null,['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' تاريخ الفاتورة','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!}
+                                {!! Form::text("date",null,['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' تاريخ الفاتورة','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!}
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="form-group form-float">
                             <label class="form-label"> اسم المورد</label>
                             <div class="form-line">
-                                {!! Form::select("supplier_id",$suppliers,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر اسم المورد ','id'=>'supplier_id'])!!}
+                                {!! Form::select("supplier_id",$suppliers,null,['class'=>'form-control js-example-basic-single','data-parsley-required-message'=>' اختر اسم المورد  ','required','placeholder'=>' اختر اسم المورد ','id'=>'supplier_id'])!!}
 
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                         <label class="form-label">    المبلغ المدفوع</label>
                                         <div class="form-line total">
                                             <span  class="dynamic-span"></span>
-                                            <input type="text" class="form-control" name=""  id="payed">
+                                            <input type="text" class="form-control" name="payed"  id="payed">
                                         </div>
                                     </div>
                                     <div class="form-group form-float">
@@ -248,7 +248,7 @@
         var id = $(this).val();
         rowNum++;
         var selectedProduct = $(this).find(":selected");
-        var ProductId = $('#selectID').val();
+        var ProductId = $(this).val();
         var productName = selectedProduct.data('name');
         var productLink = selectedProduct.data('link');
         var barCode = selectedProduct.data('bar-code');
@@ -266,7 +266,7 @@
        }
         $(".bill-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
 							<td class="row-num" width="40">${rowNum}</td>
-                            <input type="hidden" name="product_id[]" value="${ProductId}">
+                            <input type="hidden" name="product_id[${ProductId}]" value="${ProductId}">
 							<td class="product-name " width="190">${productName}</td>
 							<td class="product-unit " width="70">${unit}</td>
 							<td class="product-quantity " width="40">
@@ -367,6 +367,7 @@
 
                $("#amountBeforeDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
                $("#amountAfterDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
+               $("#amountBeforeDariba1").val(amountBeforeDariba.toFixed(2));
                // $("#amountOfDariba span.dynamic-span").html(amountOfDariba.toFixed(2));
                $("#total").val(amountBeforeDariba.toFixed(2));
                $("#bill_discount").change(function() {

@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','إدارة القياسات')
+@section('title','إدارة المبيعات')
 
 @section('content')
 
@@ -9,12 +9,12 @@
 
             <div class="btn-group pull-right m-t-15">
                 <a href="{{route('dashboard.sales.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
-                   إضافة  فاتوره  جديدة
+                   إضافة  فاتوره بيع  جديدة
                     <span class="m-l-5"><i class="fa fa-plus"></i></span>
                 </a>
             </div>
 
-            <h4 class="page-title"> قياسات العميل</h4>
+            <h4 class="page-title"> عرض  فواتير البيع</h4>
         </div>
     </div>
     <!--End Page-Title -->
@@ -23,15 +23,16 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
-                <h4 class="header-title m-t-0 m-b-30">كل  قياسات العميل</h4>
+                <h4 class="header-title m-t-0 m-b-30">كل  فواتير  المبيعات </h4>
 
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>الإسم</th>
-
+                        <th>رقم الفاتوره</th>
+                        <th>تاريخ الفاتوره</th>
+                        <th>  اجمالى الفاتوره</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
@@ -40,11 +41,11 @@
                     @foreach($sales as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td></td>
-
-
+                            <td>{{$row->num}}</td>
+                            <td>{{$row->date}}</td>
+                            <td>{{$row->total}}</td>
                             <td>
-                                <a href="{{route('dashboard.sales.edit',$row->id)}}" class="label label-warning">تعديل</a>
+                                <a href="{{route('dashboard.sales.show',$row->id)}}" class="label label-warning">عرض الفاتوره</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.sales.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}

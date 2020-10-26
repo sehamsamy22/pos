@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','الصفحة الشخصية')
+@section('title',' عرض فاتورة البيع')
 
 @section('styles')
     <style>
@@ -16,247 +16,142 @@
             <div class="btn-group pull-right m-t-15">
                 {{--<a href="{{route('users.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >رجوع لمستخدمي النظام<span class="m-l-5"><i class="fa fa-reply"></i></span></a>--}}
             </div>
-            <h4 class="page-title">الصفحة الشخصية</h4>
+            <h4 class="page-title"> فاتورة مبيعات</h4>
         </div>
     </div>
-
     <div class="row">
-        <div class="col-sm-12">
-            <div class="card-box">
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
 
-                <h4 class="header-title m-t-0 m-b-30">بيانات المستخدم: {{$user->name}}</h4>
+        <!-- Start content -->
+        <div class="content">
+            <div class="container">
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <!-- <div class="panel-heading">
+                                <h4>Invoice</h4>
+                            </div> -->
+                            <div class="panel-body">
+                                <div class="clearfix">
+                                    <div class="pull-left">
+                                        <h3 class="logo-bill"> <img src="{{getimg(getsetting('logo'))}}"></h3>
+                                    </div>
+                                    <div class="pull-right">
+                                        <h4>رقم الفاتورة# <br>
+                                            <strong>2016-04-23654789</strong>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
 
-                    <form method="post" action="{{route('user.update.profile',$user->id)}}" class="form-horizontal" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-{{--                        {{method_field('post')}}--}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">إسم المستخدم*</label>
-                                <div class="col-md-10">
-                                    <input type="text" required value="{{$user->name}}"
-                                           data-parsley-required-message="هذا الحقل مطلوب"
-                                           data-parsley-trigger="keyup"
-                                           data-parsley-maxlength="60"
-                                           data-parsley-maxlength-message="أقصى عدد حروف هو 60 حرف"
-                                           name="name" class="form-control" placeholder="إسم المستخدم">
+                                        {{--                                        <div class="pull-right m-t-30">--}}
+                                        {{--                                            <address>--}}
+                                        {{--                                                <strong>{{getsetting('address')}}</strong><br>--}}
 
-                                    @if($errors->has('name'))
-                                        <p class="help-block">
-                                            {{ $errors->first('name') }}
-                                        </p>
-                                    @endif
+                                        {{--                                                <abbr title="Phone">P:</abbr> {{getsetting('phone')}}--}}
+                                        {{--                                            </address>--}}
+                                        {{--                                        </div>--}}
+                                        <div class="pull-left m-t-30">
+                                            <p><strong>تاريخ الفاتوره: </strong> {{$sale->date}}</p>
+                                            <p class="m-t-10"><strong>اسم المورد: </strong> {{$sale->client->name??'عميل نقدى'}}</p>
+{{--                                            <p class="m-t-10"><strong>حالة الفاتوره: </strong> <span class="label label-pink">Pending</span></p>--}}
+                                        </div>
+                                    </div><!-- end col -->
+                                </div>
+                                <!-- end row -->
+
+                                <div class="m-h-50"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table m-t-30">
+                                                <thead>
+                                                <tr><th>#</th>
+                                                    <th>اسم الصنف</th>
+                                                    <th>الكمية</th>
+                                                    <th>السعر </th>
+
+                                                    <th>اجمالى</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @php $i = 1; @endphp
+                                                @foreach($items as $row)
+                                                    <tr>
+                                                        <td>{{$i++}}</td>
+                                                        <td>{{$row->meal->ar_name}}</td>
+
+                                                        <td> {{$row->quantity}}</td>
+                                                        <td> {{$row->meal->price}}</td>
+
+{{--                                                        <td> {{$row->discount}}</td>--}}
+{{--                                                        <td> {{$row->tax}}</td>--}}
+                                                        <td> {{$row->total_price - $row->discount }}</td>
+                                                    </tr>
+                                                @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="clearfix m-t-40">
+                                            <h5 class="small text-inverse font-600">الشروط وسياسة الدفع</h5>
+
+                                            <small>
+                                                {!! getsetting('trems') !!}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-xs-6 col-md-offset-3">
+                                        <p class="text-right"><b>إجمالى الفاتورة:</b>{{$sale->amount}}</p>
+                                        <p class="text-right"><b>الخصم:</b> {{$sale->discount}}%</p>
+{{--                                        <p class="text-right"><b>الضريبة:</b>  {{$sale->tax}}%</p>--}}
+                                        <hr>
+                                        <h3 class="text-right">{{$sale->total}}</h3>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="hidden-print">
+                                    <div class="pull-right">
+                                        <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                                        {{--                                        <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>--}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                    </div>
 
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">رقم الجوال*</label>
-                                <div class="col-md-10">
-                                    <input type="number" required value="{{$user->phone}}"
-                                           data-parsley-required-message="هذا الحقل مطلوب"
-                                           data-parsley-trigger="keyup"
-                                           data-parsley-maxlength="11"
-                                           data-parsley-maxlength-message="أقصى عدد ارقام هو 11 حرف"
-                                           {{--data-parsley-pattern="^01[0-2]{1}[0-9]{8}"--}}
-                                           {{--data-parsley-pattern-message="برجاء إدخال رقم موبايل بصيغة صحيحة"--}}
-                                           {{--oninput="this.value = Math.abs(this.value)"--}}
-                                           name="phone" class="form-control" placeholder="رقم الجوال">
-                                    @if($errors->has('phone'))
-                                        <p class="help-block" style="color: #FF0000;">
-                                            {{ $errors->first('phone') }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <!-- end row -->
+
+
+            </div> <!-- container -->
+
+        </div> <!-- content -->
+
+        <footer class="footer">
+            {{--            2016 - 2017 © Adminto.--}}
+        </footer>
 
 
 
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">البريد الإلكتروني*</label>
-                                <div class="col-md-10">
-                                    <input type="email" required value="{{$user->email}}"
-                                           data-parsley-type="email"
-                                           data-parsley-type-message = "أدخل إيميل صحيح"
-                                           data-parsley-required-message="هذا الحقل مطلوب"
-                                           data-parsley-trigger="keyup"
-                                           data-parsley-maxlength="60"
-                                           data-parsley-maxlength-message="أقصى عدد حروف هو 60 حرف"
-                                           name="email" class="form-control" placeholder="البريد الإلكتروني">
-
-                                    @if($errors->has('email'))
-                                        <p class="help-block">
-                                            {{ $errors->first('email') }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        {{--******************************************************************--}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">كلمة السر*</label>
-                                <div class="col-md-10">
-                                    <input type="password" name="password" id="pass1" value="{{ old('password') }}"
-                                           class="form-control"
-                                           autocomplete="off"
-                                           placeholder="كلمة السر ..."
-                                           data-parsley-trigger="keyup"
-                                           data-parsley-maxlength="55"
-                                           data-parsley-minlength="6"
-                                           data-parsley-maxlength-message=" أقصى عدد الحروف المسموح بها هى (55) حرف"
-                                           data-parsley-minlength-message=" أقل عدد الحروف المسموح بها هى (6) حرف"
-                                    />
-                                    @if($errors->has('password'))
-                                        <p class="help-block">
-                                            {{ $errors->first('password') }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">تأكيد كلمة السر*</label>
-                                <div class="col-md-10">
-                                    <input data-parsley-equalto="#pass1" name="password_confirmation" type="password" data-parsley-trigger="keyup"
-                                           placeholder="تأكيد كلمة المرور ..." class="form-control"
-                                           autocomplete="off"
-                                           id="passWord2"
-                                           data-parsley-equalto-message="تأكيد كلمة المرور غير متطابقة"
-                                           data-parsley-maxlength="55"
-                                           data-parsley-minlength="6"
-                                           data-parsley-maxlength-message=" أقصى عدد الحروف المسموح بها هى (55) حرف"
-                                           data-parsley-minlength-message=" أقل عدد الحروف المسموح بها هى (6) حرف">
-
-                                    @if($errors->has('password_confirmation'))
-                                        <p class="help-block erro">
-                                            {{ $errors->first('password_confirmation') }}
-                                        </p>
-                                    @endif
-
-                                </div>
-                            </div>
-                        </div>
-
-                        {{--*******************************************************************--}}
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">صورة المستخدم (إختياري)</label>
-                                <div class="col-md-10">
-                                    <input name="image" type="file" class="dropify" data-max-file-size="1M"
-                                           data-allowed-file-extensions="png gif jpg jpeg"
-                                           data-errors-position="inside"
-                                           data-show-remove="false"
-                                           data-default-file="{{getimg($user->image)}}"
-
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-
-                        {{-- buttons --}}
-                        <div class="col-lg-12">
-                            <div class="form-group text-right m-t-20">
-                                <button class="btn btn-primary waves-effect waves-light m-t-20" id="btnSubmit" type="submit">
-                                    تعديل
-                                </button>
-                                <button onclick="window.history.back();return false;" type="reset"
-                                        class="btn btn-default waves-effect waves-light m-l-5 m-t-20">
-                                    إلغاء
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-
-                </div><!-- end row -->
-            </div>
-        </div><!-- end col -->
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
     </div>
 @endsection
 @section('scripts')
-    <script>
-        // Date Picker
-        jQuery('#datepicker').datepicker();
 
 
-        $('.dropify').dropify({
-            messages: {
-                'default': 'إضغط هنا او اسحب وافلت الصورة',
-                'replace': 'إسحب وافلت او إضغط للتعديل',
-                'remove': 'حذف',
-                'error': 'حدث خطأ ما'
-            },
-            error: {
-                'fileSize': 'حجم الصورة كبير (1M max).',
-                'fileExtension': 'نوع الصورة غير مدعوم (png - gif - jpg - jpeg)',
-            }
-        });
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-
-        //        $("#spec").hide();
-        //        $("#spec_label").hide();
-        //
-        //        $("#dept_select_label").hide();
-        //        $("#dept_select").hide();
-
-
-    </script>
-
-    <script>
-        $('#role_select').on('change', function () {
-
-            var role_select = $('#role_select').val();
-
-
-            console.log(role_select);
-
-            if(role_select === 'technical'){
-                $("#spec").show();
-                $("#spec_label").show();
-                $("#dept_select_label").hide();
-                $("#dept_select").hide();
-
-            }
-
-            else if(role_select === 'dept_admin'){
-                $("#dept_select_label").show();
-                $("#dept_select").show();
-
-                $("#spec").hide();
-                $("#spec_label").hide();
-
-
-            }
-
-            else {
-                $("#spec").hide();
-                $("#spec_label").hide();
-
-                $("#dept_select_label").hide();
-                $("#dept_select").hide();
-            }
-
-        });
-
-    </script>
 
 @endsection

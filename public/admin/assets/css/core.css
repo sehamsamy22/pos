@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700);
 @import url(https://fonts.googleapis.com/css?family=Karla:400,700);
 @import url(https://fonts.googleapis.com/css?family=Rancho);
 /*
@@ -519,7 +520,7 @@ a:focus {
 }
 /* Background colors */
 .bg-custom {
-  background-color: #71b6f9 !important;
+  background-color: #3c9dff !important;
 }
 .bg-primary {
   background-color: #188ae2 !important;
@@ -556,7 +557,7 @@ a:focus {
 }
 /* Text colors */
 .text-custom {
-  color: #71b6f9 !important;
+  color: #3c9dff !important;
 }
 .text-white {
   color: #ffffff !important;
@@ -662,7 +663,7 @@ textarea.form-control {
   padding: .3em .6em .3em;
 }
 .label-default {
-  background-color: #71b6f9;
+  background-color: #3c9dff;
 }
 .label-primary {
   background-color: #188ae2;
@@ -695,7 +696,7 @@ textarea.form-control {
   padding: 3px 5px;
   font-size: 12px;
   margin-top: 1px;
-  background-color: #71b6f9;
+  background-color: #3c9dff;
 }
 .badge-xs {
   font-size: 9px;
@@ -771,8 +772,8 @@ textarea.form-control {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-  background-color: #71b6f9;
-  border-color: #71b6f9;
+  background-color: #3c9dff;
+  border-color: #3c9dff;
 }
 .pager li > a,
 .pager li > span {
@@ -953,11 +954,11 @@ textarea.form-control {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-  background-color: #71b6f9;
-  border-color: #71b6f9;
+  background-color: #3c9dff;
+  border-color: #3c9dff;
 }
 .nav-pills > .active > a > .badge {
-  color: #71b6f9;
+  color: #3c9dff;
 }
 .has-success .form-control {
   border-color: #10c469;
@@ -1001,7 +1002,7 @@ textarea.form-control {
 }
 .popover .popover-title {
   background-color: transparent;
-  color: #71b6f9;
+  color: #3c9dff;
   font-weight: 600;
 }
 /* Code */

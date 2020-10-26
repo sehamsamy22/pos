@@ -8,8 +8,10 @@ use App\Models\Client;
 use App\Models\Meal;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleItem;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
 {
@@ -48,7 +50,33 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $sale=Sale::create([
+            'user_id'=>Auth::id(),
+            'client_id'=>$request['client_id'],
+            'date'=>$request['date'],
+            'num'=>$request['num'],
+            'amount'=>$request['amount'],
+            'discount'=>$request['discount'],
+            'total'=>$request['total'],
+
+        ]);
+        $meals = collect($request['meal_id']);
+        $qtys = collect($request['quantity']);
+        $prices = collect($request['prices']);
+        $items = $meals->zip($qtys,$prices);
+        foreach ($items as $item){
+            SaleItem::create([
+                'sale_id'=>$sale->id,
+                'meal_id'=>$item[0],
+                'quantity'=>$item[1],
+                'total_price'=>$item[1]*$item[2],
+            ]);
+        }
+
+        alert()->success('تم البيع بنجاح !')->autoclose(5000);
+        return back();
     }
 
     /**
@@ -57,10 +85,13 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sale $sale)
     {
-        //
+        $items=SaleItem::where('sale_id',$sale->id)->get();
+        return view('admin.sales.show',compact('sale','items'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -91,9 +122,11 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
+        return redirect()->route('dashboard.sales.index')->with('success', __('تم الحذف بنجاح'));
+
     }
 
     public  function  getAllSubcategories($id){

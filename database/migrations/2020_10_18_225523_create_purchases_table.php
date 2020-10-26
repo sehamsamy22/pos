@@ -15,6 +15,19 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->string('date')->nullable();
+            $table->string('num')->nullable();
+            $table->decimal('amount', 8, 4)->nullable();
+            $table->string('discount')->nullable();
+            $table->string('tax')->nullable();
+            $table->decimal('total', 8, 4)->nullable();
+            $table->decimal('payed', 8, 4)->nullable();
+            $table->decimal('reminder', 8, 4)->nullable();
+
             $table->timestamps();
         });
     }

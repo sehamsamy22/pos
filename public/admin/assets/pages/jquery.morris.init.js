@@ -169,7 +169,7 @@
             { y: '2014', a: 75,  b: 65 },
             { y: '2015', a: 100, b: 90 }
         ];
-        this.createStackedChart('morris-bar-stacked', $stckedData, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#71b6f9', '#ebeff2']);
+        this.createStackedChart('morris-bar-stacked', $stckedData, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#3c9dff', '#ebeff2']);
 
         //creating donut chart
         var $donutData = [
