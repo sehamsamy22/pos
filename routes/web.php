@@ -49,6 +49,10 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('sales', 'SaleController');
     Route::get('/getAllSubcategoriesSale/{id}', 'SaleController@getAllSubcategories');
     Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
+    //===============================stores
+    route::get('stores', 'StoreController@index')->name('stores.index');
+
+
 
 });
 

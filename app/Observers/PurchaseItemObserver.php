@@ -18,6 +18,9 @@ class PurchaseItemObserver
        $storeProduct=StoreProduct::where('product_id',$purchaseItem->product_id)->first();
        if(isset($storeProduct)){
            $storeProduct->quantity +=$purchaseItem->quantity;
+           $storeProduct->update([
+            'quantity'=>$storeProduct->quantity
+        ]);
        }else{
            StoreProduct::create([
                'product_id'=>$purchaseItem->product_id,
@@ -72,6 +75,9 @@ class PurchaseItemObserver
         if(isset($storeProduct)){
             if ($storeProduct->quantity > $purchaseItem->quantity) {
                 $storeProduct->quantity -= $purchaseItem->quantity;
+                $storeProduct->update([
+                    'quantity'=>$storeProduct->quantity
+                ]);
             }elseif ($storeProduct->quantity = $purchaseItem->quantity){
                 $storeProduct->delete();
             }

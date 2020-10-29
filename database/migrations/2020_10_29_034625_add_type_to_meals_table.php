@@ -15,10 +15,9 @@ class AddTypeToMealsTable extends Migration
     {
         Schema::table('meals', function (Blueprint $table) {
 
-
             $table->unsignedBigInteger('type_id')->nullable();
             $table->foreign('type_id')->references('id')->on('meal_types');
-            
+
         });
     }
 

@@ -70,6 +70,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  الأصناف     </a></li>
                         <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المنتجات     </a></li>
+                        <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المخزون     </a></li>
 
                     </ul>
                 </li>
