@@ -9,6 +9,7 @@ use App\Models\Meal;
 use App\Models\MealProduct;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\TypeMeal;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
@@ -34,7 +35,11 @@ class MealController extends Controller
      */
     public function create()
     {
-        return view('admin.meals.create')->with('categories',Category::pluck('name','id')->toArray())->with('products',Product::all());
+
+        return view('admin.meals.create')
+        ->with('categories',Category::pluck('name','id')->toArray())
+        ->with('types',TypeMeal::pluck('name','id')->toArray())
+        ->with('products',Product::all());
 
     }
 
@@ -94,9 +99,10 @@ class MealController extends Controller
     {
         $categories=Category::pluck('name','id')->toArray();
         $products=Product::all();
+        $types=TypeMeal::pluck('name','id')->toArray();
         $subcategory=SubCategory::find($meal->sub_category_id);
         $categoryId=$subcategory->category_id;
-        return view('admin.meals.edit',compact('meal','categories','products','categoryId'));
+        return view('admin.meals.edit',compact('meal','categories','products','categoryId','types'));
 
     }
 

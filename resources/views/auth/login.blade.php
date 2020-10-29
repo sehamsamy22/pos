@@ -7,7 +7,7 @@
     {{----------------------------------------------------------------}}
     <div class="m-t-40 card-box aligne-center">
         <div class="logo-nav">
-            <img src="{{asset('website/img/small_logo.png')}}">
+{{--            <img src="{{asset('website/img/small_logo.png')}}">--}}
         </div>
         <div class="text-center">
             <h4 class="text-uppercase font-bold m-b-0">تسجيل الدخول</h4>

@@ -70,6 +70,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  الأصناف     </a></li>
                         <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المنتجات     </a></li>
+
                     </ul>
                 </li>
 
@@ -81,6 +82,8 @@
                         <li><a href="{{route('dashboard.subscriptions.index')}}"> إضافة وتعديل   الاشتركات    </a></li>
                         <li><a href="{{route('dashboard.clients_subscriptions.index')}}">عرض  اشتركات   العملاء    </a></li>
                         <li><a href="{{route('dashboard.visits.index')}}">عرض  سجل زيارات   العملاء    </a></li>
+                        <li><a href="{{route('dashboard.types_meal.index')}}">عرض انواع  الوجبات    </a></li>
+
 
                     </ul>
                 </li>

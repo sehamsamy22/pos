@@ -44,7 +44,18 @@
         </div>
     </div>
 </div>
+<!-- $table->enum('type', ['breakfast','mini_breakfast' ,'lunch','mini_lunch','dinner','mini_dinner']); -->
 
+<div class="col-sm-12 col-xs-12  pull-left">
+<label class="text-muted font-13 m-b-15 m-t-20">الواجبات</label>
+     @foreach($types as $key => $type)
+    <div class="checkbox checkbox-success checkbox-inline">
+        <input type="checkbox" id="inlineCheckbox{{$type->id}}" value="{{ $type->id }}" name="meal[]">
+        <label for="inlineCheckbox{{$type->id}}">  {{ $type->name }} </label>
+    </div>
+
+    @endforeach
+</div>
 
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">

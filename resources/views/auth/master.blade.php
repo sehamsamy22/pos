@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-    <meta name="author" content="Omar Zain (Backend Developer)">
+    <meta name="author" content=" ">
 
     <!-- App Favicon -->
     <link rel="shortcut icon" href="{{asset('/website/img/small_logo.png')}}">
@@ -34,17 +34,15 @@
 </head>
 <body>
 
+
 <div class="account-pages"></div>
-<div class="account-pages">
-    <div class="clearfix"></div>
-    <div class="wrapper-page">
-        <div class="text-center">
-            {{--</div>--}}
-            {{--</div>--}}
+<div class="clearfix"></div>
+<div class="wrapper-page">
+    <div class="text-center">
+        <!--        <a href="#" class="logo"><span>قطعة<span>سيارتي</span></span></a>-->
 
-        </div>
+        {{--<h5 class="text-muted m-t-0 font-600">موقع وتطبيق</h5>--}}
     </div>
-
 
     @yield('content')
 
@@ -56,6 +54,7 @@
 
 </div>
 <!-- end wrapper page -->
+
 
 
 

@@ -29,7 +29,7 @@ class ClientSubscriptionRequest extends FormRequest
            'client_id' => 'required|nullable|integer|exists:clients,id',
            'subscription_id' => 'required|nullable|integer|exists:subscriptions,id',
            "start" => "required|date",
-           "end" => "required|date",
+           "end" => "required|",
        ];
 
     }

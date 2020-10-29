@@ -37,7 +37,7 @@
     <div class="form-group form-float">
         <label class="form-label">  نهاية الاشتراك</label>
         <div class="form-line">
-            <input type="text" name="end" class="form-control" id="date_end" disabled>
+            <input type="text" name="end" class="form-control" id="date_end" readonly>
 {{--            {!! Form::date("end",null,['class'=>'form-control','placeholder'=>'نهاية الاشتراك'])!!}--}}
         </div>
     </div>
@@ -59,40 +59,9 @@
 
     </tr>
     </thead>
-    <tbody>
+    <tbody class="table_meals">
 
 
-    <tr>
-        <td>الافطار</td>
-        @for($i=1;$i<=7;$i++)
-            <td>
-                @foreach($breakfasts as $breakfast)
-                    <li>{{$breakfast->ar_name}}-{{$breakfast->calories}} <input type="radio" id="{{$breakfast->calories}}_{{$i}}" name="meals[{{$breakfast->id}}]"></li>
-                @endforeach
-            </td>
-        @endfor
-    </tr>
-
-    <tr>
-        <td>الغداء</td>
-        @for($i=1;$i<=7;$i++)
-            <td>
-                @foreach($lunches as $lunch)
-                    <li>{{$lunch->ar_name}}-{{$lunch->calories}} <input type="radio" id="{{$lunch->calories}}_{{$i}}" name="meals[{{$lunch->id}}]"></li>
-                @endforeach
-            </td>
-        @endfor
-    </tr>
-    <tr>
-        <td>العشاء</td>
-        @for($i=1;$i<=7;$i++)
-            <td>
-                @foreach($dinners as $dinner)
-                    <li>{{$dinner->ar_name}}-{{$dinner->calories}} <input type="radio" id="{{$dinner->calories}}_{{$i}}" name="meals[{{$dinner->id}}]"></li>
-                @endforeach
-            </td>
-        @endfor
-    </tr>
 
     </tbody>
 </table>

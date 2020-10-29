@@ -9,7 +9,9 @@ use App\Models\ClientSubscriptions;
 use App\Models\Dietsystem;
 use App\Models\Meal;
 use App\Models\Measurement;
+use App\Models\SubscriptionMeal;
 use App\Models\Subscription;
+use App\Models\TypeMeal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -24,20 +26,21 @@ class ClientSubscriptionController extends Controller
         $measurements=Measurement::all();
         $subscriptions=Subscription::pluck('name','id')->toArray();
         $clients=Client::pluck('name','id')->toArray();
-        $breakfasts=Meal::where('type','breakfast')->get();
-        $lunches=Meal::where('type','lunch')->get();
-        $dinners=Meal::where('type','dinner')->get();
-        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','breakfasts','lunches','dinners','clients'));
+
+        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','clients'));
 
     }
     public function store(ClientSubscriptionRequest $request){
 
         $clientSubsription=ClientSubscriptions::create($request->all());
-            foreach ($request['meals'] as $key=>$meal){
-                Dietsystem::create([
-                    'client_subscription_id'=>$clientSubsription->id,
-                    'meal_id'=>$key
-                ]);
+            foreach ($request['meals'] as $mealkey=>$meal){
+                foreach($meal as $daykey=>$day){
+                    Dietsystem::create([
+                        'client_subscription_id'=>$clientSubsription->id,
+                        'meal_id'=>$mealkey,
+                        'day_No'=>$daykey
+                    ]);
+               }
             }
         return back()->with('success', 'تم اضافه اشتراك العميل بنجاخ ');
 
@@ -53,14 +56,21 @@ class ClientSubscriptionController extends Controller
         $measurements=Measurement::all();
         $subscriptions=Subscription::pluck('name','id')->toArray();
         $clients=Client::pluck('name','id')->toArray();
-        $breakfasts=Meal::where('type','breakfast')->get();
-        $lunches=Meal::where('type','lunch')->get();
-        $dinners=Meal::where('type','dinner')->get();
+
         $client = Client::find($id);
 
-        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','breakfasts','lunches','dinners','clients','client'));
+        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','clients','client'));
 
     }
+
+    public function dietsystems($id){
+
+            $dietsystems=Dietsystem::where('client_subscription_id',$id)->get();
+            $clientSubsription=ClientSubscriptions::find($id);
+        return view('admin.clients_subscriptions.dietsystems',compact('dietsystems','clientSubsription'));
+
+    }
+
     public  function getEndDateAjex(Request $request,$id){
 
        $subscription=Subscription::find($id);
@@ -72,4 +82,16 @@ class ClientSubscriptionController extends Controller
           'data'=>$endDate
         ]);
     }
+
+    public  function getMealTable($id){
+
+        $subscriptionMeal=SubscriptionMeal::where('subscription_id',$id)->pluck('type_id','id')->toArray();
+        $types=TypeMeal::whereIn('id',$subscriptionMeal)->get();
+
+
+              return response()->json([
+                'status'=>true,
+                'data'=>view('admin.clients_subscriptions.meals',compact('types'))->render()
+            ]);
+     }
 }

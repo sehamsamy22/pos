@@ -20,7 +20,7 @@ class CreateMealsTable extends Migration
             $table->foreignId('sub_category_id')->constrained();
             $table->decimal('price', 8, 4);
             $table->boolean('status')->default(1);
-            $table->enum('type', ['breakfast', 'lunch','dinner']);
+            // $table->enum('type', ['breakfast','mini_breakfast' ,'lunch','mini_lunch','dinner','mini_dinner']);
             $table->longText('description');
             $table->string('image')->nullable();
             $table->string('calories')->nullable();

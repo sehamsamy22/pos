@@ -31,112 +31,126 @@
 
                 <div class="row">
 
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" role="tab" aria-controls="menu1" href="#menu1">  بيانات العميل </a></li>
+                        <li><a data-toggle="tab" role="tab" aria-controls="menu2" href="#menu2">  سجل الاشتركات العميل </a></li>
+                        <li><a data-toggle="tab" role="tab" aria-controls="menu3" href="#menu3"> سجل زيات وقياسات العميل </a></li>
 
-{{--                        {{method_field('post')}}--}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">إسم العميل</label>
-                                <div class="col-md-10">
-                                    <input type="text" required value="{{$client->name}}"
-                                           name="name" class="form-control" placeholder="إسم العميل" disabled>
 
-                                    @if($errors->has('name'))
-                                        <p class="help-block">
-                                            {{ $errors->first('name') }}
-                                        </p>
-                                    @endif
+                    </ul>
+
+                    <div class="tab-content">
+
+
+                        <div role="tabpanel" id="menu1" class="tab-pane active">
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">إسم العميل</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required value="{{$client->name}}"
+                                            name="name" class="form-control" placeholder="إسم العميل" disabled>
+
+                                        @if($errors->has('name'))
+                                            <p class="help-block">
+                                                {{ $errors->first('name') }}
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">رقم الجوال</label>
-                                <div class="col-md-10">
-                                    <input type="text" required value="{{$client->phone}}"
-                                           name="phone" class="form-control" placeholder="رقم الجوال" disabled>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">رقم الجوال</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required value="{{$client->phone}}"
+                                            name="phone" class="form-control" placeholder="رقم الجوال" disabled>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
 
 
 
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">البريد الإلكتروني*</label>
-                                <div class="col-md-10">
-                                    <input type="email" required value="{{$client->email}}"
-                                           name="email" class="form-control" placeholder="البريد الإلكتروني" disabled>
-
-                                    @if($errors->has('email'))
-                                        <p class="help-block">
-                                            {{ $errors->first('email') }}
-                                        </p>
-                                    @endif
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">البريد الإلكتروني*</label>
+                                    <div class="col-md-10">
+                                        <input type="email" required value="{{$client->email}}"
+                                            name="email" class="form-control" placeholder="البريد الإلكتروني" disabled>
+                                        @if($errors->has('email'))
+                                            <p class="help-block">
+                                                {{ $errors->first('email') }}
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                    <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>اسم الخطة</th>
-                            <th>السعر </th>
-                            <th>مده الخطة</th>
-                            <th>عدد الوجبات </th>
-                            <th>بداية الخطة</th>
-                            <th>نهاية الخطة</th>
 
+                        <div role="tabpanel" id="menu2" class="tab-pane">
+                            <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>اسم الخطة</th>
+                                    <th>السعر </th>
+                                    <th>مده الخطة</th>
+                                    <th>عدد الوجبات </th>
+                                    <th>بداية الخطة</th>
+                                    <th>نهاية الخطة</th>
+                                    <th> عمليات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php $i = 1; @endphp
+                                @foreach($subscriptions as $row)
+                                    <tr>
+                                        <td>{{$i++}}</td>
+                                        <td>{{$row->subscription->name}}</td>
+                                        <td>{{$row->subscription->price}}</td>
+                                        <td>{{$row->subscription->duration}}</td>
+                                        <td>{{$row->subscription->num_meals}}</td>
+                                        <td>{{$row->start}}</td>
+                                        <td>{{$row->end}}</td>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @php $i = 1; @endphp
-                        @foreach($subscriptions as $row)
-                            <tr>
-                                <td>{{$i++}}</td>
-                                <td>{{$row->subscription->name}}</td>
-                                <td>{{$row->subscription->price}}</td>
-                                <td>{{$row->subscription->duration}}</td>
-                                <td>{{$row->subscription->num_meals}}</td>
-                                <td>{{$row->start}}</td>
-                                <td>{{$row->end}}</td>
+                                        <td>
+                                       <a href="{{route('dashboard.dietsystems.show',$row->id)}}" class="label label-danger">عرض  النظام الغذائى</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" id="menu3" class="tab-pane">
+                            @foreach($visits as $visit)
+                            <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <caption > <h3>{{$visit->date}}</h3></caption>
+                                <thead>
+                                <tr>
+                                    <th>القياس</th>
+                                    <th>القيمة</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php $i = 1; @endphp
+                            @foreach($visit->measurements as $key=>$row)
+                                    <tr>
+                                        <td>{{$row->measurement->name}}</td>
+                                        <td>{{$row->value}}
 
+                                        </td>
 
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                @foreach($visits as $visit)
-                    <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <caption > <h3>{{$visit->date}}</h3></caption>
-                        <thead>
-                        <tr>
-                            <th>القياس</th>
-                            <th>القيمة</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @php $i = 1; @endphp
-                     @foreach($visit->measurements as $key=>$row)
-                            <tr>
-                                <td>{{$row->measurement->name}}</td>
-                                <td>{{$row->value}}
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                    @endforeach
-
-
-
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            @endforeach
+                        </div>
+                    </div>
 
                 </div><!-- end row -->
             </div>

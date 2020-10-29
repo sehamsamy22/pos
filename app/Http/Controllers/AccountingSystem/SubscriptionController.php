@@ -5,6 +5,8 @@ namespace App\Http\Controllers\AccountingSystem;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Subscription;
+use App\Models\SubscriptionMeal;
+use App\Models\TypeMeal;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -29,7 +31,9 @@ class SubscriptionController extends Controller
      */
     public function create()
     {
-        return view('admin.subscriptions.create');
+        $types=TypeMeal::all();
+
+        return view('admin.subscriptions.create',compact('types'));
 
     }
 
@@ -41,7 +45,16 @@ class SubscriptionController extends Controller
      */
     public function store(SubscriptionRequest $request)
     {
-       Subscription::create($request->all());
+
+      $subscription= Subscription::create($request->all());
+   
+      foreach($request['meal'] as $id){
+        SubscriptionMeal::create([
+            'subscription_id'=>$subscription->id,
+            'type_id'=>$id
+          ]);
+
+      }
         return redirect()->route('dashboard.subscriptions.index')->with('success', 'تم اضافه نوع اشتراك  جديد');
 
     }
@@ -65,7 +78,8 @@ class SubscriptionController extends Controller
      */
     public function edit(Subscription $subscription)
     {
-        return view('admin.subscriptions.edit', compact('subscription'));
+        $types=TypeMeal::all();
+        return view('admin.subscriptions.edit', compact('subscription','types'));
 
     }
 
@@ -93,4 +107,5 @@ class SubscriptionController extends Controller
        Subscription::find($id)->delete();
         return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم الحذف بنجاح'));
     }
+
 }

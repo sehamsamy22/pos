@@ -63,10 +63,42 @@
             }).done(function (data) {
                 var d=new Date(data.data);
 
-             $('#date_end').val(d.getDate()+ "/" +d.getMonth()+ "/" +d.getFullYear());
+             $('#date_end').val(d.getFullYear()+ "-" +d.getMonth()+ "-" +d.getDate());
+
             }).fail(function (error) {
                 console.log(error);
             });
+        });
+    </script>
+
+
+<script>
+        $("#subscription_id").on('change', function() {
+            var id = $(this).val();
+
+            $.ajax({
+                url:"/dashboard/getMealTable/"+id,
+                type:"get",
+
+            }).done(function (data) {
+
+           $('.table_meals').empty();
+           $('.table_meals').html(data.data);
+
+           $("div > input[type=radio]").click(function() {
+            var thisParent = $(this).closest("div");
+            var prevClicked = thisParent.find(":checked");
+            var currentObj = $(this);
+            prevClicked.each(function() {
+              if (!$(currentObj).is($(this))) {
+                $(this).prop("checked", false);
+              }
+            });
+
+          });
+
+
+                });
         });
     </script>
 @endsection

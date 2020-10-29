@@ -52,15 +52,16 @@
         </div>
     </div>
 </div>
-
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
-        <label class="form-label"> نوع  الوجبة </label>
+        <label class="form-label">    نوع الوجبة</label>
         <div class="form-line">
-            {!! Form::select("type",['breakfast'=>'الافطار','lunch'=>'الغداء','dinner'=>'العشاء'],null,['class'=>'form-control js-example-basic-single ','required','placeholder'=>'اختر نوع الوجبة ',])!!}
+            {!! Form::select("type_id",$types,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  نوع الوجبة  ','id'=>'type_id'])!!}
+
         </div>
     </div>
 </div>
+
 @if(isset($meal))
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">

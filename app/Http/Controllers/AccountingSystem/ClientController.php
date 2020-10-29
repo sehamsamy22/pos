@@ -95,9 +95,9 @@ class ClientController extends Controller
     public function edit(Client $client)
     {
         $measurements=Measurement::all();
-        $visits=VisitMeasurement::where('client_id',$client->id)->get();
+//        $visits=VisitMeasurement::where('client_id',$client->id)->get();
 
-        return view('admin.clients.edit', compact('visits','measurements'));
+        return view('admin.clients.edit', compact('client','measurements'));
 
     }
 

@@ -133,9 +133,12 @@ class PurchaseController extends Controller
     }
 //    public  function getProductAjex($id){
 //
+
 //        $product=Product::find($id);
 //        return response()->json([
 //            'data'=>$product
 //        ]);
 //    }
 }
+
+

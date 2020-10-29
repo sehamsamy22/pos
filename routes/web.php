@@ -28,6 +28,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('suppliers', 'SupplierController');
     Route::get('/getAllSubcategories/{id}', 'MealController@getAllSubcategories');
     Route::get('/getProduct/{id}', 'MealController@getProduct');
+    route::resource('types_meal', 'TypeMealController');
 
     Route::post('/product','MealController@getAjaxProductQty')->name('meals.getAjaxProductQty');
     Route::get('/meals-products', 'MealController@delete_product')->name('meals-products.destroy');
@@ -39,13 +40,15 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('purchases', 'PurchaseController');
     route::get('add_visit/{id}', 'VisitController@add_visit')->name('visits.add_visit');
     route::get('add_subscription/{id}', 'ClientSubscriptionController@add_subscription')->name('clients_subscriptions.add_subscription');
+    route::get('dietsystems/{id}', 'ClientSubscriptionController@dietsystems')->name('dietsystems.show');
+
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
+    Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
 
       //=============================sales
     route::resource('sales', 'SaleController');
     Route::get('/getAllSubcategoriesSale/{id}', 'SaleController@getAllSubcategories');
     Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
-
 
 });
 
