@@ -52,4 +52,22 @@
 
     @include('admin.layout.form_validation_js')
 
+<script>
+    $("#type_id").on('change', function() {
+        var id = $(this).val();
+
+        $.ajax({
+            url:"/dashboard/getMealInputs/"+id,
+            type:"get",
+
+        }).done(function (data) {
+
+       $('.meals-inpusts').empty();
+       $('.meals-inpusts').html(data.data);
+
+        });
+    });
+</script>
+
+
 @endsection

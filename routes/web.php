@@ -44,6 +44,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
+    Route::get('/getMealInputs/{id}', 'SubscriptionController@getMealInputs');
 
       //=============================sales
     route::resource('sales', 'SaleController');

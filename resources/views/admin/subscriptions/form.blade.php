@@ -39,14 +39,18 @@
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
         <label class="form-label"> عدد الوجبات</label>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+        اخترالوجبات
+        </button>
         <div class="form-line">
             {!! Form::text("num_meals",null,['class'=>'form-control','placeholder'=>' عدد الوجبات','data-parsley-required-message'=>'من فضلك ادخل السعر  ','required'=>''])!!}
         </div>
     </div>
 </div>
-<!-- $table->enum('type', ['breakfast','mini_breakfast' ,'lunch','mini_lunch','dinner','mini_dinner']); -->
+{{--  <!-- $table->enum('type', ['breakfast','mini_breakfast' ,'lunch','mini_lunch','dinner','mini_dinner']); -->  --}}
 
-<div class="col-sm-12 col-xs-12  pull-left">
+{{--  <div class="col-sm-12 col-xs-12  pull-left">
 <label class="text-muted font-13 m-b-15 m-t-20">الواجبات</label>
      @foreach($types as $key => $type)
     <div class="checkbox checkbox-success checkbox-inline">
@@ -55,7 +59,7 @@
     </div>
 
     @endforeach
-</div>
+</div>  --}}
 
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
@@ -73,6 +77,40 @@
             {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'  وصف  الخطه','data-parsley-required-message'=>'من فضلك ادخل نوع الاشتراك  ','required'=>''])!!}
         </div>
     </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">اضافة وجبات للخطة </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                <div class="col-sm-12 col-xs-12 ">
+                    <div class="form-group form-float">
+                    <label class="form-label"> نوع الوجبة</label>
+                    <div class="form-line" >
+                        {!! Form::select("type_id",$types,null,['class'=>'form-control js-example-basic-single','placeholder'=>' اختر  نوع الوجبة  ','id'=>'type_id'])!!}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="meals-inpusts"></div>
+
+       </div>
+      <div class="modal-footer">
+        {{--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  --}}
+        <button type="button" class="btn btn-primary" data-dismiss="modal">أضافة </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="form-group text-right m-b-0">

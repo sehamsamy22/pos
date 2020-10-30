@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionRequest;
+use App\Models\Meal;
 use App\Models\Subscription;
 use App\Models\SubscriptionMeal;
 use App\Models\TypeMeal;
@@ -31,7 +32,7 @@ class SubscriptionController extends Controller
      */
     public function create()
     {
-        $types=TypeMeal::all();
+        $types=TypeMeal::pluck('name','id')->toArray();
 
         return view('admin.subscriptions.create',compact('types'));
 
@@ -47,11 +48,11 @@ class SubscriptionController extends Controller
     {
 
       $subscription= Subscription::create($request->all());
-   
+
       foreach($request['meal'] as $id){
         SubscriptionMeal::create([
             'subscription_id'=>$subscription->id,
-            'type_id'=>$id
+            'meal_id'=>$id
           ]);
 
       }
@@ -78,7 +79,8 @@ class SubscriptionController extends Controller
      */
     public function edit(Subscription $subscription)
     {
-        $types=TypeMeal::all();
+        $types=TypeMeal::pluck('name','id')->toArray();
+        // $meals=Meal::all();
         return view('admin.subscriptions.edit', compact('subscription','types'));
 
     }
@@ -106,6 +108,16 @@ class SubscriptionController extends Controller
     {
        Subscription::find($id)->delete();
         return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم الحذف بنجاح'));
+    }
+
+
+    public function getMealInputs($id){
+
+        $meals=Meal::where('type_id',$id)->get();;
+        return response()->json([
+            'status'=>true,
+            'data'=>view('admin.subscriptions.meals',compact('meals'))->render()
+        ]);
     }
 
 }

@@ -13,13 +13,13 @@ class CreateSubscriptionsMealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions_type_meals', function (Blueprint $table) {
+        Schema::create('subscriptions_meals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->foreign('subscription_id')->references('id')->on('subscriptions');
 
-            $table->unsignedBigInteger('type_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('meal_types');
+            $table->unsignedBigInteger('meal_id')->nullable();
+            $table->foreign('meal_id')->references('id')->on('meals');
             $table->timestamps();
         });
     }
