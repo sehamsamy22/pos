@@ -63,7 +63,7 @@
             }).done(function (data) {
                 var d=new Date(data.data);
 
-             $('#date_end').val(d.getFullYear()+ "-" +d.getMonth()+ "-" +d.getDate());
+             $('#date_end').val(data.data);
 
             }).fail(function (error) {
                 console.log(error);

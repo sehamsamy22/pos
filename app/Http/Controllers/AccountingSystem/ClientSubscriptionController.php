@@ -76,8 +76,8 @@ class ClientSubscriptionController extends Controller
        $subscription=Subscription::find($id);
 
         $start= Carbon::parse($request['start_date']);
-       $endDate=$start->addMonth($subscription->duration)->toDateTimeString();
-
+       $endDate=$start->addDays($subscription->duration)->toDateString();
+// dd($endDate);
         return response()->json([
           'data'=>$endDate
         ]);

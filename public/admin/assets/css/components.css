@@ -50,6 +50,15 @@ legend{
     border: 0;
     background-color: #ffffff;
 }
+.bill_footer{
+    display: inline-flex;
+    float: left;
+
+}
+.btn_bill{
+    margin-left: 13px;
+    width: 156px;
+}
 
 .meals{
     height: 700px;

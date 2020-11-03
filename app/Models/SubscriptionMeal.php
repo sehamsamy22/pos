@@ -15,5 +15,8 @@ class SubscriptionMeal extends Model
     public function subscription(){
         return $this->belongsTo(Subscription::class,'subscription_id');
     }
+    public function meal(){
+        return $this->belongsTo(Meal::class,'meal_id');
+    }
 
 }

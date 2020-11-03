@@ -58,6 +58,7 @@ class MealController extends Controller
             $requests['image'] = saveImage($request->image, 'photos');
         }
          $meal=Meal::create($requests);
+         if(isset($requests['component_names'])){
         $components= collect($requests['component_names'])->zip(collect($requests['qtys']));
         $sum=0;
 
@@ -73,7 +74,7 @@ class MealController extends Controller
 
         $meal->update([
             'approx_price'=>$sum,
-        ]);
+        ]);}
         return back()->with('success', 'تم اضافه الوجبة  ');
     }
 
@@ -120,9 +121,12 @@ class MealController extends Controller
             $requests['image'] = saveImage($request->image, 'photos');
         }
         $meal->update($requests);
+        if($meal->products){
         foreach ($meal->products as $product){
             $product->delete();
         }
+       }
+       if(isset($requests['products'])){
         $components= collect($requests['products'])->zip(collect($requests['qtys']));
         foreach($components as $component){
             MealProduct::create([
@@ -131,6 +135,7 @@ class MealController extends Controller
                 'quantity'=>$component[1],
             ]);
         }
+    }
         return redirect()->route('dashboard.meals.index')->with('success', __('تم التعديل'));
 
     }

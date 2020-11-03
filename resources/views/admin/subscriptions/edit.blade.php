@@ -39,7 +39,27 @@
 @endsection
 @section('scripts')
 
+<script>
+    function Delete(id) {
+        var item_id=id;
+        console.log(item_id);
+        swal({
+            title: "هل أنت متأكد ",
+            text: "هل تريد حذف هذة الوجبة ؟",
+            icon: "warning",
+            buttons: ["الغاء", "موافق"],
+            dangerMode: true,
 
+        }).then(function(isConfirm){
+            if(isConfirm){
+                document.getElementById('delete-form'+item_id).submit();
+            }
+            else{
+                swal("تم االإلفاء", "حذف  الوجبة  تم الغاؤه",'info',{buttons:'موافق'});
+            }
+        });
+    }
+</script>
 
 
 

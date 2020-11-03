@@ -47,9 +47,10 @@ class SubscriptionController extends Controller
     public function store(SubscriptionRequest $request)
     {
 
+        // dd($request->all());
       $subscription= Subscription::create($request->all());
 
-      foreach($request['meal'] as $id){
+      foreach($request['meals'] as $id){
         SubscriptionMeal::create([
             'subscription_id'=>$subscription->id,
             'meal_id'=>$id
@@ -58,6 +59,12 @@ class SubscriptionController extends Controller
       }
         return redirect()->route('dashboard.subscriptions.index')->with('success', 'تم اضافه نوع اشتراك  جديد');
 
+    }
+    public function subscription_meal($id){
+        $meal=SubscriptionMeal::find($id);
+        $meal->delete();
+
+        return back()->with('success', __('تم الحذف بنجاح'));
     }
 
     /**

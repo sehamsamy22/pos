@@ -21,7 +21,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients=Client::all();
+        $clients=Client::all()->reverse();
 
         return view('admin.clients.index',compact('clients'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

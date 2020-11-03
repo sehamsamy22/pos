@@ -68,6 +68,85 @@
         });
     });
 </script>
+<script>
+var bigData = [];
 
+function myFun(event) {
+    event.preventDefault();
+
+    var values = $("input[name='meal[]']:checked")
+              .map(function(){
+
+                var data = {};
+                data.meal_id = $(this).val();
+                data.meal_name = $(this).data('name');
+
+
+                  return data;
+                }).get();
+
+
+        swal({
+            title: "تم إضافة الوجبة نجاح",
+            text: "",
+            timer: 1000,
+            icon: "success",
+            buttons: ["موافق"],
+            dangerMode: true,
+        })
+        bigData.push(values);
+        $("#mealsTable-wrap").show();
+
+        var appendMeals = values.map(function(meal) {
+            console.log(meal);
+            return (`
+        <tr class="single-meal">
+            <td class="prod-nam">${meal.meal_name}</td>
+               <td>
+
+                <a href="#" data-toggle="tooltip" class="delete-this-row" data-original-title="حذف">
+                    <i class="fa fa-trash-o" style="margin-left: 10px"></i>
+                </a>
+            </td>
+           <input type="hidden" name="meals[]" value="${meal.meal_id}" >
+
+        </tr>
+        `);
+        });
+
+
+        $('.add-meals').append(appendMeals);
+
+
+        $('.delete-this-row').click(function(e) {
+            var $this = $(this);
+            var row_index = $(this).parents('tr').index();
+            e.preventDefault();
+            swal({
+                title: "هل أنت متأكد ",
+                text: "هل تريد حذف هذة الوحدة الفرعية ؟",
+                icon: "warning",
+                buttons: ["الغاء", "موافق"],
+                dangerMode: true,
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    $this.parents('tr').remove();
+                    bigData.splice(row_index, 1);
+                } else {
+                    swal("تم االإلفاء", "حذف  الوحدة الفرعية  تم الغاؤه", 'info', {
+                        buttons: 'موافق'
+                    });
+                }
+            });
+        });
+
+
+        });
+
+
+}
+
+
+</script>
 
 @endsection

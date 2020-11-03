@@ -29,7 +29,7 @@
 
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
-        <label class="form-label">  مده الخطه</label><span class="required--in"> (عدد  الشهور)</span>
+        <label class="form-label">  مده الخطه</label><span class="required--in"> (عدد  الايام)</span>
         <div class="form-line">
             {!! Form::number("duration",null,['class'=>'form-control','placeholder'=>'  مده الخطه','data-parsley-required-message'=>'من فضلك ادخل  مده الخطه  ','required'=>''])!!}
         </div>
@@ -60,6 +60,37 @@
 
     @endforeach
 </div>  --}}
+
+
+<!-- unit table-->
+<div class="table-striped"  id="mealsTable-wrap">
+    <span>الواجبات </span>
+    <table class="table table-striped table-bordered"  style="background-color: #5b69bc59">
+    <thead>
+        <tr>
+            <th> اسم الوجبه</th>
+            <th>العمليات</th>
+        </tr>
+    </thead>
+
+    <tbody class="add-meals">
+        @if(isset($subscription))
+        @foreach($subscription->meals as $key => $value)
+       <tr>
+           <td>{{ $value->meal->ar_name }}</td>
+            <td>
+                <a href="#" onclick="Delete({{$value->id}})" class="label label-danger">حذف</a>
+
+                {!!Form::open( ['route' => ['dashboard.subscriptions-meal.destroy',$value->id] ,'id'=>'delete-form'.$value->id, 'method' => 'Delete']) !!}
+                {!!Form::close() !!}</td>
+        </tr>
+        @endforeach
+        @endif
+    </tbody>
+
+</table>
+</div>
+
 
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
@@ -107,7 +138,7 @@
        </div>
       <div class="modal-footer">
         {{--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  --}}
-        <button type="button" class="btn btn-primary" data-dismiss="modal">أضافة </button>
+        <button type="button" class="btn btn-primary" onclick="myFun(event)" data-dismiss="modal">أضافة </button>
       </div>
     </div>
   </div>

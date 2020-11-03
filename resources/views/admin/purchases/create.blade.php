@@ -6,6 +6,9 @@
         .erro{
             color: red;
         }
+        .dynamic-span{
+        font-size: x-large;
+    }
     </style>
     <link href="{{asset('admin/assets/css/jquery.datetimepicker.min.css')}}" rel="stylesheet" type="text/css">
 
@@ -146,15 +149,21 @@
                                     <input type="text" class="form-control" name="bill_discount" id="bill_discount">
                                 </div>
                             </div>
+                            <div class="form-group form-float">
+                                    <input type="text" class="form-control"  id="discount" disabled>
+                            </div>
                         </th>
                             <th  colspan="3">
                                 <div class="form-group form-float">
                                     <label class="form-label"> نسبة الضريبة</label>
                                     <span class="required--in">%</span>
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="bill_tax"  id="bill_tax">
+                                        <input type="text" class="form-control" name="bill_tax"  value={{ getsetting('tax') }} id="bill_tax" readonly>
                                     </div>
                                 </div>
+                                <div class="form-group form-float">
+                                    <input type="text" class="form-control"  id="tax" disabled>
+                            </div>
                             </th>
 
 
@@ -169,18 +178,23 @@
                             </div>
                         </th>
                         </tr>
-                        <tr>
-                            <th colspan="12">
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">
+
+                            <tr>
+                           <th colspan="12">
+                               <div class="bill_footer"  >
+
+                                <button type="button" class="btn btn-warning btn_bill" data-toggle="modal" data-target="#exampleModalCenter">
                                    الدفع
                                 </button>
+
+                                <button type="submit" class="btn_bill">حفظ</button>
+
+                            </div>
                             </th>
-                        </tr>
-                        <tr>
-                            <th colspan="12">
-                                <button type="submit">حفظ</button>
-                            </th>
-                        </tr>
+
+                            </tr>
+
+
                         </tfoot>
                     </table>
 
@@ -312,7 +326,6 @@
                 $('table tfoot').addClass('tempDisabled');
             }
         });
-
            $(".product-quantity").change(function() {
             if (($(this).val()) < 0) {
                 $(this).val(0);
@@ -323,7 +336,7 @@
                var quantityXprice = Number(theUnitPrice) * Number(theQuantity);
                wholePriceAfter = Number(quantityXprice);
                $(this).parents('.single-row-wrapper').find(".unit-price input").val(productPrice);
-            $(this).parents('.single-row-wrapper').find(".quantityXprice").text(quantityXprice.toFixed(2));
+              $(this).parents('.single-row-wrapper').find(".quantityXprice").text(quantityXprice.toFixed(2));
                $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
                $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
 
@@ -340,14 +353,16 @@
            })
 
            $(".whole-product-tax").change(function() {
+
                var theQuantity = $(this).parents("tr.single-row-wrapper").find(".product-quantity input").val();
                var theUnitPrice = $(this).parents("tr.single-row-wrapper").find(".unit-price input").val();
                var quantityXprice = Number(theUnitPrice) * Number(theQuantity);
-             var thediscount = $(this).parents("tr.single-row-wrapper").find(".whole-product-discount input").val();
+               var thediscount = $(this).parents("tr.single-row-wrapper").find(".whole-product-discount input").val();
                 wholePriceAfter = Number(quantityXprice) - Number(thediscount);
               $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
                var tax = $(this).parents("tr.single-row-wrapper").find(".whole-product-tax input").val();
               wholePriceAfter = Number(wholePriceAfter) + Number(tax);
+
                $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
 
            })
@@ -361,31 +376,30 @@
 
                var amountAfterDariba = 0;
                $(".whole-price").each(function () {
+
                    amountAfterDariba += Number($(this).text());
                });
-
-
+               var bill_tax=$('#bill_tax').val();
+               var tax_val= Number(wholePriceAfter) * (Number(bill_tax) / 100);
+               $("#tax").val(Number(tax_val));
                $("#amountBeforeDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
-               $("#amountAfterDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
-               $("#amountBeforeDariba1").val(amountBeforeDariba.toFixed(2));
+               $("#amountAfterDariba span.dynamic-span").html(Number(amountBeforeDariba+tax_val).toFixed(2));
+               $("#amountAfterDariba").val(amountBeforeDariba+tax_val);
                // $("#amountOfDariba span.dynamic-span").html(amountOfDariba.toFixed(2));
-               $("#total").val(amountBeforeDariba.toFixed(2));
+               $("#total").val(amountAfterDariba.toFixed(2));
+               var  totalAfterFixTax=$("#total").val() ;
                $("#bill_discount").change(function() {
                    var bill_discount=$(this).val();
                    // alert(Number(amountBeforeDariba) * (Number(bill_discount) / 100));
-                    var discount_val= Number(amountBeforeDariba) * (Number(bill_discount) / 100);
-                   $("#amountAfterDariba span.dynamic-span").html(Number(amountBeforeDariba)-Number(discount_val));
-                   $("#amountAfterDariba1").val(Number(amountBeforeDariba)-Number(discount_val));
-                   $("#total").val(Number(amountBeforeDariba)-Number(discount_val));
-
+                    var discount_val= Number(totalAfterFixTax) * (Number(bill_discount) / 100);
+                   $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
+                   $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
+                   $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
+                   $("#discount").val(Number(discount_val));
                });
 
-               $("#bill_tax").change(function() {
-                   var bill_tax=$(this).val();
-                   var tax_val= Number($("#amountAfterDariba1").val()) * (Number(bill_tax) / 100);
-                   $("#amountAfterDariba span.dynamic-span").html(Number($("#amountAfterDariba1").val())+Number(tax_val));
-                   $("#total").val(Number($("#amountAfterDariba1").val())+Number(tax_val));
-               });
+
+
 
                $("#payed").change(function() {
                    var payed=$(this).val();
