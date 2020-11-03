@@ -69,11 +69,11 @@
     });
 </script>
 <script>
+
 var bigData = [];
 
 function myFun(event) {
     event.preventDefault();
-
     var values = $("input[name='meal[]']:checked")
               .map(function(){
 
@@ -139,10 +139,6 @@ function myFun(event) {
                 }
             });
         });
-
-
-        });
-
 
 }
 
