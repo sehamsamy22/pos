@@ -104,7 +104,7 @@
         $("#tax").on('change', function() {
             var tax = $(this).val();
             var price = $('#price').val();
-        $('#total').val(Number(price) * (Number(tax) / 100));
+        $('#total').val(Number(price)+Number(price) * (Number(tax) / 100));
         });
     </script>
 @endsection
