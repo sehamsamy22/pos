@@ -66,7 +66,31 @@
     </tbody>
 </table>
 
+<div class="col-sm-4 col-xs-4 pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  سعر الخطة</label>
+        <div class="form-line">
+            {!! Form::text("price",null,['class'=>'form-control','placeholder'=>'السعر','id'=>'price'])!!}
+        </div>
+    </div>
+</div>
+<div class="col-sm-4 col-xs-4 pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  الضريبه</label>
+        <div class="form-line">
+            {!! Form::text("tax",null,['class'=>'form-control','placeholder'=>'الضريبه','id'=>'tax'])!!}
+        </div>
+    </div>
+</div>
 
+<div class="col-sm-4 col-xs-4 pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  الاجمالى</label>
+        <div class="form-line">
+            {!! Form::text("total",null,['class'=>'form-control','placeholder'=>'الاجمالى','id'=>'total'])!!}
+        </div>
+    </div>
+</div>
 
 <div class="form-group text-right m-b-0">
     <button class="btn btn-primary waves-effect" type="submit">حفظ</button>

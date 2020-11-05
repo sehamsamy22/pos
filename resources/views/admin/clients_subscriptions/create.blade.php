@@ -84,6 +84,7 @@
 
            $('.table_meals').empty();
            $('.table_meals').html(data.data);
+           $('#price').val(data.price);
 
            $("div > input[type=radio]").click(function() {
             var thisParent = $(this).closest("div");
@@ -99,6 +100,11 @@
 
 
                 });
+        });
+        $("#tax").on('change', function() {
+            var tax = $(this).val();
+            var price = $('#price').val();
+        $('#total').val(Number(price) * (Number(tax) / 100));
         });
     </script>
 @endsection

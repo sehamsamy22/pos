@@ -109,12 +109,14 @@ class ClientSubscriptionController extends Controller
 
     public  function getMealTable($id){
 
+        $subscription=Subscription::find($id);
         $subscriptionMeal=SubscriptionMeal::where('subscription_id',$id)->pluck('meal_id','id')->toArray();
         $meals=TypeMeal::whereIn('id',$subscriptionMeal)->get();
         $types=TypeMeal::all();
 
               return response()->json([
                 'status'=>true,
+                'price'=>$subscription->price,
                 'data'=>view('admin.clients_subscriptions.meals',compact('meals','types','id'))->render()
             ]);
      }
