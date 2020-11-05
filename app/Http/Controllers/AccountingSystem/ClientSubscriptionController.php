@@ -59,7 +59,7 @@ class ClientSubscriptionController extends Controller
                     ]);
                }
             }
-        return redirect()->route('')->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
+        return back()->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
 
     }
     public function destroy($id )
