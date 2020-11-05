@@ -35,6 +35,8 @@
                         <th>  اسم الخطه</th>
                         <th>   بداية الاشتراك</th>
                         <th>   نهاية الاشتراك</th>
+                        <th>  الضريبه </th>
+                        <th>  الاجمالى </th>
 
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
@@ -48,7 +50,8 @@
                             <td>{{$row->subscription->name}}</td>
                             <td>{{$row->start}}</td>
                             <td>{{$row->end}}</td>
-
+                            <td>{{$row->tax}}</td>
+                            <td>{{$row->total}}</td>
                             <td>
 {{--                                <a href="{{route('dashboard.clients_subscriptions.edit',$row->id)}}" class="label label-warning">تعديل</a>--}}
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
