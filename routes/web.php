@@ -41,6 +41,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('add_visit/{id}', 'VisitController@add_visit')->name('visits.add_visit');
     route::get('add_subscription/{id}', 'ClientSubscriptionController@add_subscription')->name('clients_subscriptions.add_subscription');
     route::get('dietsystems/{id}', 'ClientSubscriptionController@dietsystems')->name('dietsystems.show');
+    route::get('dietsystems_edit/{id}', 'ClientSubscriptionController@dietsystems_edit')->name('dietsystems.edit');
+    route::any('dietsystems_update/{id}', 'ClientSubscriptionController@dietsystems_update')->name('dietsystems.update');
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');

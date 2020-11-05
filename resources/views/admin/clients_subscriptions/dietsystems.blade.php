@@ -7,7 +7,11 @@
     <div class="row">
         <div class="col-sm-12">
 
-
+            <div class="btn-group pull-right m-t-15">
+                <a href="{{route('dashboard.dietsystems.edit',$clientSubsription->id)}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >
+                    تعديل النظام الغذائى
+                </a>
+            </div>
 
             <h4 class="page-title">عرض النظام  الغذائى</h4>
         </div>
@@ -39,22 +43,32 @@
     </thead>
     <tbody class="table_meals">
 
-        @foreach($dietsystems as $key => $sys)
+        @foreach($types as $key => $type)
 
         <tr>
-          <td>{{ $sys->meal->typeMeal->name }}</td>
+          <td>{{ $type->name }}</td>
           @for($i=1;$i<=7;$i++)
               <td>
 
-                    @if($sys->day_No==$i)
-                    {{$sys->meal->ar_name}}-{{$sys->meal->calories}}
-                    @endif
+                  <div class="{{$i}}" style="display: inline">
+
+                  @foreach($type->meals_sub($clientSubsription->subscription_id) as  $key=>$meal)
+                  @foreach($dietsystems as $dietsystem)
+                  @if ($dietsystem->meal_id==$meal->id  && $dietsystem->day_No==$i)
+
+                    {{$meal->ar_name}}-{{$meal->calories}}
 
 
+                  @endif
+
+                    @endforeach
+                  @endforeach
+              </div>
               </td>
           @endfor
       </tr>
       @endforeach
+
 
     </tbody>
 </table>

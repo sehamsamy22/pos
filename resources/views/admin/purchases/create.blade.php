@@ -339,7 +339,7 @@
                $(this).parents('.single-row-wrapper').find(".unit-price input").val(productPrice);
               $(this).parents('.single-row-wrapper').find(".quantityXprice").text(quantityXprice.toFixed(2));
                $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
-               $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
+             $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
 
            });
 
@@ -354,7 +354,6 @@
            })
 
            $(".whole-product-tax").change(function() {
-
                var theQuantity = $(this).parents("tr.single-row-wrapper").find(".product-quantity input").val();
                var theUnitPrice = $(this).parents("tr.single-row-wrapper").find(".unit-price input").val();
                var quantityXprice = Number(theUnitPrice) * Number(theQuantity);
@@ -363,7 +362,6 @@
               $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
                var tax = $(this).parents("tr.single-row-wrapper").find(".whole-product-tax input").val();
               wholePriceAfter = Number(wholePriceAfter) + Number(tax);
-
                $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
 
            })
@@ -377,7 +375,6 @@
 
                var amountAfterDariba = 0;
                $(".whole-price").each(function () {
-
                    amountAfterDariba += Number($(this).text());
                });
                var bill_tax=$('#bill_tax').val();
@@ -390,17 +387,17 @@
                $("#total").val(amountAfterDariba.toFixed(2));
                var  totalAfterFixTax=$("#total").val() ;
                $("#bill_discount").change(function() {
+
                    var bill_discount=$(this).val();
-                   // alert(Number(amountBeforeDariba) * (Number(bill_discount) / 100));
-                    var discount_val= Number(totalAfterFixTax) * (Number(bill_discount) / 100);
+
+                  {{-- alert(Number(amountBeforeDariba) * (Number(bill_discount) / 100)); --}}
+                    var discount_val= Number(totalAfterFixTax)*(Number(bill_discount)/100);
+
                    $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
                    $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
                    $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
                    $("#discount").val(Number(discount_val));
                });
-
-
-
 
                $("#payed").change(function() {
                    var payed=$(this).val();
@@ -409,7 +406,6 @@
                });
 
            }
-
 
        });
        function myFunction(){
