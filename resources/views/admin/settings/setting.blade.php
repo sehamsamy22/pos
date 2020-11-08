@@ -119,7 +119,14 @@
                                                     <img src="{{getimg($setting->value)}}" style="width:100px; height:100px">
                                                 </div>
                                             </div>
+                                            @elseif($setting->type == 'select')
 
+                                            <div class="form-group col-xs-6  {{$setting->name}} ">
+                                                <label> {{$setting->title}} </label>
+                                                <div class="form-group col-md-6 pull-right">
+                                                    {!! Form::select($setting->name.'[]',chart_accounts(),$setting->value,['class'=>'form-control'])!!}
+                                                </div>
+                                            </div>
 
                                         @endif
 

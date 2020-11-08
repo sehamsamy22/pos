@@ -787,6 +787,8 @@ textarea.form-control {
   padding: 20px;
   border: 2px solid #eeeeee;
   border-top: none;
+  width: 100%;
+
 }
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:focus,

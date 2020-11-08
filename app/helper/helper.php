@@ -5,6 +5,39 @@
 
 use App\Models\AccountingSystem\AccountingAccount;
 use Carbon\Carbon;
+class MyHelper{
+
+    public static function tree($accounts, $step = 0)
+   {
+       $output = '';
+    //    $base_url = url('/ChartsAccounts/ChartsAccounts/');
+           foreach($accounts as $account)
+           {
+            if($account->type!='sub'){
+               $output .=
+
+               '<li  data-jstree={"opened":true} > '. $account->code . " -".$account->name;
+               }else
+               {
+                $output .=
+
+                '<li  data-jstree={"type":"file"} > '. $account->code . " -".$account->name;
+               }
+               if($account->type!='sub'){
+               if($account->children)
+               {
+                   $output .= '<ul>'. self::tree($account->children, $step+1).'</ul>'.'</li>';
+               }
+           }else{
+
+                   $output .= '</li>';
+
+               }
+           }
+       return $output;
+   }
+
+   }
 
 
 function responseJson($status, $msg, $data = null, $state = 200)
@@ -33,6 +66,15 @@ function storekeepers()
         return [$q['id'] => $q['name']];
     });
     return $storekeepers;
+}
+
+
+function chart_accounts()
+{
+    $chart_accounts = \App\Models\Account::all()->mapWithKeys(function ($q) {
+        return [$q['id'] => $q['name']];
+    });
+    return $chart_accounts;
 }
 
 function allstores()
@@ -442,6 +484,9 @@ function rates()
     return $arr;
 }
 
+
+
+
 function idol_user()
 {
     $idol_user = \App\User::WhereHas('tasks',function ($q){
@@ -825,6 +870,14 @@ function levels(){
      '17'=>' المستوى السابع عشر',
     ];
  }
+
+ function all_levels($id){
+    if(array_key_exists($id,levels())){
+        return levels()[$id];
+    }
+    return $id;
+
+}
 function choosequarterly($quarter){
     if(array_key_exists($quarter,quarterly())){
         return quarterly()[$quarter];

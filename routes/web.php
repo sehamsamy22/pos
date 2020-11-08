@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,9 +56,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
     //===============================stores
     route::get('stores', 'StoreController@index')->name('stores.index');
-
-
-
+    //===============================accounts
+    route::resource('accounts', 'AccountController');
 });
 
 Auth::routes();

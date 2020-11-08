@@ -2,6 +2,7 @@
 
 
 
+{{-- <link href="{{asset('admin/assets/css/easyTree.min.css')}}" rel="stylesheet" type="text/css"> --}}
 
 <link href="{{asset('admin/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}" rel="stylesheet" />
 <link href="{{asset('admin/assets/plugins/multiselect/css/multi-select.css')}}"  rel="stylesheet" type="text/css" />
