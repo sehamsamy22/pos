@@ -44,6 +44,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('dietsystems/{id}', 'ClientSubscriptionController@dietsystems')->name('dietsystems.show');
     route::get('dietsystems_edit/{id}', 'ClientSubscriptionController@dietsystems_edit')->name('dietsystems.edit');
     route::any('dietsystems_update/{id}', 'ClientSubscriptionController@dietsystems_update')->name('dietsystems.update');
+    route::get('pay-subscription/{id}', 'RevenueController@payment_subscription')->name('clients_subscriptions.payment');
+    route::resource('revenues', 'RevenueController');
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
@@ -56,8 +58,11 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
     //===============================stores
     route::get('stores', 'StoreController@index')->name('stores.index');
+    route::get('/purchase_order', 'StoreController@purchase_order')->name('stores.purchase_order');
+
     //===============================accounts
     route::resource('accounts', 'AccountController');
+    //
 });
 
 Auth::routes();

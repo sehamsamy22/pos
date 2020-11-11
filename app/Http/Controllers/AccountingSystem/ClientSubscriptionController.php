@@ -9,6 +9,8 @@ use App\Models\ClientSubscriptions;
 use App\Models\Dietsystem;
 use App\Models\Meal;
 use App\Models\Measurement;
+use App\Models\Revenue;
+use App\Models\Revnue;
 use App\Models\SubscriptionMeal;
 use App\Models\Subscription;
 use App\Models\TypeMeal;
@@ -33,6 +35,9 @@ class ClientSubscriptionController extends Controller
     public function store(ClientSubscriptionRequest $request){
 
         $clientSubsription=ClientSubscriptions::create($request->all());
+        $clientSubsription->update([
+            'reminder'=>$clientSubsription->total-$clientSubsription->payed,
+        ]);
             foreach ($request['meals'] as $mealkey=>$meal){
                 foreach($meal as $daykey=>$day){
                     Dietsystem::create([
@@ -42,6 +47,13 @@ class ClientSubscriptionController extends Controller
                     ]);
                }
             }
+            Revenue::create([
+                'client_subscription_id'=>$clientSubsription->id,
+                'sale_id'=>Null,
+                'type'=>'subscription',
+                'amount'=>$clientSubsription->payed,
+            ]);
+
         return back()->with('success', 'تم اضافه اشتراك العميل بنجاخ ');
 
     }
@@ -60,7 +72,6 @@ class ClientSubscriptionController extends Controller
                }
             }
         return back()->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
-
     }
     public function destroy($id )
     {

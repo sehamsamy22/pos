@@ -15,4 +15,10 @@ class StoreController extends Controller
         return view('admin.stores.index',compact('storeproducts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
+    public function purchase_order(){
+        $storeproducts=StoreProduct::all();
+        return view('admin.stores.purchase_order',compact('storeproducts'));
+
+    }
 }

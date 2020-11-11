@@ -85,7 +85,10 @@
            $('.table_meals').empty();
            $('.table_meals').html(data.data);
            $('#price').val(data.price);
-
+           var static_tax=$('#tax').val();
+           var price = $('#price').val();
+          $('#total').val(Number(price)+Number(price) * (Number(static_tax) / 100));
+            $('#amount_required').val($('#total').val());
            $("div > input[type=radio]").click(function() {
             var thisParent = $(this).closest("div");
             var prevClicked = thisParent.find(":checked");
@@ -98,13 +101,20 @@
 
           });
 
-
-                });
         });
+        });
+     
         $("#tax").on('change', function() {
             var tax = $(this).val();
             var price = $('#price').val();
         $('#total').val(Number(price)+Number(price) * (Number(tax) / 100));
         });
+       $('#amount_required').val($('#total').val());
+
+         $("#payed").change(function() {
+                   var payed=$(this).val();
+                   var reminder= Number($("#amount_required").val()) - Number(payed);
+                   $("#reminder").val(reminder.toFixed(2));
+               });
     </script>
 @endsection

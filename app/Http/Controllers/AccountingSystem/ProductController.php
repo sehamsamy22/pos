@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AccountingSystem;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -41,10 +42,12 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $requests = $request->except('image');
+        dd($request->all());
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
-        Product::create($requests);
+        $product=Product::create($requests);
+    
         return redirect()->route('dashboard.products.index')->with('success', 'تم اضافه صنف  جديد');
 
     }

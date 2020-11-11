@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 class StoreProduct extends Model
@@ -12,4 +13,5 @@ class StoreProduct extends Model
     public function product(){
         return $this->belongsTo(Product::class,'product_id');
     }
+    
 }

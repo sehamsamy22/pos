@@ -68,10 +68,10 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>إدارة الأصناف و المنتجات </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  الأصناف     </a></li>
-                        <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المنتجات     </a></li>
-                        <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المخزون     </a></li>
-
+                        <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  الأصناف</a></li>
+                        <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المنتجات </a></li>
+                        <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المخزون </a></li>
+                        <li><a href="{{route('dashboard.stores.purchase_order')}}"><i class="zmdi zmdi-view-list"></i>عرض طلبية شراء المخزن </a></li>
                     </ul>
                 </li>
 
@@ -116,6 +116,23 @@
                     </ul>
                 </li>
 
+
+            <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i><span>إدارة الاعدادات  </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{route('dashboard.settings.index')}}"><i class="zmdi zmdi-view-list"></i>عرض    الاعدادات     </a></li>
+
+                    </ul>
+            </li>
+
+
+               <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i><span>إدارة المدفوعات والسندات  </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{route('dashboard.revenues.index')}}"><i class="zmdi zmdi-view-list"></i>عرض    المدفوعات     </a></li>
+
+                    </ul>
+                </li>
             </ul>
             <div class="clearfix"></div>
         </div>
