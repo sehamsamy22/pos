@@ -20,4 +20,10 @@ class ClientSubscriptions extends Model
         return $this->belongsTo(Subscription::class,'subscription_id');
     }
 
+    public function meals(){
+
+    }
+    
+
+
 }

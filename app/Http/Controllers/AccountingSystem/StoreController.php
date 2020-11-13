@@ -10,6 +10,8 @@ use App\Models\Meal;
 use App\Models\ReadyMeal;
 use App\Models\ReceivedProduct;
 use App\Models\StoreProduct;
+use App\Models\Subscription;
+use App\Models\SubscriptionMeal;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,7 +33,10 @@ class StoreController extends Controller
     }
     public function cooker_view(){
         $storeproducts=StoreProduct::all();
-        $meals=Meal::all();
+        $meals=[];
+        $subcriptipns_id=ClientSubscriptions::where('end', '>=', Carbon::now()->tomorrow())->pluck('subscription_id','id')->toArray();
+        $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
+      $meals=Meal::whereIn('id',$meals_)->get();
         return view('admin.stores.cooker_view',compact('storeproducts','meals'));
 
     }
