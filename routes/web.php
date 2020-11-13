@@ -59,7 +59,14 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     //===============================stores
     route::get('stores', 'StoreController@index')->name('stores.index');
     route::get('/purchase_order', 'StoreController@purchase_order')->name('stores.purchase_order');
-
+    route::get('/cook-view', 'StoreController@cooker_view')->name('stores.cooker_view');
+    Route::POST('/receive_products/{id}', 'StoreController@receive_products');
+    Route::POST('/ready_meals/{id}', 'StoreController@ready_meals');
+    route::get('/operarion_manger_view', 'StoreController@operarion_manger_view')->name('stores.operarion_manger_view');
+    Route::POST('/receive_meals/{id}', 'StoreController@receive_meals');
+    Route::POST('/distributed_meals/{id}', 'StoreController@distributed_meals');
+    route::get('/driver_manger_view', 'StoreController@driver_manger_view')->name('stores.driver_manger_view');
+    Route::POST('/assign_driver/{id}', 'StoreController@assign_driver');
     //===============================accounts
     route::resource('accounts', 'AccountController');
     //

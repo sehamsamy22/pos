@@ -8,7 +8,7 @@
         <div class="col-sm-12">
 
 
-            <h4 class="page-title"> عرض طلبيات الاصناف اليوميه  </h4>
+            <h4 class="page-title"> شاشة مسئول المخزن </h4>
         </div>
     </div>
     <!--End Page-Title -->
@@ -18,9 +18,9 @@
             <div class="card-box table-responsive">
                     <?php
                    use Carbon\Carbon;
-                    $now = Carbon::now()->format("Y-m-d");
+                    $tomorrow = Carbon::now()->tomorrow()->format("Y-m-d");
                     ?>
-                <h4 class="header-title m-t-0 m-b-30">    كل  الاصناف المطلوب شرائها اليوم  {{$now}} </h4>
+                <h4 class="header-title m-t-0 m-b-30">    كل  الاصناف المطلوب شرائها للتحضير غدا  {{$tomorrow}} </h4>
 
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
@@ -18,6 +18,22 @@ class Meal extends Model
     }
     public function typeMeal(){
         return $this->belongsTo(TypeMeal::class,'type_id');
+    }
+
+
+    public  function orders($id)
+    {
+        $meal_count=0;
+        $subscriptions=ClientSubscriptions::where('end', '>=', Carbon::now()->tomorrow())->get();
+    
+       foreach($subscriptions as $subscription){
+        foreach($subscription->subscription->meals as $subscriptionmeal) {
+            if($subscriptionmeal->meal_id==$id){
+                $meal_count+= 1;
+            }
+        }
+       }
+       return $meal_count;
     }
 }
 

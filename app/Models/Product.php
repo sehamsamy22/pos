@@ -13,7 +13,7 @@ class Product extends Model
     public  function orders($id)
     {
         $product_count=0;
-        $subscriptions=ClientSubscriptions::where('end', '>=', Carbon::now())->get();
+        $subscriptions=ClientSubscriptions::where('end', '>=', Carbon::now()->tomorrow())->get();
     
        foreach($subscriptions as $subscription){
         foreach($subscription->subscription->meals as $subscriptionmeal) {

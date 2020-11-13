@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30">  سند دفع اشتراك</h4>
+                <h4 class="header-title m-t-0 m-b-30">  سند قبض اشتراك</h4>
                 <div class="row">
                     {!!Form::open( ['route' => 'dashboard.revenues.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
                     <input type="hidden" value="subscription" name="type">
