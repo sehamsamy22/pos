@@ -136,6 +136,14 @@ class SaleController extends Controller
             'data'=>view('admin.sales.subcategories')->with('subcategories',$subcategories)->render()
         ]);
     }
+    public  function  getAllcategories(){
+        $categories=Category::all();
+        return response()->json([
+            'status'=>true,
+            'data'=>view('admin.sales.categories')->with('categories',$categories)->render()
+        ]);
+    }
+
 
     public  function  getAllMeals($id){
         $meals=Meal::where('sub_category_id',$id)->get();

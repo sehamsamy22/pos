@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class ClientSubscriptions extends Model
 {
     protected $fillable = [
-        'client_id', 'subscription_id','start','end','total','tax','payed','reminder','payment_type'
+        'client_id', 'subscription_id','start','end','total','active',
+        'tax','payed','reminder','payment_type'
     ];
 
     

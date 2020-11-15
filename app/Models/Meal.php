@@ -35,5 +35,12 @@ class Meal extends Model
        }
        return $meal_count;
     }
+
+    public function quantity($meal_id,$request){
+       
+        $qty=ReadyMeal::where('meal_id',$meal_id)->whereBetween('date',[$request['from'],$request['to']])->first();
+   
+        return $qty->quantity?? '0';
+    }
 }
 

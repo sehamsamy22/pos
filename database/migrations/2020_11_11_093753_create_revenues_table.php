@@ -13,7 +13,7 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('revnues', function (Blueprint $table) {
+        Schema::create('revenues', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_subscription_id')->nullable();
             $table->foreign('client_subscription_id')->references('id')->on('client_subscriptions');

@@ -26,38 +26,72 @@ class StoreController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    public function purchase_order(){
-        $storeproducts=StoreProduct::all();
+    public function purchase_order(Request $request){
+        // dd($request->all());
+        if ($request->has('from') && $request->has('to')) {
+            $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
+             ->whereBetween('end',[$request['from'],$request['to']])       
+             ->where('active','1')
+            ->pluck('subscription_id','id')->toArray();
+     
+
+            $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
+            $products=Meal::whereIn('id',$meals_)->with('products')->pluck('id','id')->toArray();
+           $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+    
+         }else
+        {
+            $storeproducts=[];   
+        }
         return view('admin.stores.purchase_order',compact('storeproducts'));
 
     }
-    public function cooker_view(){
-        $storeproducts=StoreProduct::all();
-        $meals=[];
-        $subcriptipns_id=ClientSubscriptions::where('end', '>=', Carbon::now()->tomorrow())->pluck('subscription_id','id')->toArray();
-        $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
-      $meals=Meal::whereIn('id',$meals_)->get();
-        return view('admin.stores.cooker_view',compact('storeproducts','meals'));
+    public function cooker_view(Request $request){
+        if ($request->has('from') && $request->has('to')) {
+            $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
+             ->whereBetween('end',[$request['from'],$request['to']])       
+             ->where('active','1')
+            ->pluck('subscription_id','id')->toArray();
+     
+
+            $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
+            $meals=Meal::whereIn('id',$meals_)->get();
+            $products=Meal::whereIn('id',$meals_)->with('products')->pluck('id','id')->toArray();
+           $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+    
+         }else
+        {
+            $storeproducts=[];   
+            $meals=[];  
+        }
+        return view('admin.stores.cooker_view',compact('storeproducts','meals','request'));
 
     }
 
     public function receive_products(Request $request,$id){
-     
+  
         $store_product=StoreProduct::find($id);
      
         ///=======================store auantity update===================
-        if($store_product->quantity >= $request['quantity']){
+        if($store_product->quantity > 1){
             $store_product->update([
-                'quantity'=>$store_product->quantity -$request['quantity'],
+                'quantity'=>$store_product->quantity -1,
             ]);
+           $recevied= ReceivedProduct::where('product_id',$store_product->product->id)->where('date',Carbon::today())->first();
+          if(isset($recevied)){
+            $recevied->update([
+                'quantity'=> $recevied->quantity +1
+            ]);
+           }else{
             ReceivedProduct::create([
                 'product_id'=>$store_product->product->id,
-                'quantity'=>$request['quantity'],
-                'date'=>Carbon::now()->tomorrow(),
+                'quantity'=>0,
+                'date'=>Carbon::today(),
             ]);
+           }
             return response()->json([
                 'status'=>true,
-                'data'=>$store_product->quantity,
+                'recevied'=>$recevied->quantity,
             ]);
         }else{
             return response()->json([
@@ -71,47 +105,72 @@ class StoreController extends Controller
     public function ready_meals(Request $request,$id){
      
         $meal=Meal::find($id);
+        $readymeal=ReadyMeal::where('meal_id',$id)->where('date',Carbon::today())->first();
+       if(isset($readymeal)){
+      
+        $readymeal->update([
+            'quantity'=>$readymeal->quantity + 1,
+        ]);
+       }
+       else{
         ReadyMeal::create([
-                'meal_id'=>$meal->id,
-                'quantity'=>$request['quantity'],
-                'date'=>Carbon::now()->tomorrow(),
-            ]);
+            'meal_id'=>$meal->id,
+            'quantity'=>$request['quantity'],
+            'date'=>Carbon::today(),
+        ]);
+       }
+       
             return response()->json([
                 'status'=>true,
-                'data'=>$meal->quantity,
+                'readymeal'=>$readymeal->quantity,
             ]);     
     }
     public function operarion_manger_view(){
        
-        $readymeals=ReadyMeal::where('date',Carbon::now()->tomorrow())->get();
+        $readymeals=ReadyMeal::where('date',Carbon::today())->get();
         return view('admin.stores.operarion_manger_view',compact('readymeals'));
 
     }
     public function receive_meals(Request $request,$id){
-     
+    
         $meal=ReadyMeal::find($id);
+        if($meal->received_quantity < $meal->quantity){
         $meal->update([
-           'received'=>1,
+           'received_quantity'=> $meal->received_quantity+1,
         ]);
+       }
             return response()->json([
                 'status'=>true,
+                'received_quantity'=>$meal->received_quantity
             ]);     
     }
     public function distributed_meals(Request $request,$id){
      
         $meal=ReadyMeal::find($id);
+        if($meal->distributed_quantity < $meal->quantity){
+
         $meal->update([
-           'distributed'=>1,
+            'distributed_quantity'=> $meal->distributed_quantity+1,
+
         ]);
+        }
             return response()->json([
                 'status'=>true,
+                'distributed_quantity'=> $meal->distributed_quantity,
             ]);     
     }
 
-    public function driver_manger_view(){
+    public function driver_manger_view(Request $request){
        
-        $subcriptipns=ClientSubscriptions::where('end', '>=', Carbon::now()->tomorrow())->pluck('client_id','id')->toArray();
-        $clients=Client::whereIn('id',$subcriptipns)->orderBy('address')->get();
+        if ($request->has('from') && $request->has('to')) {
+            $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
+             ->whereBetween('end',[$request['from'],$request['to']])       
+             ->where('active','1')
+            ->pluck('client_id','id')->toArray();
+        $clients=Client::whereIn('id',$subcriptipns_id)->orderBy('address')->get();
+        }else{
+            $clients=[]; 
+        }
         $users=User::where('role','driver')->get();
         return view('admin.stores.driver_manger_view',compact('clients','users'));
     }
@@ -120,7 +179,7 @@ class StoreController extends Controller
                     ClientDriver::create([
                         'client_id'=>$id,
                         'user_id'=>$request['user_id'],
-                        'date'=>Carbon::now()->tomorrow(),
+                        'date'=>Carbon::today(),
                     ]);
 
                     $driver=User::find($request['user_id']);

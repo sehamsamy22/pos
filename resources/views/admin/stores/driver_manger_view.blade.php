@@ -17,23 +17,44 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
+                            <form action="" method="post" accept-charset="utf-8" >
+                              @csrf
+                            <div class="form-group col-sm-4">
+                                <label for="from"> الفترة من </label>
+                                {!! Form::date("from",request('from'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة من ',"id"=>'from'])!!}
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="to"> الفترة إلي </label>
+                                {!! Form::date("to",request('to'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة إلي ',"id"=>'to'])!!}
+                            </div>
 
+                            <div class="form-group col-sm-4">
+                               <label for="">   </label>
+                                <button type="submit" class="btn btn-success btn-block">بحث</button>
+                            </div>
+                            </form>
+                            <div class="clearfix"></div>
 
                             <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>اسم العميل</th>
-                                    <th>اسناد للسائق </th>
-                                         
+                                    <th> المنطقة</th>
+                                    <th> الجوال</th>
+                                       <th> التاريخ</th>
+                                    <th> العمليات </th>             
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php $i = 1; @endphp
                                 @foreach($clients as $row)     
                                     <tr>
-                                        <td>{{$i++}}</td>
-                                        <td>{{$row->name}}</td>                           
+                                        <td>{{$i++}}</td>                   
+                                        <td>{{$row->name}}</td>  
+                                        <td>{{$row->address}}</td>  
+                                        <td>{{$row->phone}}</td> 
+                                       <td></td>                            
                                         <td>  
                                         <label  class="operation_btn{{$row->id}}"></label>
                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$row->id}}" id="submit_btn{{$row->id}}"> اسناد للسائق</button>

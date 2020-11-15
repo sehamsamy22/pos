@@ -16,7 +16,23 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
+                         <form action="" method="post" accept-charset="utf-8" >
+                              @csrf
+                            <div class="form-group col-sm-4">
+                                <label for="from"> الفترة من </label>
+                                {!! Form::date("from",request('from'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة من ',"id"=>'from'])!!}
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="to"> الفترة إلي </label>
+                                {!! Form::date("to",request('to'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة إلي ',"id"=>'to'])!!}
+                            </div>
 
+                            <div class="form-group col-sm-4">
+                               <label for="">   </label>
+                                <button type="submit" class="btn btn-success btn-block">بحث</button>
+                            </div>
+                            </form>
+                            <div class="clearfix"></div>
 
 
             <ul class="nav nav-tabs">
@@ -25,14 +41,17 @@
              </ul>
 
                     <div class="tab-content">
+               
                         <div role="tabpanel" id="menu1" class="tab-pane active">
                             <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
+
                                     <th>#</th>
                                     <th>اسم الصنف</th>
                                     <th>الكميه المتوفرة</th>
                                     <th>الكمية المطلوبه  </th>
+                                       <th>الكمية المستلمة  </th>
                                     <th>استلام </th>
                                 </tr>
                                 </thead>
@@ -41,12 +60,20 @@
                                 @foreach($storeproducts as $row)
                                   <form id="form-{{$row->id}}" >
                                    @csrf
+                                   @php
+                                   if(isset($request)){
+                                       $qty=$row->quantity($row->product->id,$request);
+                                 
+                                   }
+                                   @endphp
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->product->ar_name}}</td>
-                                        <td><input name="" type="number" class="form-control"  value={{$row->quantity}} id="quantity{{$row->id}}" readonly></td>
+                                        <td><input name="" type="number" class="form-control"  value={{$row->quantity}} readonly></td>
                                     
-                                        <td><input type='number' class="form-control" name='quantity' value={{$row->product->orders($row->product->id)}}  readonly></td>
+                                        <td><input type='number' class="form-control"  value={{$row->product->orders($row->product->id)}}  readonly></td>
+                                       <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value={{$qty ?? '0'}} readonly></td>
+
                                         <td class="received_btn{{$row->id}}">  
 
                                         <button type="submit" class="btn btn-danger " onclick="myfun({{$row->id}})" id="submit_btn{{$row->id}}">استلام</button>
@@ -66,6 +93,7 @@
                                         <th>#</th>
                                         <th>اسم الوجبة</th>
                                         <th>الكميه المطلوبة</th>
+                                       <th>الكميه تم تجيهزها</th>
                                         <th>الحالة </th>
                                     </tr>
                                     </thead>
@@ -74,10 +102,16 @@
                                     @foreach($meals as $row)
                                      <form id="formready-{{$row->id}}" >
                                       @csrf
+                                      @php
+                                   if(isset($request)){
+                                       $qty=$row->quantity($row->id,$request);
+                                   }
+                                   @endphp
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$row->ar_name}}</td>                                   
                                            <td><input type='number' class="form-control" name='quantity' value={{$row->orders($row->id)}}  readonly></td>
+                                           <td><input type='number' class="form-control" name=''  id="readyquantity{{$row->id}}" value={{$qty ?? '0'}}   readonly></td>
 
                                            <td class="ready_btn{{$row->id}}">  
 
@@ -122,6 +156,8 @@
                                     x.setAttribute("class", "btn btn-success");
                             document.getElementsByClassName("received_btn"+id)[0].appendChild(x);
                                    
+                          $('#receivedquantity'+id).val(data.recevied);  
+
                         }else if(data.status='false'){
                           swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
                                     buttons: 'موافق'
@@ -151,13 +187,15 @@
                             swal("  تم التجهيز", " تم تجهيز الوجبات", 'success', {
                                     buttons: 'موافق'
                             }); 
-                            $('#submit_btn_ready'+meal_id).remove();
+                            $('#submit_btn_ready'+ meal_id).remove();
                             var xx = document.createElement("INPUT");
                                     xx.setAttribute("type", "button");
                                     xx.setAttribute("value", "تم التجهيز");
                                     xx.setAttribute("class", "btn btn-success");
                                document.getElementsByClassName("ready_btn"+meal_id)[0].appendChild(xx);
-                                   
+                               console.log(meal_id);
+                                $('#readyquantity'+meal_id).val(data.readymeal);  
+                              
                         }    
                     }   
                 });     

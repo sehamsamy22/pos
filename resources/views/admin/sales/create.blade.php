@@ -20,7 +20,7 @@
             <div class="card-box">
 
 
-                <h4 class="header-title m-t-0 m-b-30">بيانات  القياس</h4>
+                {{-- <h4 class="header-title m-t-0 m-b-30">بيانات  القياس</h4> --}}
 
                 <div class="row">
 
@@ -54,8 +54,14 @@
                             </div>
                         </div>
                     </div>
+                   
+                       <div class="re" style=" margin-left: 309px;">
+                      <a class="reload"><i class="zmdi zmdi-arrow-right" style="font-size: x-large;"></i></a>
+                      </div>
+
                         <div class="categories">
-                            <fieldset >
+                            
+                            <fieldset class="cat">
                                 <legend > التصنيفات الرئيسة </legend>
                                 @foreach($categories as $category)
                                 <a href=""   class=" btn btn-success category_btn" data-id="{{$category->id}}">{{$category->name}}</a>
@@ -256,6 +262,19 @@
          });
      });
 
+$(".reload").click(function () {
+
+ $.ajax({
+             url:"/dashboard/getAllcategoriesSale/",
+             type:"get",
+         }).done(function (data) {
+         $('.cat').empty().append();
+        $('.cat').html(data.data);
+         });
+
+
+
+});
     </script>
 
 @endsection

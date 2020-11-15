@@ -23,8 +23,10 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>اسم الصنف</th>
-                                    <th>الكميه المتوفرة</th>
+                                    <th>اسم الوجبة</th>
+                                    <th>الكميه تم تجهزيها</th>
+                                      <th>الكميه المستلمة</th>
+                                        <th>الكميه الموزعة </th>
                                     <th>العمليات </th>
                                          
                                 </tr>
@@ -37,12 +39,16 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->meal->ar_name}}</td>
-                                
+                                           
                                         <td><input type='number' class="form-control" name='quantity' value={{$row->quantity}}  readonly></td>
+                                        <td><input type='number' class="form-control" name='received_quantity' value={{$row->received_quantity}} id='received_quantity{{$row->id}}' readonly></td>
+                                        <td><input type='number' class="form-control" name='distributed_quantity' value={{$row->distributed_quantity}}  id='distributed_quantity{{$row->id}}' readonly></td>
                                         <td class="operation_btn{{$row->id}}">  
+                                      
                                         <button type="submit" class="btn btn-danger " onclick="myfun({{$row->id}})" id="submit_btn{{$row->id}}">استلام</button>
-                                        <button type="submit" class="btn btn-primary " onclick="myfun_distributed({{$row->id}})" id="submit_btn_distributed{{$row->id}}">توزيع</button>
-
+    
+                                        <button type="submit" class="btn btn-primary " onclick="myfun_distributed({{$row->id}})" id="submit_btn_distributed{{$row->id}}">  توزيع فى الاكياس</button>
+                                     
                                         </td>
                                     </tr>
                                     </form>
@@ -80,7 +86,8 @@
                                     x.setAttribute("value", "تم الاستلام");
                                     x.setAttribute("class", "btn btn-success");
                             document.getElementsByClassName("operation_btn"+id)[0].appendChild(x);
-                                   
+                         $('#received_quantity'+id).val(data.received_quantity);  
+
                         }else if(data.status='false'){
                           swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
                                     buttons: 'موافق'
@@ -107,7 +114,7 @@
                     success: function(data)
                     {
                         if(data.status='true'){
-                            swal("  تم التوزيع", " تم توزيع الوجبات", 'success', {
+                            swal("  تم التوزيع", "تم توزيع الوجبات  فى الاكياس ", 'success', {
                                     buttons: 'موافق'
                             }); 
                             $('#submit_btn_distributed'+id).remove();
@@ -116,7 +123,8 @@
                                     xx.setAttribute("value", "تم التوزيع");
                                     xx.setAttribute("class", "btn btn-success");
                                document.getElementsByClassName("operation_btn"+id)[0].appendChild(xx);
-                                   
+                            $('#distributed_quantity'+id).val(data.distributed_quantity);  
+     
                         }    
                     }   
                 });     
