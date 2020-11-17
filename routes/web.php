@@ -71,7 +71,15 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::POST('/assign_driver/{id}', 'StoreController@assign_driver');
     //===============================accounts
     route::resource('accounts', 'AccountController');
-    //
+    route::resource('entries', 'EntryController');
+
+    Route::group(['prefix' => 'entries'], function () {
+    
+        Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
+        Route::get('posting/{id}', ['as' => 'entries.posting', 'uses' => 'EntryController@posting']);
+        Route::get('toAccounts/{id}', ['as' => 'entries.toAccounts', 'uses' => 'EntryController@toaccounts']);
+
+    });
 });
 
 Auth::routes();

@@ -117,6 +117,8 @@
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.accounts.index')}}"><i class="zmdi zmdi-view-list"></i>عرض   الدليل المحاسبى     </a></li>
 
+                        <li><a href="{{route('dashboard.entries.index')}}"><i class="zmdi zmdi-view-list"></i>  عرض القيود </a></li>
+
                     </ul>
                 </li>
 
