@@ -17,6 +17,7 @@ class EntryObserver
                 }
     }
 
+    
    public  function  created(Entry $entry){
 
     // dd( $entry->accounts_debtor());
