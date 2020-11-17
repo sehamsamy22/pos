@@ -49,7 +49,8 @@ class AccountObserver
                 $account->level = $lastsubAcount->level;
 
             }else{
-                $account->code = $perantAccount->code . 0001;
+              
+                $account->code = $perantAccount->code . "000" . 1;
                 $account->level = $perantAccount->level + 1 ;
 
             }
