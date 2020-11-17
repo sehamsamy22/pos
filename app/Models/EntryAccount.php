@@ -30,4 +30,9 @@ class EntryAccount extends Model
         return $accounts_creditor;
     }
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class,'account_id');
+    }
+
 }

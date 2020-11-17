@@ -56,9 +56,6 @@ class EntryController extends Controller
 
         ];
 
-
-        // $this->ManualCreateEntry($request);
-
         $requests = $request->except('from_account_id','to_account_id');
 
 
@@ -115,7 +112,10 @@ class EntryController extends Controller
      */
     public function show($id)
     {
-        //
+        $entry =Entry::find($id);
+        $accounts=EntryAccount::where('entry_id',$id)->get();
+        return view('admin.entries.show', compact('entry','accounts'));
+
     }
 
     /**
@@ -149,7 +149,10 @@ class EntryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $entry =Entry::find($id);
+        $entry->delete();
+        return redirect()->route('dashboard.entries.index')->with('success', __('تم الحذف بنجاح'));
+
     }
 
 

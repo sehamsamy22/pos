@@ -109,9 +109,8 @@
                             @endif --}}
                         </td>
                         <td class="text-center">
-                            {{-- @if ($row->status=='new' && $row->type=='manual') --}}
-                            <a href="#" data-toggle="tooltip" data-original-title="تعديل"class="label label-warning">تعديل </a>
-                            {{-- @endif --}}
+                            <a href="{{route('dashboard.entries.show',$row->id)}}" data-toggle="tooltip" data-original-title="تعديل"class="label label-warning">عرض التفاصيل </a>
+
                             <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف"class="label label-danger">حذف </a>
 
                             {!!Form::open( ['route' => ['dashboard.entries.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
