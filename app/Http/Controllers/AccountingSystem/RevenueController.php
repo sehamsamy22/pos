@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AccountingSystem;
 use App\Http\Controllers\Controller;
 use App\Models\ClientSubscriptions;
 use App\Models\Entry;
+use App\Models\EntryAccount;
 use App\Models\Revenue;
 use App\Models\Revnue;
 use Illuminate\Http\Request;
@@ -70,7 +71,43 @@ class RevenueController extends Controller
                             'status'=>'new',
                     ]);
 
-                    
+                     EntryAccount::create([
+                        'entry_id'=>$entry->id,
+                        'account_id'=> $clients_subscription->client_id,
+                        'affect'=>'debtor',
+                        'amount'=>$request['amount'],
+                    ]);
+                    EntryAccount::create([
+                        'entry_id'=>$entry->id,
+                        'account_id'=> getsetting('cash'),
+                        'affect'=>'creditor',
+                        'amount'=>$request['amount'],
+                    ]);
+
+
+                }elseif($request['payment_type']=='mada')
+                {
+                    $entry=Entry::create([
+                        'date'=>$revenue->created_at,
+                            'source'=>'سند قبض اشتراكات',
+                            'type'=>'automatic',
+                            'details'=>'سند قبض اشتراكات',
+                            'status'=>'new',
+                    ]);
+
+                     EntryAccount::create([
+                        'entry_id'=>$entry->id,
+                        'account_id'=> $clients_subscription->client_id,
+                        'affect'=>'debtor',
+                        'amount'=>$request['amount'],
+                    ]);
+                    EntryAccount::create([
+                        'entry_id'=>$entry->id,
+                        'account_id'=> getsetting('mada'),
+                        'affect'=>'creditor',
+                        'amount'=>$request['amount'],
+                    ]);
+
 
                 }
 
