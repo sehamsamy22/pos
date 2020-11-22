@@ -116,6 +116,7 @@ class MealController extends Controller
      */
     public function update(MealRequest $request, Meal $meal)
     {
+
         $requests = $request->except('image');
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
@@ -126,16 +127,27 @@ class MealController extends Controller
             $product->delete();
         }
        }
-       if(isset($requests['products'])){
-        $components= collect($requests['products'])->zip(collect($requests['qtys']));
-        foreach($components as $component){
-            MealProduct::create([
-                'meal_id'=>$meal->id,
-                'product_id'=>$component[0],
-                'quantity'=>$component[1],
-            ]);
+       if(isset($requests['product_id'])){
+            $components= collect($requests['component_names'])->zip(collect($requests['qtys']));
+            foreach($components as $component){
+                MealProduct::create([
+                    'meal_id'=>$meal->id,
+                    'product_id'=>$component[0],
+                    'quantity'=>$component[1],
+                ]);
+            }
         }
-    }
+
+        if(isset($requests['old_product'])){
+            $oldproducts= collect($requests['old_product'])->zip(collect($requests['old_product_quantity']));
+            foreach($oldproducts as $product){
+                MealProduct::create([
+                    'meal_id'=>$meal->id,
+                    'product_id'=>$product[0],
+                    'quantity'=>$product[1],
+                ]);
+            }
+        }
         return redirect()->route('dashboard.meals.index')->with('success', __('تم التعديل'));
 
     }
