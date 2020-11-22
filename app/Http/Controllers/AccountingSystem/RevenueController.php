@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClientSubscriptions;
+use App\Models\Entry;
 use App\Models\Revenue;
 use App\Models\Revnue;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RevenueController extends Controller
      */
     public function index()
     {
-       
+
         $revenues=Revenue::all();
 
         return view('admin.revenues.index',compact('revenues'))
@@ -42,18 +43,40 @@ class RevenueController extends Controller
      */
     public function store(Request $request)
     {
+
         if($request['type']=='subscription'){
             $clients_subscription=ClientSubscriptions::find($request['client_subscription_id']);
             $clients_subscription->update([
                 'payed'=>$clients_subscription->payed+$request['amount'],
                 'reminder'=>$clients_subscription->reminder-$request['amount'],
             ]);
-          Revenue::create([
+        $revenue=  Revenue::create([
                 'client_subscription_id'=>$request['client_subscription_id'],
                 'amount'=>$request['amount'],
-                'type'=>'subscription'
+                'type'=>'subscription',
+                "payment_type" => "veza"
+
             ]);
-            
+
+            // $table->enum('payment_type',['cash','master','veza','mada'])->nullable();
+
+            if($request['payment_type']=='cash')
+                {
+                    $entry=Entry::create([
+                        'date'=>$revenue->created_at,
+                            'source'=>'سند قبض اشتراكات',
+                            'type'=>'automatic',
+                            'details'=>'سند قبض اشتراكات',
+                            'status'=>'new',
+                    ]);
+
+                    
+
+                }
+
+
+
+
             return back()->with('success', 'تم  الدفع بنجاخ ');
 
         }
@@ -106,7 +129,7 @@ class RevenueController extends Controller
 
     }
     public function payment_subscription($id){
-       
+
         $clients_subscription=ClientSubscriptions::find($id);
 
         return view('admin.clients_subscriptions.payment',compact('clients_subscription'));

@@ -7,12 +7,12 @@
     <div class="row">
         <div class="col-sm-12">
 
-            <div class="btn-group pull-right m-t-15">
+            {{--  <div class="btn-group pull-right m-t-15">
                 <a href="{{route('dashboard.revenues.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
                    إضافة  سند دفع جديد
                     <span class="m-l-5"><i class="fa fa-plus"></i></span>
                 </a>
-            </div>
+            </div>  --}}
 
             <h4 class="page-title"> المدفوعات والايردات</h4>
         </div>
@@ -47,7 +47,7 @@
                             @if($row->type=='subscription')
                                     اشتراك
                             @elseif($row->type=='sale')
-                                       بيع  
+                                       بيع
                             @endif
                             </td>
                             <td>{{$row->amount}}</td>

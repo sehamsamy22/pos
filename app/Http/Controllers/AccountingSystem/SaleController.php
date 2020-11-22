@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Client;
 use App\Models\Meal;
 use App\Models\Product;
+use App\Models\Revenue;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SubCategory;
@@ -50,7 +51,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-
+//  dd($request->all());
 
         $sale=Sale::create([
             'user_id'=>Auth::id(),
@@ -60,8 +61,10 @@ class SaleController extends Controller
             'amount'=>$request['amount'],
             'discount'=>$request['discount'],
             'total'=>$request['total'],
+            'payed'=>$request['payed'],
 
         ]);
+
         $meals = collect($request['meal_id']);
         $qtys = collect($request['quantity']);
         $prices = collect($request['prices']);
@@ -74,6 +77,14 @@ class SaleController extends Controller
                 'total_price'=>$item[1]*$item[2],
             ]);
         }
+
+        Revenue::create([
+            'sale_id'=>$sale->id,
+            'amount'=>$request['amount'],
+            'type'=>'sale',
+            "payment_type" =>$request['payment_type'],
+            'date'=>$request['date'],
+        ]);
 
         alert()->success('تم البيع بنجاح !')->autoclose(5000);
         return back();

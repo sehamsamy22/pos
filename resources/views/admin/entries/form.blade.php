@@ -47,7 +47,7 @@
 			</td>
 
 			<td>
-				<select name="account_id[]" class="form-control">
+				<select name="account_id[]" class="form-control js-example-basic-single">
                     @foreach ($accounts as $account)
                     @if($accountEntry->account_id==$account->id)
 					<option value={{$account->id}}    selected >{{$account->name}} -{{$account->code}}</option>
@@ -79,9 +79,9 @@
 				<input type="number" min="0" name="creditor[]" class="form-control creditor" value="0">
 			</td>
 			<td>
-				<select name="account_id[]" class="form-control">
+				<select name="account_id[]" class="form-control js-example-basic-single" >
 					@foreach ($accounts as $account)
-					<option value={{$account->id}}>{{$account->name}} -{{$account->amount}}</option>
+					<option value={{$account->id}}>{{$account->name}} -{{$account->code}}</option>
 					@endforeach
 				</select>
 			</td>
@@ -151,6 +151,7 @@
 </script>
 <script>
 	$(document).ready(function(){
+     
 		$("#add-new").on('click' , function(){
 			var num = $("#qyoud-table-tbody tr").length + 1;
 			$("#qyoud-table-tbody").append(`<tr class="single-row">
@@ -163,7 +164,7 @@
 				<input type="number" min="0" name="creditor[]" class="form-control creditor" value="0">
 			</td>
 			<td>
-				<select name="account_id[]" class="form-control">
+				<select name="account_id[]" class="form-control js-example-basic-single">
 					@foreach ($accounts as $account)
 					<option value={{$account->id}}>{{$account->name}} -{{$account->code}}</option>
 					@endforeach
@@ -175,7 +176,8 @@
 			<td>
 				<a href="#" class="btn btn-danger">X</a>
 			</td>
-		</tr>`);
+        </tr>`);
+
 			calc();
 			$('.creditor').change(function(){
 				$(this).parents('tr').find('.debtor').val('0');

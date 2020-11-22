@@ -111,6 +111,20 @@
                                             <input type="text" class="form-control" name=""  id="amount_required" disabled>
                                         </div>
                                     </div>
+
+                                    <div class="form-group form-float">
+                                        <label class="form-label">    طريقة الدفع</label>
+                                        <div class="form-line ">
+                                            <span  class="dynamic-span"></span>
+                                            <select name="payment_type" class="form-control" id="payment_type" >
+                                                <option value="cash">كاش</option>
+                                                <option value="master">ماستر</option>
+                                                <option value="veza">فيزا</option>
+                                                <option value="mada">مدى</option>
+                                              </select>
+
+                                        </div>
+                                    </div>
                                     <div class="form-group form-float">
                                         <label class="form-label">    المبلغ المدفوع</label>
                                         <div class="form-line total">
@@ -135,7 +149,7 @@
                     </div>
 
         <div class="form-group text-right m-b-0">
-            
+
             <button type="button" class="btn btn-warning btn_bill" data-toggle="modal" data-target="#exampleModalCenter">
                                         الدفع</button>
 

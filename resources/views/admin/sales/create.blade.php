@@ -54,18 +54,16 @@
                             </div>
                         </div>
                     </div>
-                   
-                       <div class="re" style=" margin-left: 309px;">
-                      <a class="reload"><i class="zmdi zmdi-arrow-right" style="font-size: x-large;"></i></a>
-                      </div>
+
+
 
                         <div class="categories">
-                            
+
                             <fieldset class="cat">
                                 <legend > التصنيفات الرئيسة </legend>
                                 @foreach($categories as $category)
                                 <a href=""   class=" btn btn-success category_btn" data-id="{{$category->id}}">{{$category->name}}</a>
-                            @endforeach
+                                 @endforeach
                             </fieldset>
 
                         </div>
@@ -123,20 +121,75 @@
 
                     <div class="col-sm-12 col-xs-12 card text-right" >
                         <button type="button" class="btn btn-purple waves-effect w-md m-b-5">فاتوره جديده</button>
-                        <button type="button" class="btn btn-info waves-effect w-md m-b-5"> دفع</button>
 
-                        <button type="submit" class="btn btn-inverse waves-effect w-md m-b-5">حفظ</button>
-                            <button type="button" class="btn btn-danger waves-effect w-md m-b-5">طباعه</button>
+                        <button type="button" class="btn btn-inverse waves-effect w-md m-b-5" data-toggle="modal" data-target="#exampleModalCenter">
+                            حفظ</button>
 
                     </div>
 
 
 
+
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">الدفع </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group form-float">
+                                    <label class="form-label">   المطلوب دفعة</label>
+                                    <div class="form-line total">
+                                        <span  class="dynamic-span"></span>
+                                        <input type="text" class="form-control" name=""  id="amount_required" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <label class="form-label">    طريقة الدفع</label>
+                                    <div class="form-line ">
+                                        <span  class="dynamic-span"></span>
+                                        <select name="payment_type" class="form-control" id="payment_type" >
+                                            <option value="cash">كاش</option>
+                                            <option value="master">ماستر</option>
+                                            <option value="veza">فيزا</option>
+                                            <option value="mada">مدى</option>
+                                          </select>
+
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label class="form-label">    المبلغ المدفوع</label>
+                                    <div class="form-line total">
+                                        <span  class="dynamic-span"></span>
+                                        <input type="text" class="form-control" name="payed"  id="payed">
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label class="form-label">المتبقى</label>
+                                    <div class="form-line total">
+                                        <span  class="dynamic-span"></span>
+                                        <input type="text" class="form-control" name=""  id="reminder" disabled >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button> --}}
+                                <button type="submit" class="btn btn-primary"  onclick="document.getElementById('form').submit();" data-dismiss="modal"> حفظ </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end model -->
+
                 {!!Form::close() !!}
-
-
-
-
 
                 </div><!-- end row -->
             </div>
@@ -155,7 +208,9 @@
             $('.inlinedatepicker').val(new Date().toLocaleString());
         });
      //**************  category click ***********************
+
      var  rowNum=0;
+
      $(".category_btn").on('click', function(e) {
          e.preventDefault();
          var id=$(this).data('id');
@@ -165,6 +220,18 @@
          }).done(function (data) {
              $('.categories').empty();
              $('.categories').html(data.data);
+
+             $("#reload").click(function(){
+                $.ajax({
+                            url:"/dashboard/getAllcategoriesSale/",
+                            type:"get",
+                        }).done(function (data) {
+                        $('.cat').empty().append();
+                        $('.cat').html(data.data);
+
+
+                        });
+                         });
              //**************   subcategory click ***********************
 
                 $(".subcategory_btn").on('click', function(e) {
@@ -177,6 +244,17 @@
 
                      $('.categories').empty();
                      $('.categories').html(data.data);
+                     $("#reload").click(function(){
+
+                        $.ajax({
+                                    url:"/dashboard/getAllcategoriesSale/",
+                                    type:"get",
+                                }).done(function (data) {
+                                $('.cat').empty().append();
+                                $('.cat').html(data.data);
+
+                            });
+                                 });
                      $(".meal_btn").on('click', function(e) {
                          e.preventDefault();
                          var meal_id = $(this).data('id');
@@ -239,14 +317,28 @@
                              });
                              $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
                              $("#total").val(AmountBeforeDiscount.toFixed(2));
-
+                             $('#amount_required').val($('#total').val());
+                             $("#payed").change(function() {
+                                 var payed=$(this).val();
+                                 var reminder= Number($("#amount_required").val()) - Number(payed);
+                                 $("#reminder").val(reminder.toFixed(2));
+                             });
                              $("#discount").change(function() {
                                  var discount=$(this).val();
 
                                  var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
                                  $("#total").val(Number(AmountBeforeDiscount)-Number(discount_val));
 
-                             });
+                                 $('#amount_required').val($('#total').val());
+                                 $("#payed").change(function() {
+                                     var payed=$(this).val();
+                                     var reminder= Number($("#amount_required").val()) - Number(payed);
+                                     $("#reminder").val(reminder.toFixed(2));
+                                 });
+                                });
+
+
+
 
                          }
                       });
@@ -262,19 +354,7 @@
          });
      });
 
-$(".reload").click(function () {
 
- $.ajax({
-             url:"/dashboard/getAllcategoriesSale/",
-             type:"get",
-         }).done(function (data) {
-         $('.cat').empty().append();
-        $('.cat').html(data.data);
-         });
-
-
-
-});
     </script>
 
 @endsection

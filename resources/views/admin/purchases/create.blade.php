@@ -385,14 +385,14 @@
                $("#amountAfterDariba").val(amountBeforeDariba+tax_val);
                // $("#amountOfDariba span.dynamic-span").html(amountOfDariba.toFixed(2));
                $("#total").val(amountAfterDariba.toFixed(2));
-               var  totalAfterFixTax=$("#total").val() ;
+               var  totalAfterFixTax=amountBeforeDariba+tax_val ;
+               {{--  console.log(amountBeforeDariba+tax_val);  --}}
                $("#bill_discount").change(function() {
 
                    var bill_discount=$(this).val();
 
-                  {{-- alert(Number(amountBeforeDariba) * (Number(bill_discount) / 100)); --}}
                     var discount_val= Number(totalAfterFixTax)*(Number(bill_discount)/100);
-
+               console.log(totalAfterFixTax);
                    $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
                    $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
                    $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
