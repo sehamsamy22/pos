@@ -36,7 +36,7 @@
                             </div>
                             </form>
                             <div class="clearfix"></div>
-      
+
 
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -44,9 +44,11 @@
                     <tr>
                         <th>#</th>
                         <th>اسم الصنف</th>
+                        <th>كود الصنف</th>
                         <th>الكميه المتوفرة</th>
                         <th>الكمية المطلوبه  </th>
                         <th>الحالة </th>
+                        {{--  <th>عرض بيانات الصنف </th>  --}}
                     </tr>
                     </thead>
                     <tbody>
@@ -55,19 +57,31 @@
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
+                            <td>{{$row->product->barcode}}</td>
                             <td>{{$row->quantity}}</td>
-                         
-                            <td>{{$row->product->orders($row->product->id)}}</td>
-                            <td> 
-                            @if($row->quantity > $row->product->orders($row->product->id))
-                                <label class="label label-success">زياده=</label>
-                                {{$row->quantity - $row->product->orders($row->product->id)}}
-                             @elseif($row->quantity < $row->product->orders($row->product->id))
-                                 <label class="label label-danger">نقص=</label>
-                              {{ $row->product->orders($row->product->id)-$row->quantity }}
-                              
-                            @endif
-                            </td>
+                                @if($request)
+                                <td>{{$row->product->orders($row->product->id,$request)}}</td>
+                                <td>
+                                @if($row->quantity > $row->product->orders($row->product->id,$request))
+                                    <label class="label label-success">زياده=</label>
+                                    {{$row->quantity - $row->product->orders($row->product->id,$request)}}
+                                 @elseif($row->quantity < $row->product->orders($row->product->id,$request))
+                                     <label class="label label-danger">نقص=</label>
+                                  {{ $row->product->orders($row->product->id,$request)-$row->quantity }}
+
+                                @endif
+                                </td>
+                                <td>
+
+                                </td>
+                                @else
+                                <td></td>
+                                <td></td>
+
+                                @endif
+
+
+
                         </tr>
                     @endforeach
                     </tbody>

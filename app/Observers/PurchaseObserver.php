@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Models\Entry;
+use App\Models\EntryAccount;
 use App\Models\Purchase;
 
 class PurchaseObserver
@@ -14,6 +16,29 @@ class PurchaseObserver
      */
     public function created(\App\Models\Purchase $purchase)
     {
+
+        $entry=Entry::create([
+            'date'=>$purchase->created_at,
+                'source'=>'فاتورة مشتريات',
+                'type'=>'automatic',
+                'details'=>'فاتورة مشتريات',
+                'status'=>'new',
+        ]);
+
+         EntryAccount::create([
+            'entry_id'=>$entry->id,
+            'account_id'=>getsetting('accounting_purchase_id'),
+            'affect'=>'debtor',
+            'amount'=>$purchase->total,
+        ]);
+        EntryAccount::create([
+            'entry_id'=>$entry->id,
+            'account_id'=> $purchase->supplier_id,
+            'affect'=>'creditor',
+            'amount'=>$purchase->total,
+        ]);
+
+
 
     }
 

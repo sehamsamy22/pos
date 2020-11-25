@@ -14,10 +14,8 @@ class StoreProduct extends Model
         return $this->belongsTo(Product::class,'product_id');
     }
     public function quantity($product_id,$request){
-       
-        $qty=ReceivedProduct::where('product_id',$product_id)->whereBetween('date',[$request['from'],$request['to']])->first();
-   
+        $qty=ReceivedProduct::where('product_id',$product_id)->first();
         return $qty->quantity;
     }
-    
+
 }

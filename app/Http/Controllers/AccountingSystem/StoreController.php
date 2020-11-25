@@ -13,6 +13,7 @@ use App\Models\ReceivedProduct;
 use App\Models\StoreProduct;
 use App\Models\Subscription;
 use App\Models\SubscriptionMeal;
+use App\Observers\ClientObsever;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,22 +34,19 @@ class StoreController extends Controller
             $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
              ->orWhereBetween('end',[$request['from'],$request['to']])
              ->where('active','1')
-            ->pluck('subscription_id','id')->toArray();
-
-
-
+             ->pluck('subscription_id','id')->toArray();
             $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
-
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
-
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
-                $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+            $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
 
          }else
         {
             $storeproducts=[];
+            $request=[];
         }
-        return view('admin.stores.purchase_order',compact('storeproducts'));
+
+        return view('admin.stores.purchase_order',compact('storeproducts','request'));
 
     }
     public function cooker_view(Request $request){
@@ -58,13 +56,12 @@ class StoreController extends Controller
              ->where('active','1')
             ->pluck('subscription_id','id')->toArray();
 
-
             $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
             $meals=Meal::whereIn('id',$meals_)->get();
-            $products=Meal::whereIn('id',$meals_)->with('products')->pluck('id','id')->toArray();
-           $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+            $products=MealProduct::whereIn('meal_id',$meals)->pluck('product_id','id')->toArray();
+            $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
 
-         }else
+        }else
         {
             $storeproducts=[];
             $meals=[];
@@ -76,34 +73,33 @@ class StoreController extends Controller
     public function receive_products(Request $request,$id){
 
         $store_product=StoreProduct::find($id);
-
         ///=======================store auantity update===================
-        if($store_product->quantity > 1){
+        if($store_product->quantity > 0){
             $store_product->update([
-                'quantity'=>$store_product->quantity -1,
+                'quantity'=>$store_product->quantity -$request['received_quantity'],
             ]);
            $recevied= ReceivedProduct::where('product_id',$store_product->product->id)->where('date',Carbon::today())->first();
           if(isset($recevied)){
             $recevied->update([
-                'quantity'=> $recevied->quantity +1
+                'quantity'=> $recevied->quantity+$request['received_quantity']
             ]);
            }else{
-            ReceivedProduct::create([
+             ReceivedProduct::create([
                 'product_id'=>$store_product->product->id,
-                'quantity'=>0,
+                'quantity'=>$request['received_quantity'],
                 'date'=>Carbon::today(),
             ]);
            }
+
             return response()->json([
                 'status'=>true,
-                'recevied'=>$recevied->quantity,
+                'recevied'=>$recevied->quantity??$request['received_quantity'],
             ]);
         }else{
             return response()->json([
                 'status'=>false,
             ]);
         }
-
 
     }
 

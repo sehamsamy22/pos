@@ -34,7 +34,8 @@ class PurchaseController extends Controller
     {
         $suppliers=Supplier::pluck('name','id')->toArray();
         $products=Product::all();
-        return view('admin.purchases.create',compact('suppliers','products'));
+        $purchaselast=Purchase::latest()->first();
+        return view('admin.purchases.create',compact('suppliers','products','purchaselast'));
 
     }
 

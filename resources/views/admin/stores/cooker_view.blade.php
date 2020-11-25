@@ -35,13 +35,13 @@
                             <div class="clearfix"></div>
 
 
-            <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" role="tab" aria-controls="menu1" href="#menu1">   استلام الكميات  </a></li>
                         <li><a data-toggle="tab" role="tab" aria-controls="menu2" href="#menu2">  تجهيز الوجبات </a></li>
-             </ul>
+                     </ul>
 
                     <div class="tab-content">
-               
+
                         <div role="tabpanel" id="menu1" class="tab-pane active">
                             <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
@@ -57,26 +57,21 @@
                                 </thead>
                                 <tbody>
                                 @php $i = 1; @endphp
+
                                 @foreach($storeproducts as $row)
                                   <form id="form-{{$row->id}}" >
                                    @csrf
-                                   @php
-                                   if(isset($request)){
-                                       $qty=$row->quantity($row->product->id,$request);
-                                 
-                                   }
-                                   @endphp
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->product->ar_name}}</td>
                                         <td><input name="" type="number" class="form-control"  value={{$row->quantity}} readonly></td>
-                                    
-                                        <td><input type='number' class="form-control"  value={{$row->product->orders($row->product->id)}}  readonly></td>
-                                       <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value={{$qty ?? '0'}} readonly></td>
 
-                                        <td class="received_btn{{$row->id}}">  
+                                        <td><input type='number' class="form-control"  value={{$row->product->orders($row->product->id,$request??Null)}}  readonly></td>
+                                       <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value='0' readonly></td>
 
-                                        <button type="submit" class="btn btn-danger " onclick="myfun({{$row->id}})" id="submit_btn{{$row->id}}">استلام</button>
+                                        <td class="received_btn{{$row->id}}">
+                                            <input type='number' class="form-control" name="received_quantity">
+                                        <button type="submit" class="btn btn-danger " onclick="myfun({{$row->id}})" >استلام</button>
 
                                         </td>
                                     </tr>
@@ -109,11 +104,11 @@
                                    @endphp
                                         <tr>
                                             <td>{{$i++}}</td>
-                                            <td>{{$row->ar_name}}</td>                                   
-                                           <td><input type='number' class="form-control" name='quantity' value={{$row->orders($row->id)}}  readonly></td>
+                                            <td>{{$row->ar_name}}</td>
+                                           <td><input type='number' class="form-control" name='quantity' value={{$row->orders($row->id ,$request ?? Null) }}  readonly></td>
                                            <td><input type='number' class="form-control" name=''  id="readyquantity{{$row->id}}" value={{$qty ?? '0'}}   readonly></td>
 
-                                           <td class="ready_btn{{$row->id}}">  
+                                           <td class="ready_btn{{$row->id}}">
 
                                             <button type="submit" class="btn btn-warning " onclick="myfun_ready({{$row->id}})" id="submit_btn_ready{{$row->id}}">تجهيزوتحضير</button>
 
@@ -136,6 +131,7 @@
     <script>
 
         function myfun(id) {
+           console.log(id);
             $('#form-'+id).submit(function(e) {
                 e.preventDefault();
                 var form = $(this);
@@ -148,25 +144,18 @@
                         if(data.status='true'){
                             swal("  تم الاستلام", " تم استلام الاصناف من المخزن", 'success', {
                                     buttons: 'موافق'
-                            }); 
-                            $('#submit_btn'+id).remove();
-                            var x = document.createElement("INPUT");
-                                    x.setAttribute("type", "button");
-                                    x.setAttribute("value", "تم الاستلام");
-                                    x.setAttribute("class", "btn btn-success");
-                            document.getElementsByClassName("received_btn"+id)[0].appendChild(x);
-                                   
-                          $('#receivedquantity'+id).val(data.recevied);  
+                            });
+                          $('#receivedquantity'+id).val(data.recevied);
 
                         }else if(data.status='false'){
                           swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
                                     buttons: 'موافق'
                                 });
-                        }       
-                    }   
-                });     
-                
-            
+                        }
+                    }
+                });
+
+
 
             });
         }
@@ -186,7 +175,7 @@
                         if(data.status='true'){
                             swal("  تم التجهيز", " تم تجهيز الوجبات", 'success', {
                                     buttons: 'موافق'
-                            }); 
+                            });
                             $('#submit_btn_ready'+ meal_id).remove();
                             var xx = document.createElement("INPUT");
                                     xx.setAttribute("type", "button");
@@ -194,17 +183,16 @@
                                     xx.setAttribute("class", "btn btn-success");
                                document.getElementsByClassName("ready_btn"+meal_id)[0].appendChild(xx);
                                console.log(meal_id);
-                                $('#readyquantity'+meal_id).val(data.readymeal);  
-                              
-                        }    
-                    }   
-                });     
-                
-            
+                                $('#readyquantity'+meal_id).val(data.readymeal);
+
+                        }
+                    }
+                });
+
+
 
             });
         }
     </script>
 
 @endsection
- 

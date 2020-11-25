@@ -32,7 +32,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">رقم الفاتورة</label>
                             <div class="form-line">
-                                <input type="text" class="form-control" name="num">
+                                <input type="text" class="form-control" name="num" value="000{{  $salelast->id }}">
                             </div>
                         </div>
                     </div>
@@ -197,9 +197,10 @@
     </div>
 @endsection
 @section('scripts')
+@include('admin.layout.form_validation_js')
     <script src="{{asset('admin/assets/js/jquery.datetimepicker.full.min.js')}}"></script>
 
-    @include('admin.layout.form_validation_js')
+
     <script>
         $(document).ready(function() {
             // For initializing now date

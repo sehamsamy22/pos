@@ -2,6 +2,9 @@
 
 namespace App\Observers;
 
+use App\Models\Entry;
+use App\Models\EntryAccount;
+use App\Models\Sale as ModelsSale;
 use App\Sale;
 
 class SaleObserver
@@ -12,52 +15,60 @@ class SaleObserver
      * @param  \App\Sale  $sale
      * @return void
      */
-    public function created(Sale $sale)
+    public function created(ModelsSale $sale)
     {
-        //
+
+       
+
+            $entry=Entry::create([
+                'date'=>$sale->created_at,
+                    'source'=>' مبيعات',
+                    'type'=>'automatic',
+                    'details'=>'فاتورة بيع رقم'.$sale->num,
+                    'status'=>'new',
+            ]);
+
+             EntryAccount::create([
+                'entry_id'=>$entry->id,
+                'account_id'=>$sale->client_id ?? getsetting('accounting_cash_client_id'),
+                'affect'=>'debtor',
+                'amount'=>$sale->payed,
+            ]);
+            if($sale->payment_type =='cash'){
+            EntryAccount::create([
+                'entry_id'=>$entry->id,
+                'account_id'=> getsetting('accounting_cash_id'),
+                'affect'=>'creditor',
+                'amount'=>$sale->payed,
+            ]);
+            }
+            elseif($sale->payment_type =='mada'){
+
+                EntryAccount::create([
+                    'entry_id'=>$entry->id,
+                    'account_id'=> getsetting('accounting_mada_id'),
+                    'affect'=>'creditor',
+                    'amount'=>$sale->payed,
+                ]);
+            }elseif($sale->payment_type =='veza'){
+                EntryAccount::create([
+                    'entry_id'=>$entry->id,
+                    'account_id'=> getsetting('accounting_visa_id'),
+                    'affect'=>'creditor',
+                    'amount'=>$sale->payed,
+                ]);
+
+            }
+            EntryAccount::create([
+                'entry_id'=>$entry->id,
+                'account_id'=> getsetting('accounting_discount_sale_id'),
+                'affect'=>'creditor',
+                'amount'=>$sale->discount,
+            ]);
+
+
+
+
     }
 
-    /**
-     * Handle the sale "updated" event.
-     *
-     * @param  \App\Sale  $sale
-     * @return void
-     */
-    public function updated(Sale $sale)
-    {
-        //
-    }
-
-    /**
-     * Handle the sale "deleted" event.
-     *
-     * @param  \App\Sale  $sale
-     * @return void
-     */
-    public function deleted(Sale $sale)
-    {
-        //
-    }
-
-    /**
-     * Handle the sale "restored" event.
-     *
-     * @param  \App\Sale  $sale
-     * @return void
-     */
-    public function restored(Sale $sale)
-    {
-        //
-    }
-
-    /**
-     * Handle the sale "force deleted" event.
-     *
-     * @param  \App\Sale  $sale
-     * @return void
-     */
-    public function forceDeleted(Sale $sale)
-    {
-        //
-    }
 }

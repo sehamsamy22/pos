@@ -39,7 +39,8 @@ class SaleController extends Controller
         $clients=Client::pluck('name','id')->toArray();
         $products=Product::all();
         $categories=Category::all();
-        return view('admin.sales.create',compact('clients','products','categories'));
+        $salelast=Sale::latest()->first();
+        return view('admin.sales.create',compact('clients','products','categories','salelast'));
 
     }
 
@@ -62,7 +63,7 @@ class SaleController extends Controller
             'discount'=>$request['discount'],
             'total'=>$request['total'],
             'payed'=>$request['payed'],
-
+            'payment_type'=>$request['payment_type'],
         ]);
 
         $meals = collect($request['meal_id']);

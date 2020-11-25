@@ -25,7 +25,7 @@ class SaleItemObserver
                 $storeProduct->quantity -=$mealproduct->quantity*$saleItem->quantity;
 
                 $storeProduct->update([
-                    'quantity'=>$storeProduct->quantity
+                    'quantity'=>$storeProduct->quantity >0?$storeProduct->quantity:0
                 ]);
             }
 
