@@ -188,7 +188,7 @@
                                 </button>
 
                                 <button type="submit" class="btn_bill">حفظ</button>
-                                <buttton type="button" class="btn btn-danger btn_bill" onclick="myFunction()">الغاء</buttton>
+                                {{--  <buttton type="button" class="btn btn-danger btn_bill" onclick="myFunction()">الغاء</buttton>  --}}
 
                             </div>
                             </th>

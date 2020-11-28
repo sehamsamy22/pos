@@ -65,14 +65,11 @@
                                         <td>{{$i++}}</td>
                                         <td>{{$row->product->ar_name}}</td>
                                         <td><input name="" type="number" class="form-control"  value={{$row->quantity}} readonly></td>
-
                                         <td><input type='number' class="form-control"  value={{$row->product->orders($row->product->id,$request??Null)}}  readonly></td>
                                        <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value='0' readonly></td>
-
                                         <td class="received_btn{{$row->id}}">
-                                            <input type='number' class="form-control" name="received_quantity">
+                                        <input type='number' class="form-control" name="received_quantity">
                                         <button type="submit" class="btn btn-danger " onclick="myfun({{$row->id}})" >استلام</button>
-
                                         </td>
                                     </tr>
                                     </form>

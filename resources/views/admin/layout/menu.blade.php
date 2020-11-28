@@ -12,6 +12,7 @@
             <div class="user-img">
                 @php $image = auth()->user()->image; @endphp
                 @if($image != null or $image != "")
+
                     <img src="{{getimg($image)}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
                     @else
                     <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
@@ -56,17 +57,16 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span> إداره التصنيفات  </span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-layers"></i><span> إداره التصنيفات  </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.categories.index')}}"><i class="zmdi zmdi-view-list"></i>  التصنيفات الرئيسة    </a></li>
 {{--                        <li><a href="{{route('dashboard.categories.create')}}"> <i class="zmdi zmdi-format-playlist-add"></i>إضافة  تصنيف رئيسى     </a></li>--}}
                         <li><a href="{{route('dashboard.subcategories.index')}}"><i class="zmdi zmdi-view-list"></i>عرض   التصنيفات الفرعية    </a></li>
-
                     </ul>
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>إدارة الأصناف و المنتجات </span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-pizza"></i><span>إدارة الأصناف و المنتجات </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  الأصناف</a></li>
                         <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المنتجات </a></li>
@@ -95,7 +95,7 @@
 
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>إدارة المشتريات </span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-shopping-cart"></i><span>إدارة المشتريات </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.suppliers.index')}}"><i class="zmdi zmdi-view-list"></i>عرض الموردين     </a></li>
                         <li><a href="{{route('dashboard.purchases.index')}}"><i class="zmdi zmdi-view-list"></i>عرض المشتريات     </a></li>
@@ -104,7 +104,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>نقاط البيع</span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-shopping-basket"></i><span>نقاط البيع</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li ><a href="{{route('dashboard.sales.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i>عرض فواتير المبيعات     </a></li>
                     </ul>
@@ -113,7 +113,7 @@
 
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>إدارةالدليل المحاسبى  </span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-share"></i><span>إدارةالدليل المحاسبى  </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.accounts.index')}}"><i class="zmdi zmdi-view-list"></i>عرض   الدليل المحاسبى     </a></li>
 
@@ -133,7 +133,7 @@
 
 
                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i><span>إدارة المدفوعات والسندات  </span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-money-box"></i><span>إدارة المدفوعات والسندات  </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{route('dashboard.revenues.index')}}"><i class="zmdi zmdi-view-list"></i>عرض    المدفوعات     </a></li>
 

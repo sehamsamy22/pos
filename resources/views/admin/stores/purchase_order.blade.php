@@ -48,7 +48,7 @@
                         <th>الكميه المتوفرة</th>
                         <th>الكمية المطلوبه  </th>
                         <th>الحالة </th>
-                        {{--  <th>عرض بيانات الصنف </th>  --}}
+                        <th>عرض بيانات الصنف </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,6 +72,7 @@
                                 @endif
                                 </td>
                                 <td>
+                                    <a href="{{route('dashboard.products.show',$row->product->id)}}" class="label label-primary">عرض</a>
 
                                 </td>
                                 @else
