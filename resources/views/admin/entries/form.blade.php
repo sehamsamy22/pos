@@ -151,7 +151,6 @@
 </script>
 <script>
 	$(document).ready(function(){
-     
 		$("#add-new").on('click' , function(){
 			var num = $("#qyoud-table-tbody tr").length + 1;
 			$("#qyoud-table-tbody").append(`<tr class="single-row">
@@ -164,7 +163,7 @@
 				<input type="number" min="0" name="creditor[]" class="form-control creditor" value="0">
 			</td>
 			<td>
-				<select name="account_id[]" class="form-control js-example-basic-single">
+				<select name="account_id[]" class="form-control select">
 					@foreach ($accounts as $account)
 					<option value={{$account->id}}>{{$account->name}} -{{$account->code}}</option>
 					@endforeach
@@ -176,9 +175,19 @@
 			<td>
 				<a href="#" class="btn btn-danger">X</a>
 			</td>
-        </tr>`);
+		</tr>`);
+
+		AfterLookUpLoad();
 
 			calc();
+			function AfterLookUpLoad() {
+
+				$(".select").select2({
+					placeholder: "Select Type(Screen)",
+					allowClear: true
+
+				});
+			};
 			$('.creditor').change(function(){
 				$(this).parents('tr').find('.debtor').val('0');
 				calc()

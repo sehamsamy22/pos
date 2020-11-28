@@ -21,7 +21,7 @@ class PurchaseObserver
             'date'=>$purchase->created_at,
                 'source'=>'فاتورة مشتريات',
                 'type'=>'automatic',
-                'details'=>'فاتورة مشتريات',
+                'details'=>' رقم فاتورة مشتريات'.$purchase->num,
                 'status'=>'new',
         ]);
 

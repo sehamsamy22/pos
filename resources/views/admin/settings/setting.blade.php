@@ -124,7 +124,7 @@
                                             <div class="form-group col-xs-6  {{$setting->name}} ">
                                                 <label> {{$setting->title}} </label>
                                                 <div class="form-group col-md-6 pull-right">
-                                                    {!! Form::select($setting->name.'[]',chart_accounts(),$setting->value,['class'=>'form-control'])!!}
+                                                    {!! Form::select($setting->name.'[]',chart_accounts(),$setting->value,['class'=>'form-control js-example-basic-single'])!!}
                                                 </div>
                                             </div>
 
@@ -158,6 +158,7 @@
 
 @section('scripts')
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
 
                             {!! Html::script('/admin/ckeditor/ckeditor.js') !!}
 
@@ -166,6 +167,7 @@
                                 $(document).ready(function () {
 
                                     CKEDITOR.replaceClass = 'editor';
+                                    $('.js-example-basic-single').select2();
 
                                 });
 
