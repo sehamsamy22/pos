@@ -72,9 +72,10 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     //===============================accounts
     route::resource('accounts', 'AccountController');
     route::resource('entries', 'EntryController');
+    Route::get('/posted/{id}', 'EntryController@posted')->name('entries.posted');
 
     Route::group(['prefix' => 'entries'], function () {
-    
+
         Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
         Route::get('posting/{id}', ['as' => 'entries.posting', 'uses' => 'EntryController@posting']);
         Route::get('toAccounts/{id}', ['as' => 'entries.toAccounts', 'uses' => 'EntryController@toaccounts']);

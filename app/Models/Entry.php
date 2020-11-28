@@ -15,9 +15,10 @@ class Entry extends Model
         return $this->belongsTo(Entry::class,'entry_id');
     }
 
-    public function account()
+    public function accounts()
     {
-        return $this->belongsTo(Account::class,'account_id');
+        return $this->hasMany(EntryAccount::class,'entry_id');
     }
+
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\AccountLog;
 use App\Models\Entry;
 use App\Models\EntryAccount;
 use App\Traits\Entries\ManualCreateEntry;
@@ -183,5 +184,31 @@ class EntryController extends Controller
 
 
     // }
+
+   public function posted($id){
+;
+      $entryAccounts=EntryAccount::where('entry_id',$id)->get();
+    //   dd($entryAccounts);
+     foreach($entryAccounts as $entryaccount){
+
+     $account=Account::find($entryaccount->account_id);
+
+       if($entryaccount->affect=='debtor')
+     {
+        //  dd($account->amount );
+        $account->update([
+            'amount'=>$account->amount - $entryaccount->amount
+        ]);
+
+     }elseif($entryaccount->affect=='creditor'){
+        // dd($account->amount );
+        $account->update([
+            'amount'=>$account->amount+$entryaccount->amount
+        ]);
+     }
+    }
+     alert()->success('تم  ترحيل القيد اليومى بنجاح !')->autoclose(5000);
+      return back();
+    }
 
 }

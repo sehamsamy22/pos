@@ -109,6 +109,8 @@
                             @endif --}}
                         </td>
                         <td class="text-center">
+                            <a href="{{route('dashboard.entries.posted',$row->id)}}" data-toggle="tooltip" data-original-title=""class="label label-success"> ترحيل القيد </a>
+
                             <a href="{{route('dashboard.entries.show',$row->id)}}" data-toggle="tooltip" data-original-title="تعديل"class="label label-warning">عرض التفاصيل </a>
 
                             <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف"class="label label-danger">حذف </a>

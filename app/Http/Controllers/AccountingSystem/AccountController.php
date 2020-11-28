@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Entry;
+use App\Models\EntryAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,7 +58,12 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        // dd($account->id);
+        $entries=EntryAccount::where('account_id',$account->id)->pluck('entry_id','id')->toArray();
+
+           $acounts_all=EntryAccount::whereIn('entry_id',$entries)->where('account_id','!=',$account->id)->get();
+
+        return view('admin.accounts.show', compact('account','acounts_all'));
     }
 
     /**

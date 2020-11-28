@@ -79,6 +79,7 @@ width: 100%;
                                 <td>{{ all_levels($row->level) }}</td>
                                 <td>{{$row->amount}}</td>
                                 <td>
+                                    <a href="{{route('dashboard.accounts.show',$row->id)}}" class="label label-primary">عرض</a>
                                     <a href="{{route('dashboard.accounts.edit',$row->id)}}" class="label label-warning">تعديل</a>
                                     <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                     {!!Form::open( ['route' => ['dashboard.accounts.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\AccountLog;
 use App\Models\Entry;
 
 class EntryObserver
@@ -17,16 +18,16 @@ class EntryObserver
                 }
     }
 
-    
+
    public  function  created(Entry $entry){
 
-    // dd( $entry->accounts_debtor());
+
+     
+
+
+
 
    }
-//
-//    public  function  updated(AccountingEntry $entry){
-//
-//
-//    }
+
 
 }

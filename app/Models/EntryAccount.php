@@ -34,5 +34,9 @@ class EntryAccount extends Model
     {
         return $this->belongsTo(Account::class,'account_id');
     }
+    public function entry()
+    {
+        return $this->belongsTo(Entry::class,'entry_id');
+    }
 
 }

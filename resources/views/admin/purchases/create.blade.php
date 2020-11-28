@@ -183,12 +183,12 @@
                            <th colspan="12">
                                <div class="bill_footer"  >
 
-                                <button type="button" class="btn btn-warning btn_bill" data-toggle="modal" data-target="#exampleModalCenter">
+                                {{--  <button type="button" class="btn btn-warning btn_bill" data-toggle="modal" data-target="#exampleModalCenter">
                                    الدفع
-                                </button>
+                                </button>  --}}
 
-                                <button type="submit" class="btn_bill">حفظ</button>
-                                {{--  <buttton type="button" class="btn btn-danger btn_bill" onclick="myFunction()">الغاء</buttton>  --}}
+                                <button type="button" class="btn_bill"  data-toggle="modal" data-target="#exampleModalCenter">حفظ</button>
+                                <buttton type="button" class="btn btn-danger btn_bill" onclick="myFunction()">الغاء</buttton>
 
                             </div>
                             </th>
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                                    <button type="button" class="btn btn-primary">دفع المبلغ </button>
+                                    <button type="submit" class="btn btn-primary"> حفظ الفاتورة </button>
                                 </div>
                             </div>
                         </div>
