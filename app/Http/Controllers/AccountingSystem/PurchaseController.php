@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseItem;
 use App\Models\Supplier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +18,16 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $purchases=Purchase::all()->reverse();
+        if ($request->has('from') && $request->has('to')) {
+
+                $purchases=Purchase::whereBetween('created_at',[$request['from'],$request['to']])->get()->reverse();
+
+            }
+            else{
+      $purchases=Purchase::whereDate('created_at',Carbon::today())->get()->reverse();
+            }
 
         return view('admin.purchases.index',compact('purchases'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

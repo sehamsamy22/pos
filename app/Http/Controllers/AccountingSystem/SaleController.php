@@ -11,6 +11,7 @@ use App\Models\Revenue;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SubCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,16 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sales=Sale::all();
+        if ($request->has('from') && $request->has('to')) {
+
+            $sales=Sale::whereBetween('created_at',[$request['from'],$request['to']])->get()->reverse();
+
+        }
+        else{
+           $sales=Sale::whereDate('created_at',Carbon::today())->get()->reverse();
+        }
 
         return view('admin.sales.index',compact('sales'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

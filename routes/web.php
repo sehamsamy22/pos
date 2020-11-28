@@ -39,6 +39,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('clients_subscriptions', 'ClientSubscriptionController');
     route::resource('visits', 'VisitController');
     route::resource('purchases', 'PurchaseController');
+   route::any('/purchases', 'PurchaseController@index')->name('purchases.index');
+
     route::get('add_visit/{id}', 'VisitController@add_visit')->name('visits.add_visit');
     route::get('add_subscription/{id}', 'ClientSubscriptionController@add_subscription')->name('clients_subscriptions.add_subscription');
     route::get('dietsystems/{id}', 'ClientSubscriptionController@dietsystems')->name('dietsystems.show');
