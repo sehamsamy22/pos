@@ -42,12 +42,12 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $requests = $request->except('image');
-        dd($request->all());
+      
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
         $product=Product::create($requests);
-    
+
         return redirect()->route('dashboard.products.index')->with('success', 'تم اضافه صنف  جديد');
 
     }
