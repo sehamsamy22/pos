@@ -24,6 +24,17 @@ class VisitController extends Controller
     }
 
     public function store(Request $request){
+
+        $rules = [
+            'date'=>'required',
+
+        ];
+        $message=[
+            'date.required'=>'تاريخ الزيارة مطلوب ',
+        ];
+
+        $this->validate($request,$rules,$message);
+
                     $visit=Visit::create([
                         'client_id' => $request['client_id'],
                         'date' => $request['date'],

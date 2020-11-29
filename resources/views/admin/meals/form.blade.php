@@ -30,7 +30,7 @@
     <div class="form-group form-float">
         <label class="form-label"> سعر الوجبة</label>
         <div class="form-line">
-            {!! Form::number("price",null,['class'=>'form-control ','placeholder'=>' سعر الوجبة','data-parsley-required-message'=>'من فضلك ادخل سعرالوجبة  ','required'=>'','id'=>'demo1'])!!}
+            {!! Form::text("price",null,['class'=>'form-control ','placeholder'=>' سعر الوجبة','data-parsley-required-message'=>'من فضلك ادخل سعرالوجبة  ','required'=>'','id'=>'demo1'])!!}
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
     <div class="form-group form-float">
         <label class="form-label"> السعرات الحرارية بالوجبة</label>
         <div class="form-line">
-            {!! Form::number("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
+            {!! Form::text("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
         </div>
     </div>
 </div>
@@ -109,7 +109,7 @@
     <div class="form-group form-float">
         <label class="form-label">قيمة الخصم</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد) </span>
         <div class="form-line">
-            {!! Form::number("discount",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية','required'=>''])!!}
+            {!! Form::text("discount",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية','required'=>''])!!}
         </div>
     </div>
 </div>
@@ -118,7 +118,7 @@
     <div class="form-group form-float">
         <label class="form-label"> نسبة الضريبة</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد)</span>
         <div class="form-line">
-            {!! Form::number("tax",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
+            {!! Form::text("tax",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
         </div>
     </div>
 </div>

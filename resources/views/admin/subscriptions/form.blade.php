@@ -31,7 +31,7 @@
     <div class="form-group form-float">
         <label class="form-label">  مده الخطه</label><span class="required--in"> (عدد  الايام)</span>
         <div class="form-line">
-            {!! Form::number("duration",null,['class'=>'form-control','placeholder'=>'  مده الخطه','data-parsley-required-message'=>'من فضلك ادخل  مده الخطه  ','required'=>''])!!}
+            {!! Form::text("duration",null,['class'=>'form-control','placeholder'=>'  مده الخطه','data-parsley-required-message'=>'من فضلك ادخل  مده الخطه  ','required'=>''])!!}
         </div>
     </div>
 </div>

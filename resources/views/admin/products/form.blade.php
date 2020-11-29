@@ -38,7 +38,7 @@
     <div class="form-group form-float">
         <label class="form-label"> السعرات الحرارية بالمنتج</label>
         <div class="form-line">
-            {!! Form::number("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
+            {!! Form::text("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
         </div>
     </div>
 </div>
@@ -57,7 +57,7 @@
     <div class="form-group form-float">
         <label class="form-label">   سعر الصنف</label>
         <div class="form-line">
-            {!! Form::number("price",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل سعر الصنف  ','required'=>''])!!}
+            {!! Form::text("price",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل سعر الصنف  ','required'=>''])!!}
         </div>
     </div>
 </div>
