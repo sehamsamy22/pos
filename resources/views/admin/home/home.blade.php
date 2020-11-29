@@ -110,12 +110,9 @@
     <div class="row">
        <div class="col-lg-4 col-md-6 col-xs-12">
            <div class="card-box">
-
-
                <h4 class="header-title m-t-0">احصائية  الاشتركات والعملاء</h4>
-
                <div class="widget-chart text-center">
-                   <div id="morris-donut-example"style="height: 245px;"></div>
+                   <div id="morris-donut-example"style="height: 280px;"></div>
                    <ul class="list-inline chart-detail-list m-b-0">
                        <li>
                            <h5 style="color: #e36c09;"><i class="fa fa-circle m-r-5"></i>Series A</h5>
@@ -130,12 +127,12 @@
 
        <div class="col-lg-4 col-md-6 col-xs-12">-
            <div class="card-box">
-               <div class="dropdown pull-right">
+               {{--  <div class="dropdown pull-right">
                    <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
                        <i class="zmdi zmdi-more-vert"></i>
                    </a>
 
-               </div>
+               </div>  --}}
                <h4 class="header-title m-t-0"> مبيعات السنة</h4>
                <div id="morris-bar-example" style="height: 280px;"></div>
            </div>
@@ -236,7 +233,7 @@ var $data  = [
 { y: '2014', a: 75, b: 50 },
 ];
 
-this.createLineChart('morris-line-example', $data,, ['Series A','Series B'],['0.9'],['#ffffff'],['#999999'], ['#e36c09','#188ae2']);
+this.createLineChart('morris-line-example', $data, , ['Series A','Series B'],['0.9'],['#ffffff'],['#999999'], ['#e36c09','#188ae2']);
 
 //creating donut chart
 var $donutData = [
