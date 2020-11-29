@@ -176,7 +176,7 @@
                                     <label class="form-label">المتبقى</label>
                                     <div class="form-line total">
                                         <span  class="dynamic-span"></span>
-                                        <input type="text" class="form-control" name=""  id="reminder" disabled >
+                                        <input type="text" class="form-control" name="reminder"  id="reminder" disabled >
                                     </div>
                                 </div>
                             </div>

@@ -228,7 +228,7 @@
                                         <label class="form-label">المتبقى</label>
                                         <div class="form-line total">
                                             <span  class="dynamic-span"></span>
-                                            <input type="text" class="form-control" name=""  id="reminder" disabled >
+                                            <input type="text" class="form-control" name="reminder"  id="reminder" disabled >
                                         </div>
                                     </div>
                                 </div>
@@ -384,29 +384,33 @@
                $("#amountAfterDariba span.dynamic-span").html(Number(amountBeforeDariba+tax_val).toFixed(2));
                $("#amountAfterDariba").val(amountBeforeDariba+tax_val);
                // $("#amountOfDariba span.dynamic-span").html(amountOfDariba.toFixed(2));
-               $("#total").val(amountAfterDariba.toFixed(2));
+              // $("#total").val(amountAfterDariba.toFixed(2));
                var  totalAfterFixTax=amountBeforeDariba+tax_val ;
                {{--  console.log(amountBeforeDariba+tax_val);  --}}
+
+
                $("#bill_discount").change(function() {
-
                    var bill_discount=$(this).val();
-
                     var discount_val= Number(totalAfterFixTax)*(Number(bill_discount)/100);
-               console.log(totalAfterFixTax);
+                    console.log(totalAfterFixTax);
                    $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
                    $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
                    $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
                    $("#discount").val(Number(discount_val));
 
                });
+               $("#total").val(totalAfterFixTax);
 
-               $("#total").val(Number(totalAfterFixTax));
+               $("#amountAfterDariba1").val(totalAfterFixTax);
 
                $("#payed").change(function() {
                    var payed=$(this).val();
                    var reminder= Number($("#total").val()) - Number(payed);
                    $("#reminder").val(reminder.toFixed(2));
+
                });
+
+
 
            }
 

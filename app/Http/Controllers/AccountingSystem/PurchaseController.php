@@ -56,7 +56,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //   dd($request->all());
+        //    dd($request->all());
          $purchase=Purchase::create([
                 'user_id'=>Auth::id(),
                 'supplier_id'=>$request['supplier_id'],

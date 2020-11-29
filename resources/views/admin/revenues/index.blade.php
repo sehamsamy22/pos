@@ -42,7 +42,7 @@
                     @foreach($revenues as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->client_subscription->client->name}}</td>
+                            <td>{{$row->client_subscription->client->name??'عميل نقدى'}}</td>
                             <td>
                             @if($row->type=='subscription')
                                     اشتراك

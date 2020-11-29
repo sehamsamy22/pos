@@ -29,7 +29,9 @@
     <div class="form-group form-float">
         <label class="form-label">  بداية الاشتراك</label>
         <div class="form-line">
-            {!! Form::date("start",null,['class'=>'form-control','placeholder'=>'بداية الاشتراك','id'=>'start_date'])!!}
+            <input type="date" class="form-control" name="start" id="start_date" value={{ \Carbon\Carbon::now() }}>
+
+            {{-- {!! Form::date("start",null,\Carbon\Carbon::now() ,['class'=>'form-control','placeholder'=>'بداية الاشتراك','id'=>'start_date'])!!} --}}
         </div>
     </div>
 </div>

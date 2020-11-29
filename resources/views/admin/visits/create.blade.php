@@ -54,7 +54,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">   تاريخ الزياره</label>
                             <div class="form-line">
-                                <input type="date" class="form-control" name="date" id="date">
+                                <input type="date" class="form-control" name="date" id="date" value={{ \Carbon\Carbon::now() }}>
                             </div>
                         </div>
                     </div>
