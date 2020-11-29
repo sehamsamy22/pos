@@ -48,6 +48,10 @@
                         <th>#</th>
                         <th>رقم الفاتوره</th>
                         <th>تاريخ الفاتوره</th>
+                        <th> اسم المورد</th>
+                        <th> المدفوع</th>
+                        <th> المتبقى</th>
+
                         <th>  اجمالى الفاتوره</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
@@ -59,6 +63,9 @@
                             <td>{{$i++}}</td>
                             <td>{{$row->num}}</td>
                             <td>{{$row->date}}</td>
+                            <td>{{$row->supplier->name ?? ''}}</td>
+                            <td>{{$row->payed}}</td>
+                             <td>{{$row->reminder}}</td>
                             <td>{{$row->total}}</td>
                             <td>
                                 <a href="{{route('dashboard.purchases.show',$row->id)}}" class="label label-warning">عرض الفاتوره</a>
