@@ -18,13 +18,13 @@ class SaleObserver
     public function created(ModelsSale $sale)
     {
 
-       
+
 
             $entry=Entry::create([
                 'date'=>$sale->created_at,
                     'source'=>' مبيعات',
                     'type'=>'automatic',
-                    'details'=>'فاتورة بيع رقم'.$sale->num,
+                    'details'=>'فاتورة بيع رقم'. $sale->num,
                     'status'=>'new',
             ]);
 
