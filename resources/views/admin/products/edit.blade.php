@@ -39,7 +39,20 @@
 @endsection
 @section('scripts')
 
-
+<script>
+    $("#category_id").on('change', function() {
+        var id = $(this).val();
+        $.ajax({
+            url:"/dashboard/getAllSubcategories/"+id,
+            type:"get",
+        }).done(function (data) {
+            $('.subcategories').empty();
+            $('.subcategories').html(data.data);
+        }).fail(function (error) {
+            console.log(error);
+        });
+    });
+</script>
 
 
 

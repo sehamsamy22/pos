@@ -20,6 +20,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
+        // dd( $request->all());
         if ($request->has('from') && $request->has('to')) {
 
                 $purchases=Purchase::whereBetween('created_at',[$request['from'],$request['to']])->get()->reverse();
@@ -55,7 +56,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-
+        //   dd($request->all());
          $purchase=Purchase::create([
                 'user_id'=>Auth::id(),
                 'supplier_id'=>$request['supplier_id'],
@@ -88,7 +89,7 @@ class PurchaseController extends Controller
         }
 
         alert()->success('تم الشراء بنجاح !')->autoclose(5000);
-        return back();
+        return redirect()->route('dashboard.purchases.index');
 
     }
 

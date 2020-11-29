@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'ar_name', 'en_name','unit','calories','price','image','barcode'
+        'ar_name', 'en_name','unit','calories','price','image','barcode','sub_category_id'
     ];
+    public function subcategory(){
+        return $this->belongsTo(SubCategory::class,'sub_category_id');
+    }
     public  function orders($id,$request)
     {
        $from=$request['from'];

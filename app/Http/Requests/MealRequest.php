@@ -28,7 +28,7 @@ class MealRequest extends FormRequest
             'sub_category_id' => 'required|nullable|integer|exists:sub_categories,id',
             "ar_name" => "required|string|min:1|max:255",
             "en_name" => "required|string|min:1|max:255",
-            "image" => 'required_without:_method|nullable|image',
+            "image" => 'nullable|image',
 
         ];
         }
@@ -37,7 +37,7 @@ class MealRequest extends FormRequest
        return [
             'ar_name.required'=>"الإسم باللغه العربية مطلوب",
             'en_name.required'=>"الإسم باللغه الانجليزية مطلوب",
-            'image.image'=>"الصورة مطلوبة",
+            // 'image.image'=>"الصورة مطلوبة",
             'sub_category_id.required'=>" التصنيف الفرعى مطلوب",
         ];
 

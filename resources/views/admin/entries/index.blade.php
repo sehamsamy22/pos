@@ -27,37 +27,7 @@
                 <section class="filter">
                     <div class="yurSections">
                         <div class="row">
-                            <div class="col-xs-12">
-                                {!!Form::open( ['route' => 'dashboard.entries.filter' ,'class'=>'form phone_validate', 'method' => 'get','files' => true]) !!}
-                                <div class="form-group col-sm-3 ">
-                                    <label> الكود  </label>
-                                    {!! Form::text("code",null,['class'=>'form-control'])!!}
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label>مصدر  العمليه  </label>
-                                    {{-- {!! Form::select("source",['قيد يدوى'=>'قيد يدوى','مشتريات'=>'مشتريات','مبيعات'=>'مبيعات ','مرتجعات'=>'مرتجعات'],null,['class'=>'form-control','placeholder'=>'اختر مصدر العمل'])!!} --}}
-                              <select class="form-control" name="source">
-                                  <option></option>
-                                  <option value="قيد يدوى">قيد يدوى</option>
-                                  <option value="مبيعات">مبيعات</option>
-                                  <option value="مشتريات">مشتريات</option>
-                              </select>
-                                </div>
-                                <div class="form-group col-sm-3 col-xs-12 ">
-                                    <label> نوع  العمليه  </label>
-                                    {!! Form::select("type",['manual'=>'يدوى','automatic'=>'الى'],null,['class'=>'form-control'])!!}
-                                </div>
-
-                                <div class="form-group col-sm-3">
-                                    <label> تاريخ العملية </label>
-                                    {!! Form::date("date",null,['class'=>'form-control'])!!}
-                                </div>
-                                <div class="form-group col-sm-3 pull-right">
-                                    <label>  </label>
-                                    <input type="submit" value="بحث" class="btn btn-success">
-                                </div>
-                                {!!Form::close() !!}
-                            </div>
+                        
                         </div>
                     </div>
                 </section>

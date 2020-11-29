@@ -75,7 +75,7 @@ class MealController extends Controller
         $meal->update([
             'approx_price'=>$sum,
         ]);}
-        return back()->with('success', 'تم اضافه الوجبة  ');
+        return redirect('dashboard/meals')->with('success', 'تم اضافه الوجبة  ');
     }
 
     /**

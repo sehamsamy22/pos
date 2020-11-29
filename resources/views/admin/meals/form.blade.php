@@ -44,14 +44,14 @@
     </div>
 </div>
 
-<div class="col-sm-6 col-xs-6  pull-right">
+{{--  <div class="col-sm-6 col-xs-6  pull-right">
     <div class="form-group form-float">
         <label class="form-label"> الحالة</label>
         <div class="form-line">
             {!! Form::select("status",['1'=>'متاح','0'=>'لا'],null,['class'=>'form-control js-example-basic-single','required','placeholder'=>'اختر حالة الوجبة ',])!!}
         </div>
     </div>
-</div>
+</div>  --}}
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
         <label class="form-label">    نوع الوجبة</label>
@@ -61,7 +61,7 @@
         </div>
     </div>
 </div>
-
+<div class="clearfix"></div>
 @if(isset($meal))
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
@@ -109,7 +109,7 @@
     <div class="form-group form-float">
         <label class="form-label">قيمة الخصم</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد) </span>
         <div class="form-line">
-            {!! Form::text("discount",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية','required'=>''])!!}
+            {!! Form::text("discount",null,['class'=>'form-control'])!!}
         </div>
     </div>
 </div>
@@ -118,7 +118,7 @@
     <div class="form-group form-float">
         <label class="form-label"> نسبة الضريبة</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد)</span>
         <div class="form-line">
-            {!! Form::text("tax",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
+            {!! Form::text("tax",null,['class'=>'form-control'])!!}
         </div>
     </div>
 </div>
@@ -136,7 +136,7 @@
     <div class="form-group form-float">
         <label class="form-label"> صورة الوجبة </label>
         <div class="form-line">
-            {!! Form::file("image",null,['class'=>'form-control','placeholder'=>'  صورة الوجبة','data-parsley-required-message'=>'من فضلك ادخل الصوره  ','required'=>''])!!}
+            {!! Form::file("image",null,['class'=>'form-control','placeholder'=>'  صورة الوجبة',])!!}
         </div>
     </div>
 </div>

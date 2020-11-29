@@ -67,7 +67,7 @@ class ClientController extends Controller
 //            }
 //        }
 
-        return back()->with('success', 'تم اضافه الزياره بنجاخ ');
+        return redirect()->route('dashboard.clients.index')->with('success', 'تم اضافه العميل بنجاخ ');
 
     }
 

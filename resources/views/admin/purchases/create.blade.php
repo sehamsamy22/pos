@@ -397,7 +397,10 @@
                    $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
                    $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
                    $("#discount").val(Number(discount_val));
+
                });
+
+               $("#total").val(Number(totalAfterFixTax));
 
                $("#payed").change(function() {
                    var payed=$(this).val();

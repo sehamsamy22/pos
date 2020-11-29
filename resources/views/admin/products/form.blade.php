@@ -34,14 +34,14 @@
         </div>
     </div>
 </div>
-<div class="col-sm-6 col-xs-6  pull-left">
+{{--  <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
         <label class="form-label"> السعرات الحرارية بالمنتج</label>
         <div class="form-line">
             {!! Form::text("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
         </div>
     </div>
-</div>
+</div>  --}}
 
 
 <div class="col-sm-6 col-xs-6  pull-left">
@@ -62,6 +62,49 @@
     </div>
 </div>
 
+@if(isset($product))
+<div class="col-sm-6 col-xs-6  pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">   التصنيف الرئيسى</label>
+        <div class="form-line">
+            {!! Form::select("category_id",$categories,$categoryId,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
+
+        </div>
+    </div>
+</div>
+@else
+
+    <div class="col-sm-6 col-xs-6  pull-left">
+        <div class="form-group form-float">
+            <label class="form-label">   التصنيف الرئيسى</label>
+            <div class="form-line">
+                {!! Form::select("category_id",$categories,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
+
+            </div>
+        </div>
+    </div>
+ @endif
+@if(isset($product))
+<div class="col-sm-6 col-xs-6  pull-left subcategories">
+    <div class="form-group form-float">
+        <label class="form-label">   التصنيف الفرعى</label>
+        <div class="form-line">
+            <select name="sub_category_id" class="form-control js-example-basic-single" >
+                <option value="{{$product->sub_category_id}}">{{$product->subcategory->name}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+@else
+    <div class="col-sm-6 col-xs-6  pull-left subcategories">
+        <div class="form-group form-float">
+            <label class="form-label">   التصنيف الفرعى</label>
+            <div class="form-line">
+                {!! Form::select("sub_category_id",[],null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى أولا  '])!!}
+            </div>
+        </div>
+    </div>
+@endif
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
         <label class="form-label"> صورة الصنف </label>
@@ -78,6 +121,9 @@
         </div>
     </div>
 @endif
+
+
+
 <div class="form-group text-right m-b-0">
     <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
 </div>

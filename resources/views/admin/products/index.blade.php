@@ -32,6 +32,7 @@
                         <th>#</th>
                         <th>الإسم باللغة العربية</th>
                         <th>الإسم باللغة الانجليزية</th>
+                        <th>  التصنيف الفرعى</th>
                         <th>  الوحدة</th>
 
                         <th style="width: 250px;" >العمليات المتاحة</th>
@@ -44,6 +45,7 @@
                             <td>{{$i++}}</td>
                             <td>{{$row->ar_name}}</td>
                             <td>{{$row->en_name}}</td>
+                            <td>{{$row->subcategory->name ??''}}</td>
                             <td>
                                 @if($row->unit=='kilo')
                                     كيلو

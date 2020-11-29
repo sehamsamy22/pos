@@ -25,7 +25,7 @@
 
                 <h4 class="header-title m-t-0 m-b-30">كل  فواتير المشتريات </h4>
 
-                <form action="" method="post" accept-charset="utf-8" >
+                <form action="{{ route('dashboard.purchases.filter') }}" method="post" accept-charset="utf-8" >
                     @csrf
                   <div class="form-group col-sm-4">
                       <label for="from"> الفترة من </label>

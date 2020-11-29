@@ -4,8 +4,10 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\StoreProduct;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -18,8 +20,8 @@ class ProductController extends Controller
     public function index()
     {
         $products=Product::all();
-
-        return view('admin.products.index',compact('products'))
+        $categories=Category::pluck('name','id')->toArray();
+        return view('admin.products.index',compact('products','categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -30,7 +32,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $categories=Category::pluck('name','id')->toArray();
+
+        return view('admin.products.create',compact('categories'));
     }
 
     /**
@@ -71,7 +75,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $categories=Category::pluck('name','id')->toArray();
+        $subcategory=SubCategory::find($product->sub_category_id);
+        $categoryId=$subcategory->category_id;
+        return view('admin.products.edit', compact('product','categories','categoryId'));
 
     }
 
@@ -82,8 +89,31 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
+        $rules=[
+
+            "ar_name" => "required|string|min:1|max:255",
+           "en_name" => "required|string|min:1|max:255",
+           "unit" => "required|string|min:1|max:255",
+           'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+           "price" => "required",
+           "barcode" => "required|unique:products,barcode,". $product->id
+
+        ];
+        $message= [
+            'ar_name.required'=>"الإسم باللغه العربية مطلوب",
+           'en_name.required'=>"الإسم باللغه الانجليزية مطلوب",
+           'unit.required'=>"الوحدة مطلوبة",
+           'image.required'=>"صورة الصنف مطلوبة",
+           'price.required'=>"سعر الصنف مطلوب",
+           'barcode.required'=>"باركود الصنف مطلوب",
+           'barcode.unique'=>"باركود الصنف موجود مسبقا",
+
+         ];
+
+        $this->validate($request,$rules,$message);
+
         $requests = $request->except('image');
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
