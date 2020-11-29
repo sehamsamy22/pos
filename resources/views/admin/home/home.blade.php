@@ -236,7 +236,7 @@ var $data  = [
 { y: '2014', a: 75, b: 50 },
 ];
 
-this.createLineChart('morris-line-example', $data, 'y', ['a','b'], ['Series A','Series B'],['0.9'],['#ffffff'],['#999999'], ['#e36c09','#188ae2']);
+this.createLineChart('morris-line-example', $data,, ['Series A','Series B'],['0.9'],['#ffffff'],['#999999'], ['#e36c09','#188ae2']);
 
 //creating donut chart
 var $donutData = [
