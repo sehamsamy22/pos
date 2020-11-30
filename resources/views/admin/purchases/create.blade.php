@@ -379,7 +379,7 @@
                });
                var bill_tax=$('#bill_tax').val();
                var tax_val= Number(wholePriceAfter) * (Number(bill_tax) / 100);
-               $("#tax").val(Number(tax_val));
+               $("#tax").val(Number(tax_val).toFixed(2));
                $("#amountBeforeDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
                $("#amountAfterDariba span.dynamic-span").html(Number(amountBeforeDariba+tax_val).toFixed(2));
                $("#amountAfterDariba").val(amountBeforeDariba+tax_val);
@@ -402,7 +402,7 @@
                $("#total").val(totalAfterFixTax);
 
                $("#amountAfterDariba1").val(totalAfterFixTax);
-
+               $("#payed").val(totalAfterFixTax);
                $("#payed").change(function() {
                    var payed=$(this).val();
                    var reminder= Number($("#total").val()) - Number(payed);
