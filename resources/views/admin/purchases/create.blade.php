@@ -396,7 +396,7 @@
                    $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
                    $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
                    $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
-                   $("#discount").val(Number(discount_val));
+                   $("#discount").val(Number(discount_val).toFixed(2));
 
                });
                $("#total").val(totalAfterFixTax);
