@@ -13,7 +13,7 @@ class CreateProductsLogTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_log', function (Blueprint $table) {
+        Schema::create('product_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id')->index()->nullable();
             $table->unsignedBigInteger('bill_id')->index()->nullable();
@@ -30,6 +30,6 @@ class CreateProductsLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_log');
+        Schema::dropIfExists('product_logs');
     }
 }

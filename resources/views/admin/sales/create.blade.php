@@ -319,6 +319,8 @@
                              $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
                              $("#total").val(AmountBeforeDiscount.toFixed(2));
                              $('#amount_required').val($('#total').val());
+                             $('#payed').val($('#total').val());
+
                              $("#payed").change(function() {
                                  var payed=$(this).val();
                                  var reminder= Number($("#amount_required").val()) - Number(payed);
@@ -328,9 +330,13 @@
                                  var discount=$(this).val();
 
                                  var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
-                                 $("#total").val(Number(AmountBeforeDiscount)-Number(discount_val));
+                                 $("#total").val(Number(AmountBeforeDiscount)-Number(discount_val).toFixed(2));
 
-                                 $('#amount_required').val($('#total').val());
+                                 $('#amount_required').val(Number($('#total').val()).toFixed(2));
+                                 var allmount=$('#total').val();
+
+                                 $('#payed').val(allmount);
+
                                  $("#payed").change(function() {
                                      var payed=$(this).val();
                                      var reminder= Number($("#amount_required").val()) - Number(payed);

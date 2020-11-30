@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Client;
 use App\Models\ClientDriver;
 use App\Models\ClientSubscriptions;
 use App\Models\Meal;
 use App\Models\MealProduct;
+use App\Models\Product;
+use App\Models\ProductLog;
 use App\Models\ReadyMeal;
 use App\Models\ReceivedProduct;
 use App\Models\StoreProduct;
@@ -20,13 +23,40 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $storeproducts=StoreProduct::all();
+        $categories=Category::pluck('name','id')->toArray();
 
-        return view('admin.stores.index',compact('storeproducts'))
+        if($request->has('sub_category_id')){
+            $allstoreproducts=StoreProduct::all();
+            $cat=$request['sub_category_id'];
+
+            $storeproducts
+            = $allstoreproducts->filter(function($storeproduct) use ($cat)
+            {
+              if ($storeproduct->product->sub_category_id==$cat)
+                   return $storeproduct ;
+                 else
+                   return null;
+dd($storeproduct);
+        });
+
+        }
+else{
+            $storeproducts=StoreProduct::all();
+        }
+
+
+        return view('admin.stores.index',compact('storeproducts','categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
+    public function show($id){
+      $product=Product::find($id);
+        $logs=ProductLog::where('product_id', $id)->get();
+        return view('admin.stores.log',compact('logs','product'));
+    }
+
 
     public function purchase_order(Request $request){
         // dd($request->all());

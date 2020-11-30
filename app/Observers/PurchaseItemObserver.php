@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\ProductLog;
 use App\Models\PurchaseItem;
 use App\Models\StoreProduct;
 
@@ -28,6 +29,12 @@ class PurchaseItemObserver
            ]);
        }
 
+       ProductLog::create([
+        'product_id'=>$purchaseItem->product_id,
+        'bill_id'=>$purchaseItem->purchase_id,
+        'operation'=>'purchases',
+        'quantity'=>$purchaseItem->quantity
+       ]);
     }
 
     /**

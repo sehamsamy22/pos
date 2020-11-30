@@ -62,6 +62,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
     //===============================stores
     route::get('stores', 'StoreController@index')->name('stores.index');
+    route::get('stores/{id}', 'StoreController@show')->name('stores.show');
+
     route::any('/purchase_order', 'StoreController@purchase_order')->name('stores.purchase_order');
     route::any('/cook-view', 'StoreController@cooker_view')->name('stores.cooker_view');
     Route::POST('/receive_products/{id}', 'StoreController@receive_products');

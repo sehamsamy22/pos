@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\ProductLog;
 use App\Models\SaleItem;
 use App\Models\StoreProduct;
 
@@ -29,7 +30,14 @@ class SaleItemObserver
                 ]);
             }
 
-        }
+            ProductLog::create([
+                'product_id'=>$mealproduct->product_id,
+                'bill_id'=>$saleItem->sale_id,
+                'operation'=>'sales',
+                'quantity'=>$mealproduct->quantity
+               ]);
+            }
+
     }
 
     /**
