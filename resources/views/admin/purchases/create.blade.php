@@ -285,7 +285,7 @@
 							<td class="product-name " width="190">${productName}</td>
 							<td class="product-unit " width="70">${unit}</td>
 							<td class="product-quantity " width="40">
-								<input type="number" placeholder="الكمية" step="1" min="1" value="1" id="sale" class="form-control" name="quantity[${ProductId}]">
+								<input type="text" placeholder="الكمية"  value="0" id="sale" class="form-control" name="quantity[${ProductId}]">
 							</td>
 							<td class="unit-price" width="100">${productPrice}
 								<input type="hidden" class="form-control" step="any" value="${productPrice}" name="prices[${ProductId}]">

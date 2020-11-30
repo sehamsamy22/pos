@@ -267,7 +267,7 @@
                             <input type="hidden" name="meal_id[${meal_id}]" value="${meal_id}">
 							<td class="meal-name " width="900">${meal_name}</td>
 							<td class="meal-quantity " width="40">
-								<input type="number" placeholder="الكمية" step="1" min="1" value="1" id="sale" class="form-control" name="quantity[${meal_id}]">
+								<input type="text" placeholder="الكمية" value="0" id="sale" class="form-control" name="quantity[${meal_id}]">
 							</td>
 								<input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${meal_id}]">
 							</td>
