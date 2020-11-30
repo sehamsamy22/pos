@@ -293,10 +293,10 @@
                           <td class="quantityXprice" width="70">${productPrice}</td>
 
 							<td class="whole-product-discount" width="70">
-							<input type="number" class="form-control" step="any" min="0" value="0" name="discounts[${ProductId}]">
+							<input type="text" class="form-control" value="0" name="discounts[${ProductId}]">
                               </td>
 							<td class="whole-product-tax" width="70">
-						    <input type="number" class="form-control" step="any" min="0" value="0" name="taxs[${ProductId}]">
+						    <input type="text" class="form-control"  value="0" name="taxs[${ProductId}]">
                             </td>
 
 
