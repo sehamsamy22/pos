@@ -34,11 +34,16 @@ class ClientSubscriptionController extends Controller
     }
     public function store(ClientSubscriptionRequest $request){
 
+        $request['end'] =date("Y-m-d", strtotime($request['end']));
+
+
         $clientSubsription=ClientSubscriptions::create($request->all());
         $clientSubsription->update([
             'reminder'=>$clientSubsription->total-$clientSubsription->payed,
+
         ]);
-            foreach ($request['meals'] as $mealkey=>$meal){
+        if(isset($request['meals'])){
+            foreach ($request['meals']  as $mealkey=>$meal){
                 foreach($meal as $daykey=>$day){
                     Dietsystem::create([
                         'client_subscription_id'=>$clientSubsription->id,
@@ -53,8 +58,8 @@ class ClientSubscriptionController extends Controller
                 'type'=>'subscription',
                 'amount'=>$clientSubsription->payed,
             ]);
-
-        return back()->with('success', 'تم اضافه اشتراك العميل بنجاخ ');
+            }
+            return redirect()->route('dashboard.clients_subscriptions.index')->with('success', 'تم اضافه اشتراك العميل بنجاخ ');
 
     }
 

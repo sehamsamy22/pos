@@ -76,12 +76,21 @@
         </div>
     </div>
 </div>
-<div class="col-sm-4 col-xs-4 pull-left">
+<div class="col-sm-2 col-xs-2 pull-left">
     <div class="form-group form-float">
         <label class="form-label">  الضريبه</label>
         <div class="form-line">
             {{-- {!! Form::text("tax",getsetting('tax'),null,['class'=>'form-control','id'=>'tax','readonly'])!!} --}}
         <input type="text" name="tax" value={{getsetting('tax')}}  class="form-control" id="tax" >
+        </div>
+    </div>
+</div>
+<div class="col-sm-2 col-xs-2 pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  قيمة الضريبه</label>
+        <div class="form-line">
+            {{-- {!! Form::text("tax",getsetting('tax'),null,['class'=>'form-control','id'=>'tax','readonly'])!!} --}}
+        <input type="text" name=""  class="form-control" id="tax_val" readonly >
         </div>
     </div>
 </div>
@@ -95,66 +104,62 @@
     </div>
 </div>
 
-                <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">الدفع </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group form-float">
-                                        <label class="form-label">   المطلوب دفعة</label>
-                                        <div class="form-line total">
-                                            <span  class="dynamic-span"></span>
-                                            <input type="text" class="form-control" name=""  id="amount_required" disabled>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-group form-float">
-                                        <label class="form-label">    طريقة الدفع</label>
-                                        <div class="form-line ">
-                                            <span  class="dynamic-span"></span>
-                                            <select name="payment_type" class="form-control" id="payment_type" >
-                                                <option value="cash">كاش</option>
-                                                <option value="master">ماستر</option>
-                                                <option value="veza">فيزا</option>
-                                                <option value="mada">مدى</option>
-                                              </select>
+        <div class="form-group text-right m-b-0">
+            <button class="btn btn-primary waves-effect" type="button" data-toggle="modal" data-target="#exampleModalCenter">حفظ</button>
+        </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <label class="form-label">    المبلغ المدفوع</label>
-                                        <div class="form-line total">
-                                            <span  class="dynamic-span"></span>
-                                            <input type="text" class="form-control" name="payed"  id="payed">
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-float">
-                                        <label class="form-label">المتبقى</label>
-                                        <div class="form-line total">
-                                            <span  class="dynamic-span"></span>
-                                            <input type="text" class="form-control" name=""  id="reminder" disabled >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button> --}}
-                                    <button type="button" class="btn btn-primary"  data-dismiss="modal">دفع المبلغ </button>
-                                </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">الدفع </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group form-float">
+                            <label class="form-label">   المطلوب دفعة</label>
+                            <div class="form-line total">
+                                <span  class="dynamic-span"></span>
+                                <input type="text" class="form-control" name=""  id="amount_required" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-float">
+                            <label class="form-label">    طريقة الدفع</label>
+                            <div class="form-line ">
+                                <span  class="dynamic-span"></span>
+                                <select name="payment_type" class="form-control" id="payment_type" >
+                                    <option value="cash">كاش</option>
+                                    <option value="master">ماستر</option>
+                                    <option value="veza">فيزا</option>
+                                    <option value="mada">مدى</option>
+                                  </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <label class="form-label">    المبلغ المدفوع</label>
+                            <div class="form-line total">
+                                <span  class="dynamic-span"></span>
+                                <input type="text" class="form-control" name="payed"  id="payed">
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <label class="form-label">المتبقى</label>
+                            <div class="form-line total">
+                                <span  class="dynamic-span"></span>
+                                <input type="text" class="form-control" name=""  id="reminder" disabled >
                             </div>
                         </div>
                     </div>
-
-        <div class="form-group text-right m-b-0">
-
-            <button type="button" class="btn btn-warning btn_bill" data-toggle="modal" data-target="#exampleModalCenter">
-                                        الدفع</button>
-
-            <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button> --}}
+                        <button type="submit" class="btn btn-primary"  data-dismiss="modal"  onclick="document.getElementById('form').submit();"> حفظ </button>
+                    </div>
+                </div>
+            </div>
         </div>
-

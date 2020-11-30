@@ -20,7 +20,7 @@ class RevenueController extends Controller
     public function index()
     {
 
-        $revenues=Revenue::all();
+        $revenues=Revenue::all()->reverse();
 
         return view('admin.revenues.index',compact('revenues'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -114,7 +114,7 @@ class RevenueController extends Controller
 
 
 
-            return back()->with('success', 'تم  الدفع بنجاخ ');
+                return redirect()->route('dashboard.revenues.index')->with('success', 'تم  الدفع بنجاخ ');
 
         }
     }

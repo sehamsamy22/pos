@@ -69,6 +69,9 @@
     <thead>
         <tr>
             <th> اسم الوجبه</th>
+            <th> نوع الوجبه</th>
+            <th> سعر الوجبه</th>
+
             <th>العمليات</th>
         </tr>
     </thead>
@@ -78,6 +81,8 @@
         @foreach($subscription->meals as $key => $value)
        <tr>
            <td>{{ $value->meal->ar_name }}</td>
+           <td>{{ $value->meal->typeMeal->name }}</td>
+           <td>{{ $value->meal->price }}</td>
             <td>
                 <a href="#" onclick="Delete({{$value->id}})" class="label label-danger">حذف</a>
 

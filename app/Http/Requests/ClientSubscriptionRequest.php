@@ -30,6 +30,7 @@ class ClientSubscriptionRequest extends FormRequest
            'subscription_id' => 'required|nullable|integer|exists:subscriptions,id',
            "start" => "required|date",
            "end" => "required|",
+           "meals" => "required|array",
        ];
 
     }
@@ -40,6 +41,8 @@ class ClientSubscriptionRequest extends FormRequest
             'subscription_id.required'=>"نوع الاشتراك  مطلوب",
             'start.required'=>"بداية الاشتراك مطلوب",
             'end.required'=>" نهاية الاشتراك الخطة مطلوب",
+            'meals.required'=>"  وجبات الخطة مطلوب",
+
         ];
 
     }

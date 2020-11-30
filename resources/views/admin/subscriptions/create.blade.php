@@ -80,8 +80,8 @@ function myFun(event) {
                 var data = {};
                 data.meal_id = $(this).val();
                 data.meal_name = $(this).data('name');
-
-
+                data.meal_type= $(this).data('type');
+                data.meal_price= $(this).data('price');
                   return data;
                 }).get();
 
@@ -102,6 +102,9 @@ function myFun(event) {
             return (`
         <tr class="single-meal">
             <td class="prod-nam">${meal.meal_name}</td>
+            <td class="prod-type">${meal.meal_type}</td>
+            <td class="prod-price">${meal.meal_price}</td>
+
                <td>
 
                 <a href="#" data-toggle="tooltip" class="delete-this-row" data-original-title="حذف">
@@ -124,7 +127,7 @@ function myFun(event) {
             e.preventDefault();
             swal({
                 title: "هل أنت متأكد ",
-                text: "هل تريد حذف هذة الوحدة الفرعية ؟",
+                text: "هل تريد حذف هذة  الوجبة ؟",
                 icon: "warning",
                 buttons: ["الغاء", "موافق"],
                 dangerMode: true,
@@ -133,7 +136,7 @@ function myFun(event) {
                     $this.parents('tr').remove();
                     bigData.splice(row_index, 1);
                 } else {
-                    swal("تم االإلفاء", "حذف  الوحدة الفرعية  تم الغاؤه", 'info', {
+                    swal("تم االإلفاء", "حذف   الوجبة  تم الغاؤه", 'info', {
                         buttons: 'موافق'
                     });
                 }

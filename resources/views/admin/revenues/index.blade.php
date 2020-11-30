@@ -54,7 +54,7 @@
                             <td>{{$row->created_at}}</td>
                             <td>
                                 {{-- <a href="{{route('dashboard.categories.edit',$row->id)}}" class="label label-warning">تعديل</a> --}}
-                                <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
+                                {{-- <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a> --}}
                                 {!!Form::open( ['route' => ['dashboard.revenues.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                             </td>

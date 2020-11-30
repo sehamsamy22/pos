@@ -37,10 +37,6 @@
 
                     {!!Form::close() !!}
 
-
-
-
-
                 </div><!-- end row -->
             </div>
         </div><!-- end col -->
@@ -63,7 +59,6 @@
             }).done(function (data) {
                 var d=new Date(data.data);
 
-             $('#date_end').console(data.datetext);
              $('#date_end').val(data.datetext);
 
             }).fail(function (error) {
@@ -102,20 +97,34 @@
 
           });
 
-        });
-        });
 
-        $("#tax").on('change', function() {
-            var tax = $(this).val();
-            var price = $('#price').val();
-        $('#total').val(Number(price)+Number(price) * (Number(tax) / 100));
-        });
+        var price2 = $('#price').val();
        $('#amount_required').val($('#total').val());
-
+          var taxx=$("#tax").val();
+            var tax_=price2 * ( taxx/ 100 );
+            var total= $('#total').val();
+          var tax_val=$('#tax_val').val(tax_.toFixed(2) );
+         $('#payed').val(total);
          $("#payed").change(function() {
                    var payed=$(this).val();
                    var reminder= Number($("#amount_required").val()) - Number(payed);
                    $("#reminder").val(reminder.toFixed(2));
                });
+
+               $("#tax").on('change', function() {
+                var tax = $(this).val();
+               var price = $('#price').val();
+            $('#total').val(Number(price)+Number(price) * (Number(tax) / 100));
+            $('#amount_required').val($('#total').val());
+            $('#payed').val($('#total').val());
+            $("#payed").change(function() {
+                      var payed=$(this).val();
+                      var reminder= Number($("#amount_required").val()) - Number(payed);
+                      $("#reminder").val(reminder.toFixed(2));
+                  });
+            });
+        });
+        });
+
     </script>
 @endsection
