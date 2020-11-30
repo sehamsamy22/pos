@@ -64,6 +64,8 @@
                 var d=new Date(data.data);
 
              $('#date_end').val(data.data);
+             $('#date_end').console(data.data.toDate());
+             $('#date_end').text();
 
             }).fail(function (error) {
                 console.log(error);
@@ -103,7 +105,7 @@
 
         });
         });
-     
+
         $("#tax").on('change', function() {
             var tax = $(this).val();
             var price = $('#price').val();
