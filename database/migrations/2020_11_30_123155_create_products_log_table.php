@@ -17,6 +17,7 @@ class CreateProductsLogTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id')->index()->nullable();
             $table->unsignedBigInteger('bill_id')->index()->nullable();
+            $table->string('operation')->nullable();
 
             $table->timestamps();
         });
