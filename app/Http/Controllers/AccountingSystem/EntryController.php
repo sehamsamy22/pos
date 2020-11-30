@@ -186,7 +186,12 @@ class EntryController extends Controller
     // }
 
    public function posted($id){
-;
+    $entry =Entry::find($id);
+    // dd( $entry);
+        $entry->update([
+            'status'=>'posted',
+        ]);
+
       $entryAccounts=EntryAccount::where('entry_id',$id)->get();
     //   dd($entryAccounts);
      foreach($entryAccounts as $entryaccount){

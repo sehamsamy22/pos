@@ -27,7 +27,7 @@
                 <section class="filter">
                     <div class="yurSections">
                         <div class="row">
-                        
+
                         </div>
                     </div>
                 </section>
@@ -72,15 +72,16 @@
                         <td>{!! $row->details !!}</td>
 
                         <td>
-                            {{-- @if($row->status=='new') --}}
+                            @if($row->status=='new')
                                 جديد
-                            {{-- @else
+                            @else
                                 مرحلة
-                            @endif --}}
+                            @endif
                         </td>
                         <td class="text-center">
+                            @if($row->status=='new')
                             <a href="{{route('dashboard.entries.posted',$row->id)}}" data-toggle="tooltip" data-original-title=""class="label label-success"> ترحيل القيد </a>
-
+                            @endif
                             <a href="{{route('dashboard.entries.show',$row->id)}}" data-toggle="tooltip" data-original-title="تعديل"class="label label-warning">عرض التفاصيل </a>
 
                             <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف"class="label label-danger">حذف </a>

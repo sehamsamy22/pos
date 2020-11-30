@@ -63,9 +63,8 @@
             }).done(function (data) {
                 var d=new Date(data.data);
 
-             $('#date_end').val(data.data);
-             $('#date_end').console(data.data.toDate());
-             $('#date_end').text();
+             $('#date_end').console(data.datetext);
+             $('#date_end').val(data.datetext);
 
             }).fail(function (error) {
                 console.log(error);
