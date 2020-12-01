@@ -415,10 +415,10 @@
                    $("#discount").val(Number(discount_val).toFixed(2));
 
                });
-               $("#total").val(totalAfterFixTax);
+               $("#total").val(totalAfterFixTax.toFixed(2));
 
                $("#amountAfterDariba1").val(totalAfterFixTax);
-               $("#payed").val(totalAfterFixTax);
+               $("#payed").val(totalAfterFixTax.toFixed(2));
                $("#payed").change(function() {
                    var payed=$(this).val();
                    var reminder= Number($("#total").val()) - Number(payed);
