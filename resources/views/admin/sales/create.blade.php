@@ -62,7 +62,7 @@
                             <fieldset class="cat">
                                 <legend > التصنيفات الرئيسة </legend>
                                 @foreach($categories as $category)
-                                <a href=""   class=" btn btn-success category_btn" data-id="{{$category->id}}">{{$category->name}}</a>
+                                <a href="#" onclick="category(event,{{ $category->id }})"   class=" btn btn-success category_btn" data-id="{{$category->id}}">{{$category->name}}</a>
                                  @endforeach
                             </fieldset>
 
@@ -212,155 +212,157 @@
 
      var  rowNum=0;
 
-     $(".category_btn").on('click', function(e) {
-         e.preventDefault();
-         var id=$(this).data('id');
-         $.ajax({
-             url:"/dashboard/getAllSubcategoriesSale/"+id,
-             type:"get",
-         }).done(function (data) {
-             $('.categories').empty();
-             $('.categories').html(data.data);
+  //   $(".category_btn").on('click',category);
 
-             $("#reload").click(function(){
+     function category (e,id) {
+        e.preventDefault();
+      //  var id=$(e).data('id');
+        console.log(id);
+        $.ajax({
+            url:"/dashboard/getAllSubcategoriesSale/"+id,
+            type:"get",
+        }).done(function (data) {
+            $('.categories').empty();
+            $('.categories').html(data.data);
+
+            $(document).on('click','#reload',function(){
+               $.ajax({
+                           url:"/dashboard/getAllcategoriesSale/",
+                           type:"get",
+                       }).done(function (data) {
+                       $('.cat').empty().append();
+                       $('.cat').html(data.data);
+
+                       });
+                        });
+            //**************   subcategory click ***********************
+  $(document).on('click','.subcategory_btn',function(e){
+
+
+   e.preventDefault();
+                var id=$(this).data('id');
                 $.ajax({
-                            url:"/dashboard/getAllcategoriesSale/",
-                            type:"get",
-                        }).done(function (data) {
-                        $('.cat').empty().append();
-                        $('.cat').html(data.data);
+                    url:"/dashboard/getAllMeals/"+id,
+                    type:"get",
+                }).done(function (data) {
 
+                    $('.categories').empty();
+                    $('.categories').html(data.data);
+                    $(document).on('click','#reload',function(){
+
+                       $.ajax({
+                                   url:"/dashboard/getAllcategoriesSale/",
+                                   type:"get",
+                               }).done(function (data) {
+                               $('.cat').empty().append();
+                               $('.cat').html(data.data);
+
+                           });
+                                });
+                    $(".meal_btn").on('click', function(e) {
+                        e.preventDefault();
+                        var meal_id = $(this).data('id');
+                        var meal_name = $(this).data('name');
+                        var meal_price = $(this).data('price');
+                        rowNum++;
+                        $(".sales-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
+                           <td class="row-num" width="40">${rowNum}</td>
+                           <input type="hidden" name="meal_id[${meal_id}]" value="${meal_id}">
+                           <td class="meal-name " width="900">${meal_name}</td>
+                           <td class="meal-quantity " width="40">
+                               <input type="text" placeholder="الكمية" value="1" id="sale" class="form-control" name="quantity[${meal_id}]">
+                           </td>
+                               <input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${meal_id}]">
+                           </td>
+                         <td class="meal_price" width="70">${meal_price}</td>
+
+
+                           <td class="bill-operations-td" width="160">
+                               <button type="button"
+                                       class="btn btn-danger"
+                                        data-html="true"
+                                       data-container="body"
+                                       role="button"
+                                       data-id="${rowNum}"
+                               </button>
+                               <a href="#" title="مسح" class="remove-prod-from-list" style="color: white"><span class="ti-close"></span></a>
+                           </td>
+                       </tr>
+                   `);
+                        calcInfo();
+                        //**************    Calc while changing table body ***********************
+                        $(".sales-table tbody").change(calcInfo);
+                        //**************    Calc while removing a product ************************
+                        $(".remove-prod-from-list").on('click', function (e) {
+                            $(this).parents("tr").remove();
+                            calcInfo();
+                            var trLen = $(".meal_btn  tbody tr").length;
+                            if (trLen === 0) {
+                                $('table tfoot').addClass('tempDisabled');
+                            }
+                        });
+
+                        $(".meal-quantity").change(function() {
+                            if (($(this).val()) < 0) {
+                                $(this).val(0);
+                                $(this).text('0');
+                            }
+                            var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
+                            var quantityXprice = Number(meal_price) * Number(theQuantity);
+                            $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice);
 
                         });
-                         });
-             //**************   subcategory click ***********************
-
-                $(".subcategory_btn").on('click', function(e) {
-                 e.preventDefault();
-                 var id=$(this).data('id');
-                 $.ajax({
-                     url:"/dashboard/getAllMeals/"+id,
-                     type:"get",
-                 }).done(function (data) {
-
-                     $('.categories').empty();
-                     $('.categories').html(data.data);
-                     $("#reload").click(function(){
-
-                        $.ajax({
-                                    url:"/dashboard/getAllcategoriesSale/",
-                                    type:"get",
-                                }).done(function (data) {
-                                $('.cat').empty().append();
-                                $('.cat').html(data.data);
-
+                        $('.counter').html(rowNum);
+                        //****************** Calc function************************
+                        function calcInfo() {
+                            var AmountBeforeDiscount = 0;
+                            $(".meal_price").each(function () {
+                                AmountBeforeDiscount += Number($(this).text());
                             });
-                                 });
-                     $(".meal_btn").on('click', function(e) {
-                         e.preventDefault();
-                         var meal_id = $(this).data('id');
-                         var meal_name = $(this).data('name');
-                         var meal_price = $(this).data('price');
-                         rowNum++;
-                         $(".sales-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
-							<td class="row-num" width="40">${rowNum}</td>
-                            <input type="hidden" name="meal_id[${meal_id}]" value="${meal_id}">
-							<td class="meal-name " width="900">${meal_name}</td>
-							<td class="meal-quantity " width="40">
-								<input type="text" placeholder="الكمية" value="0" id="sale" class="form-control" name="quantity[${meal_id}]">
-							</td>
-								<input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${meal_id}]">
-							</td>
-                          <td class="meal_price" width="70">${meal_price}</td>
+                            $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
+                            $("#total").val(AmountBeforeDiscount.toFixed(2));
+                            $('#amount_required').val($('#total').val());
+                            $('#payed').val($('#total').val());
 
+                            $("#payed").change(function() {
+                                var payed=$(this).val();
+                                var reminder= Number($("#amount_required").val()) - Number(payed);
+                                $("#reminder").val(reminder.toFixed(2));
+                            });
+                            $("#discount").change(function() {
+                                var discount=$(this).val();
 
-							<td class="bill-operations-td" width="160">
-								<button type="button"
-										class="btn btn-danger"
-	                                     data-html="true"
-										data-container="body"
-										role="button"
-										data-id="${rowNum}"
-								</button>
-								<a href="#" title="مسح" class="remove-prod-from-list" style="color: white"><span class="ti-close"></span></a>
-							</td>
-						</tr>
-					`);
-                         calcInfo();
-                         //**************    Calc while changing table body ***********************
-                         $(".sales-table tbody").change(calcInfo);
-                         //**************    Calc while removing a product ************************
-                         $(".remove-prod-from-list").on('click', function (e) {
-                             $(this).parents("tr").remove();
-                             calcInfo();
-                             var trLen = $(".meal_btn  tbody tr").length;
-                             if (trLen === 0) {
-                                 $('table tfoot').addClass('tempDisabled');
-                             }
-                         });
+                                var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
+                                $("#total").val(Number(AmountBeforeDiscount)-Number(discount_val).toFixed(2));
 
-                         $(".meal-quantity").change(function() {
-                             if (($(this).val()) < 0) {
-                                 $(this).val(0);
-                                 $(this).text('0');
-                             }
-                             var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
-                             var quantityXprice = Number(meal_price) * Number(theQuantity);
-                             $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice);
+                                $('#amount_required').val(Number($('#total').val()).toFixed(2));
+                                var allmount=$('#total').val();
 
-                         });
-                         $('.counter').html(rowNum);
-                         //****************** Calc function************************
-                         function calcInfo() {
-                             var AmountBeforeDiscount = 0;
-                             $(".meal_price").each(function () {
-                                 AmountBeforeDiscount += Number($(this).text());
-                             });
-                             $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
-                             $("#total").val(AmountBeforeDiscount.toFixed(2));
-                             $('#amount_required').val($('#total').val());
-                             $('#payed').val($('#total').val());
-
-                             $("#payed").change(function() {
-                                 var payed=$(this).val();
-                                 var reminder= Number($("#amount_required").val()) - Number(payed);
-                                 $("#reminder").val(reminder.toFixed(2));
-                             });
-                             $("#discount").change(function() {
-                                 var discount=$(this).val();
-
-                                 var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
-                                 $("#total").val(Number(AmountBeforeDiscount)-Number(discount_val).toFixed(2));
-
-                                 $('#amount_required').val(Number($('#total').val()).toFixed(2));
-                                 var allmount=$('#total').val();
-
-                                 $('#payed').val(allmount);
-
-                                 $("#payed").change(function() {
-                                     var payed=$(this).val();
-                                     var reminder= Number($("#amount_required").val()) - Number(payed);
-                                     $("#reminder").val(reminder.toFixed(2));
-                                 });
+                                $('#payed').val(allmount);
+                                $("#reminder").val(0);
+                                $("#payed").change(function() {
+                                    var payed=$(this).val();
+                                    var reminder= Number($("#amount_required").val()) - Number(payed);
+                                    $("#reminder").val(reminder.toFixed(2));
                                 });
+                               });
 
 
 
 
-                         }
-                      });
+                        }
+                     });
 
-                 }).fail(function (error) {
-                     console.log(error);
-                 });
-             });
+                }).fail(function (error) {
+                    console.log(error);
+                });
+            });
 
 
-         }).fail(function (error) {
-             console.log(error);
-         });
-     });
-
+        }).fail(function (error) {
+            console.log(error);
+        });
+    }
 
     </script>
 
