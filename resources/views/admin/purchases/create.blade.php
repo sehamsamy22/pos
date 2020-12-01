@@ -287,10 +287,10 @@
 							<td class="product-quantity " width="40">
 								<input type="text" placeholder="الكمية"  value="0" id="sale" class="form-control" name="quantity[${ProductId}]">
 							</td>
-							<td class="unit-price" width="100">${productPrice}
-								<input type="hidden" class="form-control" step="any" value="${productPrice}" name="prices[${ProductId}]">
+							<td class="unit-price" width="100">
+								<input type="text" class="form-control" step="any" value="${productPrice}" name="prices[${ProductId}]">
 							</td>
-                          <td class="quantityXprice" width="70">${productPrice}</td>
+                          <td class="quantityXprice" width="70"></td>
 
 							<td class="whole-product-discount" width="70">
 							<input type="text" class="form-control" value="0" name="discounts[${ProductId}]">
@@ -327,6 +327,8 @@
                 $('table tfoot').addClass('tempDisabled');
             }
         });
+
+
            $(".product-quantity").change(function() {
             if (($(this).val()) < 0) {
                 $(this).val(0);
@@ -336,11 +338,25 @@
                var theUnitPrice = $(this).parents("tr.single-row-wrapper").find(".unit-price input").val();
                var quantityXprice = Number(theUnitPrice) * Number(theQuantity);
                wholePriceAfter = Number(quantityXprice);
-               $(this).parents('.single-row-wrapper').find(".unit-price input").val(productPrice);
-              $(this).parents('.single-row-wrapper').find(".quantityXprice").text(quantityXprice.toFixed(2));
+               $(this).parents('.single-row-wrapper').find(".unit-price input").val(theUnitPrice);
+               $(this).parents('.single-row-wrapper').find(".quantityXprice").text(quantityXprice.toFixed(2));
                $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
-             $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
+               $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
+           });
 
+           $(".unit-price").change(function() {
+            if (($(this).val()) < 0) {
+                $(this).val(0);
+                $(this).text('0');
+            }
+               var theQuantity = $(this).parents("tr.single-row-wrapper").find(".product-quantity input").val();
+               var theUnitPrice = $(this).parents("tr.single-row-wrapper").find(".unit-price input").val();
+               var quantityXprice = Number(theUnitPrice) * Number(theQuantity);
+               wholePriceAfter = Number(quantityXprice);
+               $(this).parents('.single-row-wrapper').find(".unit-price input").val(theUnitPrice);
+               $(this).parents('.single-row-wrapper').find(".quantityXprice").text(quantityXprice.toFixed(2));
+               $(this).parents('.single-row-wrapper').find(".whole-price-after").text(wholePriceAfter.toFixed(2));
+               $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
            });
 
            $(".whole-product-discount").change(function() {

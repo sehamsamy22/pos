@@ -27,8 +27,9 @@ class PurchaseController extends Controller
 
             }
             else{
-      $purchases=Purchase::whereDate('created_at',Carbon::today())->get()->reverse();
-            }
+
+          $purchases=Purchase::whereDate('created_at',Carbon::today())->get()->reverse();
+        }
 
         return view('admin.purchases.index',compact('purchases'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -77,7 +78,7 @@ class PurchaseController extends Controller
 
         $items = $products->zip($qtys,$prices,$itemTax,$discounts);
 
-        foreach ($items as $item){
+        foreach ($items  as $item){
             PurchaseItem::create([
                 'purchase_id'=>$purchase->id,
                 'product_id'=>$item[0],
@@ -85,6 +86,7 @@ class PurchaseController extends Controller
                 'total_price'=>$item[1]*$item[2],
                 'tax'=>$item[3],
                 'discount'=>$item[4],
+                'price'=>$item[2]
             ]);
         }
 

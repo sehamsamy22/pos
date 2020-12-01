@@ -97,7 +97,7 @@
                                                         @endif
                                                     </td>
                                                     <td> {{$row->quantity}}</td>
-                                                    <td> {{$row->product->price}}</td>
+                                                    <td> {{$row->price}}</td>
 
                                                     <td> {{$row->discount}}</td>
                                                     <td> {{$row->tax}}</td>
