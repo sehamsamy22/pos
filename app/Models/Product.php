@@ -22,11 +22,9 @@ class Product extends Model
         $to=$request['to'];
         //-------------------------array1--------------------------
         $subscriptions_arr=ClientSubscriptions::where('active','1')->get();
-    // dd($subscriptions_arr);
+       // dd($subscriptions_arr);
         foreach($subscriptions_arr as $subscription){
-
             if($subscription->start <= $from & $to <= $subscription->end){
-
                 //   من الى
                 $begin = new DateTime( $from);
                 $end = new DateTime($to.' +1 day');
@@ -34,28 +32,23 @@ class Product extends Model
                 foreach($daterange as $date){
                     $dates[] = $date->format("D");
                 }
-
             }
-// بداية نهاية
+               // بداية نهاية
         elseif($subscription->start >= $from && $to >= $subscription->end){
         $begin = new DateTime($subscription->start);
         $end = new DateTime($subscription->end.' +1 day');
         $daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
         foreach($daterange as $date){
             $dates[] = $date->format("D");
-
         }
         // dd( $dates);
     }elseif($subscription->start <= $from && $to >= $subscription->end){//من للنهاية
-
         $begin = new DateTime($from);
         $end = new DateTime($subscription->end.' +1 day');
         $daterange= new DatePeriod($begin, new DateInterval('P1D'), $end);
         foreach($daterange as $date){
             $dates[] = $date->format("D");
         }
-        // dd("e");
-
     }
  elseif($subscription->start >= $from & $to <= $subscription->end){//بداية الى
         $begin = new DateTime($subscription->start);
@@ -64,9 +57,7 @@ class Product extends Model
         foreach($daterange as $date){
             $dates[] = $date->format("D");
         }
-        // dd( $dates);
     }
-//  dd( $dates);
         $days=array('Sat'=>0,'Sun'=>0,'Mon'=>0,'Tue'=>0,'Wed'=>0,'Thu'=>0,'Fri'=>0);
             foreach($dates as  $date){
                 if($date=='Sat'){
@@ -90,7 +81,6 @@ class Product extends Model
         $product_count=0;
         $all=array('Sat'=>0,'Sun'=>0,'Mon'=>0,'Tue'=>0,'Wed'=>0,'Thu'=>0,'Fri'=>0);
 // dd($subscription->id);
-        // $meals=Dietsystem::whereIn('client_subscription_id',$subscriptions)->pluck('meal_id','id')->toArray();
         $saterday_meals=Dietsystem::where('client_subscription_id',$subscription->id)->where('day_No','1')->pluck('meal_id','id')->toArray();
         $sunday_meals=Dietsystem::where('client_subscription_id',$subscription->id)->where('day_No','2')->pluck('meal_id','id')->toArray();
         $monday_meals=Dietsystem::where('client_subscription_id',$subscription->id)->where('day_No','3')->pluck('meal_id','id')->toArray();
@@ -113,12 +103,9 @@ class Product extends Model
 
                     if($day==$day1){
                        foreach($meals as $meal){
-
                         $mealproduct=MealProduct::where('meal_id',$meal)->where('product_id',$id)->first();
-                    //    dd($mealproduct);
                     if(isset($mealproduct)){
                         $dayquantity=$mealproduct->quantity*$dd;
-
                         $product_count+=$dayquantity;
                     }
                         }
@@ -128,9 +115,6 @@ class Product extends Model
                 }
             }
         }
-
-
-
 
       return $product_count;
     }

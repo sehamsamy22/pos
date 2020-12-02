@@ -79,9 +79,7 @@ else{
     }
     public function cooker_view(Request $request){
         if ($request->has('from') && $request->has('to')) {
-            $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
-             ->orWhereBetween('end',[$request['from'],$request['to']])
-             ->where('active','1')
+            $subcriptipns_id=ClientSubscriptions::where('active','1')
             ->pluck('subscription_id','id')->toArray();
 
             $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
@@ -192,9 +190,8 @@ else{
     public function driver_manger_view(Request $request){
 
         if ($request->has('from') && $request->has('to')) {
-            $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
-             ->orWhereBetween('end',[$request['from'],$request['to']])
-             ->where('active','1')
+            $subcriptipns_id=ClientSubscriptions::
+             where('active','1')
             ->pluck('client_id','id')->toArray();
         $clients=Client::whereIn('id',$subcriptipns_id)->orderBy('address')->get();
         }else{
