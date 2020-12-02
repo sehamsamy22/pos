@@ -117,7 +117,6 @@ class Product extends Model
                         $dayquantity=$mealproduct->quantity*$dd;
                         $product_count+=$dayquantity;
                         }
-
                     }
 
                 }
