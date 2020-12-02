@@ -61,9 +61,7 @@ else{
     public function purchase_order(Request $request){
         // dd($request->all());
         if ($request->has('from') && $request->has('to')) {
-            $subcriptipns_id=ClientSubscriptions::whereBetween('start',[$request['from'],$request['to']])
-             ->orWhereBetween('end',[$request['from'],$request['to']])
-             ->where('active','1')
+            $subcriptipns_id=ClientSubscriptions::where('active','1')
              ->pluck('subscription_id','id')->toArray();
             $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
