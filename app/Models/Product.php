@@ -118,8 +118,9 @@ class Product extends Model
                     //    dd($mealproduct);
                     if(isset($mealproduct)){
                         $dayquantity=$mealproduct->quantity*$dd;
-                    }
+
                         $product_count+=$dayquantity;
+                    }
                         }
 
                     }
