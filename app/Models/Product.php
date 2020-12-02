@@ -114,7 +114,7 @@ class Product extends Model
                     if($day==$day1){
                        foreach($meals as $meal){
                         $mealproduct=MealProduct::where('meal_id',$meal)->where('product_id',$id)->first();
-                       dd($mealproduct);
+                    //    dd($mealproduct);
                         $dayquantity=$mealproduct->quantity*$dd;
                         $product_count+=$dayquantity;
                         }
