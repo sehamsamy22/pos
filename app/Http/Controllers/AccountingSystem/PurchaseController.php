@@ -91,7 +91,7 @@ class PurchaseController extends Controller
         }
 
         alert()->success('تم الشراء بنجاح !')->autoclose(5000);
-        return redirect()->route('dashboard.purchases.index');
+        return redirect()->route('dashboard.purchases.index')->with('purchase_id',$purchase->id);;
 
     }
 

@@ -110,7 +110,7 @@ class Meal extends Model
                 foreach($days as $day1=>$dd ){
 
                     if($day==$day1){
-
+                       dd($dd);
                         $meal_count+=$meal_count*$dd;
                         }
 

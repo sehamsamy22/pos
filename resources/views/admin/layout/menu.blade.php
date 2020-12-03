@@ -102,11 +102,7 @@
                         <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>قائمة المنتجات </a></li>
                         <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  المخزون </a></li>
 
-                        <li><a href="{{route('dashboard.stores.purchase_order')}}"><i class="zmdi zmdi-view-list"></i> طلبية شراء المخزن </a></li>
-                        <li><a href="{{route('dashboard.stores.cooker_view')}}"><i class="zmdi zmdi-view-list"></i>   استلام الكميات وتجهيز الوجبات </a></li>
-                        <li><a href="{{route('dashboard.stores.operarion_manger_view')}}"><i class="zmdi zmdi-view-list"></i>   استلام الوجبات  وتوزعها</a></li>
-                        <li><a href="{{route('dashboard.stores.driver_manger_view')}}"><i class="zmdi zmdi-view-list"></i>      توزيع الوجبات للسائقين</a></li>
-
+         
                     </ul>
                 </li>
 

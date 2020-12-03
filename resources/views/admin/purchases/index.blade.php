@@ -109,6 +109,15 @@
                     });
                 }
             </script>
+            <script>
+                @if(!empty(\Illuminate\ Support\ Facades\ Session::has('purchase_id')))
+                @php($purchase_id = \Illuminate\ Support\ Facades\ Session::get('purchase_id'))
+                window.open(
+                    "{{route('dashboard.purchases.show',$purchase_id)}}",
+                    "_blank"
+                ).print();
+                @endif
+            </script>
 
 
 @endsection

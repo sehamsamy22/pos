@@ -6,6 +6,7 @@
         .erro{
             color: red;
         }
+
     </style>
     <link href="{{asset('admin/assets/css/jquery.datetimepicker.min.css')}}" rel="stylesheet" type="text/css">
 
@@ -109,9 +110,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                    <div class="taxs">
+                                        <div class="form-group form-float AmountBeforeDiscount">
+                                            <label class="form-label"> الضريبة</label>
+                                            <span class="required--in">%</span>
+                                                <div class="form-line">
+                                                <input type="text" class="form-control" name="bill_tax"  value={{ getsetting('tax') }} id="bill_tax" readonly>
+                                                </div>
+                                        </div>
+                                        <div class="form-group form-float discounts">
+                                            <label class="form-label" >قيمة الضريبة</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="tax" id="tax_val" readonly>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 <div class="total">
                                     <div class="form-group form-float">
-                                        <label class="form-label" style="display: inline"> المبلغ  بعد الخصم</label>
+                                        <label class="form-label" style="display: inline">    الاجمالى</label>
                                             <input type="text" class="form-control" name="total" id="total" readonly>
                                     </div>
                                 </div>
@@ -126,11 +143,6 @@
                             حفظ</button>
 
                     </div>
-
-
-
-
-
 
 
                 <!-- Modal -->
@@ -319,8 +331,12 @@
                             $(".meal_price").each(function () {
                                 AmountBeforeDiscount += Number($(this).text());
                             });
+                            var bill_tax=$('#bill_tax').val();
+                            var tax_val= Number(AmountBeforeDiscount) * (Number(bill_tax) / 100);
+                            $('#tax_val').val(tax_val.toFixed(2));
                             $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
-                            $("#total").val(AmountBeforeDiscount.toFixed(2));
+                           var amount_tax=AmountBeforeDiscount+tax_val;
+                            $("#total").val(amount_tax.toFixed(2));
                             $('#amount_required').val($('#total').val());
                             $('#payed').val($('#total').val());
 
@@ -332,10 +348,10 @@
                             $("#discount").change(function() {
                                 var discount=$(this).val();
 
-                                var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
-                                $("#total").val(Number(AmountBeforeDiscount)-Number(discount_val).toFixed(2));
+                                var discount_val= Number(amount_tax) * (Number(discount) / 100);
+                                $("#total").val(Number(amount_tax)-Number(discount_val).toFixed(2));
 
-                                $('#amount_required').val(Number($('#total').val()).toFixed(2));
+                                $('#amount_required').val($('#total').val());
                                 var allmount=$('#total').val();
 
                                 $('#payed').val(allmount);
@@ -364,6 +380,15 @@
         });
     }
 
+    </script>
+    <script>
+        @if(!empty(\Illuminate\ Support\ Facades\ Session::has('sale_id')))
+        @php($sale_id = \Illuminate\ Support\ Facades\ Session::get('sale_id'))
+        window.open(
+            "{{route('dashboard.sales.show',$sale_id)}}",
+            "_blank"
+        ).print();
+        @endif
     </script>
 
 @endsection

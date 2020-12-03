@@ -410,14 +410,16 @@
                     var discount_val= Number(totalAfterFixTax)*(Number(bill_discount)/100);
                     console.log(totalAfterFixTax);
                    $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
-                   $("#amountAfterDariba1").val(Number(totalAfterFixTax)-Number(discount_val));
+
+                  var amount_after_discount=Number(totalAfterFixTax)-Number(discount_val);
+                   $("#amountAfterDariba1").val(amount_after_discount);
                    $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
                    $("#discount").val(Number(discount_val).toFixed(2));
 
                });
                $("#total").val(totalAfterFixTax.toFixed(2));
 
-               $("#amountAfterDariba1").val(totalAfterFixTax);
+               $("#amountAfterDariba1").val(totalAfterFixTax.toFixed(2));
                $("#payed").val(totalAfterFixTax.toFixed(2));
                $("#reminder").val('0');
                $("#payed").change(function() {
@@ -436,6 +438,15 @@
         window.location.reload();
            }
 
+    </script>
+    <script>
+        @if(!empty(\Illuminate\ Support\ Facades\ Session::has('purchase_id')))
+        @php($sale_id = \Illuminate\ Support\ Facades\ Session::get('purchase_id'))
+        window.open(
+            "{{route('dashboard.purchases.show',$purchase_id)}}",
+            "_blank"
+        ).print();
+        @endif
     </script>
 
 @endsection

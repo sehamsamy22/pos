@@ -56,7 +56,7 @@ table#qyoud-table thead tr th {
 }
 
 .categories{
-    height: 704px;
+    height: 796px;
     width: 38%;
     /*background-color: #0066CC;*/
     float: right;
@@ -94,7 +94,7 @@ legend{
 }
 
 .meals{
-    height: 700px;
+    height: 777px;
     width: 62%;
     /*background-color: #66CC00;*/
     float: left;
@@ -152,7 +152,7 @@ table.sales-table tbody tr  table.sales-table thead tr{
 
 }
 .payments{
-    height: 30%;
+    height: 32%;
 }
 .card{
     /*width: 100%;*/
@@ -183,7 +183,26 @@ table.sales-table tbody tr  table.sales-table thead tr{
     font-size: larger;
 
 }
+.bill_tax{
+    width: 50%;
+    /*background-color: yellow;*/
+    float: right;
+
+    font-size: larger;
+
+}
+.tax_val{
+width: 50%;
+/*background-color: #6df1f1;*/
+float: left;
+
+font-size: larger;
+
+}
 .form-control[disabled], fieldset[disabled] .form-control .discounts{
+    margin-top: 8px;
+}
+.form-control[disabled], fieldset[disabled] .form-control .taxs{
     margin-top: 8px;
 }
 .total{

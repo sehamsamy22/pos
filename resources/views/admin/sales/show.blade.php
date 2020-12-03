@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <h4>رقم الفاتورة# <br>
-                                            <strong>2016-04-23654789</strong>
+                                            <strong>{{ $sale->num }}</strong>
                                         </h4>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                         {{--                                        </div>--}}
                                         <div class="pull-left m-t-30">
                                             <p><strong>تاريخ الفاتوره: </strong> {{$sale->date}}</p>
-                                            <p class="m-t-10"><strong>اسم المورد: </strong> {{$sale->client->name??'عميل نقدى'}}</p>
+                                            <p class="m-t-10"><strong>اسم العميل: </strong> {{$sale->client->name??'عميل نقدى'}}</p>
 {{--                                            <p class="m-t-10"><strong>حالة الفاتوره: </strong> <span class="label label-pink">Pending</span></p>--}}
                                         </div>
                                     </div><!-- end col -->
@@ -112,17 +112,19 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-6 col-xs-6 col-md-offset-3">
-                                        <p class="text-right"><b>إجمالى الفاتورة:</b>{{$sale->amount}}</p>
                                         <p class="text-right"><b>الخصم:</b> {{$sale->discount}}%</p>
-{{--                                        <p class="text-right"><b>الضريبة:</b>  {{$sale->tax}}%</p>--}}
+                                        <p class="text-right"><b>الضريبة:</b>  {{ getsetting('tax') }}%</p>
+                                        <p class="text-right"><b>إجمالى الفاتورة:</b>{{$sale->total}}</p>
+
                                         <hr>
-                                        <h3 class="text-right">{{$sale->total}}</h3>
+                                        <h3 class="text-right"><b> المدفوع:</b>{{$sale->payed}}</h3>
+                                        <h3 class="text-right"><b> المتبقى:</b>{{$sale->total-$sale->payed }}</h3>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="hidden-print">
                                     <div class="pull-right">
-                                        <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                                        <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light print"><i class="fa fa-print"></i></a>
                                         {{--                                        <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>--}}
                                     </div>
                                 </div>
@@ -152,6 +154,12 @@
 @endsection
 @section('scripts')
 
-
+<script>
+	$(document).ready(function() {
+		$(".print").click(function() {
+			window.print();
+		})
+	});
+</script>
 
 @endsection

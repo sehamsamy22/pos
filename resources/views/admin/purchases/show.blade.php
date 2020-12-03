@@ -131,8 +131,8 @@
                                 <hr>
                                 <div class="hidden-print">
                                     <div class="pull-right">
-                                        <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
-{{--                                        <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>--}}
+                                        <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light print"><i class="fa fa-print"></i></a>
+    {{--                                        <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>--}}
                                     </div>
                                 </div>
                             </div>
@@ -160,5 +160,11 @@
     </div>
 @endsection
 @section('scripts')
-
+<script>
+	$(document).ready(function() {
+		$(".print").click(function() {
+			window.print();
+		})
+	});
+</script>
 @endsection
