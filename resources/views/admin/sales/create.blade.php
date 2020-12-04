@@ -33,7 +33,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">رقم الفاتورة</label>
                             <div class="form-line">
-                                <input type="text" class="form-control" name="num" value="000{{  $salelast->id }}">
+                                <input type="text" class="form-control" name="num" value="000{{  $salelast->id  ??'0'}}">
                             </div>
                         </div>
                     </div>
