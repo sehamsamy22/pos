@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
            "unit" => "required|string|min:1|max:255",
            'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
            "price" => "required",
-           "barcode" => "required|unique:products,barcode".$this->request['barcode']
+           "barcode" => "required|unique:products,barcode"
         ];
 
     }
