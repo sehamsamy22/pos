@@ -24,7 +24,7 @@
             <div class="card-box table-responsive">
 
                 <h4 class="header-title m-t-0 m-b-30">كل  فواتير  المبيعات </h4>
-                <form action="" method="post" accept-charset="utf-8" >
+                <form action="" method="get" accept-charset="utf-8" >
                     @csrf
                   <div class="form-group col-sm-4">
                       <label for="from"> الفترة من </label>
