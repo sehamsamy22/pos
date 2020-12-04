@@ -42,7 +42,9 @@
                         <div class="form-group form-float">
                             <label class="form-label">تاريخ الفاتورة</label>
                             <div class="form-line">
-                                {!! Form::text("date",null,['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' تاريخ الفاتورة','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!}
+                                {{-- {!! Form::date("date",null,['class'=>'form-control inline-control','placeholder'=>' تاريخ الفاتورة','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!} --}}
+                                <input type="date" class="form-control" name="date" id="date" value={{ \Carbon\Carbon::now() }}>
+
                             </div>
                         </div>
                     </div>

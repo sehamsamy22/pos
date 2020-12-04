@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-sm-12">
 
-                    {{--  <div class="btn-group pull-right m-t-15">
-                        <a href="{{route('dashboard.revenues.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
-                        إضافة  سند دفع جديد
+                     <div class="btn-group pull-right m-t-15">
+                        <a href="{{route('dashboard.revenues.store_out')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
+                        إضافة  سند اخراج جديد
                             <span class="m-l-5"><i class="fa fa-plus"></i></span>
                         </a>
-                    </div>  --}}
+                    </div>
 
-                    <h4 class="page-title"> المدفوعات والايردات</h4>
+                    <h4 class="page-title"> سندات الاخراج من المخازن</h4>
                 </div>
 
 
@@ -28,8 +28,8 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
-                <h4 class="header-title m-t-0 m-b-30">  سندات القبض</h4>
-                <form action="{{ route('dashboard.revenues.filter') }}" method="post" accept-charset="utf-8" >
+                <h4 class="header-title m-t-0 m-b-30">كل سندات الاخراج</h4>
+                <form action="{{ route('dashboard.revenues.store_out_filter') }}" method="post" accept-charset="utf-8" >
                     @csrf
                   <div class="form-group col-sm-4">
                       <label for="from"> الفترة من </label>
@@ -53,7 +53,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>اسم العميل</th>
+
                         <th>نوع السند</th>
                         <th> المبلغ</th>
                         <th> تاريخ الدفع</th>
@@ -65,13 +65,8 @@
                     @foreach($revenues as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->client_subscription->client->name??'عميل نقدى'}}</td>
                             <td>
-                            @if($row->type=='subscription')
-                                    اشتراك
-                            @elseif($row->type=='sale')
-                                       بيع
-                            @endif
+                              اخراج من المخزن
                             </td>
                             <td>{{$row->amount}}</td>
                             <td>{{$row->date}}</td>

@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','سند قبض اشتراك')
+@section('title','سند  اخراج من المخزن')
 
 @section('styles')
     <style>
@@ -16,11 +16,13 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30">  سند قبض اشتراك</h4>
+                <h4 class="header-title m-t-0 m-b-30">  سند  اخراج من المخزن</h4>
                 <div class="row">
                     {!!Form::open( ['route' => 'dashboard.revenues.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
-                    <input type="hidden" value="subscription" name="type">
-                    <input type="hidden" value="{{$clients_subscription->id}}" name='client_subscription_id'>
+                    <input type="hidden" value="out" name="type">
+
+
+
                     <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
                             <label class="form-label">رقم السند </label>
@@ -29,30 +31,13 @@
                             </div>
                         </div>
                    </div>
-                    <div class="col-sm-6 col-xs-6 pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label"> اسم  العميل </label>
-                            <div class="form-line">
-                            <input type="text" name="client_id" class="form-control" value={{$clients_subscription->client->name}} readonly>
-                            </div>
-                        </div>
-                   </div>
-
-
-                    <div class="col-sm-6 col-xs-6 pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label"> اسم  الخطة </label>
-                            <div class="form-line">
-                            <input type="text" name="subscription_id" class="form-control" value={{$clients_subscription->subscription->name}} readonly>
-                            </div>
-                        </div>
-                   </div>
-
                    <div class="col-sm-6 col-xs-6  pull-left">
                     <div class="form-group form-float">
-                        <label class="form-label">تاريخ القبض</label>
+                        <label class="form-label">تاريخ السند</label>
                         <div class="form-line">
+                            {{-- {!! Form::date("date",null,['class'=>' form-control inline-control','placeholder'=>' تاريخ القبض','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!} --}}
                             <input type="date" class="form-control" name="date" id="date" value={{ \Carbon\Carbon::now() }}>
+
                         </div>
                     </div>
                 </div>
@@ -61,40 +46,16 @@
                     <div class="form-group form-float">
                         <label class="form-label"> النوع </label>
                         <div class="form-line">
-                        <input type="text" name="" class="form-control"   value="سندقبض">
+                        <input type="text" name="" class="form-control"   value="سند اخراج " readonly>
                         </div>
                     </div>
                </div>
-                   <div class="col-sm-6 col-xs-6 pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label">   المدفوع من الاشتراك </label>
-                            <div class="form-line">
-                            <input type="text"  class="form-control" value={{ $clients_subscription->payed ??'0'}}  id="payed" readonly>
-                            </div>
-                        </div>
-                   </div>
 
-                    <div class="col-sm-6 col-xs-6 pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label">    اجمالى الاشتراك  </label>
-                            <div class="form-line">
-                            <input type="text"  class="form-control" value={{$clients_subscription->total}}  id="total" readonly>
-                            </div>
-                        </div>
-                   </div>
                    <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
                             <label class="form-label"> المبلغ </label>
                             <div class="form-line">
                             <input type="text" name="amount" class="form-control" id="amount" >
-                            </div>
-                        </div>
-                   </div>
-                    <div class="col-sm-6 col-xs-6 pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label">     المتبقى </label>
-                            <div class="form-line">
-                            <input type="text" name="" class="form-control"   id="reminder" readonly>
                             </div>
                         </div>
                    </div>
@@ -135,13 +96,7 @@
         $('.inlinedatepicker').text(new Date().toLocaleString());
         $('.inlinedatepicker').val(new Date().toLocaleString());
     });
-   $("#amount").on('change', function() {
-            var amount = $(this).val();
-            var total = $('#total').val();
-            var payed = $('#payed').val();
-            var x=Number(total)-[Number(payed) +Number(amount)];
-            $('#reminder').val(x.toFixed(2));
-        });
+
 
 </script>
 @endsection

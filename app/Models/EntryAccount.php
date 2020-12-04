@@ -8,7 +8,7 @@ class EntryAccount extends Model
 {
 
     protected $fillable = [
-        'entry_id', 'account_id','affect','amount'
+        'entry_id', 'account_id','affect','amount','balance'
     ];
 
     protected $table='entries_accounts';

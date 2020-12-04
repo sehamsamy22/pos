@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','سند قبض اشتراك')
+@section('title','سند قبض مبيعات')
 
 @section('styles')
     <style>
@@ -16,11 +16,11 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30">  سند قبض اشتراك</h4>
+                <h4 class="header-title m-t-0 m-b-30">  سند قبض مبيعات</h4>
                 <div class="row">
                     {!!Form::open( ['route' => 'dashboard.revenues.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
-                    <input type="hidden" value="subscription" name="type">
-                    <input type="hidden" value="{{$clients_subscription->id}}" name='client_subscription_id'>
+                    <input type="hidden" value="sale" name="type">
+                    <input type="hidden" value="{{$sale->id}}" name='sale_id'>
                     <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
                             <label class="form-label">رقم السند </label>
@@ -33,17 +33,18 @@
                         <div class="form-group form-float">
                             <label class="form-label"> اسم  العميل </label>
                             <div class="form-line">
-                            <input type="text" name="client_id" class="form-control" value={{$clients_subscription->client->name}} readonly>
-                            </div>
+
+                                <input type="text" name="client_id" class="form-control" value="{{$sale->client->name ??''}}"  readonly>
+                                                              </div>
                         </div>
                    </div>
 
 
                     <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
-                            <label class="form-label"> اسم  الخطة </label>
+                            <label class="form-label">  فاتوره رقم </label>
                             <div class="form-line">
-                            <input type="text" name="subscription_id" class="form-control" value={{$clients_subscription->subscription->name}} readonly>
+                            <input type="text" name="sale_id" class="form-control" value={{$sale->id}} readonly>
                             </div>
                         </div>
                    </div>
@@ -52,7 +53,9 @@
                     <div class="form-group form-float">
                         <label class="form-label">تاريخ القبض</label>
                         <div class="form-line">
+                            {{-- {!! Form::date("date",null,['class'=>' form-control inline-control','placeholder'=>' تاريخ القبض','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!} --}}
                             <input type="date" class="form-control" name="date" id="date" value={{ \Carbon\Carbon::now() }}>
+
                         </div>
                     </div>
                 </div>
@@ -67,18 +70,18 @@
                </div>
                    <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
-                            <label class="form-label">   المدفوع من الاشتراك </label>
+                            <label class="form-label">   المدفوع من الفاتورة </label>
                             <div class="form-line">
-                            <input type="text"  class="form-control" value={{ $clients_subscription->payed ??'0'}}  id="payed" readonly>
+                            <input type="text"  class="form-control" value={{ $sale->payed ??'0'}}  id="payed" readonly>
                             </div>
                         </div>
                    </div>
 
                     <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
-                            <label class="form-label">    اجمالى الاشتراك  </label>
+                            <label class="form-label">    اجمالى الفاتورة  </label>
                             <div class="form-line">
-                            <input type="text"  class="form-control" value={{$clients_subscription->total}}  id="total" readonly>
+                            <input type="text"  class="form-control" value={{$sale->total}}  id="total" readonly>
                             </div>
                         </div>
                    </div>

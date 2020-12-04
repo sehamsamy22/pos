@@ -195,20 +195,16 @@ class EntryController extends Controller
       $entryAccounts=EntryAccount::where('entry_id',$id)->get();
     //   dd($entryAccounts);
      foreach($entryAccounts as $entryaccount){
-
      $account=Account::find($entryaccount->account_id);
-
        if($entryaccount->affect=='debtor')
      {
-        //  dd($account->amount );
         $account->update([
-            'amount'=>$account->amount - $entryaccount->amount
+            'amount'=>$account->amount + $entryaccount->amount
         ]);
 
      }elseif($entryaccount->affect=='creditor'){
-        // dd($account->amount );
         $account->update([
-            'amount'=>$account->amount+$entryaccount->amount
+            'amount'=>$account->amount-$entryaccount->amount
         ]);
      }
     }

@@ -47,7 +47,19 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('dietsystems_edit/{id}', 'ClientSubscriptionController@dietsystems_edit')->name('dietsystems.edit');
     route::any('dietsystems_update/{id}', 'ClientSubscriptionController@dietsystems_update')->name('dietsystems.update');
     route::get('pay-subscription/{id}', 'RevenueController@payment_subscription')->name('clients_subscriptions.payment');
+    route::get('pay-sale/{id}', 'RevenueController@payment_sale')->name('sales.payment');
+
+    route::get('receipt', 'RevenueController@receipt')->name('revenues.receipt');
+    route::get('store-out', 'RevenueController@store_out')->name('revenues.store_out');
+    route::get('receipt-index', 'RevenueController@receipt_index')->name('revenues.receipt_index');
+    route::any('/receipt-filter', 'RevenueController@receipt_index')->name('revenues.receipt_filter');
+
+    route::get('store-out-index', 'RevenueController@store_out_index')->name('revenues.store_out_index');
+    route::any('store-out-index', 'RevenueController@store_out_index')->name('revenues.store_out_filter');
+
     route::resource('revenues', 'RevenueController');
+    route::any('/filter-payments', 'RevenueController@index')->name('revenues.filter');
+
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
@@ -64,6 +76,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('stores', 'StoreController@index')->name('stores.index');
     route::get('stores/{id}', 'StoreController@show')->name('stores.show');
 
+
     route::any('/purchase_order', 'StoreController@purchase_order')->name('stores.purchase_order');
     route::any('/cook-view', 'StoreController@cooker_view')->name('stores.cooker_view');
     Route::POST('/receive_products/{id}', 'StoreController@receive_products');
@@ -77,6 +90,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('accounts', 'AccountController');
     route::resource('entries', 'EntryController');
     Route::get('/posted/{id}', 'EntryController@posted')->name('entries.posted');
+    Route::get('statement/{id}', 'AccountController@statement')->name('accounts.statement');
+    Route::get('/trial_balance', 'BalanceController@trial_balance')->name('accounts.trial_balance');
 
     Route::group(['prefix' => 'entries'], function () {
 

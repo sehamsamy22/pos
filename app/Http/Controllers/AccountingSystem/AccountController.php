@@ -107,4 +107,19 @@ class AccountController extends Controller
         ->with('success', __('تم الحذف بنجاح'));
 
     }
+    public function statement($id,Request $request){
+        $account=Account::find($id);
+
+        if ($request->has('from') && $request->has('to') ) {
+            $AccountEntries=EntryAccount::where('account_id', $account->id)
+            ->whereBetween('created_at',[$request['from'],$request['to']])->get();
+        }else{
+
+            $AccountEntries=EntryAccount::where('account_id', $account->id)->get();
+
+        }
+
+        return view('admin.accounts.statement',compact('AccountEntries'));
+
+    }
 }

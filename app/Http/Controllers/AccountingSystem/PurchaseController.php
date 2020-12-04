@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\RevenueOperation;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseItem;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
+    use RevenueOperation;
     /**
      * Display a listing of the resource.
      *
@@ -90,6 +92,7 @@ class PurchaseController extends Controller
             ]);
         }
 
+        // $this->CreateRvenueReceipt($request);
         alert()->success('تم الشراء بنجاح !')->autoclose(5000);
         return redirect()->route('dashboard.purchases.index')->with('purchase_id',$purchase->id);;
 

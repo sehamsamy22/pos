@@ -50,6 +50,8 @@
                         <th>رقم الفاتوره</th>
                         <th>تاريخ الفاتوره</th>
                         <th>  اجمالى الفاتوره</th>
+                        <th>   المدفوع</th>
+
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
@@ -61,7 +63,11 @@
                             <td>{{$row->num}}</td>
                             <td>{{$row->date}}</td>
                             <td>{{$row->total}}</td>
+                            <td>{{$row->payed}}</td>
                             <td>
+                                @if($row->total >$row->payed)
+                                <a href="{{route('dashboard.sales.payment',$row->id)}}" class="label label-success"> دفع</a>
+                                @endif
                                 <a href="{{route('dashboard.sales.show',$row->id)}}" class="label label-warning">عرض الفاتوره</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.sales.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}

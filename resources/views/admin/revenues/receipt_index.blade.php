@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-sm-12">
 
-                    {{--  <div class="btn-group pull-right m-t-15">
-                        <a href="{{route('dashboard.revenues.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
-                        إضافة  سند دفع جديد
+                     <div class="btn-group pull-right m-t-15">
+                        <a href="{{route('dashboard.revenues.receipt')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
+                        إضافة  سند صرف جديد
                             <span class="m-l-5"><i class="fa fa-plus"></i></span>
                         </a>
-                    </div>  --}}
+                    </div>
 
-                    <h4 class="page-title"> المدفوعات والايردات</h4>
+                    <h4 class="page-title"> سندات الصرف</h4>
                 </div>
 
 
@@ -28,8 +28,8 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
-                <h4 class="header-title m-t-0 m-b-30">  سندات القبض</h4>
-                <form action="{{ route('dashboard.revenues.filter') }}" method="post" accept-charset="utf-8" >
+                <h4 class="header-title m-t-0 m-b-30">  كل سندات الصرف  </h4>
+                <form action="{{ route('dashboard.revenues.receipt_filter') }}" method="post" accept-charset="utf-8" >
                     @csrf
                   <div class="form-group col-sm-4">
                       <label for="from"> الفترة من </label>
@@ -53,10 +53,10 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>اسم العميل</th>
+                        <th>اسم المورد</th>
                         <th>نوع السند</th>
                         <th> المبلغ</th>
-                        <th> تاريخ الدفع</th>
+                        <th> تاريخ الصرف</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
@@ -65,21 +65,17 @@
                     @foreach($revenues as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->client_subscription->client->name??'عميل نقدى'}}</td>
+                            <td>{{$row->supplier->name }}</td>
                             <td>
-                            @if($row->type=='subscription')
-                                    اشتراك
-                            @elseif($row->type=='sale')
-                                       بيع
-                            @endif
+                              صرف
                             </td>
                             <td>{{$row->amount}}</td>
                             <td>{{$row->date}}</td>
                             <td>
                                 {{-- <a href="{{route('dashboard.categories.edit',$row->id)}}" class="label label-warning">تعديل</a> --}}
                                 {{-- <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a> --}}
-                                {!!Form::open( ['route' => ['dashboard.revenues.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
-                                {!!Form::close() !!}
+                                {{-- {!!Form::open( ['route' => ['dashboard.revenues.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!} --}}
                             </td>
                         </tr>
                     @endforeach
