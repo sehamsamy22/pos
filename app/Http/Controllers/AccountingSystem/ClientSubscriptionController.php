@@ -62,6 +62,14 @@ class ClientSubscriptionController extends Controller
             return redirect()->route('dashboard.clients_subscriptions.index')->with('success', 'تم اضافه اشتراك العميل بنجاخ ');
 
     }
+    public function show($id)
+    {
+        $clientSubsription=ClientSubscriptions::find($id);
+        $types=TypeMeal::all();
+        $dietsystems=Dietsystem::where('client_subscription_id',$clientSubsription->id)->get();
+
+        return view('admin.clients_subscriptions.show', compact('clientSubsription','types','dietsystems'));
+    }
 
 
     public function dietsystems_update(Request $request,$id){

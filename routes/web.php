@@ -49,6 +49,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('pay-subscription/{id}', 'RevenueController@payment_subscription')->name('clients_subscriptions.payment');
     route::get('pay-sale/{id}', 'RevenueController@payment_sale')->name('sales.payment');
 
+    route::get('/checkquantity/{id}', 'MealController@checkquantity');
+
     route::get('receipt', 'RevenueController@receipt')->name('revenues.receipt');
     route::get('store-out', 'RevenueController@store_out')->name('revenues.store_out');
     route::get('receipt-index', 'RevenueController@receipt_index')->name('revenues.receipt_index');

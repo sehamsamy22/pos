@@ -61,6 +61,8 @@
                             @else
                             <label class="label label-success"> تم سداد المبلغ بالكامل</label>
                             @endif
+                            <a href="{{route('dashboard.clients_subscriptions.show',$row->id)}}" class="label label-purple"> عرض الاشتراك</a>
+
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.clients_subscriptions.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}

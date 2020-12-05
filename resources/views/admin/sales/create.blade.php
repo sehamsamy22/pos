@@ -284,7 +284,7 @@
                            <input type="hidden" name="meal_id[${meal_id}]" value="${meal_id}">
                            <td class="meal-name " width="900">${meal_name}</td>
                            <td class="meal-quantity " width="40">
-                               <input type="text" placeholder="الكمية" value="1" id="sale" class="form-control" name="quantity[${meal_id}]">
+                               <input type="text" placeholder="الكمية" value="1" id="quantity" class="form-control" name="quantity[${meal_id}]">
                            </td>
                                <input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${meal_id}]">
                            </td>
@@ -322,10 +322,25 @@
                                 $(this).text('0');
                             }
                             var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
-                            var quantityXprice = Number(meal_price) * Number(theQuantity);
-                            $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice);
+
+
+                            $.ajax({
+                                url:"/dashboard/checkquantity/"+meal_id,
+                                type:"get",
+                                data:{quantity:theQuantity }
+                            }).done(function (data) {
+                        if(data.data=='false'){
+                            swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
+                                buttons: 'موافق'
+                            });
+                        }
 
                         });
+                            var quantityXprice = Number(meal_price) * Number(theQuantity);
+                            $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice.toFixed(2));
+
+                        });
+
                         $('.counter').html(rowNum);
                         //****************** Calc function************************
                         function calcInfo() {
@@ -339,8 +354,8 @@
                             $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
                            var amount_tax=AmountBeforeDiscount+tax_val;
                             $("#total").val(amount_tax.toFixed(2));
-                            $('#amount_required').val($('#total').val());
-                            $('#payed').val($('#total').val());
+                            $('#amount_required').val(amount_tax.toFixed(2));
+                            $('#payed').val(amount_tax.toFixed(2));
 
                             $("#payed").change(function() {
                                 var payed=$(this).val();

@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Meal;
 use App\Models\MealProduct;
 use App\Models\Product;
+use App\Models\StoreProduct;
 use App\Models\SubCategory;
 use App\Models\TypeMeal;
 use Illuminate\Http\Request;
@@ -190,6 +191,21 @@ class MealController extends Controller
         $product = Product::find($id);
         return response()->json([
             'data'=>$product->unit
+        ]);
+    }
+
+    public function checkquantity(Request $request,$id){
+        $meal = Meal::find($id);
+        $status='ture';
+    
+        foreach($meal->products as $mealproduct){
+            $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
+            if($storeProduct->quantity < $request['quantity'] * $mealproduct->quantity ){
+                $status='false';
+            }
+        }
+        return response()->json([
+            'data'=>$status,
         ]);
     }
 }

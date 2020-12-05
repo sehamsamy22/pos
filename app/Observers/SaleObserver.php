@@ -28,6 +28,7 @@ class SaleObserver
 
             $clientAcount=Account::where('client_id',$sale->client_id)->first();
         }
+        // dd($clientAcount);
         $cashaccount=Account::find(getsetting('accounting_cash_id'));
         $madaaccount=Account::find(getsetting('accounting_mada_id'));
         $visaaccount=Account::find(getsetting('accounting_visa_id'));

@@ -21,6 +21,7 @@ class SaleItemObserver
 
             $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
         //    dd($storeProduct);
+        
             if($storeProduct->quantity > 0){
 
                 $storeProduct->quantity -=$mealproduct->quantity*$saleItem->quantity;
