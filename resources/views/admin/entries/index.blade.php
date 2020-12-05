@@ -24,13 +24,54 @@
             <div class="card-box table-responsive">
 
                 <h4 class="header-title m-t-0 m-b-30">كل  القيود </h4>
-                <section class="filter">
-                    <div class="yurSections">
-                        <div class="row">
 
+            <section class="filter">
+                <div class="yurSections">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {!!Form::open( ['route' => 'dashboard.entries.filter' ,'class'=>'form phone_validate', 'method' => 'get','files' => true]) !!}
+
+                            <div class="form-group col-sm-3">
+                                <label>مصدر  العمليه  </label>
+                                {{-- {!! Form::select("source",['قيد يدوى'=>'قيد يدوى','مشتريات'=>'مشتريات','مبيعات'=>'مبيعات ','مرتجعات'=>'مرتجعات'],null,['class'=>'form-control','placeholder'=>'اختر مصدر العمل'])!!} --}}
+                          <select class="form-control" name="source">
+                            <option disabled>اختر مصدر  العمليه</option>
+
+                              <option value="قيديدوى">     قيديدوى</option>
+                              <option value="مبيعات">مبيعات</option>
+                              <option value="فاتورة مشتريات"> مشتريات</option>
+
+                          </select>
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label>الحاله    </label>
+                          <select class="form-control" name="status">
+                            <option disabled>اختر الحاله</option>
+
+                              <option value="new">جديد </option>
+                              <option value="posted"> مرحل</option>
+
+                          </select>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>  من  </label>
+                                {!! Form::date("from",null,['class'=>'form-control'])!!}
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>  الى  </label>
+                                {!! Form::date("to",null,['class'=>'form-control'])!!}
+                            </div>
+                            <div class="form-group col-sm-3 ">
+                                <label>  </label>
+                                <input type="submit" value="بحث" class="btn btn-success">
+                            </div>
+                            {!!Form::close() !!}
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
+
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
@@ -40,6 +81,7 @@
                         <th> المصدر </th>
                         <th>النوع </th>
                         <th> التاريخ </th>
+                        <th> المبلغ </th>
                         <th> الوصف </th>
                         <th> الحالة </th>
                         <th class="text-center">العمليات</th>
@@ -68,6 +110,7 @@
                             @endif
                         </td>
                         <td>{!! $row->date!!}</td>
+                        <td>{!! $row->amount($row->id)!!}</td>
 
                         <td>{!! $row->details !!}</td>
 

@@ -41,24 +41,49 @@
             <div class="card-box">
 
 
-                <h4 class="header-title m-t-0 m-b-30">العملاء</h4>
+                <h4 class="header-title m-t-0 m-b-30">أيرادات اليوم</h4>
 
                 <div class="widget-box-2">
                     <div class="widget-detail-2">
-                        <span class="badge badge-success pull-left m-t-20"> {{ $clients }}%<i class="zmdi zmdi-trending-up"></i> </span>
-                        <h2 class="m-b-0"> {{ $clients }}</h2>
-                        <p class="text-muted m-b-25">العملاء</p>
+                        <span class="badge badge-success pull-left m-t-20"> {{ $sales }}%<i class="zmdi zmdi-trending-up"></i> </span>
+                        <h2 class="m-b-0"> {{ $sales }}</h2>
+                        <p class="text-muted m-b-25">أيرادات اليوم</p>
                     </div>
                     <div class="progress progress-bar-success-alt progress-sm m-b-0">
                         <div class="progress-bar progress-bar-success" role="progressbar"
-                             aria-valuenow="{{ $clients }}" aria-valuemin="0" aria-valuemax="100"
-                             style="width: {{ $clients }}%">
-                            <span class="sr-only">{{ $clients }}% Complete</span>
+                             aria-valuenow="{{ $sales }}" aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{ $sales }}%">
+                            <span class="sr-only">{{ $sales }}% Complete</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div><!-- end col -->
+
+
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="card-box">
+
+                <h4 class="header-title m-t-0 m-b-30">  مصروفات اليوم</h4>
+
+                <div class="widget-box-2">
+                    <div class="widget-detail-2">
+                        <span class="badge badge-pink pull-left m-t-20">{{ $purchases}}% <i class="zmdi zmdi-trending-up"></i> </span>
+                        <h2 class="m-b-0">{{ $purchases}} </h2>
+                        <p class="text-muted m-b-25">   مصروفات اليوم</p>
+                    </div>
+                    <div class="progress progress-bar-pink-alt progress-sm m-b-0">
+                        <div class="progress-bar progress-bar-pink" role="progressbar"
+                             aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{ $purchases}}%;">
+                            <span class="sr-only">{{ $purchases}}% Complete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end col -->
+
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="card-box">
@@ -76,28 +101,6 @@
                     <div class="widget-detail-1">
                         <h2 class="p-t-10 m-b-0"> {{ $meals }}</h2>
                         <p class="text-muted">عدد الوجبات المتاحة اليوم</p>
-                    </div>
-                </div>
-            </div>
-        </div><!-- end col -->
-
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="card-box">
-
-                <h4 class="header-title m-t-0 m-b-30">  الموردين</h4>
-
-                <div class="widget-box-2">
-                    <div class="widget-detail-2">
-                        <span class="badge badge-pink pull-left m-t-20">{{ $suppliers}}% <i class="zmdi zmdi-trending-up"></i> </span>
-                        <h2 class="m-b-0">{{ $suppliers}} </h2>
-                        <p class="text-muted m-b-25">  عدد الموردين</p>
-                    </div>
-                    <div class="progress progress-bar-pink-alt progress-sm m-b-0">
-                        <div class="progress-bar progress-bar-pink" role="progressbar"
-                             aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
-                             style="width: {{ $suppliers}}%;">
-                            <span class="sr-only">{{ $suppliers}}% Complete</span>
-                        </div>
                     </div>
                 </div>
             </div>

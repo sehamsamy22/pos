@@ -90,6 +90,7 @@
                         <li><a href="{{route('dashboard.entries.index')}}"><i class="zmdi zmdi-view-list"></i>   القيوداليومية </a></li>
                         <li><a href="{{route('dashboard.revenues.index')}}"><i class="zmdi zmdi-view-list"></i>   سندات القبض  </a></li>
                         <li><a href="{{route('dashboard.revenues.receipt_index')}}"><i class="zmdi zmdi-view-list"></i>   سندات الصرف </a></li>
+                         <li><a href="{{route('dashboard.accounts.statements')}}" > <i class="zmdi zmdi-view-list"></i> كشف  حساب </a></il>
 
                         <li><a href="{{route('dashboard.accounts.trial_balance')}}"><i class="zmdi zmdi-view-list"></i>    ميزان المراجعة </a></li>
                     </ul>

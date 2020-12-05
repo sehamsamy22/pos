@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<table  class="table table-striped table-bordered">
+<table  class="table table-striped table-bordered" style="  font-size: 10px;">
     <thead>
     <tr>
         <th></th>

@@ -8,11 +8,11 @@
 
             <div class="{{$i}}">
             @foreach($type->meals_sub($id) as  $key=>$meal)
+            <li style="list style:none">
+                        {{$meal->ar_name}}
+                            <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$meal->id}}][{{ $i }}]">
 
-            {{$meal->ar_name}}
-                <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$meal->id}}][{{ $i }}]">
-
-
+            </li>
 
             @endforeach
         </div>

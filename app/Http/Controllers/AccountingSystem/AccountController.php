@@ -122,4 +122,20 @@ class AccountController extends Controller
         return view('admin.accounts.statement',compact('AccountEntries'));
 
     }
+
+    public function statements(Request $request){
+        $accounts=Account::pluck('name','id')->toArray();
+
+        if ($request->has('from') && $request->has('to') && $request->has('account_id')) {
+            $AccountEntries=EntryAccount::where('account_id', $request['account_id'])
+            ->whereBetween('created_at',[$request['from'],$request['to']])->get();
+        }else{
+
+            $AccountEntries=EntryAccount::all();
+
+        }
+
+        return view('admin.accounts.statements',compact('AccountEntries','accounts'));
+
+    }
 }

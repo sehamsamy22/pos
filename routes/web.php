@@ -61,6 +61,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
 
     route::resource('revenues', 'RevenueController');
     route::any('/filter-payments', 'RevenueController@index')->name('revenues.filter');
+    route::any('/filter-entriy', 'EntryController@filter')->name('entries.filter');
 
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
@@ -93,11 +94,13 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('entries', 'EntryController');
     Route::get('/posted/{id}', 'EntryController@posted')->name('entries.posted');
     Route::get('statement/{id}', 'AccountController@statement')->name('accounts.statement');
+    Route::get('statements', 'AccountController@statements')->name('accounts.statements');
+
     Route::get('/trial_balance', 'BalanceController@trial_balance')->name('accounts.trial_balance');
 
     Route::group(['prefix' => 'entries'], function () {
 
-        Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
+        // Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
         Route::get('posting/{id}', ['as' => 'entries.posting', 'uses' => 'EntryController@posting']);
         Route::get('toAccounts/{id}', ['as' => 'entries.toAccounts', 'uses' => 'EntryController@toaccounts']);
 

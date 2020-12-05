@@ -12,6 +12,7 @@ use App\Traits\ManualCreateEntry as TraitsManualCreateEntry;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class EntryController extends Controller
 {
@@ -157,33 +158,51 @@ class EntryController extends Controller
     }
 
 
-    // public  function filter(Request $request){
-    //     $requests=request()->all();
+    public  function filter(Request $request){
+        $requests=request()->all();
+// dd($requests['source']);
 
-    //     if ($request->has('code')&$request->code!=NULL) {
+            if ($requests['from']==null && $requests['to']==null && $request->has('source') && $requests['status']==null) {
 
-    //         $entries = AccountingEntry::where('code', $requests['code'])->get();
-    //     }elseif ($request->has('date')&$request->date!=NULL) {
+                $entries =  Entry::where('source','Like', '%'.$requests['source'].'%')->get();
+            }
 
-    //         $entries = AccountingEntry::where('date', $requests['date'])->get();
+            elseif ($requests['from']==null && $requests['to']== null && $requests['source']==null && $requests['status']!=null  ) {
 
+                $entries =  Entry::where('status',$requests['status'])->get();
+            }
+            elseif ($requests['from']==null && $requests['to']== null && $requests['source']!=null && $requests['status']!=null  ) {
 
-    //     }elseif ($request->has('type')&$request->type!=NULL) {
-    //                 if($requests['type']=='manual'){
-    //         $entries = AccountingEntry::where('type','manual')->get();
-    //                 }elseif($requests['type']=='automatic'){
-    //          $entries = AccountingEntry::where('type','automatic')->get();
-    //                 }
-    //     }elseif ($request->has('source')&$request->source!=NULL) {
-    //         $entries = AccountingEntry::where('source','Like', '%'.$requests['source'].'%')->get();
-    //     }else{
-    //         $entries = AccountingEntry::all()->reverse();
+                $entries =  Entry::where('source','Like', '%'.$requests['source'].'%')->where('status',$requests['status'])->get();
+            }
+       else if ($request->has('from') && $request->has('to') && $requests['source']==null && $requests['status']==null) {
 
-    //     }
-    //     return $this->toIndex(compact('entries'));
+            $entries = Entry::whereBetween('created_at', [$request['from'],$request['to']])->get();
 
 
-    // }
+        }elseif ($request->has('from') && $request->has('to')&& $request->has('status') && $requests['source']==null ) {
+            $entries =  Entry::whereBetween('created_at', [$request['from'],$request['to']])->where('status',$request['status'])->get();
+
+        }
+        elseif ($request->has('from') && $request->has('to') && $request->has('source') && $requests['status']==null) {
+
+            $entries =  Entry::whereBetween('created_at', [$request['from'],$request['to']])->where('source','Like', '%'.$requests['source'].'%')->get();
+        }
+        elseif ($request->has('from') && $request->has('to') && $request->has('source') && $request->has('status')) {
+
+            $entries =  Entry::whereBetween('created_at', [$request['from'],$request['to']])->where('source','Like', '%'.$requests['source'].'%')->where('status' ,$requests['status'])->get();
+        }
+
+
+
+        else{
+            $entries = Entry::all()->reverse();
+
+        }
+        // dd($entries);
+        return view('admin.entries.index',compact('entries'));
+
+    }
 
    public function posted($id){
     $entry =Entry::find($id);
