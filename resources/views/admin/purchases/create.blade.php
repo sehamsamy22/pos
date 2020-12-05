@@ -403,26 +403,30 @@
                $("#amountAfterDariba").val(amountBeforeDariba+tax_val);
                // $("#amountOfDariba span.dynamic-span").html(amountOfDariba.toFixed(2));
               // $("#total").val(amountAfterDariba.toFixed(2));
-               var  totalAfterFixTax=amountBeforeDariba+tax_val ;
-               {{--  console.log(amountBeforeDariba+tax_val);  --}}
+               var  sum=amountBeforeDariba+tax_val ;
+               var  totalAfterFixTax=Number(sum).toFixed(2) ;
 
 
                $("#bill_discount").change(function() {
                    var bill_discount=$(this).val();
                     var discount_val= Number(totalAfterFixTax)*(Number(bill_discount)/100);
                     console.log(totalAfterFixTax);
-                   $("#amountAfterDariba span.dynamic-span").html(Number(totalAfterFixTax)-Number(discount_val));
+                    var amount_after_discount=Number(totalAfterFixTax)-Number(discount_val);
 
-                  var amount_after_discount=Number(totalAfterFixTax)-Number(discount_val);
-                   $("#amountAfterDariba1").val(amount_after_discount);
-                   $("#total").val((Number(totalAfterFixTax)-Number(discount_val)).toFixed(2));
+                   $("#amountAfterDariba span.dynamic-span").html(amount_after_discount.toFixed(2));
+
+                   $("#amountAfterDariba1").val(amount_after_discount.toFixed(2));
+
+                   $("#total").val(amount_after_discount.toFixed(2));
                    $("#discount").val(Number(discount_val).toFixed(2));
 
                });
-               $("#total").val(totalAfterFixTax.toFixed(2));
+             var demonded= totalAfterFixTax;
+             $("#payed").val(demonded);
+               $("#amountAfterDariba1").val(totalAfterFixTax);
+               $("#total").val(totalAfterFixTax);
 
-               $("#amountAfterDariba1").val(totalAfterFixTax.toFixed(2));
-               $("#payed").val(totalAfterFixTax.toFixed(2));
+
                $("#reminder").val('0');
                $("#payed").change(function() {
                    var payed=$(this).val();
