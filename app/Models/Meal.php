@@ -86,7 +86,7 @@ class Meal extends Model
               }
         //    dd($days);
 //-------------------------array2--------------------------
-        $meal_count=1;
+        $meal_count=0;
         $all=array('Sat'=>0,'Sun'=>0,'Mon'=>0,'Tue'=>0,'Wed'=>0,'Thu'=>0,'Fri'=>0);
 // dd($subscription->id);
         $saterday_meals=Dietsystem::where('client_subscription_id',$subscription->id)->where('day_No','1')->pluck('meal_id','id')->toArray();
