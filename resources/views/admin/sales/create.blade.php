@@ -366,7 +366,8 @@
                                 var discount=$(this).val();
 
                                 var discount_val= Number(amount_tax) * (Number(discount) / 100);
-                                $("#total").val(Number(amount_tax)-Number(discount_val).toFixed(2));
+                                var all= Number(amount_tax)-Number(discount_val)
+                                $("#total").val(all.toFixed(2));
 
                                 $('#amount_required').val($('#total').val());
                                 var allmount=$('#total').val();
