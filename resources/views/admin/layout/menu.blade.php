@@ -89,6 +89,8 @@
                         <li><a href="{{route('dashboard.accounts.index')}}"><i class="zmdi zmdi-share"></i> شجره الحسابات </a></li>
                         <li><a href="{{route('dashboard.entries.index')}}"><i class="zmdi zmdi-view-list"></i>   القيوداليومية </a></li>
                         <li><a href="{{route('dashboard.revenues.index')}}"><i class="zmdi zmdi-view-list"></i>   سندات القبض  </a></li>
+                        <li><a href="{{route('dashboard.revenues.receipt_index')}}"><i class="zmdi zmdi-view-list"></i>   سندات الصرف </a></li>
+
                         <li><a href="{{route('dashboard.accounts.trial_balance')}}"><i class="zmdi zmdi-view-list"></i>    ميزان المراجعة </a></li>
                     </ul>
                 </li>
@@ -103,7 +105,6 @@
                         <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>قائمة المنتجات </a></li>
                         <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  المخزون </a></li>
                         <li><a href="{{route('dashboard.revenues.store_out_index')}}"><i class="zmdi zmdi-view-list"></i> سندات الاخراج </a></li>
-                        <li><a href="{{route('dashboard.revenues.receipt_index')}}"><i class="zmdi zmdi-view-list"></i>   سندات الصرف </a></li>
                     </ul>
                 </li>
 

@@ -69,7 +69,7 @@
                                        <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value='0' readonly></td>
                                         <td class="received_btn{{$row->id}}">
                                         <input type='number' class="form-control" name="received_quantity">
-                                        <button type="submit" class="btn btn-danger " onclick="myfun({{$row->id}})" >استلام</button>
+                                        <button type="submit" class="btn btn-danger  " onclick="myfun({{$row->id}})"  id="received_click{{ $row->id }}">استلام</button>
                                         </td>
                                     </tr>
                                     </form>
@@ -131,6 +131,7 @@
            console.log(id);
             $('#form-'+id).submit(function(e) {
                 e.preventDefault();
+                console.log("dsfsd");
                 var form = $(this);
                 $.ajax({
                     type: "POST",
@@ -158,7 +159,7 @@
         }
 
 
-
+{{--
            function myfun_ready(meal_id) {
             $('#formready-'+meal_id).submit(function(e) {
                 e.preventDefault();
@@ -189,7 +190,7 @@
 
 
             });
-        }
+        } --}}
     </script>
 
 @endsection

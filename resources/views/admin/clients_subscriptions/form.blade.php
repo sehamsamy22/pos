@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<table id="basic" class="table table-striped table-bordered" >
+<table  class="table table-striped table-bordered">
     <thead>
     <tr>
         <th></th>

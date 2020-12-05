@@ -69,7 +69,7 @@
                             <td>{{$row->created_at}}</td>
                             <td>{{$row->updated_at}}</td>
                             <td>
-                                <a href="{{route('dashboard.stores.show',$row->id)}}" class="label label-warning">عرض العمليات</a>
+                                <a href="{{route('dashboard.stores.show',$row->product->id)}}" class="label label-warning">عرض العمليات</a>
 
                             </td>
                         </tr>

@@ -48,9 +48,9 @@
         <tr>
           <td>{{ $type->name }}</td>
           @for($i=1;$i<=7;$i++)
-              <td>
+              <td  >
 
-                  <div class="{{$i}}" style="display: inline">
+                  <div class="{{$i}}" style="display: inline-block;">
 
                   @foreach($type->meals_sub($clientSubsription->subscription_id) as  $key=>$meal)
                   @foreach($dietsystems as $dietsystem)
