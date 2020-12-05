@@ -84,9 +84,9 @@ class Meal extends Model
                     $days['Fri']+=1;
                 }
               }
-            //  dd($days);
+        //    dd($days);
 //-------------------------array2--------------------------
-        $meal_count=0;
+        $meal_count=1;
         $all=array('Sat'=>0,'Sun'=>0,'Mon'=>0,'Tue'=>0,'Wed'=>0,'Thu'=>0,'Fri'=>0);
 // dd($subscription->id);
         $saterday_meals=Dietsystem::where('client_subscription_id',$subscription->id)->where('day_No','1')->pluck('meal_id','id')->toArray();
@@ -105,13 +105,19 @@ class Meal extends Model
               $all['Thu']= $thurday_meals;
               $all['Fri']= $friday_meals;
         //-------------------------array3--------------------------
-// dd($all);
+//  dd($all);
               foreach($all as $day=>$meals){
+                //   dd($meals);
                 foreach($days as $day1=>$dd ){
 
                     if($day==$day1){
-                       dd($dd);
+                    foreach($meals as $meal){
+                       if($meal==$id){
                         $meal_count+=$meal_count*$dd;
+
+                       }
+
+                            }
                         }
 
                     }
