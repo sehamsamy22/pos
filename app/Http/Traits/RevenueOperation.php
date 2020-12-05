@@ -6,8 +6,12 @@ use App\Models\Account;
 use App\Models\ClientSubscriptions;
 use App\Models\Entry;
 use App\Models\EntryAccount;
+use App\Models\Product;
+use App\Models\ProductLog;
 use App\Models\Revenue;
+use App\Models\RevenueProduct;
 use App\Models\Sale;
+use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 
 trait RevenueOperation
@@ -334,99 +338,38 @@ trait RevenueOperation
     $madaaccount=Account::find(getsetting('accounting_mada_id'));
     $visaaccount=Account::find(getsetting('accounting_visa_id'));
         if($request['type']=='out'){
-
+// dd($request->all());
         $revenue=  Revenue::create([
 
                 'amount'=>$request['amount'],
                 'type'=>'out',
-                "payment_type" => $request['payment_type'],
+                // "payment_type" => $request['payment_type'],
                 'date'=>$request['date'],
                 'num'=>$request['num'],
             ]);
 
+            foreach($request['quantity'] as $product_id=>$quantity )
+            {
 
-            if($request['payment_type']=='cash')
-                {
-                    $entry=Entry::create([
-                        'date'=>$revenue->created_at,
-                            'source'=>'سند اخراج من المخزن',
-                            'type'=>'automatic',
-                            'details'=> 'سند اخراج من المخزن رقم  '.$revenue->id,
-                            'status'=>'new',
+                $storeProduct=StoreProduct::where('product_id',$product_id)->first();
+                if($storeProduct->quantity-$quantity >0){
+                    $storeProduct->update([
+                        'quantity'=>$storeProduct->quantity -$quantity,
                     ]);
-
-                     EntryAccount::create([
-                        'entry_id'=>$entry->id,
-                        'account_id'=>$cashaccount->id,
-                        'affect'=>'debtor',
-                        'amount'=>$request['amount'],
-                        'balance'
+                    // 'product_id', 'operation','bill_id','quantity'
+                    ProductLog::create([
+                        'product_id'=>$product_id,
+                        'operation'=>'اخراج من المخزن',
+                        'quantity'=>$quantity
                     ]);
-                    EntryAccount::create([
-                        'entry_id'=>$entry->id,
-                        'account_id'=> getsetting('accounting_store_id'),
-                        'affect'=>'creditor',
-                        'amount'=>$request['amount'],
+                    RevenueProduct::create([
+                        'product_id'=>$product_id,
+                        'revenue_id'=>$revenue->id,
+                        'quantity'=>$quantity
                     ]);
-
-
                 }
-                elseif($request['payment_type']=='mada')
-                {
-                    $entry=Entry::create([
-                        'date'=>$revenue->created_at,
-                            'source'=>'سند اخراج من المخزن',
-                            'type'=>'automatic',
-                            'details'=>'سنداخراج من المخزن'.$revenue->id,
-                            'status'=>'new',
-                    ]);
+            }
 
-                     EntryAccount::create([
-                        'entry_id'=>$entry->id,
-                        'account_id'=> $storeAccount->id,
-                        'affect'=>'debtor',
-                        'amount'=>$request['amount'],
-                        'balance'=> $storeAccount->balance+$request['amount'],
-                    ]);
-                    EntryAccount::create([
-                        'entry_id'=>$entry->id,
-                        'account_id'=>$madaaccount->id,
-                        'affect'=>'creditor',
-                        'amount'=>$request['amount'],
-                        'balance'=> $madaaccount->balance-$request['amount'],
-
-                    ]);
-
-                }
-
-                elseif($request['payment_type']=='veza')
-                {
-                    $entry=Entry::create([
-                        'date'=>$revenue->created_at,
-                            'source'=>'سند اخراج من المخزن',
-                            'type'=>'automatic',
-                            'details'=>'سند اخراج من المخزن'.$revenue->id,
-                            'status'=>'new',
-                    ]);
-
-                     EntryAccount::create([
-                        'entry_id'=>$entry->id,
-                        'account_id'=> $storeAccount->id,
-                        'affect'=>'debtor',
-                        'amount'=>$request['amount'],
-                        'balance'=> $storeAccount->balance+$request['amount'],
-
-                    ]);
-                    EntryAccount::create([
-                        'entry_id'=>$entry->id,
-                        'account_id'=> $visaaccount->id,
-                        'affect'=>'creditor',
-                        'amount'=>$request['amount'],
-                        'balance'=> $visaaccount->balance+$request['amount'],
-
-                    ]);
-
-                }
         }
 
     }

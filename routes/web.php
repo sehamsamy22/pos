@@ -58,6 +58,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
 
     route::get('store-out-index', 'RevenueController@store_out_index')->name('revenues.store_out_index');
     route::any('store-out-index', 'RevenueController@store_out_index')->name('revenues.store_out_filter');
+    route::get('store-out-show/{id}', 'RevenueController@store_out_show')->name('revenues.store_out_sanad_show');
 
     route::resource('revenues', 'RevenueController');
     route::any('/filter-payments', 'RevenueController@index')->name('revenues.filter');
@@ -89,6 +90,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::POST('/distributed_meals/{id}', 'StoreController@distributed_meals');
     route::any('/driver_manger_view', 'StoreController@driver_manger_view')->name('stores.driver_manger_view');
     Route::POST('/assign_driver/{id}', 'StoreController@assign_driver');
+    route::get('/productout', 'StoreController@productout');
+
     //===============================accounts
     route::resource('accounts', 'AccountController');
     route::resource('entries', 'EntryController');

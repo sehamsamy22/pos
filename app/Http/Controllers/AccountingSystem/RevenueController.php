@@ -7,8 +7,11 @@ use App\Http\Traits\RevenueOperation;
 use App\Models\ClientSubscriptions;
 use App\Models\Entry;
 use App\Models\EntryAccount;
+use App\Models\Product;
 use App\Models\Revenue;
+use App\Models\RevenueProduct;
 use App\Models\Sale;
+use App\Models\StoreProduct;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -75,9 +78,11 @@ class RevenueController extends Controller
      * @param  \App\Models\Revnue  $revnue
      * @return \Illuminate\Http\Response
      */
-    public function show(Revenue $revenue)
+    public function store_out_show($id)
     {
-        //
+        $revenue=Revenue::find($id);
+        $products=RevenueProduct::where('revenue_id',$id)->get();
+        return view('admin.revenues.store_out_sanad_show',compact('revenue','products'));
     }
 
     /**
@@ -135,8 +140,10 @@ class RevenueController extends Controller
         return view('admin.revenues.receipt',compact('revenue','suppliers'));
     }
     public function store_out(){
+        $stores=StoreProduct::pluck('product_id','id')->toArray();
+        $products=Product::whereIn('id',$stores)->pluck('ar_name','id')->toArray();
         $revenue=Revenue::latest()->first();
-        return view('admin.revenues.store_out_sanad',compact('revenue'));
+        return view('admin.revenues.store_out_sanad',compact('revenue','products'));
     }
     public function receipt_index(Request $request)
     {

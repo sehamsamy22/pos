@@ -18,16 +18,12 @@
             <div class="card-box">
                 <h4 class="header-title m-t-0 m-b-30">  سند  اخراج من المخزن</h4>
                 <div class="row">
-                    {!!Form::open( ['route' => 'dashboard.revenues.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
-                    <input type="hidden" value="out" name="type">
-
-
 
                     <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
                             <label class="form-label">رقم السند </label>
                             <div class="form-line">
-                                <input type="text" name="num" class="form-control"   value=" 00{{ $revenue->id }} " >
+                                <input type="text" name="num" class="form-control"   value=" {{ $revenue->id }} " readonly>
                             </div>
                         </div>
                    </div>
@@ -36,7 +32,7 @@
                         <label class="form-label">تاريخ السند</label>
                         <div class="form-line">
                             {{-- {!! Form::date("date",null,['class'=>' form-control inline-control','placeholder'=>' تاريخ القبض','data-parsley-required-message'=>'من فضلك التاريخ','required'=>''])!!} --}}
-                            <input type="date" class="form-control" name="date" id="date" value={{ \Carbon\Carbon::now() }}>
+                            <input type="date" class="form-control" name="date" id="date" value={{ $revenue->date }} readonly>
 
                         </div>
                     </div>
@@ -52,24 +48,28 @@
                </div>
 
 
-               <div class="col-sm-6 col-xs-6 pull-left">
-                <div class="form-group form-float">
-                    <label class="form-label"> اختر الصنف </label>
-                    <div class="form-line">
-                        {!! Form::select("product_id[]",$products,null,['class'=>'form-control js-example-basic-single product_id','multiple','id'=>'product_id',])!!}
-
-                    </div>
-                </div>
-           </div>
-
-           <div class="products"></div>
 
 
-                   <div class="form-group text-right m-b-0">
-                        <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
-                    </div>
+            <table class="table table-striped table-bordered">
+            <th> اسم الصنف</th>
+            <th>  الكمية </th>
 
-                    {!!Form::close() !!}
+
+            <tbody>
+
+            @foreach ($products as $product)
+            <tr >
+                <td>{{$product->product->ar_name}} </td>
+                <td >{{ $product->quantity }}</td>
+            </tr>
+            </tbody>
+            @endforeach
+        </table>
+
+
+
+
+
                 </div><!-- end row -->
             </div>
         </div><!-- end col -->
@@ -84,7 +84,7 @@
         $(".product_id").on('change', function() {
             var id = $(this).val();
 
-           
+
             console.log(id);
             $.ajax({
                 url:"/dashboard/productout",

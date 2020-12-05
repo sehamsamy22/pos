@@ -43,9 +43,13 @@
                               <a href="{{route('dashboard.purchases.show',$row->bill_id)}}">
                                     تم الشراء  بفاتوره مشتريات رقم {{ $row->purchase->num }}
                             </a>
-                            @else
+                            @elseif($row->operation=='sales')
                             <a href="{{route('dashboard.sales.show',$row->bill_id)}}">
                                 تم البيع  بفاتوره مبيعات رقم {{ $row->sale->num }}
+                             </a>
+                             @else
+                             <a href="#">
+                             تم اخراج الكمية من المخزن بسند اخراج
                              </a>
                              @endif
                             </td>

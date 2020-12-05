@@ -55,7 +55,7 @@
                         <th>#</th>
 
                         <th>نوع السند</th>
-                        <th> المبلغ</th>
+                        {{-- <th> المبلغ</th> --}}
                         <th> تاريخ الدفع</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
@@ -68,10 +68,10 @@
                             <td>
                               اخراج من المخزن
                             </td>
-                            <td>{{$row->amount}}</td>
+                            {{-- <td>{{$row->amount}}</td> --}}
                             <td>{{$row->date}}</td>
                             <td>
-                                {{-- <a href="{{route('dashboard.categories.edit',$row->id)}}" class="label label-warning">تعديل</a> --}}
+                                <a href="{{route('dashboard.revenues.store_out_sanad_show',$row->id)}}" class="label label-warning">التفاصيل</a>
                                 {{-- <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a> --}}
                                 {!!Form::open( ['route' => ['dashboard.revenues.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}

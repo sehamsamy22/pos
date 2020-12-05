@@ -38,7 +38,7 @@ class StoreController extends Controller
                    return $storeproduct ;
                  else
                    return null;
-dd($storeproduct);
+
         });
 
         }
@@ -215,5 +215,15 @@ else{
             ]);
 
 
+    }
+    public function productout(Request $request){
+
+        $products=Product::whereIn('id',$request['ids'])->get();
+
+        return response()->json([
+            'status'=>true,
+          'data'=>view('admin.revenues.product',compact('products'))->render()
+
+        ]);
     }
 }
