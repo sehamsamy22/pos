@@ -27,7 +27,7 @@ class PurchaseObserver
                 'status'=>'new',
         ]);
         $puchaseAcount=Account::find(getsetting('accounting_purchase_id'));
-
+// dd(getsetting('accounting_purchase_id'));
         $supplierAcount=Account::where('supplier_id',$purchase->supplier_id)->first();
         $cashaccount=Account::find(getsetting('accounting_cash_id'));
         $madaaccount=Account::find(getsetting('accounting_mada_id'));
@@ -37,13 +37,14 @@ class PurchaseObserver
         // ]);
         // dd($supplierAcount->amount);
         //من حساب المشتريات
-        EntryAccount::create([
+     $dd=   EntryAccount::create([
             'entry_id'=>$entry->id,
-            'account_id'=>$puchaseAcount,
+            'account_id'=>$puchaseAcount->id,
             'affect'=>'debtor',
             'amount'=>$purchase->total,
             'balance'=>$puchaseAcount->balance+$purchase->total,
         ]);
+
         //الى حساب المورد
         EntryAccount::create([
             'entry_id'=>$entry->id,
