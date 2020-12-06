@@ -48,7 +48,7 @@
                                 تم البيع  بفاتوره مبيعات رقم {{ $row->sale->num }}
                              </a>
                              @else
-                             <a href="#">
+                             <a href="{{route('dashboard.revenues.store_out_sanad_show',$row->id)}}">
                              تم اخراج الكمية من المخزن بسند اخراج
                              </a>
                              @endif

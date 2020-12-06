@@ -360,6 +360,7 @@ trait RevenueOperation
                     ProductLog::create([
                         'product_id'=>$product_id,
                         'operation'=>'اخراج من المخزن',
+                        'bill_id'=>$revenue->id,
                         'quantity'=>$quantity
                     ]);
                     RevenueProduct::create([
