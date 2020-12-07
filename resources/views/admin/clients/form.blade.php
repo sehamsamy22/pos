@@ -8,14 +8,14 @@
     </div>
 @endif
 
-<div class="col-sm-6 col-xs-6 pull-left">
+{{--  <div class="col-sm-6 col-xs-6 pull-left">
     <div class="form-group form-float">
         <label class="form-label"> الكود</label>
         <div class="form-line">
             {!! Form::text("code",null,['class'=>'form-control','placeholder'=>'الكود','data-parsley-required-message'=>'من فضلك ادخل الكود  ','required'=>''])!!}
         </div>
     </div>
-</div>
+</div>  --}}
 
 <div class="col-sm-6 col-xs-6 pull-left">
     <div class="form-group form-float">

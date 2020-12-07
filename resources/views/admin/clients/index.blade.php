@@ -26,7 +26,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>كود</th>
+                        {{--  <th>كود</th>  --}}
                         <th>  الاسم </th>
                         <th>  الجوال </th>
                         <th>  الايميل</th>
@@ -40,7 +40,7 @@
                     @foreach($clients as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->code}}</td>
+                            {{--  <td>{{$row->code}}</td>  --}}
                             <td>{{$row->name}}</td>
                             <td>{{$row->phone}}</td>
                             <td>{{$row->email}}</td>
