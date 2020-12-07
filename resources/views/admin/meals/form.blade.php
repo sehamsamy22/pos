@@ -221,11 +221,15 @@
                         <td class="component-qty"> {{$product->quantity}}</td>
                         <td class="component-unit">
                             @if($product->product->unit=='kilo')
-                                كيلو
+                             كيلو
                             @elseif($product->product->unit=='gram')
                             جرام
-                            @else
-                                لتر
+                            @elseif($product->product->unit=='liter')
+                            لتر
+                            @elseif($product->product->unit=='unit')
+                            حبة
+                            @elseif($product->product->unit=='backet')
+                            حبة
                             @endif
                         </td>
                         <td>
