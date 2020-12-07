@@ -149,7 +149,7 @@ else{
 
             return response()->json([
                 'status'=>true,
-                'readymeal'=>$readymeal->quantity,
+                'readymeal'=>$readymeal->quantity ?? $request['quantity'],
             ]);
     }
     public function operarion_manger_view(){

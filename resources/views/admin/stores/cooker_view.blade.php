@@ -93,7 +93,7 @@
                                     @php $i = 1; @endphp
                                     @foreach($meals as $row)
                                      <form id="formready-{{$row->id}}" >
-                                      @csrf
+                                        @csrf
                                       @php
                                    if(isset($request)){
                                        $qty=$row->quantity($row->id,$request);
@@ -159,13 +159,13 @@
         }
 
 
-{{--
+
            function myfun_ready(meal_id) {
             $('#formready-'+meal_id).submit(function(e) {
                 e.preventDefault();
                 var form_r = $(this);
                 $.ajax({
-                    type: "POST",
+                    type: "post",
                     url:"/dashboard/ready_meals/"+meal_id,
                     data: form_r.serialize(),
                     success: function(data)
@@ -190,7 +190,7 @@
 
 
             });
-        } --}}
+        }
     </script>
 
 @endsection
