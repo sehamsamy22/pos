@@ -124,6 +124,24 @@
                   });
             });
         });
+
+        var start_date = $('#start_date').val();
+        var sub_id = $('#subscription_id').val();
+        $.ajax({
+            url:"/dashboard/getEndDate/"+sub_id,
+            type:"get",
+            data:{
+                'id':sub_id,
+                'start_date':start_date
+            }
+        }).done(function (data) {
+            var d=new Date(data.data);
+
+         $('#date_end').val(data.datetext);
+
+        }).fail(function (error) {
+            console.log(error);
+        });
         });
 
     </script>

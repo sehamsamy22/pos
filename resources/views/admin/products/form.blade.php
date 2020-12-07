@@ -30,7 +30,7 @@
     <div class="form-group form-float">
         <label class="form-label"> الوحدة</label>
         <div class="form-line">
-            {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر'],null,['class'=>'form-control','placeholder'=>' وحدةالصنف','data-parsley-required-message'=>'من فضلك ادخل الوحدة  ','required'=>''])!!}
+            {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر','unit'=>'حبة','backet'=>'علبة'],null,['class'=>'form-control','placeholder'=>' وحدةالصنف','data-parsley-required-message'=>'من فضلك ادخل الوحدة  ','required'=>''])!!}
         </div>
     </div>
 </div>

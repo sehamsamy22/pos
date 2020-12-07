@@ -110,7 +110,10 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $requests= $request->all();
+        $client->update($requests);
+        return redirect()->route('dashboard.clients.index')->with('success', 'تم تعديل العميل بنجاخ ');
+
     }
 
     /**

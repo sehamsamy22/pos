@@ -51,8 +51,12 @@
                                     كيلو
                                 @elseif($row->unit=='gram')
                                     جرام
-                                @else
+                                @elseif($row->unit=='liter')
                                     لتر
+                                @elseif($row->unit=='unit')
+                                    حبة
+                                    @elseif($row->unit=='backet')
+                                    حبة
                                 @endif
                             </td>
                             <td>
