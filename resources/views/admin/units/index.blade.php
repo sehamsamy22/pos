@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','إدارة التصنيفات')
+@section('title','إدارة وحدات الاصناف')
 
 @section('content')
 
@@ -8,13 +8,13 @@
         <div class="col-sm-12">
 
             <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.categories.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
-                   إضافة تصنيف رئيسى جديد
+                <a href="{{route('dashboard.units.create')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light">
+                   إضافة وحدة جديدة
                     <span class="m-l-5"><i class="fa fa-plus"></i></span>
                 </a>
             </div>
 
-            <h4 class="page-title">التصنيفات الرئيسية</h4>
+            <h4 class="page-title"> وحدات الاصناف</h4>
         </div>
     </div>
     <!--End Page-Title -->
@@ -23,7 +23,7 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
-                <h4 class="header-title m-t-0 m-b-30">كل التصنيفات الرئيسية</h4>
+                <h4 class="header-title m-t-0 m-b-30">كل  الوحدات </h4>
 
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -31,23 +31,21 @@
                     <tr>
                         <th>#</th>
                         <th>الإسم</th>
-                        <th>الصورة</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php $i = 1; @endphp
-                    @foreach($categories as $row)
+                    @foreach($units as $row)
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->name}}</td>
 
-                            <td>@if(isset($row->image))<img src="{!! getimg($row->image)!!}" style="width:100px; height:100px"> @endif</td>
 
                             <td>
-                                <a href="{{route('dashboard.categories.edit',$row->id)}}" class="label label-warning">تعديل</a>
+                                <a href="{{route('dashboard.units.edit',$row->id)}}" class="label label-warning">تعديل</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
-                                {!!Form::open( ['route' => ['dashboard.categories.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['dashboard.units.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                             </td>
                         </tr>

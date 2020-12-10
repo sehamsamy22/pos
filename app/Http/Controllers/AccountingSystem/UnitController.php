@@ -5,9 +5,10 @@ namespace App\Http\Controllers\AccountingSystem;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
+        $units=Unit::all();
 
-        return view('admin.categories.index',compact('categories'))
+        return view('admin.units.index',compact('units'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -29,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.units.create');
 
     }
 
@@ -39,25 +40,22 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
-        $requests = $request->except('image');
-        if ($request->hasFile('image')) {
-            $requests['image'] = saveImage($request->image, 'photos');
-        }
+        $requests = $request->all();
 
-        Category::create($requests);
-        return redirect()->route('dashboard.categories.index')->with('success', 'تم اضافه التصنيف  الرئيسى');
+        Unit::create($requests);
+        return redirect()->route('dashboard.units.index')->with('success', 'تم اضافة الوجدة');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Unit $unit)
     {
         //
     }
@@ -65,12 +63,12 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Unit $unit)
     {
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.units.edit', compact('unit'));
 
     }
 
@@ -78,16 +76,13 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(Request $request, Unit $unit)
     {
-        $requests = $request->except('image');
-        if ($request->hasFile('image')) {
-            $requests['image'] = saveImage($request->image, 'photos');
-        }
-        $category->update($requests);
+        $requests = $request->all();
+        $unit->update($requests);
         return redirect()->route('dashboard.categories.index')->with('success', __('تم التعديل'));
 
     }
@@ -95,13 +90,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Unit $unit)
     {
-        $category->delete();
-        return redirect()->route('dashboard.categories.index')->with('success', __('تم الحذف بنجاح'));
-
+        $unit->delete();
+        return redirect()->route('dashboard.units.index')->with('success', __('تم الحذف بنجاح'));
     }
 }

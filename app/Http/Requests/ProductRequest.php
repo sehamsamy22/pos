@@ -30,10 +30,9 @@ class ProductRequest extends FormRequest
 
             "ar_name" => "required|string|min:1|max:255",
            "en_name" => "required|string|min:1|max:255",
-           "unit" => "required|string|min:1|max:255",
            'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
            "price" => "required",
-           "barcode" => "required|unique:products,barcode"
+           "barcode" => "sometimes|nullable|unique:products,barcode"
         ];
 
     }
@@ -42,10 +41,9 @@ class ProductRequest extends FormRequest
       return [
            'ar_name.required'=>"الإسم باللغه العربية مطلوب",
           'en_name.required'=>"الإسم باللغه الانجليزية مطلوب",
-          'unit.required'=>"الوحدة مطلوبة",
           'image.required'=>"صورة الصنف مطلوبة",
           'price.required'=>"سعر الصنف مطلوب",
-          'barcode.required'=>"باركود الصنف مطلوب",
+//          'barcode.required'=>"باركود الصنف مطلوب",
           'barcode.unique'=>"باركود الصنف موجود مسبقا",
 
         ];

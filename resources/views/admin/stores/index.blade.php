@@ -52,6 +52,7 @@
                         <th>#</th>
                         <th>اسم الصنف</th>
                         <th>الكميه المتوفرة</th>
+                        <th>  متوسط التكلفة</th>
                         <th> التصنيف الفرعى</th>
                         <th>تاريخ اضافته  </th>
                         <th>تاريخ اخر عمليه تمت  </th>
@@ -64,20 +65,20 @@
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
+
                             <td>{{$row->quantity}}</td>
+                            <td>{{$row->product->avg_cost() }}</td>
+
                             <td>{{$row->product->subcategory->name ??''}}</td>
                             <td>{{$row->created_at}}</td>
                             <td>{{$row->updated_at}}</td>
                             <td>
                                 <a href="{{route('dashboard.stores.show',$row->product->id)}}" class="label label-warning">عرض العمليات</a>
-
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-
-
 
     </div>
     </div>

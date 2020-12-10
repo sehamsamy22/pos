@@ -100,6 +100,7 @@
                                         <option value="{{$product->id}}"
                                                 data-name="{{$product->ar_name}}"
                                                 data-price="{{$product->price}}"
+                                                data-lastprice="{{$product->lastPrice() }}"
                                                 data-bar-code="{{$product->barcode}}"
                                                 data-unit="{{$product->unit}}"
 {{--                                                data-link= "{{route('dashboard.products.show',['id'=>$product->id])}}"--}}
@@ -269,9 +270,9 @@
         var productName = selectedProduct.data('name');
         var productLink = selectedProduct.data('link');
         var barCode = selectedProduct.data('bar-code');
-        var productPrice = selectedProduct.data('price');
+        var productPrice = selectedProduct.data('lastprice');
         var productUnit= selectedProduct.data('unit');
-        var wholePriceAfter=selectedProduct.data('price');
+        var wholePriceAfter=selectedProduct.data('lastprice');
        if(productUnit=='kilo')
        {
            unit='كيلو';
@@ -290,7 +291,7 @@
 								<input type="text" placeholder="الكمية"  value="1" id="sale" class="form-control" name="quantity[${ProductId}]">
 							</td>
 							<td class="unit-price" width="100">
-								<input type="text" class="form-control" step="any" value="${productPrice}" name="prices[${ProductId}]">
+								<input type="text" class="form-control"  value="${productPrice}" name="prices[${ProductId}]">
 							</td>
                           <td class="quantityXprice" width="70"></td>
 
@@ -419,6 +420,7 @@
 
                    $("#total").val(amount_after_discount.toFixed(2));
                    $("#discount").val(Number(discount_val).toFixed(2));
+                   $("#payed").val((Number(demonded)-Number(discount_val)).toFixed(2));
 
                });
              var demonded= totalAfterFixTax;

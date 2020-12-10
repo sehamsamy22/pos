@@ -27,7 +27,7 @@ class SubCategoryRequest extends FormRequest
        return [
             'category_id' => 'required|nullable|integer|exists:categories,id',
             "name" => "required|string|min:1|max:255",
-            "image" => 'required_without:_method|nullable|image',
+           "image" => 'sometimes|image',
 
         ];
         }
@@ -35,7 +35,7 @@ class SubCategoryRequest extends FormRequest
     {
        return [
             'name.required'=>"الإسم مطلوب",
-            'image.image'=>"الصورة مطلوبة",
+//            'image.image'=>"الصورة مطلوبة",
             'category_id.required'=>" التصنيف الفرعى مطلوب",
         ];
 

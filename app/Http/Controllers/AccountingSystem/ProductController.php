@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\StoreProduct;
 use App\Models\SubCategory;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,10 +18,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
-        $products=Product::all();
+
         $categories=Category::pluck('name','id')->toArray();
+        if($request->has('sub_category_id')) {
+            $products = Product::where('sub_category_id',$request['sub_category_id'])->get();
+
+        }else{
+            $products = Product::all();
+        }
         return view('admin.products.index',compact('products','categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -33,8 +40,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories=Category::pluck('name','id')->toArray();
+        $units=Unit::pluck('name','id')->toArray();
 
-        return view('admin.products.create',compact('categories'));
+        return view('admin.products.create',compact('categories','units'));
     }
 
     /**
@@ -51,6 +59,12 @@ class ProductController extends Controller
             $requests['image'] = saveImage($request->image, 'photos');
         }
         $product=Product::create($requests);
+        if($product->barcode == Null){
+
+            $product->update([
+                'barcode'=>'00'. $product->id,
+            ]);
+        }
         return redirect()->route('dashboard.products.index')->with('success', 'تم اضافه صنف  جديد');
 
     }
@@ -78,7 +92,9 @@ class ProductController extends Controller
         $categories=Category::pluck('name','id')->toArray();
         $subcategory=SubCategory::find($product->sub_category_id);
         $categoryId=$subcategory->category_id;
-        return view('admin.products.edit', compact('product','categories','categoryId'));
+        $units=Unit::pluck('name','id')->toArray();
+
+        return view('admin.products.edit', compact('product','categories','categoryId','units'));
 
     }
 

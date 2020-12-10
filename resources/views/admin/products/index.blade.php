@@ -24,14 +24,43 @@
             <div class="card-box table-responsive">
 
                 <h4 class="header-title m-t-0 m-b-30">كل  الأصناف والموادالخام المكونه للوجبات </h4>
+                <form action="" method="get" accept-charset="utf-8" >
 
+
+                    <div class="col-sm-4 col-xs-4  pull-left">
+                        <div class="form-group form-float">
+                            <label class="form-label">   التصنيف الرئيسى</label>
+                            <div class="form-line">
+                                {!! Form::select("category_id",$categories,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-4  pull-left subcategories">
+                        <div class="form-group form-float">
+                            <label class="form-label">   التصنيف الفرعى</label>
+                            <div class="form-line">
+                                {!! Form::select("sub_category_id",[],null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى أولا  '])!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="">   </label>
+                        <button type="submit" class="btn btn-success btn-block">بحث</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>رقم الصنف</th>
                         <th>الإسم باللغة العربية</th>
                         <th>الإسم باللغة الانجليزية</th>
+                        <th>  الباركود</th>
                         <th>  التصنيف الفرعى</th>
                         <th>  الوحدة</th>
 
@@ -43,22 +72,12 @@
                     @foreach($products as $row)
                         <tr>
                             <td>{{$i++}}</td>
+                            <td>{{$row->id}}</td>
                             <td>{{$row->ar_name}}</td>
                             <td>{{$row->en_name}}</td>
+                            <td>{{$row->barcode ??''}}</td>
                             <td>{{$row->subcategory->name ??''}}</td>
-                            <td>
-                                @if($row->unit=='kilo')
-                                    كيلو
-                                @elseif($row->unit=='gram')
-                                    جرام
-                                @elseif($row->unit=='liter')
-                                    لتر
-                                @elseif($row->unit=='unit')
-                                    حبة
-                                    @elseif($row->unit=='backet')
-                                    حبة
-                                @endif
-                            </td>
+                            <td>{{$row->units->name ??''}}</td>
                             <td>
                                 <a href="{{route('dashboard.products.show',$row->id)}}" class="label label-primary">عرض</a>
 
@@ -88,7 +107,7 @@
                     console.log(item_id);
                     swal({
                         title: "هل أنت متأكد ",
-                        text: "هل تريد حذف هذا المستخدم ؟",
+                        text: "هل تريد حذف هذا المنتج ؟",
                         icon: "warning",
                         buttons: ["الغاء", "موافق"],
                         dangerMode: true,
@@ -98,11 +117,24 @@
                             document.getElementById('delete-form'+item_id).submit();
                         }
                         else{
-                            swal("تم االإلفاء", "حذف  المستخدم  تم الغاؤه",'info',{buttons:'موافق'});
+                            swal("تم االإلفاء", "حذف  المنتج  تم الغاؤه",'info',{buttons:'موافق'});
                         }
                     });
                 }
             </script>
 
-
+            <script>
+                $("#category_id").on('change', function() {
+                    var id = $(this).val();
+                    $.ajax({
+                        url:"/dashboard/getAllSubcategories/"+id,
+                        type:"get",
+                    }).done(function (data) {
+                        $('.subcategories').empty();
+                        $('.subcategories').html(data.data);
+                    }).fail(function (error) {
+                        console.log(error);
+                    });
+                });
+            </script>
 @endsection

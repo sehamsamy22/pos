@@ -51,7 +51,15 @@
                     </div>
                </div>
 
+                    <div class="col-sm-6 col-xs-6 pull-left">
+                        <div class="form-group form-float">
+                            <label class="form-label">  ملاحظات  </label>
+                            <div class="form-line">
+                                {!! Form::text("notes",null,['class'=>'form-control ',])!!}
 
+                            </div>
+                        </div>
+                    </div>
                <div class="col-sm-6 col-xs-6 pull-left">
                 <div class="form-group form-float">
                     <label class="form-label"> اختر الصنف </label>
@@ -84,7 +92,7 @@
         $(".product_id").on('change', function() {
             var id = $(this).val();
 
-           
+
             console.log(id);
             $.ajax({
                 url:"/dashboard/productout",

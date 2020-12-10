@@ -36,6 +36,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('subscriptions', 'SubscriptionController');
     route::resource('measurements', 'MeasurementController');
     route::resource('clients', 'ClientController');
+    route::resource('units', 'UnitController');
+
     route::resource('clients_subscriptions', 'ClientSubscriptionController');
     route::resource('visits', 'VisitController');
     route::resource('purchases', 'PurchaseController');

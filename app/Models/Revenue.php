@@ -10,7 +10,7 @@ class Revenue extends Model
 
     protected $fillable = [
         'client_subscription_id', 'amount','sale_id','type','date','payment_type',
-        'payed','supplier_id','num'
+        'payed','supplier_id','num','notes'
     ];
 
     public function client_subscription(){

@@ -11,11 +11,31 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'ar_name', 'en_name','unit','calories','price','image','barcode','sub_category_id'
+        'ar_name', 'en_name','unit','calories','price','image','barcode','sub_category_id','unit_id'
     ];
     public function subcategory(){
         return $this->belongsTo(SubCategory::class,'sub_category_id');
     }
+    public function units(){
+
+        return $this->belongsTo(Unit::class,'unit_id');
+    }
+
+    public function  lastPrice(){
+        $lastProduct=PurchaseItem::where('product_id',$this->id)->latest()->first();
+//        dd($lastProduct->price);
+        return $lastProduct->price ?? $this->price;
+
+    }
+
+    public function  avg_cost(){
+        $productcosts=PurchaseItem::where('product_id',$this->id)->sum('price');
+        $productquantits=PurchaseItem::where('product_id',$this->id)->sum('quantity');
+//        dd($productquantits);
+        return ($productcosts*$productquantits) /$productquantits;
+
+    }
+
     public  function orders($id,$request)
     {
        $from=$request['from'];

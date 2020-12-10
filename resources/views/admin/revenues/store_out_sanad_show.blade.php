@@ -46,6 +46,14 @@
                         </div>
                     </div>
                </div>
+                    <div class="col-sm-6 col-xs-6 pull-left">
+                        <div class="form-group form-float">
+                            <label class="form-label"> ملاحظات</label>
+                            <div class="form-line">
+                                {!! $revenue->notes !!}
+                            </div>
+                        </div>
+                    </div>
 
 
 
@@ -65,7 +73,6 @@
             </tbody>
             @endforeach
         </table>
-
 
 
 

@@ -28,7 +28,7 @@ class CategoryRequest extends FormRequest
        return[
 
             "name" => "required|string|min:1|max:255",
-            "image" => 'required_without:_method|nullable|image',
+            "image" => 'sometimes|image',
 
         ];
 
@@ -37,7 +37,7 @@ class CategoryRequest extends FormRequest
     {
       return [
             'name.required'=>"الإسم مطلوب",
-            'image.required'=>"الصورة مطلوبة",
+//            'image.required'=>"الصورة مطلوبة",
 
         ];
 

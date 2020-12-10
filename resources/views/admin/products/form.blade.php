@@ -30,7 +30,9 @@
     <div class="form-group form-float">
         <label class="form-label"> الوحدة</label>
         <div class="form-line">
-            {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر','unit'=>'حبة','backet'=>'علبة'],null,['class'=>'form-control','placeholder'=>' وحدةالصنف','data-parsley-required-message'=>'من فضلك ادخل الوحدة  ','required'=>''])!!}
+            {!! Form::select("unit_id",$units,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  الوحدة  ','id'=>'unit_id'])!!}
+
+            {{--            {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر','unit'=>'حبة','backet'=>'علبة'],null,['class'=>'form-control','placeholder'=>' وحدةالصنف','data-parsley-required-message'=>'من فضلك ادخل الوحدة  ','required'=>''])!!}--}}
         </div>
     </div>
 </div>
@@ -48,7 +50,7 @@
     <div class="form-group form-float">
         <label class="form-label">  الباركود</label>
         <div class="form-line">
-            {!! Form::text("barcode",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل الباركود  ','required'=>''])!!}
+            {!! Form::text("barcode",null,['class'=>'form-control',])!!}
         </div>
     </div>
 </div>

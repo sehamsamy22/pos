@@ -51,9 +51,14 @@ else{
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    public function show($id){
+    public function show(Request  $request,$id){
       $product=Product::find($id);
-        $logs=ProductLog::where('product_id', $id)->get();
+        if ($request->has('from') && $request->has('to')) {
+            $logs = ProductLog::where('product_id', $id)->whereBetween('created_at',[$request['from'],$request['to']])->get();
+        }else{
+            $logs = ProductLog::where('product_id', $id)->get();
+
+        }
         return view('admin.stores.log',compact('logs','product'));
     }
 

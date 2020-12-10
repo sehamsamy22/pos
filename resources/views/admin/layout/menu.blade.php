@@ -13,7 +13,7 @@
                 @php $image = auth()->user()->image; @endphp
                 @if($image != null or $image != "")
 
-                    <img src="{{getimg($image)}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+                    <img src="{{getimg(getsetting('logo'))}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
                     @else
                     <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
                     @endif
@@ -53,17 +53,18 @@
                     <ul class="list-unstyled">
                         {{-- ------------------ --}}
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span> المستخدمين </span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled">
+                            <a href="{{route('dashboard.users.index')}}" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span>   قائمة المستخدمين</span> </a>
+                            {{-- <ul class="list-unstyled">
                                 <li><a href="{{route('dashboard.users.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  المستخدمين    </a></li>
-                            </ul>
+                            </ul> --}}
                         </li>
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-layers"></i><span> أعدادات المخزون  </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="{{route('dashboard.categories.index')}}"><i class="zmdi zmdi-view-list"></i>  التصنيفات الرئيسة    </a></li>
                                {{--   <li><a href="{{route('dashboard.categories.create')}}"> <i class="zmdi zmdi-format-playlist-add"></i>إضافة  تصنيف رئيسى     </a></li>--}}
-                                <li><a href="{{route('dashboard.subcategories.index')}}"><i class="zmdi zmdi-view-list"></i>عرض   التصنيفات الفرعية    </a></li>
+                                <li><a href="{{route('dashboard.subcategories.index')}}"><i class="zmdi zmdi-view-list"></i>   التصنيفات الفرعية</a></li>
+                                <li><a href="{{route('dashboard.units.index')}}"><i class="zmdi zmdi-view-list"></i>  تعريف الوحدات </a></li>
 
                             </ul>
                         </li>
@@ -71,7 +72,7 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i><span> أعدادات النظام  </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{route('dashboard.measurements.index')}}"> القياسات والاطوال</a></li>
-                                    <li><a href="{{route('dashboard.subscriptions.index')}}"> الخطط والاشتراكات</a></li>
+                                    <li><a href="{{route('dashboard.subscriptions.index')}}"> تعريف الاشتراكات</a></li>
                                     <li><a href="{{route('dashboard.types_meal.index')}}">أنواع الوجبات</a></li>
                                     <li><a href="{{route('dashboard.settings.index')}}">الاعدادات العامة</a></li>
 

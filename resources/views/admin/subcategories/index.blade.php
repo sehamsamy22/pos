@@ -43,7 +43,7 @@
                             <td>{{$i++}}</td>
                             <td>{{$row->name}}</td>
                             <td>{{$row->category->name}}</td>
-                            <td><img src="{!! getimg($row->image)!!}" style="width:100px; height:100px"> </td>
+                            <td>@if(isset($row->image))<img src="{!! getimg($row->image)!!}" style="width:100px; height:100px"> @endif</td>
 
                             <td>
                                 <a href="{{route('dashboard.subcategories.edit',$row->id)}}" class="label label-warning">تعديل</a>

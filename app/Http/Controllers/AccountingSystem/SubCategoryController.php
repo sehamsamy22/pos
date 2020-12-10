@@ -47,7 +47,7 @@ class SubCategoryController extends Controller
             $requests['image'] = saveImage($request->image, 'photos');
         }
         SubCategory::create($requests);
-        return back()->with('success', 'تم اضافه التصنيف  الفرعى');
+        return  redirect()->route('dashboard.subcategories.index')->with('success', 'تم اضافه التصنيف  الفرعى');
     }
 
     /**
