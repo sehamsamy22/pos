@@ -52,7 +52,7 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td><a href="{{route('dashboard.stores.client_log',$row->id)}}">{{$row->name}}</a></td>
-                                        <td>{{$row->area->name}}</td>
+                                        <td>{{$row->area->name ?? ''}}</td>
                                         <td>{{$row->phone}}</td>
                                        <td></td>
                                         <td>
@@ -94,7 +94,6 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
                                                     <button type="submit" class="btn btn-primary" onclick="myfun({{$row->id}})" data-dismiss="modal">اسناد</button>
-
                                                 </div>
                                                    </form>
                                                 </div>

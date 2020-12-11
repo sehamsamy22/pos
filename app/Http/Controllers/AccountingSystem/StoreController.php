@@ -90,8 +90,10 @@ else{
             $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)
                 ->pluck('meal_id','id')->toArray();
             $meals=Meal::whereIn('id',$meals_)->get();
-//          dd($meals);
-            $products=MealProduct::whereIn('meal_id',$meals)->pluck('product_id','id')->toArray();
+//dd($meals);
+            $meals_id=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
+
+            $products=MealProduct::whereIn('meal_id',$meals_id)->pluck('product_id','id')->toArray();
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
 
         }else
@@ -106,6 +108,7 @@ else{
     public function receive_products(Request $request,$id){
 
         $store_product=StoreProduct::find($id);
+//        dd($request['received_quantity']);
         ///=======================store auantity update===================
         if($store_product->quantity > 0){
             $store_product->update([
@@ -137,9 +140,9 @@ else{
     }
 
     public function ready_meals(Request $request,$id){
-
         $meal=Meal::find($id);
         if ($request->has('from') && $request->has('to')) {
+//            dd("sadas");
             $readymeal = ReadyMeal::where('meal_id', $id)->whereBetween('created_at',[$request['from'],$request['to']])->first();
             if (isset($readymeal)) {
                 $readymeal->update([

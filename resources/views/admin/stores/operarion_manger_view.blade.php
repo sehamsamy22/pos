@@ -111,6 +111,14 @@
                             swal("  تم الاستلام", " تم استلام الوجبات من المطبخ", 'success', {
                                     buttons: 'موافق'
                             });
+                            $('#submit_btn_received'+id).remove();
+                            var x = document.createElement("INPUT");
+                            x.setAttribute("type", "button");
+                            x.setAttribute("value", "تم الاستلام");
+                            x.setAttribute("class", "btn btn-success");
+                            document.getElementsByClassName("operation_btn"+id)[0].appendChild(x);
+                            $('#received_quantity'+id).val(data.received_quantity);
+
                         }else if(data.status='false'){
                           swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
                                     buttons: 'موافق'

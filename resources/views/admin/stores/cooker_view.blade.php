@@ -66,9 +66,9 @@
                                         <td>{{$row->product->ar_name}}</td>
                                         <td><input name="" type="number" class="form-control"  value={{$row->quantity}} readonly></td>
                                         <td><input type='number' class="form-control"  value={{$row->product->orders($row->product->id,$request??Null)}}  readonly></td>
-                                       <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value='0' readonly></td>
+                                       <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value="{{$row->product->recevied($row->product->id,$request??Null)}}" readonly></td>
                                         <td class="received_btn{{$row->id}}">
-                                        <input type='number' class="form-control" name="received_quantity" id="received_quantity{{$row->id}}">
+                                        <input type='number' class="form-control" name="received_quantity" id="received_quantity{{$row->id}}" >
                                         <button type="submit" class="btn btn-danger received_submit "   id="{{ $row->id }}">استلام</button>
                                         </td>
                                     </tr>
@@ -91,22 +91,19 @@
                                     </thead>
                                     <tbody>
                                     @php $i = 1; @endphp
+{{--         @dd($meals)                           --}}
                                     @foreach($meals as $row)
                                      <form id="formready-{{$row->id}}" >
                                         @csrf
-                                      @php
-                                   if(isset($request)){
-                                       $qty=$row->quantity($row->id,$request);
-                                   }
-                                   @endphp
+
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$row->ar_name}}</td>
                                            <td><input type='number' class="form-control" name='quantity' value={{$row->orders($row->id ,$request ?? Null) }}  readonly></td>
-                                           <td><input type='number' class="form-control" id="readyquantity{{$row->id}}"  value={{$qty ?? '0'}}   readonly></td>
+                                           <td><input type='number' class="form-control" id="readyquantity{{$row->id}}"  value="{{$row->readymeals($row->id ,$request ?? Null) }}"  readonly></td>
 
                                            <td class="ready_btn{{$row->id}}">
-                                               <input type='number' class="form-control"  id="ready_quantity{{$row->id}}">
+                                               <input type='number' class="form-control"  id="ready_quantity{{$row->id}}" >
                                             <button type="submit" class="btn btn-warning ready_submit"  id="{{$row->id}}">تجهيزوتحضير</button>
 
                                             </td>
@@ -131,7 +128,9 @@
         $(".received_submit").click(function(e) {
             e.preventDefault();
             var id = $(this).attr("id");
-            var qty = $('#quantity'+id).val();
+            var qty = $('#received_quantity'+id).val();
+
+            console.log(qty);
             var csrf = "{{ csrf_token() }}";
             $.ajax({
                     type: "POST",
@@ -161,6 +160,9 @@
             $('.ready_submit').click(function(e) {
                 e.preventDefault();
                 var id = $(this).attr("id");
+                var from=$('#from').val();
+                var to=$('#to').val();
+
                 console.log(id);
               var qy = $("#ready_quantity"+id).val();
                 console.log(qy);
@@ -168,7 +170,7 @@
                 $.ajax({
                     type: "post",
                     url:"/dashboard/ready_meals/"+id,
-                    data: {"_token":csrf,"quantity":qy},
+                    data: {"_token":csrf,"quantity":qy,'from':from,"to":to},
                     success: function(data)
                     {
                         if(data.status='true'){
