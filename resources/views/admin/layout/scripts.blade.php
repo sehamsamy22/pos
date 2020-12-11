@@ -48,7 +48,7 @@
 <!--Morris Chart-->
 <script src="{{asset('admin/assets/plugins/morris/morris.min.js')}}"></script>
 <script src="{{asset('admin/assets/plugins/raphael/raphael-min.js')}}"></script>
-
+{{--<script src="https://cdn.jsdelivr.net/npm/wheelnav@1.7.1/js/dist/raphael.min.js"></script>--}}
 <!-- Dashboard init -->
 <script src="{{asset('admin/assets/pages/jquery.dashboard.js')}}"></script>
 
