@@ -59,8 +59,8 @@ File: Menu
 }
 .user-box .user-img {
   position: relative;
-  height: 88px;
-  width: 88px;
+    height: 119px;
+    width: 187px;
   margin: 0px auto;
 }
 .user-box h5 a {
@@ -324,7 +324,7 @@ File: Menu
   font-size: 16px;
   line-height: 17px;
   margin-right: 3px;
-  margin-left: 15px;
+  /*margin-left: 15px;*/
   text-align: center;
   vertical-align: middle;
   width: 20px;

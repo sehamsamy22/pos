@@ -20,11 +20,11 @@
                               @csrf
                             <div class="form-group col-sm-4">
                                 <label for="from"> الفترة من </label>
-                                {!! Form::date("from",request('from'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة من ',"id"=>'from'])!!}
+                                {!! Form::date("from",request('from'),['class'=>' form-control inline-control','placeholder'=>' الفترة من ',"id"=>'from'])!!}
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="to"> الفترة إلي </label>
-                                {!! Form::date("to",request('to'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة إلي ',"id"=>'to'])!!}
+                                {!! Form::date("to",request('to'),['class'=>' form-control inline-control','placeholder'=>' الفترة إلي ',"id"=>'to'])!!}
                             </div>
 
                             <div class="form-group col-sm-4">
@@ -68,8 +68,8 @@
                                         <td><input type='number' class="form-control"  value={{$row->product->orders($row->product->id,$request??Null)}}  readonly></td>
                                        <td><input type='number' class="form-control"   id="receivedquantity{{$row->id}}" value='0' readonly></td>
                                         <td class="received_btn{{$row->id}}">
-                                        <input type='number' class="form-control" name="received_quantity">
-                                        <button type="submit" class="btn btn-danger  " onclick="myfun({{$row->id}})"  id="received_click{{ $row->id }}">استلام</button>
+                                        <input type='number' class="form-control" name="received_quantity" id="received_quantity{{$row->id}}">
+                                        <button type="submit" class="btn btn-danger received_submit "   id="{{ $row->id }}">استلام</button>
                                         </td>
                                     </tr>
                                     </form>
@@ -103,11 +103,11 @@
                                             <td>{{$i++}}</td>
                                             <td>{{$row->ar_name}}</td>
                                            <td><input type='number' class="form-control" name='quantity' value={{$row->orders($row->id ,$request ?? Null) }}  readonly></td>
-                                           <td><input type='number' class="form-control" name=''  id="readyquantity{{$row->id}}" value={{$qty ?? '0'}}   readonly></td>
+                                           <td><input type='number' class="form-control" id="readyquantity{{$row->id}}"  value={{$qty ?? '0'}}   readonly></td>
 
                                            <td class="ready_btn{{$row->id}}">
-
-                                            <button type="submit" class="btn btn-warning " onclick="myfun_ready({{$row->id}})" id="submit_btn_ready{{$row->id}}">تجهيزوتحضير</button>
+                                               <input type='number' class="form-control"  id="ready_quantity{{$row->id}}">
+                                            <button type="submit" class="btn btn-warning ready_submit"  id="{{$row->id}}">تجهيزوتحضير</button>
 
                                             </td>
                                         </tr>
@@ -127,16 +127,16 @@
 
     <script>
 
-        function myfun(id) {
-           console.log(id);
-            $('#form-'+id).submit(function(e) {
-                e.preventDefault();
-                console.log("dsfsd");
-                var form = $(this);
-                $.ajax({
+
+        $(".received_submit").click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr("id");
+            var qty = $('#quantity'+id).val();
+            var csrf = "{{ csrf_token() }}";
+            $.ajax({
                     type: "POST",
                     url:"/dashboard/receive_products/"+id,
-                    data: form.serialize(),
+                    data: {"_token":csrf,"received_quantity":qty},
                     success: function(data)
                     {
                         if(data.status='true'){
@@ -156,32 +156,33 @@
 
 
             });
-        }
 
 
-
-           function myfun_ready(meal_id) {
-            $('#formready-'+meal_id).submit(function(e) {
+            $('.ready_submit').click(function(e) {
                 e.preventDefault();
-                var form_r = $(this);
+                var id = $(this).attr("id");
+                console.log(id);
+              var qy = $("#ready_quantity"+id).val();
+                console.log(qy);
+                var csrf = "{{ csrf_token() }}";
                 $.ajax({
                     type: "post",
-                    url:"/dashboard/ready_meals/"+meal_id,
-                    data: form_r.serialize(),
+                    url:"/dashboard/ready_meals/"+id,
+                    data: {"_token":csrf,"quantity":qy},
                     success: function(data)
                     {
                         if(data.status='true'){
                             swal("  تم التجهيز", " تم تجهيز الوجبات", 'success', {
                                     buttons: 'موافق'
                             });
-                            $('#submit_btn_ready'+ meal_id).remove();
-                            var xx = document.createElement("INPUT");
-                                    xx.setAttribute("type", "button");
-                                    xx.setAttribute("value", "تم التجهيز");
-                                    xx.setAttribute("class", "btn btn-success");
-                               document.getElementsByClassName("ready_btn"+meal_id)[0].appendChild(xx);
-                               console.log(meal_id);
-                                $('#readyquantity'+meal_id).val(data.readymeal);
+                            // $('#submit_btn_ready'+ id).remove();
+                            // var xx = document.createElement("INPUT");
+                            //         xx.setAttribute("type", "button");
+                            //         xx.setAttribute("value", "تم التجهيز");
+                            //         xx.setAttribute("class", "btn btn-success");
+                            //    document.getElementsByClassName("ready_btn"+id)[0].appendChild(xx);
+                            //
+                                $('#readyquantity'+id).val(data.readymeal);
 
                         }
                     }
@@ -190,7 +191,7 @@
 
 
             });
-        }
+
     </script>
 
 @endsection

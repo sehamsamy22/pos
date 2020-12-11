@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Client;
 use App\Models\ClientSubscriptions;
 use App\Models\VisitMeasurement;
@@ -39,7 +40,9 @@ class ClientController extends Controller
         $breakfasts=Meal::where('type','breakfast')->get();
         $lunches=Meal::where('type','lunch')->get();
         $dinners=Meal::where('type','dinner')->get();
-        return view('admin.clients.create',compact('measurements','subscriptions','breakfasts','lunches','dinners'));
+        $areas=Area::pluck('name','id')->toArray();
+
+        return view('admin.clients.create',compact('measurements','subscriptions','breakfasts','lunches','dinners','areas'));
 
     }
 
@@ -96,8 +99,9 @@ class ClientController extends Controller
     {
         $measurements=Measurement::all();
 //        $visits=VisitMeasurement::where('client_id',$client->id)->get();
+        $areas=Area::pluck('name','id')->toArray();
 
-        return view('admin.clients.edit', compact('client','measurements'));
+        return view('admin.clients.edit', compact('client','measurements','areas'));
 
     }
 

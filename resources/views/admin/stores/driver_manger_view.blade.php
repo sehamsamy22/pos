@@ -43,19 +43,19 @@
                                     <th> المنطقة</th>
                                     <th> الجوال</th>
                                        <th> التاريخ</th>
-                                    <th> العمليات </th>             
+                                    <th> العمليات </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php $i = 1; @endphp
-                                @foreach($clients as $row)     
+                                @foreach($clients as $row)
                                     <tr>
-                                        <td>{{$i++}}</td>                   
-                                        <td>{{$row->name}}</td>  
-                                        <td>{{$row->address}}</td>  
-                                        <td>{{$row->phone}}</td> 
-                                       <td></td>                            
-                                        <td>  
+                                        <td>{{$i++}}</td>
+                                        <td>{{$row->name}}</td>
+                                        <td>{{$row->area->name}}</td>
+                                        <td>{{$row->phone}}</td>
+                                       <td></td>
+                                        <td>
                                         <label  class="operation_btn{{$row->id}}"></label>
                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$row->id}}" id="submit_btn{{$row->id}}"> اسناد للسائق</button>
                                         <!-- Modal -->
@@ -76,13 +76,13 @@
                                                             <label class="form-label">اسم السائق</label>
                                                             <div class="form-line">
                                                                 {{-- {!! Form::select("user_id",$users,null,['class'=>'form-control js-example-basic-single','id'=>'{{$row->id}}','placeholder'=>' اختر اسم السائق  '])!!} --}}
-                                                        
+
                                                                  <select name="user_id" id="user_id-{{$row->id}}" class="form-control" >
                                                                    @foreach($users as $user)
                                                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                                                   @endforeach
                                                                     </select>
-                                                        
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -103,7 +103,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                
+
     </div>
     </div>
 @endsection
@@ -115,7 +115,7 @@
     <script>
              function myfun(id) {
                 var user_id= $('#user_id-'+id).val();
-                console.log(user_id);         
+                console.log(user_id);
                    $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -130,17 +130,16 @@
                      if(data.status='true'){
                             swal("  تم الاسناد", " تم اسناد توصيل الوجبة للعميل ", 'success', {
                                     buttons: 'موافق'
-                            }); 
+                            });
                             $('#submit_btn'+id).remove();
-                           
-                            
+
+
                             $(".operation_btn"+id).text(data.data);
-                                   
+
                         }
-                    }   
-                });                 
-            }     
+                    }
+                });
+            }
     </script>
 
 @endsection
- 

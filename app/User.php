@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Area;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone','code','address','image','role'
+        'name', 'email', 'password','phone','code','address','image','role','area_id'
     ];
 
     /**
@@ -39,5 +40,9 @@ class User extends Authenticatable
     public function setPasswordAttribute($attr)
     {
         if (!empty($attr)) $this->attributes['password'] = bcrypt($attr);
+    }
+    public  function area(){
+        return $this->belongsTo(Area::class,'area_id');
+
     }
 }

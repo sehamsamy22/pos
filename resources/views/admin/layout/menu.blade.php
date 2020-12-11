@@ -13,7 +13,7 @@
                 @php $image = auth()->user()->image; @endphp
                 @if($image != null or $image != "")
 
-                    <img src="{{getimg(getsetting('logo'))}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+{{--                    <img src="{{getimg(getsetting('logo'))}}" alt="user-img" title="Mat Helme" class=" img-responsive">--}}
                     @else
                     <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
                     @endif
@@ -65,6 +65,7 @@
                                {{--   <li><a href="{{route('dashboard.categories.create')}}"> <i class="zmdi zmdi-format-playlist-add"></i>إضافة  تصنيف رئيسى     </a></li>--}}
                                 <li><a href="{{route('dashboard.subcategories.index')}}"><i class="zmdi zmdi-view-list"></i>   التصنيفات الفرعية</a></li>
                                 <li><a href="{{route('dashboard.units.index')}}"><i class="zmdi zmdi-view-list"></i>  تعريف الوحدات </a></li>
+                                <li><a href="{{route('dashboard.areas.index')}}"><i class="zmdi zmdi-view-list"></i>  تعريف المناطق </a></li>
 
                             </ul>
                         </li>

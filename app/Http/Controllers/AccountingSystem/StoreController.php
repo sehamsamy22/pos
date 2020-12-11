@@ -87,11 +87,13 @@ else{
             $subcriptipns_id=ClientSubscriptions::where('active','1')
             ->pluck('subscription_id','id')->toArray();
 
-            $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
+            $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)
+                ->pluck('meal_id','id')->toArray();
             $meals=Meal::whereIn('id',$meals_)->get();
+//          dd($meals);
             $products=MealProduct::whereIn('meal_id',$meals)->pluck('product_id','id')->toArray();
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
-// dd($meals);
+
         }else
         {
             $storeproducts=[];
@@ -137,55 +139,51 @@ else{
     public function ready_meals(Request $request,$id){
 
         $meal=Meal::find($id);
-        $readymeal=ReadyMeal::where('meal_id',$id)->where('date',Carbon::today())->first();
-       if(isset($readymeal)){
-
-        $readymeal->update([
-            'quantity'=>$readymeal->quantity + 1,
-        ]);
-       }
-       else{
-        ReadyMeal::create([
-            'meal_id'=>$meal->id,
-            'quantity'=>$request['quantity'],
-            'date'=>Carbon::today(),
-        ]);
-       }
-
+        if ($request->has('from') && $request->has('to')) {
+            $readymeal = ReadyMeal::where('meal_id', $id)->whereBetween('created_at',[$request['from'],$request['to']])->first();
+            if (isset($readymeal)) {
+                $readymeal->update([
+                    'quantity' => $readymeal->quantity + $request['quantity'],
+                ]);
+            } else {
+                ReadyMeal::create([
+                    'meal_id' => $meal->id,
+                    'quantity' => $request['quantity'],
+                    'date' => Carbon::today(),
+                ]);
+            }
+        }
             return response()->json([
                 'status'=>true,
                 'readymeal'=>$readymeal->quantity ?? $request['quantity'],
             ]);
     }
-    public function operarion_manger_view(){
-
-        $readymeals=ReadyMeal::where('date',Carbon::today())->get();
+    public function operarion_manger_view(Request  $request){
+        if ($request->has('from') && $request->has('to')) {
+            $readymeals = ReadyMeal::whereBetween('date',[$request['from'],$request['to']])->get();
+        }else{
+            $readymeals=[];
+        }
         return view('admin.stores.operarion_manger_view',compact('readymeals'));
 
     }
     public function receive_meals(Request $request,$id){
-
         $meal=ReadyMeal::find($id);
-        if($meal->received_quantity < $meal->quantity){
         $meal->update([
-           'received_quantity'=> $meal->received_quantity+1,
+            'received'=>1,
+           'received_quantity'=> $meal->received_quantity+$meal->quantity,
         ]);
-       }
             return response()->json([
                 'status'=>true,
                 'received_quantity'=>$meal->received_quantity
             ]);
     }
     public function distributed_meals(Request $request,$id){
-
         $meal=ReadyMeal::find($id);
-        if($meal->distributed_quantity < $meal->quantity){
-
         $meal->update([
-            'distributed_quantity'=> $meal->distributed_quantity+1,
-
+            'distributed'=>1,
+            'distributed_quantity'=> $meal->distributed_quantity+$meal->quantity,
         ]);
-        }
             return response()->json([
                 'status'=>true,
                 'distributed_quantity'=> $meal->distributed_quantity,
@@ -193,20 +191,18 @@ else{
     }
 
     public function driver_manger_view(Request $request){
-
         if ($request->has('from') && $request->has('to')) {
             $subcriptipns_id=ClientSubscriptions::
              where('active','1')
             ->pluck('client_id','id')->toArray();
-        $clients=Client::whereIn('id',$subcriptipns_id)->orderBy('address')->get();
+        $clients=Client::whereIn('id',$subcriptipns_id)->orderBy('area_id')->get();
         }else{
             $clients=[];
         }
-        $users=User::where('role','driver')->get();
+        $users=User::where('role','driver')->orderBy('area_id')->get();
         return view('admin.stores.driver_manger_view',compact('clients','users'));
     }
     public function assign_driver(Request $request,$id){
-
                     ClientDriver::create([
                         'client_id'=>$id,
                         'user_id'=>$request['user_id'],
@@ -218,17 +214,35 @@ else{
                 'status'=>true,
                 'data'=> $driver->name,
             ]);
-
-
     }
     public function productout(Request $request){
-
         $products=Product::whereIn('id',$request['ids'])->get();
-
         return response()->json([
             'status'=>true,
           'data'=>view('admin.revenues.product',compact('products'))->render()
-
         ]);
     }
+
+    public  function meals_label(Request $request,$id){
+
+        $Ready_meal=ReadyMeal::find($id);
+        $meal=Meal::find($Ready_meal->meal_id);
+        $subscriptions=SubscriptionMeal::where('meal_id',$meal->id)
+            ->pluck('subscription_id','id')->toArray();
+        if ($request->has('from') && $request->has('to')) {
+            $client_id = ClientSubscriptions::where('active', '1')
+//                ->whereBetween('created_at',[$request['from'],$request['to']])
+                ->whereIn('subscription_id',$subscriptions)
+                ->pluck('client_id', 'id')->toArray();
+           $clients=Client::whereIn('id',$client_id)->get();
+
+        }else{
+            $clients=[];
+        }
+        return response()->json([
+            'status'=>true,
+            'data'=>view('admin.stores.meals_label',compact('clients','Ready_meal'))->render()
+        ]);
+    }
+
 }

@@ -37,6 +37,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('measurements', 'MeasurementController');
     route::resource('clients', 'ClientController');
     route::resource('units', 'UnitController');
+    route::resource('areas', 'AreaController');
 
     route::resource('clients_subscriptions', 'ClientSubscriptionController');
     route::resource('visits', 'VisitController');
@@ -89,6 +90,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::POST('/ready_meals/{id}', 'StoreController@ready_meals');
     route::get('/operarion_manger_view', 'StoreController@operarion_manger_view')->name('stores.operarion_manger_view');
     Route::POST('/receive_meals/{id}', 'StoreController@receive_meals');
+    Route::get('/meal_print/{id}', 'StoreController@meals_label');
+
     Route::POST('/distributed_meals/{id}', 'StoreController@distributed_meals');
     route::any('/driver_manger_view', 'StoreController@driver_manger_view')->name('stores.driver_manger_view');
     Route::POST('/assign_driver/{id}', 'StoreController@assign_driver');

@@ -81,12 +81,21 @@
         <label class="form-label">  الصلاحية</label>
         <div class="form-line">
             {!! Form::select("role",['admin'=>'','storekeeper'=>'مسئول المخزن','cooker'=>'طباخ','operations_manager'=>'مسئول تشغيل',
-            'driver_manager'=>'مسئول السائقين','driver'=>'سائق',],null,['class'=>'form-control','placeholder'=>'الصلاحية ','data-parsley-required-message'=>'من فضلك  الصلاحية','required'=>''])!!}
+            'driver_manager'=>'مسئول السائقين','driver'=>'سائق',],null,['class'=>'form-control','placeholder'=>'الصلاحية ','data-parsley-required-message'=>'من فضلك  الصلاحية','required'=>'','id'=>'role'])!!}
 
         </div>
     </div>
 </div>
 
+<div class="col-sm-12 col-xs-12  pull-right">
+    <div class="form-group form-float">
+        <label class="form-label">  المنطقة</label>
+        <div class="form-line">
+            {!! Form::select("area_id",$areas,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  المنطقة  ','id'=>'area_id'])!!}
+
+        </div>
+    </div>
+</div>
 
 <div class="col-sm-12 col-xs-12  pull-right">
 <div class="form-group form-float">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Area;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $areas=Area::pluck('name','id')->toArray();
+
+        return view('admin.users.create',compact('areas'));
     }
 
     /**
@@ -68,7 +71,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $areas=Area::pluck('name','id')->toArray();
+        return view('admin.users.edit', compact('user','areas'));
     }
 
     /**

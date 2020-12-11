@@ -51,5 +51,17 @@
 @section('scripts')
 
     @include('admin.layout.form_validation_js')
+    <script>
+        $(document).ready(function () {
+            $('.areas').hide();
 
+        });
+        $("#role").on('change', function() {
+            var role = $(this).val();
+            if(role=='driver'){
+              $('.areas').show();
+            }
+
+        });
+    </script>
 @endsection

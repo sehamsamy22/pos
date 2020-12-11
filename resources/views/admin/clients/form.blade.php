@@ -59,6 +59,15 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
+<div class="col-sm-6 col-xs-6  pull-right">
+    <div class="form-group form-float">
+        <label class="form-label">  المنطقة</label>
+        <div class="form-line">
+            {!! Form::select("area_id",$areas,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  المنطقة  ','id'=>'area_id'])!!}
+
+        </div>
+    </div>
+</div>
 <div class="form-group text-right m-b-0">
     <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
 </div>

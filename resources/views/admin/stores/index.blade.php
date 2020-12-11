@@ -74,11 +74,13 @@
                             <td>{{$row->updated_at}}</td>
                             <td>
                                 <a href="{{route('dashboard.stores.show',$row->product->id)}}" class="label label-warning">عرض العمليات</a>
+
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+
 
     </div>
     </div>

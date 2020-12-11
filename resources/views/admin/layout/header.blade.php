@@ -4,7 +4,9 @@
     <!-- LOGO -->
     <div class="topbar-left">
         <a href="{{route('dashboard.index')}}" class="logo">
-            <span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i>
+            <img src="{{getimg(getsetting('logo'))}}" alt="user-img" title="Mat Helme" class=" img-responsive">
+
+            {{--            <span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i>--}}
         </a>
     </div>
 
