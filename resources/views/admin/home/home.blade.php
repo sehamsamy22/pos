@@ -31,7 +31,7 @@
 
                     <div class="widget-detail-1">
                         <h2 class="p-t-10 m-b-0"> {{ $subscriptions }}</h2>
-                        <p class="text-muted">  اجمالى عدد الاشنركات اليوم </p>
+                        <p class="text-muted">  اجمالى عدد الاشنركات المفعلة </p>
                     </div>
                 </div>
             </div>

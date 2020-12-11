@@ -37,7 +37,7 @@
                             <div class="panel-body">
                                 <div class="clearfix">
                                     <div class="pull-left">
-                                        <h3 class="logo-bill"> <img src="{{getimg(getsetting('logo'))}}"></h3>
+                                        <h3 class="logo-bill"> <img src="{{getimg(getsetting('logo'))}}" style="height: 109px; margin-bottom: -19px;"></h3>
                                     </div>
                                     <div class="pull-right">
                                         <h4>رقم الاشتراك# <br>
