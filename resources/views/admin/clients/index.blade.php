@@ -30,7 +30,7 @@
                         <th>  الاسم </th>
                         <th>  الجوال </th>
                         <th>  الايميل</th>
-                        <th>    العنوان </th>
+                        <th>    المنطقة </th>
 
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
@@ -44,7 +44,7 @@
                             <td>{{$row->name}}</td>
                             <td>{{$row->phone}}</td>
                             <td>{{$row->email}}</td>
-                            <td>{{$row->address}}</td>
+                            <td>{{$row->area->name ??''}}</td>
 
                             <td>
                                 <a href="{{route('dashboard.clients.show',$row->id)}}" class="label label-warning">عرض</a>
