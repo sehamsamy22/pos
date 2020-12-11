@@ -51,7 +51,7 @@
                                 @foreach($clients as $row)
                                     <tr>
                                         <td>{{$i++}}</td>
-                                        <td>{{$row->name}}</td>
+                                        <td><a href="{{route('dashboard.stores.client_log',$row->id)}}">{{$row->name}}</a></td>
                                         <td>{{$row->area->name}}</td>
                                         <td>{{$row->phone}}</td>
                                        <td></td>
@@ -78,7 +78,10 @@
                                                                 {{-- {!! Form::select("user_id",$users,null,['class'=>'form-control js-example-basic-single','id'=>'{{$row->id}}','placeholder'=>' اختر اسم السائق  '])!!} --}}
 
                                                                  <select name="user_id" id="user_id-{{$row->id}}" class="form-control" >
-                                                                   @foreach($users as $user)
+                                                                <?php
+                                                                     $drivers=\App\User::where('role','driver')->where('area_id',$row->area_id)->get();
+                                                                     ?>
+                                                                   @foreach($drivers as $user)
                                                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                                                   @endforeach
                                                                     </select>
@@ -104,7 +107,38 @@
                                 </tbody>
                             </table>
 
-    </div>
+
+
+                <div class="col-sm-12">
+                    <h4 class="page-title"> عرض  جميع  عمليات التوصيل للعملاء  </h4>
+                </div>
+
+                <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>اسم العميل</th>
+                        <th>اسم السائق</th>
+
+                        <th>تاريخ العملية  </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $i = 1; @endphp
+                    @foreach($logs as $row)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$row->client->name}}</td>
+                            <td>{{$row->user->name}}</td>
+                            <td>{{$row->date}}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+
+
+            </div>
     </div>
 @endsection
 

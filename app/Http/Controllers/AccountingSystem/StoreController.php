@@ -191,16 +191,20 @@ else{
     }
 
     public function driver_manger_view(Request $request){
+        $logs = ClientDriver::all();
+
         if ($request->has('from') && $request->has('to')) {
             $subcriptipns_id=ClientSubscriptions::
              where('active','1')
             ->pluck('client_id','id')->toArray();
         $clients=Client::whereIn('id',$subcriptipns_id)->orderBy('area_id')->get();
+            $logs = ClientDriver::whereBetween('created_at',[$request['from'],$request['to']])->get();
+
         }else{
             $clients=[];
         }
         $users=User::where('role','driver')->orderBy('area_id')->get();
-        return view('admin.stores.driver_manger_view',compact('clients','users'));
+        return view('admin.stores.driver_manger_view',compact('clients','users','logs'));
     }
     public function assign_driver(Request $request,$id){
                     ClientDriver::create([
@@ -243,6 +247,17 @@ else{
             'status'=>true,
             'data'=>view('admin.stores.meals_label',compact('clients','Ready_meal'))->render()
         ]);
+    }
+    public  function client_log(Request $request,$id){
+
+        $client=Client::find($id);
+        if ($request->has('from') && $request->has('to')) {
+            $logs = ClientDriver::where('client_id', $id)->whereBetween('created_at',[$request['from'],$request['to']])->get();
+        }else{
+            $logs = ClientDriver::where('client_id', $id)->get();
+
+        }
+        return view('admin.stores.client_log',compact('logs','client'));
     }
 
 }

@@ -66,6 +66,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('revenues', 'RevenueController');
     route::any('/filter-payments', 'RevenueController@index')->name('revenues.filter');
     route::any('/filter-entriy', 'EntryController@filter')->name('entries.filter');
+    route::get('client_log/{id}', 'StoreController@client_log')->name('stores.client_log');
 
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
