@@ -346,6 +346,7 @@ trait RevenueOperation
                 // "payment_type" => $request['payment_type'],
                 'date'=>$request['date'],
                 'num'=>$request['num'],
+            'notes'=>$request['notes'],
             ]);
 
             foreach($request['quantity'] as $product_id=>$quantity )
