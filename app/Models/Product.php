@@ -42,11 +42,18 @@ class Product extends Model
    return $qty;
     }
 
-
+//    public  function sumation ($id,$request)
+//    {
+//        $subscriptions_arr=ClientSubscriptions::where('active','1')->get();
+//        foreach($subscriptions_arr as $key=>$subscription) {
+//        orders($id,$request,$subscription);
+//        }
+//
+//    }
 
     public  function orders($id,$request)
     {
-       $from=$request['from'];
+        $from=$request['from'];
         $to=$request['to'];
         //-------------------------array1--------------------------
         $subscriptions_arr=ClientSubscriptions::where('active','1')->get();
@@ -148,8 +155,10 @@ class Product extends Model
 //           dd($product_count);
         }
 
-      return $product_count;
+        return $product_count;
     }
+
+
 
 
 

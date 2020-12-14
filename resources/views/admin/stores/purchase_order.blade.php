@@ -59,6 +59,7 @@
                             <td>{{$row->product->ar_name}}</td>
                             <td>{{$row->product->barcode}}</td>
                             <td>{{$row->quantity}}</td>
+{{--                            @dd($row->product->sumation($row->product->id,$request))--}}
                                 @if($request)
                                 <td>{{$row->product->orders($row->product->id,$request)}}</td>
                                 <td>
