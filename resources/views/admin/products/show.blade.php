@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">  وحدة الصنف</label>
                             <div class="col-md-10">
-                                <input type="text" required value="{{$product->units->name}}"
+                                <input type="text" required value="{{$product->units->name??''}}"
                                        name="phone" class="form-control" placeholder="رقم الجوال" disabled>
                             </div>
                         </div>
