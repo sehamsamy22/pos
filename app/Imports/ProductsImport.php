@@ -24,7 +24,7 @@ class ProductsImport implements ToModel
             'price' => $row[11]??'',
             'unit'=>$row[6]??'',
             'barcode'=>$row[1]??'',
-//            'unit'=>$row[2]??'',
+         'sub_category_id'=>$row[5]??'',
         ]);
     }
 }
