@@ -68,6 +68,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::any('/filter-entriy', 'EntryController@filter')->name('entries.filter');
     route::get('client_log/{id}', 'StoreController@client_log')->name('stores.client_log');
 
+    Route::get('importViewProduct', 'ProductController@importView')->name('products.importViewProduct');
+    Route::post('importProduct', 'ProductController@importProduct')->name('products.importProduct');
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');

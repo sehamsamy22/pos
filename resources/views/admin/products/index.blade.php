@@ -14,6 +14,12 @@
                 </a>
             </div>
 
+            <div class="btn-group pull-right m-t-15">
+                <a href="{{route('dashboard.products.importViewProduct')}}" class="btn btn-success">
+                    رفع الاصناف من ملف
+                    <span class="m-l-5"><i class="fa fa-plus"></i></span>
+                </a>
+            </div>
             <h4 class="page-title">عرض الأصناف والمواد الخام</h4>
         </div>
     </div>

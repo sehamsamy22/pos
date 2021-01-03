@@ -4,12 +4,14 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Imports\ProductsImport;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\StoreProduct;
 use App\Models\SubCategory;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -149,6 +151,18 @@ class ProductController extends Controller
     {
         Product::find($id)->delete();
         return redirect()->route('dashboard.categories.index')->with('success', __('تم الحذف بنجاح'));
+
+    }
+    public function importView(){
+
+        return view('admin.products.importView');
+
+    }
+    public function importProduct()
+    {
+        Excel::import(new ProductsImport,request()->file('file'));
+//        return back();
+        return redirect()->route('dashboard.products.index')->with('success', __('تم رقع الاصناف'));
 
     }
 }
