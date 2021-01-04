@@ -14,6 +14,12 @@
                 </a>
             </div>
 
+            <div class="btn-group pull-right m-t-15">
+                <a href="{{route('dashboard.meals.importViewMeal')}}" class="btn btn-success">
+                    رفع الوجبات من ملف
+                    <span class="m-l-5"><i class="fa fa-plus"></i></span>
+                </a>
+            </div>
             <h4 class="page-title">عرض المنتجات والوجبات</h4>
         </div>
     </div>

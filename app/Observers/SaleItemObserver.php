@@ -11,33 +11,36 @@ class SaleItemObserver
     /**
      * Handle the sale item "created" event.
      *
-     * @param  \App\SaleItem  $saleItem
+     * @param  \App\Models\SaleItem  $saleItem
      * @return void
      */
     public function created(SaleItem $saleItem)
     {
         // dd($saleItem->meal->products);
-        foreach($saleItem->meal->products as $mealproduct){
+        foreach ($saleItem->meal->products as $mealproduct) {
 
-            $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
-        //    dd($storeProduct);
+            $storeProduct = StoreProduct::where('product_id', $mealproduct->product_id)->first();
+            if ($storeProduct) {
 
-            if($storeProduct->quantity-$saleItem->quantity > 0){
+                if ($storeProduct->quantity - $saleItem->quantity > 0) {
 
-                $storeProduct->quantity-=$mealproduct->quantity*$saleItem->quantity;
+                    $storeProduct->quantity -= $mealproduct->quantity * $saleItem->quantity;
 
-                $storeProduct->update([
-                    'quantity'=>$storeProduct->quantity >0?$storeProduct->quantity:0
+                    $storeProduct->update([
+                        'quantity' => $storeProduct->quantity > 0 ? $storeProduct->quantity : 0
+                    ]);
+                }
+
+                ProductLog::create([
+                    'product_id' => $mealproduct->product_id,
+                    'bill_id' => $saleItem->sale_id,
+                    'operation' => 'sales',
+                    'quantity' => $mealproduct->quantity
                 ]);
             }
 
-            ProductLog::create([
-                'product_id'=>$mealproduct->product_id,
-                'bill_id'=>$saleItem->sale_id,
-                'operation'=>'sales',
-                'quantity'=>$mealproduct->quantity
-               ]);
-            }
+
+        }
 
     }
 
@@ -55,7 +58,7 @@ class SaleItemObserver
     /**
      * Handle the sale item "deleted" event.
      *
-     * @param  \App\SaleItem  $saleItem
+     * @param  \App\Models\SaleItem  $saleItem
      * @return void
      */
     public function deleted(SaleItem $saleItem)

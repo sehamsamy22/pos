@@ -154,14 +154,11 @@ class ProductController extends Controller
 
     }
     public function importView(){
-
         return view('admin.products.importView');
-
     }
     public function importProduct()
     {
         Excel::import(new ProductsImport,request()->file('file'));
-//        return back();
         return redirect()->route('dashboard.products.index')->with('success', __('تم رقع الاصناف'));
 
     }

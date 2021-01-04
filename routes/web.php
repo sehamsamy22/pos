@@ -71,6 +71,9 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('importViewProduct', 'ProductController@importView')->name('products.importViewProduct');
     Route::post('importProduct', 'ProductController@importProduct')->name('products.importProduct');
 
+    Route::get('importViewMeal', 'MealController@importView')->name('products.importViewMeal');
+    Route::post('importMeal', 'MealController@importMeal')->name('products.importMeal');
+
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
     Route::get('/getMealInputs/{id}', 'SubscriptionController@getMealInputs');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MealRequest;
+use App\Imports\MealsImport;
 use App\Models\Category;
 use App\Models\Meal;
 use App\Models\MealProduct;
@@ -12,6 +13,7 @@ use App\Models\StoreProduct;
 use App\Models\SubCategory;
 use App\Models\TypeMeal;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MealController extends Controller
 {
@@ -197,7 +199,7 @@ class MealController extends Controller
     public function checkquantity(Request $request,$id){
         $meal = Meal::find($id);
         $status='ture';
-    
+
         foreach($meal->products as $mealproduct){
             $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
             if($storeProduct->quantity < $request['quantity'] * $mealproduct->quantity ){
@@ -207,5 +209,16 @@ class MealController extends Controller
         return response()->json([
             'data'=>$status,
         ]);
+    }
+    public function importView(){
+        return view('admin.meals.importView');
+    }
+
+    public function importMeal()
+    {
+        Excel::import(new MealsImport,request()->file('file'));
+//        return back();
+        return redirect()->route('dashboard.meals.index')->with('success', __('تم رقع المنتجات'));
+
     }
 }

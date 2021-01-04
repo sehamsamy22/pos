@@ -40,11 +40,11 @@ class activeSubstriptionCron extends Command
     public function handle()
     {
 
-        $subcriptions=ClientSubscriptions::where('end','<=',Carbon::today())->get();
+        $subcriptions=ClientSubscriptions::whereDate('end','<=',Carbon::today())->get();
         foreach ($subcriptions as $subcription){
           $subcription->update([
               'active'=>0,
-          ]);  
+          ]);
         }
         return 0;
     }
