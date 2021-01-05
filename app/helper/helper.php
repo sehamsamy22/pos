@@ -4,6 +4,7 @@
 //Json array response
 
 use App\Models\AccountingSystem\AccountingAccount;
+use App\Models\Unit;
 use Carbon\Carbon;
 class MyHelper{
 
@@ -39,7 +40,10 @@ class MyHelper{
 
    }
 
-
+  function unit($unit_=null){
+    $unit=Unit::where('name',$unit_)->first();
+    return $unit->id??Null;
+}
 function responseJson($status, $msg, $data = null, $state = 200)
 {
     $response = [

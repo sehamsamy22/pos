@@ -83,7 +83,7 @@ class UnitController extends Controller
     {
         $requests = $request->all();
         $unit->update($requests);
-        return redirect()->route('dashboard.categories.index')->with('success', __('تم التعديل'));
+        return redirect()->route('dashboard.units.index')->with('success', __('تم التعديل'));
 
     }
 

@@ -16,14 +16,14 @@ class MealsImport implements ToModel,WithStartRow
     */
     public function model(array $row)
     {
-//   dd($row);
+  dd($row);
      /*   'ar_name', 'en_name','sub_category_id','price','status','type_id','description','image','calories','discount','tax','approx_price'*/
         return new Meal([
-            'ar_name' => $row[2]??'',
-            'en_name' => $row[2]??'',
-            'price' => $row[11]??'',
+            'ar_name' => $row[1]??'',
+            'en_name' => $row[1]??'',
+            'price' => $row[2]??'',
             'sub_category_id'=>5,
-            'calories'=> $row[12]??'',
+           'calories'=> $row[12]??'',
         ]);
     }
     public function StartRow(): int

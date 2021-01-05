@@ -110,14 +110,12 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $rules=[
-
             "ar_name" => "required|string|min:1|max:255",
            "en_name" => "required|string|min:1|max:255",
-           "unit" => "required|string|min:1|max:255",
+//           "unit" => "required|string|min:1|max:255",
            'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
            "price" => "required",
            "barcode" => "required|unique:products,barcode,". $product->id
-
         ];
         $message= [
             'ar_name.required'=>"الإسم باللغه العربية مطلوب",

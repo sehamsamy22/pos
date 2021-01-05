@@ -3,10 +3,12 @@
 namespace App\Imports;
 
 use App\Models\Product;
+use App\Models\Unit;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ProductsImport implements ToModel,WithHeadingRow
+class ProductsImport implements ToModel,WithStartRow
 {
     /**
     * @param array $row
@@ -23,15 +25,16 @@ class ProductsImport implements ToModel,WithHeadingRow
             'ar_name' => $row[2]??'',
             'en_name' => $row[2]??'',
             'price' => $row[11]??'',
-            'unit'=>$row[6]??'',
+            'unit_id'=>\unit($row[6])??'',
             'barcode'=>$row[1]??'',
-         'sub_category_id'=>5,
+            'sub_category_id'=>5,
             'calories'=> $row[12]??'',
 
         ]);
     }
-    public function headingRow(): int
+    public function StartRow(): int
     {
         return 2;
     }
+
 }
