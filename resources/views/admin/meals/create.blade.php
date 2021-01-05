@@ -123,8 +123,8 @@
                 });
                 $('.add-components').empty().append(appendComponent);
 
-                $(".Approx_price").html(TotalValue);
-                $("#total").val(TotalValue);
+                $(".Approx_price").html(TotalValue.toFixed(2));
+                $("#total").val(TotalValue.toFixed(2));
                 /////////////////////////////////////////////////////
                 $('.delete-this-row-component').click(function(e) {
                     var $this = $(this);
