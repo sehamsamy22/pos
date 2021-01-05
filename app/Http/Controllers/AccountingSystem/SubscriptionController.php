@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionRequest;
+use App\Models\ClientSubscriptions;
 use App\Models\Meal;
 use App\Models\Subscription;
 use App\Models\SubscriptionMeal;
@@ -125,6 +126,15 @@ class SubscriptionController extends Controller
             'status'=>true,
             'data'=>view('admin.subscriptions.meals',compact('meals'))->render()
         ]);
+    }
+    public  function subscription_disactive(Request  $request,$id){
+      $subscription=ClientSubscriptions::find($id);
+
+        $subscription->update([
+            'end'=>$request['end'],
+            'active'=>0,
+        ]);
+        return redirect()->route('dashboard.clients_subscriptions.index')->with('success', __('تم ايقاف الاشتراك بنجاح'));
     }
 
 }

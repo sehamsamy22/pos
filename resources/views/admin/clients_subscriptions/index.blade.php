@@ -57,21 +57,50 @@
                             <td>{{$row->reminder}}</td>
                             <td>
                             @if($row->reminder > 0)
-                                 <a href="{{route('dashboard.clients_subscriptions.payment',$row->id)}}" class="label label-primary"> دفع</a>
+                                 <a href="{{route('dashboard.clients_subscriptions.payment',$row->id)}}" class="btn btn-primary"> دفع</a>
                             @else
-                            <label class="label label-success"> تم سداد المبلغ بالكامل</label>
+                            <label class="btn btn-success"> تم سداد المبلغ بالكامل</label>
                             @endif
-                            <a href="{{route('dashboard.clients_subscriptions.show',$row->id)}}" class="label label-purple"> عرض الاشتراك</a>
-
-                                <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
+                            <a href="{{route('dashboard.clients_subscriptions.show',$row->id)}}" class="btn btn-pink"> عرض الاشتراك</a>
+                                @if($row->active==1)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{$row->id}}">
+                                   ايقاف
+                                </button>
+                                @else
+                                    <a href="#" class="btn btn-danger"> متوقف</a>
+                                    @endif
+                                <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="btn btn-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.clients_subscriptions.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                             </td>
                         </tr>
+
                     @endforeach
                     </tbody>
                 </table>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal-{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">أيقاف إشتراك مؤقت  </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {!!Form::model($row, ['route' => ['dashboard.subscriptions.dis_active' ,$row->id] , 'method' => 'POST' ,'files'=>true]) !!}
+                            <div class="modal-body">
 
+                                <input type="date" class="form-control" name="end" id="" value={{$row->end}}>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary"> حفظ التعديلات</button>
+                            </div>
+                            {!!Form::close() !!}
+                        </div>
+                    </div>
+                </div>
     </div>
     </div>
 @endsection

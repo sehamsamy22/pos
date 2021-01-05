@@ -57,7 +57,7 @@ class SaleObserver
                 'amount'=>$sale->payed,
                 'balance'=>$saleaccount->amount+$sale->total,
             ]);
-     //الى حساب  الدفع
+      //الى حساب  الدفع
             if($sale->payment_type =='cash'){
             EntryAccount::create([
                 'entry_id'=>$entry->id,

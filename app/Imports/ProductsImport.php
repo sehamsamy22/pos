@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\Product;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ProductsImport implements ToModel
+class ProductsImport implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
@@ -25,6 +26,12 @@ class ProductsImport implements ToModel
             'unit'=>$row[6]??'',
             'barcode'=>$row[1]??'',
          'sub_category_id'=>5,
+            'calories'=> $row[12]??'',
+
         ]);
+    }
+    public function headingRow(): int
+    {
+        return 2;
     }
 }
