@@ -39,7 +39,7 @@
     <div class="form-group form-float">
         <label class="form-label"> السعرات الحرارية بالوجبة</label>
         <div class="form-line">
-            {!! Form::text("calories",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل السعرات الحرارية  ','required'=>''])!!}
+            {!! Form::text("calories",null,['class'=>'form-control',])!!}
         </div>
     </div>
 </div>
