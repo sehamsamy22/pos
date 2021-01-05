@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\StoreProduct;
 use App\Models\SubCategory;
 use App\Models\TypeMeal;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -38,8 +39,9 @@ class MealController extends Controller
      */
     public function create()
     {
+        $units=Unit::pluck('name','id')->toArray();
 
-        return view('admin.meals.create')
+        return view('admin.meals.create',compact('units'))
         ->with('categories',Category::pluck('name','id')->toArray())
         ->with('types',TypeMeal::pluck('name','id')->toArray())
         ->with('products',Product::all());
@@ -103,10 +105,11 @@ class MealController extends Controller
     {
         $categories=Category::pluck('name','id')->toArray();
         $products=Product::all();
+        $units=Unit::pluck('name','id')->toArray();
         $types=TypeMeal::pluck('name','id')->toArray();
         $subcategory=SubCategory::find($meal->sub_category_id);
         $categoryId=$subcategory->category_id;
-        return view('admin.meals.edit',compact('meal','categories','products','categoryId','types'));
+        return view('admin.meals.edit',compact('meal','categories','products','categoryId','types','units'));
 
     }
 

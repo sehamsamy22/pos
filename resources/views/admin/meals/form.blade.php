@@ -61,6 +61,24 @@
     </div>
 </div>
 <div class="clearfix"></div>
+<div class="col-sm-12 col-xs-12  pull-right">
+    <div class="form-group form-float">
+        <label class="form-label"> الوحدة</label>
+        <div class="form-line">
+            {!! Form::select("unit_id",$units,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  الوحدة  ','id'=>'unit_id'])!!}
+
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-xs-6  pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  الباركود</label>
+        <div class="form-line">
+            {!! Form::text("barcode",null,['class'=>'form-control',])!!}
+        </div>
+    </div>
+</div>
+
 @if(isset($meal))
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
@@ -118,14 +136,6 @@
         <label class="form-label"> نسبة الضريبة</label><span style="color: #ff0000; margin-right: 15px;" class="sm-span">(إن وجد)</span>
         <div class="form-line">
             {!! Form::text("tax",null,['class'=>'form-control'])!!}
-        </div>
-    </div>
-</div>
-<div class="col-sm-6 col-xs-6  pull-left">
-    <div class="form-group form-float">
-        <label class="form-label">  الباركود</label>
-        <div class="form-line">
-            {!! Form::text("barcode",null,['class'=>'form-control',])!!}
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Meal extends Model
 {
     protected $fillable = [
-        'ar_name', 'en_name','sub_category_id','price','status','type_id','description','image','calories','discount','tax','approx_price','barcode'
+        'ar_name', 'en_name','sub_category_id','price','status','type_id','description','image','calories','discount','tax','approx_price','barcode','unit_id'
     ];
     public function subcategory(){
         return $this->belongsTo(SubCategory::class,'sub_category_id');
