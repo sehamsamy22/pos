@@ -115,7 +115,7 @@ class ProductController extends Controller
 //           "unit" => "required|string|min:1|max:255",
            'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
            "price" => "required",
-           "barcode" => "required|unique:products,barcode,". $product->id
+           "barcode" => "required|unique:products,barcode," . $product->id
         ];
         $message= [
             'ar_name.required'=>"الإسم باللغه العربية مطلوب",
