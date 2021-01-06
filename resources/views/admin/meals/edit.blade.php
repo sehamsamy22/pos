@@ -96,7 +96,7 @@
             <tr class="single-product">
                 <td class="component-name">${component.component_name}</td>
                 <td class="component-qty">${component.component_quantity}</td>
-                <td class="component-unit">${unit}</td>
+                <td class="component-unit">${component.component_unit}</td>
               <td>
 
                 <a href="#" data-toggle="tooltip" class="delete-this-row-component" data-original-title="حذف">

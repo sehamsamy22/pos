@@ -194,7 +194,7 @@
                         data-parsley-required-message="ادخل اسم الصنف">
                     <option value="" selected disabled>اختر الصنف</option>
                     @foreach ($products  as $product)
-                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->unit}}" value="{{$product->id}}">{{$product->ar_name}}</option>
+                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name}}" value="{{$product->id}}">{{$product->ar_name}}</option>
                     @endforeach
                 </select>
                 <label>الوحدة</label>
