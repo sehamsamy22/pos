@@ -53,6 +53,7 @@
                         <th>اسم الصنف</th>
                         <th>الكميه المتوفرة</th>
                         <th>  متوسط التكلفة</th>
+                        <th>   الإجمالى</th>
                         <th> التصنيف الفرعى</th>
                         <th>تاريخ اضافته  </th>
                         <th>تاريخ اخر عمليه تمت  </th>
@@ -60,15 +61,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @php $i = 1; @endphp
+                    @php
+                        $i = 1;
+                        $total=0;
+                    @endphp
                     @foreach($storeproducts as $row)
+
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
 
                             <td>{{$row->quantity}}</td>
                             <td>{{$row->product->avg_cost() }}</td>
-
+                            <td>{{$row->product->avg_cost() *$row->quantity}}</td>
                             <td>{{$row->product->subcategory->name ??''}}</td>
                             <td>{{$row->created_at}}</td>
                             <td>{{$row->updated_at}}</td>
@@ -77,7 +82,25 @@
 
                             </td>
                         </tr>
+                        <?php
+                        $total+=$row->product->avg_cost() *$row->quantity;
+                        ?>
+
                     @endforeach
+                    <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            <label class="label label-primary">
+                            الاجمالى
+                            </label>
+                        </td>
+                        <td>{{$total}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
                     </tbody>
                 </table>
 

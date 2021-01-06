@@ -53,6 +53,7 @@
                        <th> مجموع المدنين </th>
                        <th> مجموع الدائنين </th>
                         <th> الرصيد </th>
+                        <th> كشف حساب </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,7 +67,7 @@
                         <td>{!! $row->debtor_balance($row->id,$request)!!}</td>
                         <td>{!! $row->creditor_balance($row->id,$request)!!}</td>
                         <td>   {{ $row->openning_balance($row->id,$request)+$row->debtor_balance($row->id,$request)-$row->creditor_balance($row->id,$request) }} </td>
-
+                        <td><a href="{{route("dashboard.accounts.statement",$row->id)}}"><label class="label label-danger">عرض</label></a></td>
 
                     </tr>
 

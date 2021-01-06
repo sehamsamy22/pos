@@ -187,6 +187,7 @@
                 <label> اسم المكون</label>
                 <span class="required--in">*</span>
 {{--                {!! Form::select("product_id",$products,null,['class'=>'form-control js-example-basic-single','id'=>'component_name'])!!}--}}
+
                 <select class="form-control js-example-basic-single"
                         id="component_name"
                         data-parsley-trigger="select"
@@ -194,7 +195,7 @@
                         data-parsley-required-message="ادخل اسم الصنف">
                     <option value="" selected disabled>اختر الصنف</option>
                     @foreach ($products  as $product)
-                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name}}" value="{{$product->id}}">{{$product->ar_name}}</option>
+                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name ??''}}" value="{{$product->id}}">{{$product->ar_name}}</option>
                     @endforeach
                 </select>
                 <label>الوحدة</label>
@@ -237,17 +238,18 @@
                         <td class="component-name">{{$product->product->ar_name}}</td>
                         <td class="component-qty"> {{$product->quantity}}</td>
                         <td class="component-unit">
-                            @if($product->product->unit=='kilo')
-                             كيلو
-                            @elseif($product->product->unit=='gram')
-                            جرام
-                            @elseif($product->product->unit=='liter')
-                            لتر
-                            @elseif($product->product->unit=='unit')
-                            حبة
-                            @elseif($product->product->unit=='backet')
-                            حبة
-                            @endif
+{{--                            @if($product->product->unit=='kilo')--}}
+{{--                             كيلو--}}
+{{--                            @elseif($product->product->unit=='gram')--}}
+{{--                            جرام--}}
+{{--                            @elseif($product->product->unit=='liter')--}}
+{{--                            لتر--}}
+{{--                            @elseif($product->product->unit=='unit')--}}
+{{--                            حبة--}}
+{{--                            @elseif($product->product->unit=='backet')--}}
+{{--                            حبة--}}
+{{--                            @endif--}}
+                            {{$product->product->units->name ??''}}
                         </td>
                         <td>
 

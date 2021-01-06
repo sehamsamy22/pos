@@ -31,16 +31,16 @@
 
                     {!!Form::open( ['route' => 'dashboard.purchases.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
 
-                    <div class="col-sm-4 col-xs-4  pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label">رقم الفاتورة</label>
-                            <div class="form-line">
-                            <input type="text" class="form-control" name="num" value="00{{ $purchaselast->id ?? '1'}}">
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-sm-4 col-xs-4  pull-left">--}}
+{{--                        <div class="form-group form-float">--}}
+{{--                            <label class="form-label">رقم الفاتورة</label>--}}
+{{--                            <div class="form-line">--}}
+{{--                            <input type="text" class="form-control" name="num" value="{{ $purchaselast->id ?? '1'}}">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <div class="col-sm-4 col-xs-4  pull-left">
+                    <div class="col-sm-6 col-xs-6  pull-left">
                         <div class="form-group form-float">
                             <label class="form-label">تاريخ الفاتورة</label>
                             <div class="form-line">
@@ -52,7 +52,7 @@
                     </div>
 
 
-                    <div class="col-sm-4 col-xs-4 pull-left">
+                    <div class="col-sm-6 col-xs-6 pull-left">
                         <div class="form-group form-float">
                             <label class="form-label"> اسم المورد</label>
                             <div class="form-line">
@@ -101,8 +101,8 @@
                                                 data-name="{{$product->ar_name}}"
                                                 data-price="{{$product->price}}"
                                                 data-lastprice="{{$product->lastPrice() }}"
-                                                data-bar-code="{{$product->barcode}}"
-                                                data-unit="{{$product->unit}}"
+                                                data-barcode="{{$product->barcode}}"
+                                                data-unit="{{$product->units->name ??''}}"
 {{--                                                data-link= "{{route('dashboard.products.show',['id'=>$product->id])}}"--}}
                                         >
                                             {{$product->ar_name}}
@@ -136,7 +136,7 @@
 
                             <th  id="amountBeforeDariba" colspan="3">
                                 <div class="form-group form-float">
-                                    <label class="form-label">اجمالى الفاتورة</label>
+                                    <label class="form-label">الاجمالى قبل الخصم </label>
                                     <div class="form-line">
                                         <span  class="dynamic-span"></span>
                                         <input type="hidden" class="form-control" name="amount" id="amountBeforeDariba1" >
@@ -192,13 +192,9 @@
 
                                 <button type="button" class="btn_bill"  data-toggle="modal" data-target="#exampleModalCenter">حفظ</button>
                                 <buttton type="button" class="btn btn-danger btn_bill" onclick="myFunction()">الغاء</buttton>
-
                             </div>
                             </th>
-
                             </tr>
-
-
                         </tfoot>
                     </table>
 
@@ -269,31 +265,31 @@
         var ProductId = $(this).val();
         var productName = selectedProduct.data('name');
         var productLink = selectedProduct.data('link');
-        var barCode = selectedProduct.data('bar-code');
+        var barCode = selectedProduct.data('barcode');
         var productPrice = selectedProduct.data('lastprice');
         var productUnit= selectedProduct.data('unit');
         var wholePriceAfter=selectedProduct.data('lastprice');
-       if(productUnit=='kilo')
-       {
-           unit='كيلو';
-       }else if(productUnit=='gram')
-       {
-           unit='جرام';
-       }else{
-           unit='لتر';
-       }
+       // if(productUnit=='kilo')
+       // {
+       //     unit='كيلو';
+       // }else if(productUnit=='gram')
+       // {
+       //     unit='جرام';
+       // }else{
+       //     unit='لتر';
+       // }
         $(".bill-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
 							<td class="row-num" width="40">${rowNum}</td>
                             <input type="hidden" name="product_id[${ProductId}]" value="${ProductId}">
-							<td class="product-name " width="190">${productName}</td>
-							<td class="product-unit " width="70">${unit}</td>
+							<td class="product-name " width="190">${productName}-${barCode}</td>
+							<td class="product-unit " width="70">${productUnit}</td>
 							<td class="product-quantity " width="40">
 								<input type="text" placeholder="الكمية"  value="1" id="sale" class="form-control" name="quantity[${ProductId}]">
 							</td>
 							<td class="unit-price" width="100">
 								<input type="text" class="form-control"  value="${productPrice}" name="prices[${ProductId}]">
 							</td>
-                          <td class="quantityXprice" width="70"></td>
+                          <td class="quantityXprice" width="70">${productPrice}</td>
 
 							<td class="whole-product-discount" width="70">
 							<input type="text" class="form-control" value="0" name="discounts[${ProductId}]">
@@ -347,6 +343,7 @@
                $(this).parents('.single-row-wrapper').find(".whole-price-before").attr('tempPriBef', wholePriceBefore.toFixed(2));
            });
 
+           // console.log(wholePriceBefore);
            $(".unit-price").change(function() {
             if (($(this).val()) < 0) {
                 $(this).val(0);
@@ -391,42 +388,43 @@
                $(".whole-price-after").each(function () {
                    amountBeforeDariba += Number($(this).text());
                });
-
                var amountAfterDariba = 0;
                $(".whole-price").each(function () {
                    amountAfterDariba += Number($(this).text());
                });
                var bill_tax=$('#bill_tax').val();
+               console.log(amountBeforeDariba);
                var tax_val= Number(wholePriceAfter) * (Number(bill_tax) / 100);
                $("#tax").val(Number(tax_val).toFixed(2));
                $("#amountBeforeDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
+
                $("#amountAfterDariba span.dynamic-span").html(Number(amountBeforeDariba+tax_val).toFixed(2));
                $("#amountAfterDariba").val(amountBeforeDariba+tax_val);
                // $("#amountOfDariba span.dynamic-span").html(amountOfDariba.toFixed(2));
               // $("#total").val(amountAfterDariba.toFixed(2));
                var  sum=amountBeforeDariba+tax_val ;
                var  totalAfterFixTax=Number(sum).toFixed(2) ;
-
-
-               $("#bill_discount").change(function() {
-                   var bill_discount=$(this).val();
-                    var discount_val= Number(totalAfterFixTax)*(Number(bill_discount)/100);
-                    console.log(totalAfterFixTax);
-                    var amount_after_discount=Number(totalAfterFixTax)-Number(discount_val);
-
-                   $("#amountAfterDariba span.dynamic-span").html(amount_after_discount.toFixed(2));
-
-                   $("#amountAfterDariba1").val(amount_after_discount.toFixed(2));
-
-                   $("#total").val(amount_after_discount.toFixed(2));
-                   $("#discount").val(Number(discount_val).toFixed(2));
-                   $("#payed").val((Number(demonded)-Number(discount_val)).toFixed(2));
-
-               });
-             var demonded= totalAfterFixTax;
-             $("#payed").val(demonded);
+               var demonded= totalAfterFixTax;
+               $("#payed").val(demonded);
                $("#amountAfterDariba1").val(totalAfterFixTax);
                $("#total").val(totalAfterFixTax);
+
+               $("#amountBeforeDariba1").val(amountBeforeDariba);
+               $("#bill_discount").change(function() {
+                   var bill_discount=$(this).val();
+                   $('#bill_discount').val(bill_discount);
+                    var discount_val= (Number(amountBeforeDariba)*(Number(bill_discount))/100);
+                    var new_bill_tax=((Number(amountBeforeDariba)-Number(discount_val))*bill_tax)/100;
+                   $("#tax").val(Number(new_bill_tax).toFixed(2));
+                    var amount_after_discount=new_bill_tax+Number(amountBeforeDariba)-Number(discount_val);
+                   $("#amountAfterDariba span.dynamic-span").html(amount_after_discount.toFixed(2));
+                   $("#amountAfterDariba1").val(amount_after_discount.toFixed(2));
+                   $("#total").val(amount_after_discount.toFixed(2));
+                   $("#discount").val(Number(discount_val).toFixed(2));
+                   $("#payed").val(amount_after_discount.toFixed(2));
+
+               });
+
 
 
                $("#reminder").val('0');

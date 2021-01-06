@@ -85,7 +85,10 @@
                         <td>
                           {{   $row->affect=='creditor'?$row->amount:'0' }}
                         </td>
-                        <td></td>
+                        <td>
+                            {{ $row->affect=='debtor'? $row->amount: 0-$row->amount}}
+
+                        </td>
 
 
                     </tr>

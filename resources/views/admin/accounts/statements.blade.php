@@ -23,7 +23,7 @@
                         <div class="row">
 
                             <form action="" method="get" accept-charset="utf-8" >
-                         
+
 
                                 <div class="form-group col-sm-3">
                                     <label for="from">  اختر الحساب </label>
@@ -89,7 +89,10 @@
                         <td>
                           {{   $row->affect=='creditor'?$row->amount:'0' }}
                         </td>
-                        <td></td>
+                        <td>
+                            {{ $row->affect=='debtor'? $row->amount: 0-$row->amount}}
+
+                        </td>
 
 
                     </tr>

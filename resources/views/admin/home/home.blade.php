@@ -114,20 +114,13 @@
            <div class="card-box">
                <h4 class="header-title m-t-0">احصائية  الاشتركات والعملاء</h4>
                <div class="widget-chart text-center">
-                   <div id="morris-donut-clients"></div>
-{{--                   <ul class="list-inline chart-detail-list m-b-0">--}}
-{{--                       <li>--}}
-{{--                           <h5 style="color: #e36c09;"><i class="fa fa-circle m-r-5"></i>Series A</h5>--}}
-{{--                       </li>--}}
-{{--                       <li>--}}
-{{--                           <h5 style="color: #5b69bc;"><i class="fa fa-circle m-r-5"></i>Series B</h5>--}}
-{{--                       </li>--}}
-{{--                   </ul>--}}
+                   <div id="morris-donut-clients"  style="height: 280px;"></div>
+
                </div>
            </div>
        </div><!-- end col -->
 
-       <div class="col-lg-4 col-md-6 col-xs-12">-
+       <div class="col-lg-4 col-md-6 col-xs-12">
            <div class="card-box">
                {{--  <div class="dropdown pull-right">
                    <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">

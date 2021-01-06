@@ -42,23 +42,44 @@
                         <th>#</th>
                         <th>اسم الصنف</th>
                         <th>الكميه </th>
-
+                        <th>النوع </th>
                         <th>العملية   </th>
                         <th>تاريخ العملية  </th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    @php $i = 1; @endphp
+                    @php $i = 1;
+                        $purchases=0;
+                        $sales=0;
+                        $sanad=0;
+ @endphp
                     @foreach($logs as $row)
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
+                            <td>
+                                @if($row->operation=='purchases')
+                               مشتريات
+                                @elseif($row->operation=='sales')
+                                   مبيعات
+                                @else
+                                    سند اخراج
+                                @endif
+                            </td>
 
                             <td>
                                 @if($row->operation=='purchases')
+                                    @php($purchases+=$purchases+$row->quantity)
                                 +{{$row->quantity}}
+
+                                @elseif($row->operation=='sales')
+                                    @php($sales+=$sales+$row->quantity)
+
+                                    -{{$row->quantity}}
                                 @else
+                                    @php($sanad+=$sanad+$row->quantity)
+
                                     -{{$row->quantity}}
                                 @endif
                             </td>
@@ -82,6 +103,35 @@
                         </tr>
                     @endforeach
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <label class="label label-danger"> اجمالى كميات المشتريات </label>
+                        </td>
+                        <td>+{{$purchases}}</td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <label class="label label-danger"> اجمالى كميات المبيعات </label>
+                        </td>
+                        <td>+{{$sales}}</td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <label class="label label-danger"> اجمالى كميات الاخراج من المخزن </label>
+                        </td>
+                        <td>+{{$sanad}}</td>
+                        <td></td>
+
+                        <td></td>
+                    </tr>
+                    </tfoot>
                 </table>
 
 

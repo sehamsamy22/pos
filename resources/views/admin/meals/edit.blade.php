@@ -85,13 +85,13 @@
                 var TotalValue=parseFloat($("#total").val());
                 var appendComponent = bigDataComponent.map(function(component) {
                     TotalValue += parseFloat(component.Approx_price) ;
-                    if(component.component_unit=='kilo'){
-                        unit ='كيلو';
-                    }else if(component.component_unit=='gram'){
-                        unit='جرام';
-                    }else{
-                        unit='لتر';
-                    }
+                    // if(component.component_unit=='kilo'){
+                    //     unit ='كيلو';
+                    // }else if(component.component_unit=='gram'){
+                    //     unit='جرام';
+                    // }else{
+                    //     unit='لتر';
+                    // }
                     return (`
             <tr class="single-product">
                 <td class="component-name">${component.component_name}</td>
@@ -197,15 +197,15 @@
                 type:"get",
             }).done(function (data) {
 
-                var unit_val;
-                if(data.data=='kilo'){
-                    unit_val='كيلو'  ;
-                }else if(data.data=='gram'){
-                    unit_val='جرام'  ;
-                }else{
-                    unit_val='لتر'  ;
-                }
-                $('#unit').val(unit_val);
+                // var unit_val;
+                // if(data.data=='kilo'){
+                //     unit_val='كيلو'  ;
+                // }else if(data.data=='gram'){
+                //     unit_val='جرام'  ;
+                // }else{
+                //     unit_val='لتر'  ;
+                // }
+                $('#unit').val(data.data);
             }).fail(function (error) {
                 console.log(error);
             });

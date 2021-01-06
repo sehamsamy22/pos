@@ -29,14 +29,14 @@
 
                     {!!Form::open( ['route' => 'dashboard.sales.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
 
-                    <div class="col-sm-4 col-xs-4  pull-left">
-                        <div class="form-group form-float">
-                            <label class="form-label">رقم الفاتورة</label>
-                            <div class="form-line">
-                                <input type="text" class="form-control" name="num" value="000{{  $salelast->id  ??'1'}}">
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-sm-4 col-xs-4  pull-left">--}}
+{{--                        <div class="form-group form-float">--}}
+{{--                            <label class="form-label">رقم الفاتورة</label>--}}
+{{--                            <div class="form-line">--}}
+{{--                                <input type="text" class="form-control" name="num" value="000{{  $salelast->id  ??'1'}}">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <div class="col-sm-4 col-xs-4  pull-left">
                         <div class="form-group form-float">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-
+                    <div class="clearfix"></div>
 
                         <div class="categories">
 
@@ -95,7 +95,7 @@
                                 <legend> الاجمالى: </legend>
                                 <div class="AmountBeforeDiscount">
                                     <div class="form-group form-float">
-                                        <label class="form-label"> الاجمالى</label>
+                                        <label class="form-label"> الاجمالى قبل الخصم</label>
                                         <div class="form-line total">
                                             <input type="text" class="form-control" name="amount"  id="AmountBeforeDiscount" readonly>
                                         </div>

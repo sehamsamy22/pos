@@ -60,7 +60,7 @@
                     @foreach($sales as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->num }}</td>
+                            <td>{{$row->InvoiceNumber }}</td>
                             <td>{{$row->date}}</td>
                             <td>{{$row->total}}</td>
                             <td>{{$row->payed}}</td>
