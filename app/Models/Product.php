@@ -32,7 +32,7 @@ class Product extends Model
         $productcosts=PurchaseItem::where('product_id',$this->id)->sum('price');
         $productquantits=PurchaseItem::where('product_id',$this->id)->sum('quantity');
 //        dd($productquantits);
-        return ($productcosts*$productquantits) /$productquantits;
+        return $productcosts /$productquantits;
 
     }
 

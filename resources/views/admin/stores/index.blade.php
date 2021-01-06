@@ -25,7 +25,7 @@
                     <div class="form-group form-float">
                         <label class="form-label">   التصنيف الرئيسى</label>
                         <div class="form-line">
-                            {!! Form::select("category_id",$categories,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
+                            {!! Form::select("category_id",$categories,null,['class'=>'form-control js-example-basic-single','placeholder'=>' اختر التصنيف الرئيسى  ','id'=>'category_id'])!!}
 
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="form-group form-float">
                         <label class="form-label">   التصنيف الفرعى</label>
                         <div class="form-line">
-                            {!! Form::select("sub_category_id",[],null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر التصنيف الرئيسى أولا  '])!!}
+                            {!! Form::select("sub_category_id",[],null,['class'=>'form-control js-example-basic-single','placeholder'=>' اختر التصنيف الرئيسى أولا  '])!!}
                         </div>
                     </div>
                 </div>
