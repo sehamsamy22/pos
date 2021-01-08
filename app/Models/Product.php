@@ -13,6 +13,7 @@ class Product extends Model
     protected $fillable = [
         'ar_name', 'en_name','unit','calories','price','image','barcode','sub_category_id','unit_id'
     ];
+    protected $appends = ['avg_cost'];
     public function subcategory(){
         return $this->belongsTo(SubCategory::class,'sub_category_id');
     }
@@ -36,6 +37,18 @@ class Product extends Model
 
     }
 
+    public function   getAvgCostAttribute(){
+        $productcosts=PurchaseItem::where('product_id',$this->id)->sum('price');
+        $productquantits=PurchaseItem::where('product_id',$this->id)->sum('quantity');
+//        dd($productquantits);
+        if ($productquantits!=0){
+          $average=  $productcosts /$productquantits;
+        }else{
+            $average=0;
+        }
+        return $average;
+
+    }
 
     public  function recevied($id,$request){
         $qty=ReceivedProduct::where('product_id',$id)->whereBetween('date',[$request['from'],$request['to']])->sum('quantity');

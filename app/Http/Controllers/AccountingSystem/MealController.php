@@ -64,17 +64,18 @@ class MealController extends Controller
         }
          $meal=Meal::create($requests);
          if(isset($requests['component_names'])){
-        $components= collect($requests['component_names'])->zip(collect($requests['qtys']));
+        $components= collect($requests['component_names'])->zip(collect($requests['qtys']),collect($requests['avg_cost']));
         $sum=0;
-
+//dd($components );
         foreach($components as $component){
             MealProduct::create([
                 'meal_id'=>$meal->id,
                 'product_id'=>$component[0],
                 'quantity'=>$component[1],
+                'avg_cost'=>$component[2],
             ]);
             $product=Product::find($component[0]);
-            $sum+=$product->price*$component[1];
+            $sum+=$product->avg_cost*$component[1];
         }
 
         $meal->update([
@@ -151,6 +152,8 @@ class MealController extends Controller
                     'meal_id'=>$meal->id,
                     'product_id'=>$product[0],
                     'quantity'=>$product[1],
+//                   'avg_cost'=>$product[2],
+
                 ]);
             }
         }

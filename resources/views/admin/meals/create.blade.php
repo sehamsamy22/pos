@@ -78,7 +78,8 @@
             component_data.component_quantity = $('#component_quantity').val();
             component_data.component_unit = $('#component_name option:selected').data('unit');
             component_data.component_price = $('#component_name option:selected').data('price');
-            component_data.Approx_price = Number(component_data.component_quantity *component_data.component_price);
+            component_data.component_avgcost= $('#component_name option:selected').data('avgcost');
+            component_data.Approx_price = Number(component_data.component_quantity *component_data.component_avgcost);
 
             if (component_data.component_name !== '' && component_data.component_quantity !== '' ) {
                 $("tr.editted-row").remove();
@@ -108,6 +109,8 @@
                 <td class="component-name">${component.component_name}</td>
                 <td class="component-qty">${component.component_quantity}</td>
                 <td class="component-unit">${component.component_unit}</td>
+               <td class="component-avgcost">${component.component_avgcost}</td>
+
               <td>
 
                 <a href="#" data-toggle="tooltip" class="delete-this-row-component" data-original-title="حذف">
@@ -116,7 +119,7 @@
             </td>
         <input type="hidden" name="component_names[]" value="${component.component_name_val}" >
         <input type="hidden" name="qtys[]" value="${component.component_quantity}" >
-
+        <input type="hidden" name="avg_cost[]" value="${component.component_avgcost}">
             </tr>
             `);
 

@@ -195,7 +195,7 @@
                         data-parsley-required-message="ادخل اسم الصنف">
                     <option value="" selected disabled>اختر الصنف</option>
                     @foreach ($products  as $product)
-                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name ??''}}" value="{{$product->id}}">{{$product->ar_name}}</option>
+                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name ??''}}"  data-avgcost="{{$product->avg_cost}}" value="{{$product->id}}">{{$product->ar_name}}</option>
                     @endforeach
                 </select>
                 <label>الوحدة</label>
@@ -225,6 +225,7 @@
             <th> اسم الصنف</th>
             <th>الكمية</th>
             <th>الوحدة </th>
+            <th>متوسط التكلفة </th>
             <th>العمليات</th>
         </tr>
         </thead>
@@ -234,6 +235,8 @@
                     <tr  id="single-product{{$product->id}}" >
                         <input type="hidden" name="old_product[]" value={{ $product->product->id }}>
                         <input type="hidden" name="old_product_quantity[]" value={{ $product->quantity }}>
+
+                        <td class="component-avgcost">{{$product->product->avgcost}}</td>
 
                         <td class="component-name">{{$product->product->ar_name}}</td>
                         <td class="component-qty"> {{$product->quantity}}</td>
@@ -251,6 +254,8 @@
 {{--                            @endif--}}
                             {{$product->product->units->name ??''}}
                         </td>
+                        <td class="component-avgcost"> {{$product->avg_cost}}</td>
+
                         <td>
 
                             <a href="#"  onclick="Delete({{$product->id}})" data-toggle="tooltip" data-id="{{$product->id}}" id='delete-form'{{$product->id}}, class="delete-this-row-component" id="" data-original-title="حذف">
@@ -275,6 +280,8 @@
                 @if(isset($meal)){{$meal->approx_price}} @endif
             <input type="hidden" name="approx_price" id="total" @if(isset($meal)) value="{{$meal->approx_price}}" @endif>
             </td>
+             <td> </td>
+            <td> </td>
         </tr>
         </tfoot>
     </table>
