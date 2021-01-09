@@ -112,6 +112,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="total">
+                                    <div class="form-group form-float">
+                                        <label class="form-label" style="display: inline"> الاجمالى بعد الخصم    </label>
+                                        <input type="text" class="form-control" name="" id="total_after_discount" readonly>
+                                    </div>
+                                </div>
                                     <div class="taxs">
                                         <div class="form-group form-float AmountBeforeDiscount">
                                             <label class="form-label"> الضريبة</label>
@@ -364,11 +370,15 @@
                             });
                             $("#discount").change(function() {
                                 var discount=$(this).val();
+                                var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
+                                var all= Number(AmountBeforeDiscount)-Number(discount_val)
 
-                                var discount_val= Number(amount_tax) * (Number(discount) / 100);
-                                var all= Number(amount_tax)-Number(discount_val)
-                                $("#total").val(all.toFixed(2));
+                                $("#total_after_discount").val(all.toFixed(2));
 
+                                var tax_val_new= Number(all) * (Number(bill_tax) / 100);
+                                $('#tax_val').val(tax_val_new.toFixed(2));
+                                var  total_finaly=all+tax_val_new;
+                                $("#total").val(total_finaly.toFixed(2));
                                 $('#amount_required').val($('#total').val());
                                 var allmount=$('#total').val();
 

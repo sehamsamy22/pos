@@ -56,7 +56,7 @@ table#qyoud-table thead tr th {
 }
 
 .categories{
-    height: 796px;
+    height: 884px;
     width: 38%;
     /*background-color: #0066CC;*/
     float: right;
@@ -95,7 +95,7 @@ legend{
 
 .meals{
     height: 777px;
-    width: 62%;
+    width: 60%;
     /*background-color: #66CC00;*/
     float: left;
 }
@@ -152,7 +152,7 @@ table.sales-table tbody tr  table.sales-table thead tr{
 
 }
 .payments{
-    height: 32%;
+    height: 40%;
 }
 .card{
     /*width: 100%;*/

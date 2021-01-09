@@ -121,11 +121,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-6 col-xs-6 col-md-offset-3">
-                                        <p class="text-right"><b>إجمالى الفاتورة:</b>{{$purchase->amount}}</p>
-                                        <p class="text-right"><b>الخصم:</b> {{$purchase->discount}}%</p>
-                                        <p class="text-right"><b>الضريبة:</b>  {{$purchase->tax}}%</p>
+                                        <p class="text-right"><b>إجمالى قيل الخصم:</b>{{$purchase->amount}}</p>
+                                        <p class="text-right"><b>الخصم:</b> {{$purchase->discount}}%-<b> قيمةالخصم:</b> {{($purchase->discount *$purchase->amount)/100}}</p>
+                                        <p class="text-right"><b>الضريبة:</b>  {{$purchase->tax}}%-  <b> قيمةالضريبة </b>  {{
+   ( ($purchase->amount-(($purchase->discount*$purchase->amount)/100))*getsetting('tax'))/100
+ }}</p>
                                         <hr>
-                                        <h3 class="text-right">{{$purchase->total}}</h3>
+                                        <h3 class="text-right">{{$purchase->total}}  <b> الاجمالى : </b></h3>
                                     </div>
                                 </div>
                                 <hr>
