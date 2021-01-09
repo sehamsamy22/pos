@@ -236,7 +236,7 @@
                         <input type="hidden" name="old_product[]" value={{ $product->product->id }}>
                         <input type="hidden" name="old_product_quantity[]" value={{ $product->quantity }}>
 
-                        <td class="component-avgcost">{{$product->product->avgcost}}</td>
+
 
                         <td class="component-name">{{$product->product->ar_name}}</td>
                         <td class="component-qty"> {{$product->quantity}}</td>
