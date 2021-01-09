@@ -20,6 +20,7 @@ use App\Observers\PurchaseObserver;
 use App\Observers\SaleItemObserver;
 use App\Observers\SaleObserver;
 use App\Observers\SupplierObsever;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -50,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         Sale::observe(SaleObserver::class);
         Purchase::observe(PurchaseObserver::class);
         EntryAccount::observe(EntryAccountObserver::class);
+        Schema::defaultStringLength(191);
 
     }
 }
