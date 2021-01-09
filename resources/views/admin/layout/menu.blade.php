@@ -48,6 +48,7 @@
             <ul>
                 <li class="text-muted menu-title">القائمة</li>
                 <li><a href="{{route('dashboard.index')}}" class="waves-effect"><i class="zmdi zmdi-home"></i><span>الرئيسية</span></a></li>
+                @can('management')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span> مديرالنظام </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
@@ -82,9 +83,9 @@
 
                     </ul>
                 </li>
+                @endcan
 
-
-
+                @can('financial')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-money-box"></i><span> الأدارة المالية  </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
@@ -97,10 +98,10 @@
                         <li><a href="{{route('dashboard.accounts.trial_balance')}}"><i class="zmdi zmdi-view-list"></i>    ميزان المراجعة </a></li>
                     </ul>
                 </li>
+                @endcan
 
 
-
-
+                    @can('storages')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-pizza"></i><span>إدارة المخزون </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
@@ -110,7 +111,8 @@
                         <li><a href="{{route('dashboard.revenues.store_out_index')}}"><i class="zmdi zmdi-view-list"></i> سندات الاخراج </a></li>
                     </ul>
                 </li>
-
+                @endcan
+                @can('purchases')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-shopping-cart"></i><span>إدارة المشتريات </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
@@ -119,19 +121,26 @@
 
                     </ul>
                 </li>
-
+                @endcan
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-pizza"></i><span>إدارة العمليات </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
+                        @can('purchase_order')
                         <li><a href="{{route('dashboard.stores.purchase_order')}}"><i class="zmdi zmdi-view-list"></i> طلبية شراء المخزن </a></li>
+                        @endcan
+                            @can('cook-view')
                         <li><a href="{{route('dashboard.stores.cooker_view')}}"><i class="zmdi zmdi-view-list"></i>     تجهيز وتحضيرالوجبات </a></li>
+                            @endcan
+                            @can('operarion_manger_view')
                         <li><a href="{{route('dashboard.stores.operarion_manger_view')}}"><i class="zmdi zmdi-view-list"></i>   توزيع الوجبات على الاكياس</a></li>
+                            @endcan
+                            @can('driver_manger_view')
                         <li><a href="{{route('dashboard.stores.driver_manger_view')}}"><i class="zmdi zmdi-view-list"></i>      توزيع الوجبات للسائقين</a></li>
-
+                            @endcan
                     </ul>
                 </li>
 
-
+                            @can('clients_subscriptions')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-accounts"></i><span> الأشتراكات والعضويات   </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
@@ -140,14 +149,23 @@
                         <li><a href="{{route('dashboard.visits.index')}}">  سجل زيارات العملاء </a></li>
                     </ul>
                 </li>
-
+                            @endcan
+                            @can('sales')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-shopping-basket"></i><span> إدارة المبيعات</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li ><a href="{{route('dashboard.sales.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i> فواتير المبيعات     </a></li>
                     </ul>
                 </li>
-
+                            @endcan
+                            @can('roles')
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-shopping-basket"></i><span> إدارة الصلاحيات</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li ><a href="{{route('dashboard.roles.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i>  الصلاحيات و المهام  </a></li>
+                    </ul>
+                </li>
+                            @endcan
             </ul>
             <div class="clearfix"></div>
         </div>

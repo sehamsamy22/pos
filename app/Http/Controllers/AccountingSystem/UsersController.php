@@ -7,6 +7,8 @@ use App\Http\Requests\UserRequest;
 use App\Models\Area;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -31,8 +33,8 @@ class UsersController extends Controller
     public function create()
     {
         $areas=Area::pluck('name','id')->toArray();
-
-        return view('admin.users.create',compact('areas'));
+        $roles = Role::pluck('name','id')->toArray();
+        return view('admin.users.create',compact('areas','roles'));
     }
 
     /**
@@ -48,7 +50,9 @@ class UsersController extends Controller
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
-        User::create($requests);
+       $user= User::create($requests);
+        $user->assignRole(Role::find($request->input('role_id')));
+        $user->syncPermissions(Role::find($request->input('role_id'))->permissions()->pluck('id'));
         return back()->with('success', 'تم اضافه المستخدم');
     }
 
@@ -72,7 +76,9 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         $areas=Area::pluck('name','id')->toArray();
-        return view('admin.users.edit', compact('user','areas'));
+        $userRole = $user->roles->pluck('name','id')->all();
+        $roles = Role::pluck('name','id')->toArray();
+        return view('admin.users.edit', compact('user','areas','roles','userRole'));
     }
 
     /**
@@ -101,6 +107,12 @@ class UsersController extends Controller
             $requests['image'] = saveImage($request->image, 'photos');
         }
         $user->update($request->all());
+        DB::table('model_has_roles')->where('model_id',$user->id)->delete();
+        DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+
+        $user->assignRole(Role::find($request->input('role_id')));
+        $user->syncPermissions(Role::find($request->input('role_id'))->permissions()->pluck('id'));
+
         return redirect()->route('dashboard.users.index')->with('success', __('تم التعديل'));
     }
 

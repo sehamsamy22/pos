@@ -98,6 +98,17 @@
 </div>
 
 <div class="col-sm-12 col-xs-12  pull-right">
+    <div class="form-group form-float">
+        <label class="form-label">  الصلاحية</label>
+        <div class="form-line">
+            {!! Form::select("role_id",$roles,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر الصلاحية  ','id'=>'role_id'])!!}
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-12 col-xs-12  pull-right">
 <div class="form-group form-float">
     <label class="form-label"> صورة المستخدم</label>
     <div class="form-line">
