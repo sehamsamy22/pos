@@ -76,16 +76,16 @@
     </div>
 </div>
 
-<div class="col-sm-12 col-xs-12  pull-right">
-    <div class="form-group form-float">
-        <label class="form-label">  الصلاحية</label>
-        <div class="form-line">
-            {!! Form::select("role",['admin'=>'','storekeeper'=>'مسئول المخزن','cooker'=>'طباخ','operations_manager'=>'مسئول تشغيل',
-            'driver_manager'=>'مسئول السائقين','driver'=>'سائق',],null,['class'=>'form-control','placeholder'=>'الصلاحية ','data-parsley-required-message'=>'من فضلك  الصلاحية','required'=>'','id'=>'role'])!!}
+{{--<div class="col-sm-12 col-xs-12  pull-right">--}}
+{{--    <div class="form-group form-float">--}}
+{{--        <label class="form-label">  الصلاحية</label>--}}
+{{--        <div class="form-line">--}}
+{{--            {!! Form::select("role",['admin'=>'','storekeeper'=>'مسئول المخزن','cooker'=>'طباخ','operations_manager'=>'مسئول تشغيل',--}}
+{{--            'driver_manager'=>'مسئول السائقين','driver'=>'سائق',],null,['class'=>'form-control','placeholder'=>'الصلاحية ','data-parsley-required-message'=>'من فضلك  الصلاحية','required'=>'','id'=>'role'])!!}--}}
 
-        </div>
-    </div>
-</div>
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">

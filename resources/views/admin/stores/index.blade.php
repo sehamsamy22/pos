@@ -73,7 +73,7 @@
 
                             <td>{{$row->quantity}}</td>
                             <td>{{round($row->product->avg_cost() ,3)}}</td>
-                            <td>{{$row->product->avg_cost() *$row->quantity}}</td>
+                            <td>{{round($row->product->avg_cost() *$row->quantity,3)}}</td>
                             <td>{{$row->product->subcategory->name ??''}}</td>
                             <td>{{$row->created_at}}</td>
                             <td>{{$row->updated_at}}</td>
