@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <h4>رقم الفاتورة# <br>
-                                            <strong>{{ $sale->num }}</strong>
+                                            <strong>{{ $sale->InvoiceNumber }}</strong>
                                         </h4>
                                     </div>
                                 </div>

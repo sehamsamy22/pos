@@ -198,7 +198,7 @@ class MealController extends Controller
     public function getProduct($id){
         $product = Product::find($id);
         return response()->json([
-            'data'=>$product->unit
+            'data'=>$product->units->name
         ]);
     }
 

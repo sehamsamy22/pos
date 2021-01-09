@@ -210,6 +210,7 @@
                 // }else{
                 //     unit_val='لتر'  ;
                 // }
+                console.log(data);
                 $('#unit').val(data.data);
             }).fail(function (error) {
                 console.log(error);

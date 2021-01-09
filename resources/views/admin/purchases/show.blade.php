@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <h4>رقم الفاتورة# <br>
-                                            <strong>2016-04-23654789</strong>
+                                            <strong> {{$purchase->InvoiceNumber}}</strong>
                                         </h4>
                                     </div>
                                 </div>
