@@ -396,7 +396,8 @@
                });
                var bill_tax=$('#bill_tax').val();
                console.log(amountBeforeDariba);
-               var tax_val= Number(wholePriceAfter) * (Number(bill_tax) / 100);
+               var tax_val= Number(amountBeforeDariba) * (Number(bill_tax) / 100);
+               console.log('tax_val'+tax_val);
                $("#tax").val(Number(tax_val).toFixed(2));
                $("#amountBeforeDariba span.dynamic-span").html(amountBeforeDariba.toFixed(2));
 

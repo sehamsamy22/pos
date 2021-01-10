@@ -77,6 +77,8 @@
                                     <li><a href="{{route('dashboard.subscriptions.index')}}"> تعريف الاشتراكات</a></li>
                                     <li><a href="{{route('dashboard.types_meal.index')}}">أنواع الوجبات</a></li>
                                     <li><a href="{{route('dashboard.settings.index')}}">الاعدادات العامة</a></li>
+                                   <li ><a href="{{route('dashboard.roles.index')}}" >  الصلاحيات و المهام  </a></li>
+
 
                                 </ul>
                             </li>
@@ -158,14 +160,7 @@
                     </ul>
                 </li>
                             @endcan
-                            @can('roles')
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-shopping-basket"></i><span> إدارة الصلاحيات</span> <span class="menu-arrow"></span></a>
-                    <ul class="list-unstyled">
-                        <li ><a href="{{route('dashboard.roles.index')}}" ><i class="zmdi zmdi-view-list  open-left"></i>  الصلاحيات و المهام  </a></li>
-                    </ul>
-                </li>
-                            @endcan
+
             </ul>
             <div class="clearfix"></div>
         </div>

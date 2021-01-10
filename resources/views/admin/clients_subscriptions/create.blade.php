@@ -108,7 +108,9 @@
             var total= $('#total').val();
           var tax_val=$('#tax_val').val(tax_.toFixed(2) );
          $('#payed').val(total);
-         $("#payed").change(function() {
+                $("#reminder").val('0');
+
+                $("#payed").change(function() {
                    var payed=$(this).val();
                    var reminder= Number($("#amount_required").val()) - Number(payed);
                    $("#reminder").val(reminder.toFixed(2));
@@ -120,7 +122,8 @@
             $('#total').val(Number(price)+Number(price) * (Number(tax) / 100));
             $('#amount_required').val($('#total').val());
             $('#payed').val($('#total').val());
-            $("#payed").change(function() {
+
+                   $("#payed").change(function() {
                       var payed=$(this).val();
                       var reminder= Number($("#amount_required").val()) - Number(payed);
                       $("#reminder").val(reminder.toFixed(2));

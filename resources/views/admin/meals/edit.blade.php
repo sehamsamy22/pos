@@ -118,7 +118,7 @@
                 $('.single-product').remove();
                 $('.add-components').append(appendComponent);
 
-                $(".Approx_price").html(TotalValue);
+                $(".Approx_price").html(TotalValue.toFixed(2));
                 $("#total").val(TotalValue);
                 /////////////////////////////////////////////////////
                 $('.delete-this-row-component').click(function(e) {

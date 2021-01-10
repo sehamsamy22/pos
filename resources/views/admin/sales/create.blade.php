@@ -328,20 +328,18 @@
                                 $(this).text('0');
                             }
                             var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
-
-
-                            $.ajax({
-                                url:"/dashboard/checkquantity/"+meal_id,
-                                type:"get",
-                                data:{quantity:theQuantity }
-                            }).done(function (data) {
-                        if(data.data=='false'){
-                            swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
-                                buttons: 'موافق'
-                            });
-                        }
-
-                        });
+                        //     $.ajax({
+                        //         url:"/dashboard/checkquantity/"+meal_id,
+                        //         type:"get",
+                        //         data:{quantity:theQuantity }
+                        //     }).done(function (data) {
+                        //     if(data.data=='false'){
+                        //         swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
+                        //             buttons: 'موافق'
+                        //         });
+                        //     }
+                        //
+                        // });
                             var quantityXprice = Number(meal_price) * Number(theQuantity);
                             $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice.toFixed(2));
 
@@ -362,7 +360,7 @@
                             $("#total").val(amount_tax.toFixed(2));
                             $('#amount_required').val(amount_tax.toFixed(2));
                             $('#payed').val(amount_tax.toFixed(2));
-
+                            $("#reminder").val('0');
                             $("#payed").change(function() {
                                 var payed=$(this).val();
                                 var reminder= Number($("#amount_required").val()) - Number(payed);
