@@ -254,13 +254,14 @@
 {{--                            @endif--}}
                             {{$product->product->units->name ??''}}
                         </td>
-                        <td class="component-avgcost"> {{$product->avg_cost}}</td>
+                        <td class="component-avgcost"> {{$product->avg_cost ??'0'}}</td>
 
                         <td>
 
                             <a href="#"  onclick="Delete({{$product->id}})" data-toggle="tooltip" data-id="{{$product->id}}" id='delete-form'{{$product->id}}, class="delete-this-row-component" id="" data-original-title="حذف">
                                 <i class="fa fa-trash-o" style="margin-left: 10px"></i>
-{{--                                {!!Form::open( ['route' => ['dashboard.meals-products.destroy',$product->id] ,'id'=>'delete-form'.$product->id, 'method' => 'Delete']) !!}--}}
+{{--                                {!!Form::open( ['route' => ['dashboard.meals-products.destroy',$produ1
+ct->id] ,'id'=>'delete-form'.$product->id, 'method' => 'Delete']) !!}--}}
 {{--                                {!!Form::close() !!}--}}
                             </a>
                         </td>
@@ -281,7 +282,7 @@
             <input type="hidden" name="approx_price" id="total" @if(isset($meal)) value="{{$meal->approx_price}}" @endif>
             </td>
              <td> </td>
-            <td> </td>
+
         </tr>
         </tfoot>
     </table>

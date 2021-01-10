@@ -28,7 +28,7 @@ class SubscriptionRequest extends FormRequest
        return[
             "name" => "required|min:1",
            "description" => "required|string|min:1|max:255",
-           "price" => "required|integer|min:1",
+           "price" => "required|min:1",
            "duration" => "required|string|min:1",
            "num_meals" => "required|integer|min:1",
        ];

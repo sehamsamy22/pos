@@ -61,8 +61,8 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">الوحدة</label>
                             <div class="col-md-10">
-                                <input type="text" required value="{{$product->unit}}"
-                                    name="phone" class="form-control" placeholder="رقم الجوال" disabled>
+                                <input type="text" required value="{{$product->units->name}}"
+                                    name="phone" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                             <label class="col-md-2 control-label"> السعر</label>
                             <div class="col-md-10">
                                 <input type="text" required value="{{$product->price}}"
-                                    name="phone" class="form-control" placeholder="رقم الجوال" disabled>
+                                    name="phone" class="form-control"  disabled>
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             <label class="col-md-2 control-label"> السعرات الحرارية</label>
                             <div class="col-md-10">
                                 <input type="text" required value="{{$product->calories}}"
-                                    name="phone" class="form-control" placeholder="رقم الجوال" disabled>
+                                    name="phone" class="form-control" placeholder=" السعرات الحرارية" disabled>
                             </div>
                         </div>
                     </div>

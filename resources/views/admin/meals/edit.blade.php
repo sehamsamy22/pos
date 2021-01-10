@@ -183,7 +183,7 @@
 
                     document.getElementById("single-product"+id).remove();
 
-                    swal("تم الحذف", "تم  حذف المنتج", 'danger', {
+                    swal("تم الحذف", "تم  حذف المكون", 'danger', {
                         buttons: 'موافق',
                         dangerMode: true,
 

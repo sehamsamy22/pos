@@ -127,7 +127,7 @@
    ( ($purchase->amount-(($purchase->discount*$purchase->amount)/100))*getsetting('tax'))/100
  }}</p>
                                         <hr>
-                                        <h3 class="text-right">{{$purchase->total}}  <b> الاجمالى : </b></h3>
+                                        <h3 class="text-right">  <b> الاجمالى : </b>{{$purchase->total}}</h3>
                                     </div>
                                 </div>
                                 <hr>

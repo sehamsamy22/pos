@@ -20,7 +20,7 @@
     <div class="form-group form-float">
         <label class="form-label">  نوع الاشتراك</label>
         <div class="form-line">
-            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control','placeholder'=>'اختر نوع الاشتراك' ,'id'=>'subscription_id'])!!}
+            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control ','placeholder'=>'اختر نوع الاشتراك' ,'id'=>'subscription_id'])!!}
         </div>
     </div>
 </div>

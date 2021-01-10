@@ -50,22 +50,22 @@ class SubscriptionController extends Controller
 
         // dd($request->all());
       $subscription= Subscription::create($request->all());
-
-      foreach($request['meals'] as $id){
-        SubscriptionMeal::create([
-            'subscription_id'=>$subscription->id,
-            'meal_id'=>$id
-          ]);
-
+        if (isset($request['meals'])){
+              foreach($request['meals'] as $id) {
+                  SubscriptionMeal::create([
+                      'subscription_id' => $subscription->id,
+                      'meal_id' => $id
+                  ]);
+              }
       }
         return redirect()->route('dashboard.subscriptions.index')->with('success', 'تم اضافه نوع اشتراك  جديد');
 
     }
-    public function subscription_meal($id){
-        $meal=SubscriptionMeal::find($id);
-        $meal->delete();
-
-        return back()->with('success', __('تم الحذف بنجاح'));
+    public function subscription_meal(Request  $request){
+        SubscriptionMeal::find($request['id'])->delete();
+        return response()->json([
+            'success'=>'تم الحذف بنجاح'
+        ]);
     }
 
     /**
@@ -102,7 +102,18 @@ class SubscriptionController extends Controller
      */
     public function update(SubscriptionRequest $request, Subscription $subscription)
     {
+//     dd($subscription);
         $subscription->update($request->all());
+        if (isset($request['meals'])) {
+            foreach ($request['meals'] as $id) {
+
+                SubscriptionMeal::create([
+                    'subscription_id' => $subscription->id,
+                    'meal_id' => $id
+                ]);
+            }
+        }
+
         return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم التعديل'));
     }
 
@@ -114,6 +125,7 @@ class SubscriptionController extends Controller
      */
     public function destroy($id)
     {
+        dd("dsfsdf");
        Subscription::find($id)->delete();
         return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم الحذف بنجاح'));
     }

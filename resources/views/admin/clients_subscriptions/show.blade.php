@@ -123,9 +123,9 @@
 
                                     </div>
                                     <div class="col-md-3 col-sm-6 col-xs-6 col-md-offset-3">
-                                        <p class="text-right"><b>الخصم:</b> {{$clientSubsription->discount}}%</p>
-                                        <p class="text-right"><b>الضريبة:</b>  {{ getsetting('tax') }}%</p>
-                                        <p class="text-right"><b>إجمالى الفاتورة:</b>{{$clientSubsription->total}}</p>
+{{--                                        <p class="text-right"><b>الخصم:</b> {{$clientSubsription->discount}}%</p>--}}
+                                        <p class="text-right"><b>الضريبة:</b>  {{ getsetting('tax') }}%- <b>قيمتها:</b>  {{ (getsetting('tax')*$clientSubsription->subscription->price)/100 }}</p>
+                                        <p class="text-right"><b>إجمالى الفاتورة:</b>{{round($clientSubsription->total,3)}}</p>
 
                                         <hr>
                                         <h3 class="text-right"><b> المدفوع:</b>{{$clientSubsription->payed}}</h3>

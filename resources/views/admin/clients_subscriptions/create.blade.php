@@ -85,18 +85,21 @@
            var price = $('#price').val();
           $('#total').val(Number(price)+Number(price) * (Number(static_tax) / 100));
             $('#amount_required').val($('#total').val());
-           $("div > input[type=radio]").click(function() {
-            var thisParent = $(this).closest("div");
-            var prevClicked = thisParent.find(":checked");
-            var currentObj = $(this);
-            prevClicked.each(function() {
-              if (!$(currentObj).is($(this))) {
-                $(this).prop("checked", false);
-              }
-            });
+          //  $("div > input[type=radio]").click(function() {
+          //   var thisParent = $(this).closest("div");
+          //   var prevClicked = thisParent.find(":checked");
+          //   var currentObj = $(this);
+          //   prevClicked.each(function() {
+          //     if (!$(currentObj).is($(this))) {
+          //       $(this).prop("checked", false);
+          //     }
+          //   });
+          // });
+                $("input:radio[name^='disableRow']").prop("checked", false);
 
-          });
-
+                $("input:radio[name^='disableRow']").on("change", function(){
+                    $(this).closest("td").find("input:radio").prop("disabled", this.checked);
+                });
 
         var price2 = $('#price').val();
        $('#amount_required').val($('#total').val());

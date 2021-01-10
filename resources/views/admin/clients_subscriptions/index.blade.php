@@ -85,9 +85,29 @@
                                         </button>
                                     </div>
                                     {!!Form::model($row, ['route' => ['dashboard.subscriptions.dis_active' ,$row->id] , 'method' => 'POST' ,'files'=>true]) !!}
+                                  <?php
+                                    $now=\Carbon\Carbon::today();
+                                    ?>
                                     <div class="modal-body">
+                                        <div class="form-group form-float">
+                                            <label class="form-label">  مده التوقف </label>
+                                            <div class="form-line">
+                                        <input type="text" class="form-control" name="period"  data-end="{{$row->end}}" data-now={{$now}} id="period">
+                                            </div>
+                                        </div>
 
-                                        <input type="date" class="form-control" name="end" id="" value={{$row->end}}>
+                                        <div class="form-group form-float">
+                                            <label class="form-label">  تاريخ اعاده الاستكمال </label>
+                                            <div class="form-line">
+                                                <input type="date" class="form-control" name="restart" id="restart" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-float">
+                                            <label class="form-label"> تاريخ نهايه الاشتراك  </label>
+                                            <div class="form-line">
+                                                <input type="date" class="form-control" name="end"  id="end" readonly>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -107,7 +127,7 @@
 
 @section('scripts')
 
-            @include('admin.layout.dataTable')
+{{--            @include('admin.layout.dataTable')--}}
 
             <script>
                 function Delete(id) {
@@ -130,6 +150,38 @@
                     });
                 }
             </script>
+            <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+
+            <script>
+                // $(document).ready(function () {
+                //     $('#restart').datepicker();
+                //     // $('#').datepicker();
+                // });
+
+                $("#period").on('change', function() {
+                    var period = $(this).val();
+                    var now=$(this).data('now');
+                   var end=$(this).data('end');
+                    document.getElementById('restart').value = dayjs().add(period, 'days').format('YYYY-MM-DD');
+                    document.getElementById('end').value = dayjs(end).add(period, 'days').format('YYYY-MM-DD');
+                    // var date = new Date(now);
+                    // var newdate = new Date(date);
+                    //
+                    // newdate.setDate(newdate.getDate() + period);
+                    //
+                    // var dd = newdate.getDate();
+                    // var mm = newdate.getMonth() + 1;
+                    // var y = newdate.getFullYear();
+                    // console.log(newdate);
+                    // console.log(now);
+                    // var someFormattedDate = y + '-' + mm + '-' + dd;
+                    // console.log(period);
+                    // console.log(someFormattedDate);
+                    // document.getElementById('restart').value = someFormattedDate;
+
+                });
+            </script>
+
 
 
 @endsection

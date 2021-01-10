@@ -78,7 +78,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
     Route::get('/getMealInputs/{id}', 'SubscriptionController@getMealInputs');
-    Route::delete('/subscription_meal/{id}', 'SubscriptionController@subscription_meal')->name('subscriptions-meal.destroy');
+    Route::get('/subscription_meal', 'SubscriptionController@subscription_meal')->name('subscriptions-meal.destroy');
 
     Route::post('/subscription_disactive/{id}', 'SubscriptionController@subscription_disactive')->name('subscriptions.dis_active');
       //=============================sales

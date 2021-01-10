@@ -78,16 +78,19 @@
 
     <tbody class="add-meals">
         @if(isset($subscription))
+
         @foreach($subscription->meals as $key => $value)
-       <tr>
+       <tr  id="single-meal{{$value->id}}" >
            <td>{{ $value->meal->ar_name }}</td>
            <td>{{ $value->meal->typeMeal->name }}</td>
            <td>{{ $value->meal->price }}</td>
             <td>
-                <a href="#" onclick="Delete({{$value->id}})" class="label label-danger">حذف</a>
+                <a href="#" onclick="Delete({{$value->id}})" data-toggle="tooltip" data-id="{{$value->id}}" id='delete-form'{{$value->id}}, class="delete-this-row_"  data-original-title="حذف">
+                    <i class="fa fa-trash-o" style="margin-left: 10px"></i>
+                </a>
 
-                {!!Form::open( ['route' => ['dashboard.subscriptions-meal.destroy',$value->id] ,'id'=>'delete-form'.$value->id, 'method' => 'Delete']) !!}
-                {!!Form::close() !!}</td>
+{{--                {!!Form::open( ['route' => ['dashboard.subscriptions-meal.destroy',$value->id] ,'id'=>'delete-form'.$value->id, 'method' => 'Delete']) !!}--}}
+{{--                {!!Form::close() !!}</td>--}}
         </tr>
         @endforeach
         @endif
@@ -110,7 +113,7 @@
     <div class="form-group form-float">
         <label class="form-label"> وصف  الخطه</label>
         <div class="form-line">
-            {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'  وصف  الخطه','data-parsley-required-message'=>'من فضلك ادخل نوع الاشتراك  ','required'=>''])!!}
+            {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'  وصف  الخطه',])!!}
         </div>
     </div>
 </div>

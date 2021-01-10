@@ -9,7 +9,7 @@
             <div class="{{$i}}">
             @foreach($type->meals_sub($id) as  $key=>$meal)
             <li style="list style:none">
-                <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$meal->id}}][{{ $i }}]">
+                <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$meal->id}}][{{ $i }}]" onclick="clicked()">
 
                 {{$meal->ar_name}}
 
@@ -22,3 +22,14 @@
 </tr>
 @endforeach
 
+   <script>
+
+       function clicked(){
+
+       $("input[type=radio]").click(function() {
+               $(this).closest("div").find("input:radio").prop("disabled", this.checked);
+               $(this).prop("disabled", false);
+       });
+     }
+
+   </script>

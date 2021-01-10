@@ -80,13 +80,15 @@
                                         <option value="{{$product->id}}"
                                                 data-name="{{$product->ar_name}}"
                                                 data-price="{{$product->price}}"
-                                                data-bar-code="{{$product->barcode}}"
-                                                data-unit="{{$product->unit}}"
+                                                data-lastprice="{{$product->lastPrice() }}"
+                                                data-barcode="{{$product->barcode}}"
+                                                data-unit="{{$product->units->name ??''}}"
                                             {{--                                                data-link= "{{route('dashboard.products.show',['id'=>$product->id])}}"--}}
                                         >
-                                            {{$product->barcode}}
+                                            {{$product->ar_name}}
                                         </option>
                                     @endforeach
+
                                 </select>
                             </div>
                         </div>

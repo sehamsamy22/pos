@@ -123,6 +123,7 @@ function myFun(event) {
 
         $('.delete-this-row').click(function(e) {
             var $this = $(this);
+
             var row_index = $(this).parents('tr').index();
             e.preventDefault();
             swal({
@@ -132,7 +133,7 @@ function myFun(event) {
                 buttons: ["الغاء", "موافق"],
                 dangerMode: true,
             }).then(function(isConfirm) {
-                if (isConfirm) {
+                if (isConfirm===true) {
                     $this.parents('tr').remove();
                     bigData.splice(row_index, 1);
                 } else {
@@ -142,7 +143,6 @@ function myFun(event) {
                 }
             });
         });
-
 }
 
 
