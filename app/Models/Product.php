@@ -33,8 +33,12 @@ class Product extends Model
         $productcosts=PurchaseItem::where('product_id',$this->id)->sum('price');
         $productquantits=PurchaseItem::where('product_id',$this->id)->sum('quantity');
 //        dd($productquantits);
-        return $productcosts /$productquantits;
-
+        if ($productquantits!=0){
+            $average=  $productcosts /$productquantits;
+        }else{
+            $average=0;
+        }
+        return $average;
     }
 
     public function   getAvgCostAttribute(){
@@ -47,11 +51,12 @@ class Product extends Model
             $average=0;
         }
         return $average;
-
     }
 
     public  function recevied($id,$request){
+
         $qty=ReceivedProduct::where('product_id',$id)->whereBetween('date',[$request['from'],$request['to']])->sum('quantity');
+
    return $qty;
     }
 
@@ -64,16 +69,32 @@ class Product extends Model
 //
 //    }
 
+    function quantity($meals,$product_count,$rep){
+
+        foreach ($meals as $key=>$meal) {
+            $mealproduct = MealProduct::where('meal_id', $meal)->where('product_id',$this->id)->first();
+//            dd($rep);
+            if (isset($mealproduct)) {
+                $dayquantity = $mealproduct->quantity;
+
+                $product_count+= $dayquantity;
+
+            }
+        }
+
+        return $product_count;
+    }
+
     public  function orders($id,$request)
     {
         $from=$request['from'];
         $to=$request['to'];
         //-------------------------array1--------------------------
         $subscriptions_arr=ClientSubscriptions::where('active','1')->get();
+        $product_count = 0;
+        $product_count_all=0;
+        foreach($subscriptions_arr as $d=> $subscription){
 
-        foreach($subscriptions_arr as $subscription){
-//            dd($subscriptions_arr);
-            $product_count = 0;
             $meals=MealProduct::where('product_id',$id)->pluck('meal_id','id')->toArray();
             $subscription_meal=SubscriptionMeal::where('subscription_id',$subscription->subscription_id)->whereIn('meal_id',$meals)->first();
             if(isset($subscription_meal)) {
@@ -132,7 +153,7 @@ class Product extends Model
                 $all = array('Sat' => 0, 'Sun' => 0, 'Mon' => 0, 'Tue' => 0, 'Wed' => 0, 'Thu' => 0, 'Fri' => 0);
                 $saterday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '1')->pluck('meal_id', 'id')->toArray();
                 $sunday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '2')->pluck('meal_id', 'id')->toArray();
-                $monday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '3')->pluck('meal_id', 'id')->toArray();
+                $monday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '3')-> pluck('meal_id', 'id')->toArray();
                 $tusday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '4')->pluck('meal_id', 'id')->toArray();
                 $wensday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '5')->pluck('meal_id', 'id')->toArray();
                 $thurday_meals = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', '6')->pluck('meal_id', 'id')->toArray();
@@ -145,29 +166,34 @@ class Product extends Model
                 $all['Thu'] = $thurday_meals;
                 $all['Fri'] = $friday_meals;
                 //-------------------------array3--------------------------
-
-                foreach ($all as $day => $meals) {
-                    foreach ($days as $day1 => $dd) {
 //dd($days);
-                        if ($day == $day1) {
-                            foreach ($meals as $meal) {
-                                $mealproduct = MealProduct::where('meal_id', $meal)->where('product_id', $id)->first();
-//                              dd($mealproduct);
-                                if (isset($mealproduct)) {
-                                    $dayquantity = $mealproduct->quantity * $dd;
-//                                    dd($mealproduct->quantity);
-                                    $product_count += $dayquantity;
-                                }
-                            }
+                foreach ($all as $day => $meals) {
+
+                        if ($day== 'Sat') {
+                            $product_count=$this->quantity($meals,$product_count,$days['Sat']);
+                       }else if ($day== 'Sun') {
+                            $product_count=$this->quantity($meals,$product_count,$days['Sun']) ;
+
+                        }else if ($day== 'Mon') {
+                            $product_count =$this->quantity($meals,$product_count,$days['Mon']);
+                        }else if ($day== 'Tue') {
+                        $product_count=$this->quantity($meals,$product_count,$days['Tue'] );
+                        }
+                        else if ($day== 'Wed') {
+                            $product_count=$this->quantity($meals,$product_count,$days['Wed']) ;
+                        }else if ($day== 'Thu') {
+                            $product_count=$this->quantity($meals,$product_count,$days['Thu']) ;
+
+                        }else if ($day== 'Fri') {
+                            $product_count=$this->quantity($meals,$product_count,$days['Fri']);
 
                         }
-
-                    }
                 }
-            }
-//           dd($product_count);
-        }
+//                $product_count_all+=$product_count;
 
+            }
+
+        }
         return $product_count;
     }
 

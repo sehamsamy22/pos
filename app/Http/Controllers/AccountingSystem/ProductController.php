@@ -95,9 +95,7 @@ class ProductController extends Controller
         $subcategory=SubCategory::find($product->sub_category_id);
         $categoryId=$subcategory->category_id;
         $units=Unit::pluck('name','id')->toArray();
-
         return view('admin.products.edit', compact('product','categories','categoryId','units'));
-
     }
 
     /**
@@ -127,18 +125,14 @@ class ProductController extends Controller
            'barcode.unique'=>"باركود الصنف موجود مسبقا",
 
          ];
-
         $this->validate($request,$rules,$message);
-
         $requests = $request->except('image');
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
         $product->update($requests);
         return redirect()->route('dashboard.products.index')->with('success', __('تم التعديل'));
-
     }
-
     /**
      * Remove the specified resource from storage.
      *

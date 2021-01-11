@@ -27,15 +27,24 @@ class Meal extends Model
         return $qty;
     }
 
+    function quantity_meal($meals,$meal_count,$re){
+        foreach ($meals as $meal) {
+                                if ($meal == $this->id) {
+                                    $meal_count ++;
+                                }
+                            }
+        return$meal_count;
+    }
+
     public  function orders($id,$request)
     {
         $from=$request['from'];
         $to=$request['to'];
         //-------------------------array1--------------------------
-
+        $meal_count=0;
         $subscriptions_arr=ClientSubscriptions::where('active','1')->get();
        // dd($subscriptions_arr);
-        $meal_count=0;
+
         foreach($subscriptions_arr as $subscription){
             $subscription_meal=SubscriptionMeal::where('subscription_id',$subscription->subscription_id)->where('meal_id',$id)->first();
             if(isset($subscription_meal)) {
@@ -110,14 +119,32 @@ class Meal extends Model
                 //-------------------------array3--------------------------
                 foreach ($all as $day => $meals) {
                     //   dd($meals);
-                    foreach ($days as $day1 => $dd) {
-                        if ($day == $day1) {
-                            foreach ($meals as $meal) {
-                                if ($meal == $id) {
-                                    $meal_count += $dd;
-                                }
-                            }
-                        }
+//                    foreach ($days as $day1 => $dd) {
+//                        if ($day == $day1) {
+//                            foreach ($meals as $meal) {
+//                                if ($meal == $id) {
+//                                    $meal_count += $dd;
+//                                }
+//                            }
+//                        }
+//                    }
+                    if ($day== 'Sat') {
+                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Sat']);
+                    }else if ($day== 'Sun') {
+                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Sun']) ;
+
+                    }else if ($day== 'Mon') {
+                        $meal_count =$this->quantity_meal($meals,$meal_count,$days['Mon']);
+                    }else if ($day== 'Tue') {
+                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Tue'] );
+                    }
+                    else if ($day== 'Wed') {
+                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Wed']) ;
+                    }else if ($day== 'Thu') {
+                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Thu']) ;
+                    }else if ($day== 'Fri') {
+                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Fri']);
+
                     }
                 }
             }//if check isset $subscription_meal
@@ -125,6 +152,8 @@ class Meal extends Model
 
       return $meal_count;
     }
+
+
     public function quantity($meal_id,$request){
 
         $qty=ReadyMeal::where('meal_id',$meal_id)->whereBetween('date',[$request['from'],$request['to']])->first();
