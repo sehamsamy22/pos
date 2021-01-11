@@ -69,8 +69,9 @@ else{
             $subcriptipns_id=ClientSubscriptions::where('active','1')
              ->pluck('subscription_id','id')->toArray();
             $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
-            $allmeals=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
+            $allmeals=Meal::whereIn('id',$meals_)->pluck('id')->toArray();
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
+         dd($products);
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
 //        dd($storeproducts);
          }else
