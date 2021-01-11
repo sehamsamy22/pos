@@ -88,14 +88,11 @@ else{
     public function cooker_view(Request $request){
         if ($request->has('from') && $request->has('to')) {
             $subcriptipns_id=ClientSubscriptions::where('active','1')
-            ->pluck('subscription_id','id')->toArray();
-
+            ->pluck('id')->toArray();
             $meals_=Dietsystem::whereIn('client_subscription_id',$subcriptipns_id)
                 ->pluck('meal_id','id')->toArray();
             $meals=Meal::whereIn('id',$meals_)->get();
-//dd($meals);
             $meals_id=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
-
             $products=MealProduct::whereIn('meal_id',$meals_id)->pluck('product_id','id')->toArray();
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
 
