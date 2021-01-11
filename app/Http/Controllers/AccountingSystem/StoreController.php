@@ -90,7 +90,7 @@ else{
             $subcriptipns_id=ClientSubscriptions::where('active','1')
             ->pluck('subscription_id','id')->toArray();
 
-            $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)
+            $meals_=Dietsystem::whereIn('subscription_id',$subcriptipns_id)
                 ->pluck('meal_id','id')->toArray();
             $meals=Meal::whereIn('id',$meals_)->get();
 //dd($meals);
