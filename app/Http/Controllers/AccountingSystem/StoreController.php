@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Client;
 use App\Models\ClientDriver;
 use App\Models\ClientSubscriptions;
+use App\Models\Dietsystem;
 use App\Models\Meal;
 use App\Models\MealProduct;
 use App\Models\Product;
@@ -67,8 +68,9 @@ else{
         // dd($request->all());
         if ($request->has('from') && $request->has('to')) {
             $subcriptipns_id=ClientSubscriptions::where('active','1')
-             ->pluck('subscription_id','id')->toArray();
-            $meals_=SubscriptionMeal::whereIn('subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
+             ->pluck('id')->toArray();
+
+            $meals_=Dietsystem::whereIn('client_subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id')->toArray();
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
 //         dd($products);
