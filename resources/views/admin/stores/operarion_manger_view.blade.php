@@ -68,7 +68,7 @@
 {{--                                        <td><input type='number' class="form-control" name='distributed_quantity' value={{$row->distributed_quantity}}  id='distributed_quantity{{$row->id}}' readonly></td>--}}
                                         <td class="operation_btn{{$row->id}}">
                                             @if($row->received=='0')
-                                               <button type="submit" class="btn btn-danger submit_btn_received"  id="{{$row->id}}">استلام</button>
+                                               <button type="submit" class="btn btn-danger submit_btn_received"  data-id="{{$row->id}}" id="submit_btn_received{{$row->id}}">استلام</button>
                                             @else
                                                <button type="button" class="btn btn-success"> تم الاستلام</button>
                                            @endif
@@ -99,7 +99,7 @@
     <script>
             $(".submit_btn_received").click(function(e) {
                 e.preventDefault();
-                var id = $(this).attr("id");
+                var id = $(this).data("id");
                 var csrf = "{{ csrf_token() }}";
                 $.ajax({
                     type: "POST",
