@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $meals=ReadyMeal::whereDate('date',Carbon::today())->count();
         $purchases=Purchase::whereDate('created_at',Carbon::now()->today())->sum('payed');
         $sales=Sale::whereDate('created_at',Carbon::now()->today())->sum('payed');
-
+        $subscriptions_client=ClientSubscriptions::whereDate('created_at',Carbon::now()->today())->sum('payed');
         $subscription_cat= \DB::table('client_subscriptions')->groupBy('subscription_id')->selectRaw('count(id) as count,client_id,subscription_id')->get()->mapWithKeys(function ($q){
             return[$q->subscription_id=>[
                 'count'=>$q->count,
@@ -116,7 +116,7 @@ class DashboardController extends Controller
             $Profit_year[$name] = [$sales_,$purchases_];
         }
 //dd($Profit_year);
-        return view('admin.home.home',compact('subscriptions','purchases','meals','sales','subscription_cat','sales_year','Profit_year'));
+        return view('admin.home.home',compact('subscriptions','purchases','meals','sales','subscription_cat','sales_year','Profit_year','subscriptions_client'));
 
     }
 }

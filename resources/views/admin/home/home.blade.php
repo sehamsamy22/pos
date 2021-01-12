@@ -44,8 +44,8 @@
 
                 <div class="widget-box-2">
                     <div class="widget-detail-2">
-                        <span class="badge badge-success pull-left m-t-20"> {{ $sales }}%<i class="zmdi zmdi-trending-up"></i> </span>
-                        <h2 class="m-b-0"> {{ $sales }}</h2>
+                        <span class="badge badge-success pull-left m-t-20"> {{ $sales+$subscriptions_client }}%<i class="zmdi zmdi-trending-up"></i> </span>
+                        <h2 class="m-b-0"> {{ $sales+$subscriptions_client }}</h2>
                         <p class="text-muted m-b-25">أيرادات اليوم</p>
                     </div>
                     <div class="progress progress-bar-success-alt progress-sm m-b-0">
