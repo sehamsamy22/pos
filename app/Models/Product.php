@@ -82,7 +82,7 @@ class Product extends Model
             }
         }
 
-        return $product_count;
+        return $product_count*$rep;
     }
 
     public  function orders($id,$request)
@@ -170,22 +170,22 @@ class Product extends Model
                 foreach ($all as $day => $meals) {
 
                         if ($day== 'Sat') {
-                            $product_count=$this->quantity($meals,$product_count,$days['Sat']);
+                            $product_count_sat=$this->quantity($meals,$product_count,$days['Sat']);
                        }else if ($day== 'Sun') {
-                            $product_count=$this->quantity($meals,$product_count,$days['Sun']) ;
+                            $product_count_sun=$this->quantity($meals,$product_count,$days['Sun']) ;
 
                         }else if ($day== 'Mon') {
-                            $product_count =$this->quantity($meals,$product_count,$days['Mon']);
+                            $product_count_mon =$this->quantity($meals,$product_count,$days['Mon']);
                         }else if ($day== 'Tue') {
-                        $product_count=$this->quantity($meals,$product_count,$days['Tue'] );
+                        $product_count_tue=$this->quantity($meals,$product_count,$days['Tue'] );
                         }
                         else if ($day== 'Wed') {
-                            $product_count=$this->quantity($meals,$product_count,$days['Wed']) ;
+                            $product_count_wed=$this->quantity($meals,$product_count,$days['Wed']) ;
                         }else if ($day== 'Thu') {
-                            $product_count=$this->quantity($meals,$product_count,$days['Thu']) ;
+                            $product_count_thu=$this->quantity($meals,$product_count,$days['Thu']) ;
 
                         }else if ($day== 'Fri') {
-                            $product_count=$this->quantity($meals,$product_count,$days['Fri']);
+                            $product_count_fri=$this->quantity($meals,$product_count,$days['Fri']);
 
                         }
                 }
@@ -194,7 +194,8 @@ class Product extends Model
             }
 
         }
-        return $product_count;
+        $total=$product_count_sat+$product_count_sun+$product_count_mon+$product_count_tue+$product_count_wed+$product_count_thu+$product_count_fri;
+        return $total;
     }
 
 
