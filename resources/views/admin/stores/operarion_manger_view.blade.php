@@ -73,7 +73,7 @@
                                                <button type="button" class="btn btn-success"> تم الاستلام</button>
                                            @endif
                                                 @if($row->distributed=='0')
-                                                <button type="submit" class="btn btn-primary  submit_btn_distributed"  id="{{$row->id}}">   توزيع فى الاكياس</button>
+                                                <button type="submit" class="btn btn-primary  submit_btn_distributed"  data-id="{{$row->id}}" id="submit_btn_distributed{{$row->id}}" >   توزيع فى الاكياس</button>
                                                 @else
                                                     <button type="button" class="btn btn-success"> تم التوزيع</button>
                                                 @endif
@@ -131,7 +131,7 @@
             $('.submit_btn_distributed').click(function(e) {
 
                 e.preventDefault();
-                var id = $(this).attr("id");
+                var id = $(this).data("id");
                 console.log(id);
                 var csrf = "{{ csrf_token() }}";
                 $.ajax({
@@ -144,7 +144,7 @@
                             swal("  تم التوزيع", "تم توزيع الوجبات  فى الاكياس ", 'success', {
                                     buttons: 'موافق'
                             });
-                            $('.submit_btn_distributed').remove();
+                            $('#submit_btn_distributed'+id).remove();
                             var xx = document.createElement("INPUT");
                                     xx.setAttribute("type", "button");
                                     xx.setAttribute("value", "تم التوزيع");
