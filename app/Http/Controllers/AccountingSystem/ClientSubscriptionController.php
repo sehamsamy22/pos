@@ -43,11 +43,11 @@ class ClientSubscriptionController extends Controller
 
         ]);
         if(isset($request['meals'])){
-            foreach ($request['meals']  as $mealkey=>$meal){
-                foreach($meal as $daykey=>$day){
+            foreach ($request['meals']  as $mealkey=>$types){
+                foreach($types as $daykey=>$mael){
                     Dietsystem::create([
                         'client_subscription_id'=>$clientSubsription->id,
-                        'meal_id'=>$mealkey,
+                        'meal_id'=>$mael,
                         'day_No'=>$daykey
                     ]);
                }
@@ -75,15 +75,16 @@ class ClientSubscriptionController extends Controller
     public function dietsystems_update(Request $request,$id){
 
             $dietsystems=Dietsystem::where('client_subscription_id',$id)->delete();
-            foreach ($request['meals'] as $mealkey=>$meal){
-                foreach($meal as $daykey=>$day){
-                    Dietsystem::create([
-                        'client_subscription_id'=>$id,
-                        'meal_id'=>$mealkey,
-                        'day_No'=>$daykey
-                    ]);
-               }
+        foreach ($request['meals']  as $mealkey=>$types){
+            foreach($types as $daykey=>$mael){
+                Dietsystem::create([
+                    'client_subscription_id'=>$id,
+                    'meal_id'=>$mael,
+                    'day_No'=>$daykey
+                ]);
             }
+        }
+
         return back()->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
     }
     public function destroy($id )

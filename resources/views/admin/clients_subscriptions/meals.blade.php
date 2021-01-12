@@ -9,7 +9,7 @@
             <div class="{{$i}}">
             @foreach($type->meals_sub($id) as  $key=>$meal)
             <li style="list style:none">
-                <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$meal->id}}][{{ $i }}]" >
+                <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{ $type->id}}][{{ $i }}]"  value="{{$meal->id}}">
                 {{$meal->ar_name}}
             </li>
             @endforeach
