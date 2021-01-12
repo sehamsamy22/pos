@@ -110,9 +110,12 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->ar_name}}</td>
-                                        <td><input type='number' class="form-control" name='quantity'
+                                        <td>
+                                            <input type='number' class="form-control" name='quantity'
                                                    value={{$row->orders($row->id ,$request ?? Null) }}  readonly></td>
-                                        <td><input type='number' class="form-control" id="readyquantity{{$row->id}}"
+                                        <td>
+
+                                            <input type='number' class="form-control" id="readyquantity{{$row->id}}"
                                                    value="{{$row->readymeals($row->id ,$request ?? Null) }}" readonly>
                                         </td>
 

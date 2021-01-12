@@ -28,12 +28,14 @@ class Meal extends Model
     }
 
     function quantity_meal($meals,$meal_count,$re){
+
         foreach ($meals as $meal) {
                                 if ($meal == $this->id) {
                                     $meal_count ++;
                                 }
                             }
-        return$meal_count;
+//        dd($meals);
+        return$meal_count*$re;
     }
 
     public  function orders($id,$request)
@@ -117,40 +119,34 @@ class Meal extends Model
                 $all['Thu'] = $thurday_meals;
                 $all['Fri'] = $friday_meals;
                 //-------------------------array3--------------------------
+//                dd($all);
                 foreach ($all as $day => $meals) {
                     //   dd($meals);
-//                    foreach ($days as $day1 => $dd) {
-//                        if ($day == $day1) {
-//                            foreach ($meals as $meal) {
-//                                if ($meal == $id) {
-//                                    $meal_count += $dd;
-//                                }
-//                            }
-//                        }
-//                    }
+
                     if ($day== 'Sat') {
-                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Sat']);
+                        $meal_count_sat=$this->quantity_meal($meals,$meal_count,$days['Sat']);
                     }else if ($day== 'Sun') {
-                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Sun']) ;
+                        $meal_count_sun=$this->quantity_meal($meals,$meal_count,$days['Sun']) ;
 
                     }else if ($day== 'Mon') {
-                        $meal_count =$this->quantity_meal($meals,$meal_count,$days['Mon']);
+                        $meal_count_mon =$this->quantity_meal($meals,$meal_count,$days['Mon']);
                     }else if ($day== 'Tue') {
-                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Tue'] );
+                        $meal_count_tue=$this->quantity_meal($meals,$meal_count,$days['Tue'] );
                     }
                     else if ($day== 'Wed') {
-                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Wed']) ;
+                        $meal_count_wed=$this->quantity_meal($meals,$meal_count,$days['Wed']) ;
+//                        dd($meal_count);
                     }else if ($day== 'Thu') {
-                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Thu']) ;
+                        $meal_count_thu=$this->quantity_meal($meals,$meal_count,$days['Thu']) ;
                     }else if ($day== 'Fri') {
-                        $meal_count=$this->quantity_meal($meals,$meal_count,$days['Fri']);
+                        $meal_count_fri=$this->quantity_meal($meals,$meal_count,$days['Fri']);
 
                     }
                 }
             }//if check isset $subscription_meal
         }//foreach end
-
-      return $meal_count;
+        $total=$meal_count_sat+$meal_count_sun+$meal_count_mon+$meal_count_tue+$meal_count_wed+$meal_count_thu+$meal_count_fri;
+      return $total;
     }
 
 
