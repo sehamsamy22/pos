@@ -79,7 +79,7 @@
 
                                                                  <select name="user_id" id="user_id-{{$row->id}}" class="form-control" >
                                                                 <?php
-                                                                     $drivers=\App\User::where('role','7')/*->where('area_id',$row->area_id)*/->get();
+                                                                     $drivers=\App\User::where('role_id','7')/*->where('area_id',$row->area_id)*/->get();
                                                                      ?>
                                                                    @foreach($drivers as $user)
                                                                     <option value="{{$user->id}}">{{$user->name}}</option>
