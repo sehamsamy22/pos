@@ -85,7 +85,7 @@
                                                 data-unit="{{$product->units->name ??''}}"
                                             {{--                                                data-link= "{{route('dashboard.products.show',['id'=>$product->id])}}"--}}
                                         >
-                                            {{$product->ar_name}}
+                                            {{$product->barcode}}
                                         </option>
                                     @endforeach
 
