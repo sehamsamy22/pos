@@ -68,7 +68,7 @@
                                 </button>
                                 @else
 {{--                                    <a href="#" class="btn btn-danger"> متوقف</a>--}}
-                                    <a href="{{route('dashboard.clients_subscriptions.active',$row->id)}}" class="btn btn-success"> تفعيل الاشتراك </a>
+                                    <a href="{{route('dashboard.subscriptions.active',$row->id)}}" class="btn btn-success"> تفعيل الاشتراك </a>
                                     @endif
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="btn btn-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.clients_subscriptions.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
