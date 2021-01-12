@@ -38,9 +38,7 @@
     </div>
 @endsection
 @section('scripts')
-
-    @include('admin.layout.form_validation_js')
-
+{{--    @include('admin.layout.form_validation_js')--}}
     <script>
         $("#category_id").on('change', function() {
             var id = $(this).val();
@@ -57,8 +55,6 @@
     </script>
     <script>
         var bigDataComponent = [];
-
-
         function myFun2(event) {
             event.preventDefault();
             var component_data = {};
@@ -67,13 +63,10 @@
             component_data.component_quantity = $('#component_quantity').val();
             component_data.component_unit = $('#component_name option:selected').data('unit');
             component_data.component_price = $('#component_name option:selected').data('price');
-
             component_data.component_avgcost= $('#component_name option:selected').data('avgcost');
-
-            component_data.Approx_price = Number(component_data.component_quantity *component_data.component_avgcost);
-
+            component_data.Approx_price=Number(component_data.component_quantity *component_data.component_avgcost);
             if (component_data.component_name !== '' && component_data.component_quantity !== '' ) {
-                $("tr.editted-row").remove();
+                // $("tr.editted-row").remove();
                 swal({
                     title: "تم إضافة  المكون بنجاح",
                     text: "",
@@ -81,20 +74,15 @@
                     buttons: ["موافق"],
                     dangerMode: true,
                 })
-
+               console.log(component_data.Approx_price);
                 bigDataComponent.push(component_data);
                 $("#componentTable-wrap").show();
                 var  unit;
-                var TotalValue=parseFloat($("#total").val());
+                console.log($("#total").val());
+                var TotalValue=$("#total").val();
+                console.log(TotalValue);
                 var appendComponent = bigDataComponent.map(function(component) {
-                    TotalValue += parseFloat(component.Approx_price) ;
-                    // if(component.component_unit=='kilo'){
-                    //     unit ='كيلو';
-                    // }else if(component.component_unit=='gram'){
-                    //     unit='جرام';
-                    // }else{
-                    //     unit='لتر';
-                    // }
+                    TotalValue = Number(TotalValue)+component.Approx_price ;
                     return (`
             <tr class="single-product">
                 <td class="component-name">${component.component_name}</td>
@@ -102,7 +90,6 @@
                 <td class="component-unit">${component.component_unit}</td>
                  <td class="component-avgcost">${component.component_avgcost}</td>
               <td>
-
                 <a href="#" data-toggle="tooltip" class="delete-this-row-component" data-original-title="حذف">
                     <i class="fa fa-trash-o" style="margin-left: 10px"></i>
                 </a>
@@ -110,16 +97,15 @@
         <input type="hidden" name="component_names[]" value="${component.component_name_val}" >
         <input type="hidden" name="qtys[]" value="${component.component_quantity}" >
         <input type="hidden" name="avg_cost[]" value="${component.component_avgcost}">
-
             </tr>
             `);
 
                 });
-                $('.single-product').remove();
+                // $('.single-product').remove();
                 $('.add-components').append(appendComponent);
-
-                $(".Approx_price").html(TotalValue.toFixed(2));
-                $("#total").val(TotalValue);
+                $(".Approx_price").html(TotalValue);
+                 $("#total").val(TotalValue.toFixed(2));
+                // console.log(TotalValue);
                 /////////////////////////////////////////////////////
                 $('.delete-this-row-component').click(function(e) {
                     var $this = $(this);
@@ -146,7 +132,7 @@
                     var $this = $(this);
                     e.preventDefault();
                     // alert($('#main_unit option:selected').text());
-                    $this.parents('tr').addClass('editted-row');
+                    // $this.parents('tr').addClass('editted-row');
                     $('#exampleModal #component_name').val($('.component_name option:selected').text());
                     $('#exampleModal #component_quantity').val($this.parents('tr').find('.component-qty').html());
                     $('#exampleModal #main_unit').val($('#main_unit option:selected').text());

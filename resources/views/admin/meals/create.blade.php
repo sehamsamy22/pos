@@ -110,9 +110,7 @@
                 <td class="component-qty">${component.component_quantity}</td>
                 <td class="component-unit">${component.component_unit}</td>
                <td class="component-avgcost">${component.component_avgcost}</td>
-
               <td>
-
                 <a href="#" data-toggle="tooltip" class="delete-this-row-component" data-original-title="حذف">
                     <i class="fa fa-trash-o" style="margin-left: 10px"></i>
                 </a>

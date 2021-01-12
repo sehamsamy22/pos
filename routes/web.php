@@ -81,7 +81,9 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/subscription_meal', 'SubscriptionController@subscription_meal')->name('subscriptions-meal.destroy');
 
     Route::post('/subscription_disactive/{id}', 'SubscriptionController@subscription_disactive')->name('subscriptions.dis_active');
-      //=============================sales
+    Route::get('/subscription_active/{id}', 'SubscriptionController@subscription_active')->name('subscriptions.active');
+
+    //=============================sales
     route::resource('sales', 'SaleController');
     Route::get('/getAllSubcategoriesSale/{id}', 'SaleController@getAllSubcategories');
     Route::get('/getAllcategoriesSale', 'SaleController@getAllcategories');

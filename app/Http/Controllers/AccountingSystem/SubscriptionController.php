@@ -149,4 +149,12 @@ class SubscriptionController extends Controller
         return redirect()->route('dashboard.clients_subscriptions.index')->with('success', __('تم ايقاف الاشتراك بنجاح'));
     }
 
+    public  function subscription_active($id){
+        $subscription=ClientSubscriptions::find($id);
+
+        $subscription->update([
+            'active'=>0,
+        ]);
+        return redirect()->route('dashboard.clients_subscriptions.index')->with('success', __('تم تفعيل الاشتراك بنجاح'));
+    }
 }

@@ -278,8 +278,13 @@ ct->id] ,'id'=>'delete-form'.$product->id, 'method' => 'Delete']) !!}--}}
             <td colspan="2"></td>
             <td><span style="    font-size: large;">السعر التقريبى</span>  </td>
             <td class="Approx_price">
-                @if(isset($meal)){{round($meal->approx_price,3)}} @endif
-            <input type="hidden" name="approx_price" id="total" @if(isset($meal)) value="{{round($meal->approx_price,3)}}" @endif>
+                @if(isset($meal))
+                    {{round($meal->approx_price,3)}}
+            <input type="hidden" name="approx_price" id="totalx" value="{{round($meal->approx_price,3)}}">
+                @else
+                    <input type="hidden" name="approx_price" id="total" >
+
+                @endif
             </td>
              <td> </td>
 
