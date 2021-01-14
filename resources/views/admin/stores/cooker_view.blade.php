@@ -60,8 +60,10 @@
                             @php $i = 1; @endphp
 
                             @foreach($storeproducts as $row)
+
                                 <form id="form-{{$row->id}}">
                                     @csrf
+                                    @if($row->product->orders($row->product->id,$request??Null)!=0)
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$row->product->ar_name}}</td>
@@ -76,13 +78,14 @@
                                                    value="{{$row->product->recevied($row->product->id,$request??Null)}}"
                                                    readonly></td>
                                         <td class="received_btn{{$row->id}}">
-                                            <input type='number' class="form-control" name="received_quantity"
+                                            <input type='number' class="form-control" name="received_quantity" value="{{$row->product->orders($row->product->id,$request??Null)}}"
                                                    id="received_quantity{{$row->id}}">
                                             <button type="submit" class="btn btn-danger received_submit "
                                                     id="{{ $row->id }}">استلام
                                             </button>
                                         </td>
                                     </tr>
+                                        @endif
                                 </form>
                             @endforeach
                             </tbody>
@@ -102,8 +105,8 @@
                             </thead>
                             <tbody>
                             @php $i = 1; @endphp
-                            {{--         @dd($meals)                           --}}
                             @foreach($meals as $row)
+                                @if($row->orders($row->id ,$request ?? Null)!=0)
                                 <form id="formready-{{$row->id}}">
                                     @csrf
 
@@ -120,7 +123,7 @@
                                         </td>
 
                                         <td class="ready_btn{{$row->id}}">
-                                            <input type='number' class="form-control" id="ready_quantity{{$row->id}}">
+                                            <input type='number' class="form-control" id="ready_quantity{{$row->id}}" value="{{$row->orders($row->id ,$request ?? Null) }}">
                                             <button type="submit" class="btn btn-warning ready_submit"
                                                     id="{{$row->id}}">تجهيزوتحضير
                                             </button>
@@ -128,7 +131,10 @@
                                         </td>
                                     </tr>
                                 </form>
+                                @endif
+
                             @endforeach
+
                             </tbody>
                         </table>
                     </div>

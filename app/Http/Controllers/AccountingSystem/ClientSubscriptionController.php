@@ -26,7 +26,7 @@ class ClientSubscriptionController extends Controller
     public function create()
     {
         $measurements=Measurement::all();
-        $subscriptions=Subscription::pluck('name','id')->toArray();
+        $subscriptions=Subscription::all();
         $clients=Client::pluck('name','id')->toArray();
 
         return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','clients'));
@@ -72,20 +72,35 @@ class ClientSubscriptionController extends Controller
     }
 
 
-    public function dietsystems_update(Request $request,$id){
+    public function update(Request $request,$id){
+//            dd($request->all());
+//        dd(Carbon::parse($request['end'])->format('Y-m-d'));
+        $client_subscription=ClientSubscriptions::find($id);
+//            $dietsystems=Dietsystem::where('client_subscription_id',$id)->delete();
 
-            $dietsystems=Dietsystem::where('client_subscription_id',$id)->delete();
-        foreach ($request['meals']  as $mealkey=>$types){
-            foreach($types as $daykey=>$mael){
-                Dietsystem::create([
-                    'client_subscription_id'=>$id,
-                    'meal_id'=>$mael,
-                    'day_No'=>$daykey
-                ]);
-            }
+    $client_subscription=ClientSubscriptions::create([
+        'client_id'=> $client_subscription->client_id,
+        'subscription_id'=>$client_subscription->subscription_id,
+        'start'=>$request['start'],
+        'end'=>Carbon::parse($request['end'])->format('Y-m-d'),
+        'total'=>$client_subscription->total,
+        'active'=>1,
+        'tax'=>$client_subscription->tax,
+        'payed'=>$client_subscription->payed,
+        'reminder'=>$client_subscription->reminder,
+        'payment_type'=>$client_subscription->payment_type,
+    ]);
+        $dietsystems=Dietsystem::where('client_subscription_id',$id)->get();
+        foreach ($dietsystems as $day){
+            Dietsystem::create([
+                'client_subscription_id'=>$client_subscription->id,
+                'meal_id'=>$day->meal_id,
+                'day_No'=>$day->day_No,
+            ]);
         }
+        return redirect()->route('dashboard.clients_subscriptions.index')->with('success', __('  تم تجديد الاشتراك بنجاخ'));
 
-        return back()->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
+        return back()->with('success', 'تم تجديد الاشتراك بنجاخ ');
     }
     public function destroy($id )
     {
@@ -106,33 +121,24 @@ class ClientSubscriptionController extends Controller
     }
 
     public function dietsystems($id){
-        $types=TypeMeal::all();
+             $types=TypeMeal::all();
             $dietsystems=Dietsystem::where('client_subscription_id',$id)->get();
             $clientSubsription=ClientSubscriptions::find($id);
         return view('admin.clients_subscriptions.dietsystems',compact('dietsystems','clientSubsription','types'));
 
     }
-    public function dietsystems_edit($id){
+    public function edit($id){
+//        dd($id);
+        $subscriptions=Subscription::all();
+        $clientSubsription=ClientSubscriptions::find($id);
         $types=TypeMeal::all();
         $dietsystems=Dietsystem::where('client_subscription_id',$id)->get();
-        $clientSubsription=ClientSubscriptions::find($id);
-    return view('admin.clients_subscriptions.dietsystems_edit',compact('dietsystems','clientSubsription','types'));
+//        dd($dietsystems);
+        return view('admin.clients_subscriptions.edit',compact('dietsystems','clientSubsription','types','subscriptions'));
 
 }
 
-    public  function getEndDateAjex(Request $request,$id){
 
-       $subscription=Subscription::find($id);
-
-        $start= Carbon::parse($request['start_date']);
-       $endDate=$start->addDays($subscription->duration)->toDateString();
-      $datetext=$start->addDays($subscription->duration)->format('m/d/Y');
-
-        return response()->json([
-          'data'=>$endDate,
-        'datetext'=>$datetext
-        ]);
-    }
 
     public  function getMealTable($id){
 
@@ -147,4 +153,21 @@ class ClientSubscriptionController extends Controller
                 'data'=>view('admin.clients_subscriptions.meals',compact('meals','types','id'))->render()
             ]);
      }
+
+    public function dietsystems_update(Request $request,$id){
+
+        $dietsystems=Dietsystem::where('client_subscription_id',$id)->delete();
+        foreach ($request['meals']  as $mealkey=>$types){
+            foreach($types as $daykey=>$mael){
+                Dietsystem::create([
+                    'client_subscription_id'=>$id,
+                    'meal_id'=>$mael,
+                    'day_No'=>$daykey
+                ]);
+            }
+        }
+
+        return back()->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
+    }
+
 }

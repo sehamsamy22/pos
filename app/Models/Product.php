@@ -73,16 +73,12 @@ class Product extends Model
 
         foreach ($meals as $key=>$meal) {
             $mealproduct = MealProduct::where('meal_id', $meal)->where('product_id',$this->id)->first();
-//            dd($rep);
             if (isset($mealproduct)) {
-                $dayquantity = $mealproduct->quantity;
-
-                $product_count+= $dayquantity;
-
+                $product_count+= $mealproduct->quantity;
             }
         }
 
-        return $product_count*$rep;
+        return $product_count;
     }
 
     public  function orders($id,$request)
@@ -93,6 +89,7 @@ class Product extends Model
         $subscriptions_arr=ClientSubscriptions::where('active','1')->get();
         $product_count = 0;
         $product_count_all=0;
+        $product_count_sat=0; $product_count_sun=0; $product_count_mon=0;$product_count_tue =0;$product_count_wed=0;$product_count_thu=0; $product_count_fri=0;
         foreach($subscriptions_arr as $d=> $subscription){
 
             $meals=MealProduct::where('product_id',$id)->pluck('meal_id','id')->toArray();
@@ -133,19 +130,19 @@ class Product extends Model
                 $days = array('Sat' => 0, 'Sun' => 0, 'Mon' => 0, 'Tue' => 0, 'Wed' => 0, 'Thu' => 0, 'Fri' => 0);
                 foreach ($dates as $date) {
                     if ($date == 'Sat') {
-                        $days['Sat'] += 1;
+                        $days['Sat'] = 1;
                     } elseif ($date == 'Sun') {
-                        $days['Sun'] += 1;
+                        $days['Sun'] = 1;
                     } elseif ($date == 'Mon') {
-                        $days['Mon'] += 1;
+                        $days['Mon'] = 1;
                     } elseif ($date == 'Tue') {
-                        $days['Tue'] += 1;
+                        $days['Tue']= 1;
                     } elseif ($date == 'Wed') {
-                        $days['Wed'] += 1;
+                        $days['Wed'] = 1;
                     } elseif ($date == 'Thu') {
-                        $days['Thu'] += 1;
+                        $days['Thu'] = 1;
                     } elseif ($date == 'Fri') {
-                        $days['Fri'] += 1;
+                        $days['Fri'] = 1;
                     }
                 }
 //-------------------------array2--------------------------
@@ -170,31 +167,31 @@ class Product extends Model
                 foreach ($all as $day => $meals) {
 
                         if ($day== 'Sat') {
-                            $product_count_sat=$this->quantity($meals,$product_count,$days['Sat']);
+                            $product_count_sat+=$this->quantity($meals,$product_count,$days['Sat'])*$days['Sat'];
                        }else if ($day== 'Sun') {
-                            $product_count_sun=$this->quantity($meals,$product_count,$days['Sun']) ;
+                            $product_count_sun+=$this->quantity($meals,$product_count,$days['Sun']) *$days['Sun'];
 
                         }else if ($day== 'Mon') {
-                            $product_count_mon =$this->quantity($meals,$product_count,$days['Mon']);
+                            $product_count_mon +=$this->quantity($meals,$product_count,$days['Mon'])*$days['Mon'];
                         }else if ($day== 'Tue') {
-                        $product_count_tue=$this->quantity($meals,$product_count,$days['Tue'] );
+                        $product_count_tue+=$this->quantity($meals,$product_count,$days['Tue'] )*$days['Tue'];
                         }
                         else if ($day== 'Wed') {
-                            $product_count_wed=$this->quantity($meals,$product_count,$days['Wed']) ;
+                            $product_count_wed+=$this->quantity($meals,$product_count,$days['Wed'])*$days['Wed'] ;
                         }else if ($day== 'Thu') {
-                            $product_count_thu=$this->quantity($meals,$product_count,$days['Thu']) ;
+                            $product_count_thu+=$this->quantity($meals,$product_count,$days['Thu'])*$days['Thu'] ;
 
                         }else if ($day== 'Fri') {
-                            $product_count_fri=$this->quantity($meals,$product_count,$days['Fri']);
+                            $product_count_fri+=$this->quantity($meals,$product_count,$days['Fri'])*$days['Fri'];
 
                         }
                 }
 //                $product_count_all+=$product_count;
 
             }
-
+            $total=$product_count_sat+$product_count_sun+$product_count_mon+$product_count_tue+$product_count_wed+$product_count_thu+$product_count_fri;
         }
-        $total=$product_count_sat+$product_count_sun+$product_count_mon+$product_count_tue+$product_count_wed+$product_count_thu+$product_count_fri;
+
         return $total;
     }
 

@@ -66,7 +66,7 @@
             });
         });
     </script>
-
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 
 <script>
         $("#subscription_id").on('change', function() {
@@ -130,24 +130,14 @@
                   });
             });
         });
+            var selectedoption = $(this).find(":selected");
 
         var start_date = $('#start_date').val();
         var sub_id = $('#subscription_id').val();
-        $.ajax({
-            url:"/dashboard/getEndDate/"+sub_id,
-            type:"get",
-            data:{
-                'id':sub_id,
-                'start_date':start_date
-            }
-        }).done(function (data) {
-            var d=new Date(data.data);
+            var duration=selectedoption.data('num');
+            document.getElementById('date_end').value =dayjs(start_date).add(duration, 'days').format('MM/DD/YYYY');
+            console.log(dayjs(start_date).add(duration,'days').format('YYYY-MM-DD'));
 
-         $('#date_end').val(data.datetext);
-
-        }).fail(function (error) {
-            console.log(error);
-        });
         });
 
     </script>

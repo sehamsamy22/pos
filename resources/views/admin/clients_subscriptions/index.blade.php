@@ -35,10 +35,8 @@
                         <th>  اسم الخطه</th>
                         <th>   بداية الاشتراك</th>
                         <th>   نهاية الاشتراك</th>
-                        <th>  الضريبه </th>
                         <th>  الاجمالى </th>
                         <th>  المدفوع </th>
-                        <th>  المتبقى </th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
@@ -51,11 +49,11 @@
                             <td>{{$row->subscription->name}}</td>
                             <td>{{$row->start}}</td>
                             <td>{{$row->end}}</td>
-                            <td>{{$row->tax}}</td>
                             <td>{{$row->total}}</td>
                             <td>{{$row->payed}}</td>
-                            <td>{{$row->reminder}}</td>
+{{--                            <td>{{$row->reminder}}</td>--}}
                             <td>
+
                             @if($row->reminder > 0)
                                  <a href="{{route('dashboard.clients_subscriptions.payment',$row->id)}}" class="btn btn-primary"> دفع</a>
                             @else
@@ -70,6 +68,8 @@
 {{--                                    <a href="#" class="btn btn-danger"> متوقف</a>--}}
                                     <a href="{{route('dashboard.subscriptions.active',$row->id)}}" class="btn btn-success"> تفعيل الاشتراك </a>
                                     @endif
+                                <a href="{{route('dashboard.clients_subscriptions.edit',$row->id)}}" class="btn btn-pinterest"> تجديد</a>
+
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="btn btn-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.clients_subscriptions.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}

@@ -71,6 +71,7 @@ else{
              ->pluck('id')->toArray();
 
             $meals_=Dietsystem::whereIn('client_subscription_id',$subcriptipns_id)->pluck('meal_id','id')->toArray();
+//
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id')->toArray();
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
 //         dd($products);
@@ -95,11 +96,12 @@ else{
             $meals_id=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
             $products=MealProduct::whereIn('meal_id',$meals_id)->pluck('product_id','id')->toArray();
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
-
+//        dd($meals);
         }else
         {
             $storeproducts=[];
             $meals=[];
+
         }
         return view('admin.stores.cooker_view',compact('storeproducts','meals','request'));
 

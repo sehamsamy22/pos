@@ -20,27 +20,30 @@
     <div class="form-group form-float">
         <label class="form-label">  نوع الاشتراك</label>
         <div class="form-line">
-            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control ','placeholder'=>'اختر نوع الاشتراك' ,'id'=>'subscription_id'])!!}
+{{--            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control ','placeholder'=>'اختر نوع الاشتراك' ,'id'=>'subscription_id'])!!}--}}
+            <select name="subscription_id" class="form-control  js-example-basic-single" id="subscription_id">
+                        <option disabled selected>إختار نوع الاشتراك</option>
+                        @foreach($subscriptions as $subscription)
+                            <option value="{{$subscription->id}}" data-num="{{$subscription->duration}}"
+                            @if(isset($clientSubsription)) {{$clientSubsription->subscription_id == $subscription->id ? 'selected' :'' }} @endif  >{{$subscription->name }}</option>
+                        @endforeach
+                    </select>
         </div>
     </div>
 </div>
-
-<div class="col-sm-6 col-xs-6 pull-left">
-    <div class="form-group form-float">
-        <label class="form-label">  بداية الاشتراك</label>
-        <div class="form-line">
-            <input type="date" class="form-control" name="start" id="start_date" value={{ \Carbon\Carbon::now() }}>
-
-            {{-- {!! Form::date("start",null,\Carbon\Carbon::now() ,['class'=>'form-control','placeholder'=>'بداية الاشتراك','id'=>'start_date'])!!} --}}
-        </div>
-    </div>
-</div>
-<div class="col-sm-6 col-xs-6 pull-left">
+<div class="col-sm-6 col-xs-6 pull-right">
     <div class="form-group form-float">
         <label class="form-label">  نهاية الاشتراك</label>
         <div class="form-line">
             <input type="text" name="end" class="form-control" id="date_end" readonly>
-{{--            {!! Form::date("end",null,['class'=>'form-control','placeholder'=>'نهاية الاشتراك'])!!}--}}
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-xs-6 pull-left">
+    <div class="form-group form-float">
+        <label class="form-label">  بداية الاشتراك</label>
+        <div class="form-line">
+            <input type="date" class="form-control" name="start" id="start_date" value={{ \Carbon\Carbon::now()}}>
         </div>
     </div>
 </div>

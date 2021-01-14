@@ -45,6 +45,7 @@
                         <th>#</th>
                         <th>اسم الصنف</th>
                         <th>كود الصنف</th>
+                        <th> متوسط التكلفة</th>
                         <th>الكميه المتوفرة</th>
                         <th>الكمية المطلوبه  </th>
                         <th>الحالة </th>
@@ -54,10 +55,12 @@
                     <tbody>
                     @php $i = 1; @endphp
                     @foreach($storeproducts as $row)
+                        @if($row->product->orders($row->product->id ,$request ?? Null)!=0)
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
                             <td>{{$row->product->barcode}}</td>
+                            <td>{{round($row->product->avg_cost() ,3)}}</td>
                             <td>{{$row->quantity}}</td>
 {{--                            @dd($row->product->sumation($row->product->id,$request))--}}
                                 @if($request)
@@ -85,6 +88,7 @@
 
 
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
