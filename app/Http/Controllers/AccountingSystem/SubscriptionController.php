@@ -156,5 +156,22 @@ class SubscriptionController extends Controller
             'active'=>1,
         ]);
         return redirect()->route('dashboard.clients_subscriptions.index')->with('success', __('تم تفعيل الاشتراك بنجاح'));
+
+    }
+
+    public function copy($id)
+    {
+
+        $subscription = Subscription::find($id);
+        $new_subscription = $subscription->replicate();
+        $new_subscription->push();
+//        $new_subscription->meals()->create($subscription->meals);
+        foreach($subscription->meals as $meal) {
+            $new_meal = $meal->replicate();
+            $new_meal->subscription_id = $new_subscription->id;
+            $new_meal->push();
+        }
+
+        return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم نسخ الاشتراك بنجاح'));
     }
 }

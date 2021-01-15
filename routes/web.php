@@ -70,6 +70,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('client_log/{id}', 'StoreController@client_log')->name('stores.client_log');
 
     Route::get('importViewProduct', 'ProductController@importView')->name('products.importViewProduct');
+    Route::get('copy/{id}', 'SubscriptionController@copy')->name('subscriptions.copy');
     Route::post('importProduct', 'ProductController@importProduct')->name('products.importProduct');
 
     Route::get('importViewMeal', 'MealController@importView')->name('meals.importViewMeal');
@@ -117,6 +118,14 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/trial_balance', 'BalanceController@trial_balance')->name('accounts.trial_balance');
 
     Route::group(['prefix' => 'entries'], function () {
+
+        // Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
+        Route::get('posting/{id}', ['as' => 'entries.posting', 'uses' => 'EntryController@posting']);
+        Route::get('toAccounts/{id}', ['as' => 'entries.toAccounts', 'uses' => 'EntryController@toaccounts']);
+
+    });
+
+    Route::group(['prefix' => 'reports'], function () {
 
         // Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
         Route::get('posting/{id}', ['as' => 'entries.posting', 'uses' => 'EntryController@posting']);

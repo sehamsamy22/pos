@@ -78,11 +78,15 @@
                                     <li><a href="{{route('dashboard.types_meal.index')}}">أنواع الوجبات</a></li>
                                     <li><a href="{{route('dashboard.settings.index')}}">الاعدادات العامة</a></li>
                                    <li ><a href="{{route('dashboard.roles.index')}}" >  الصلاحيات و المهام  </a></li>
-
-
                                 </ul>
                             </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i><span> تقارير النظام  </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+{{--                                <li><a href="{{route('dashboard.reports.incomes')}}"> تقرير الايرادات</a></li>--}}
 
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 @endcan

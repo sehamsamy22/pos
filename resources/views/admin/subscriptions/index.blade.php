@@ -53,6 +53,7 @@
 
                             <td>
                                 <a href="{{route('dashboard.subscriptions.edit',$row->id)}}" class="label label-warning">تعديل</a>
+                                <a href="{{route('dashboard.subscriptions.copy',$row->id)}}" class="label label-success">نسخ</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.subscriptions.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
