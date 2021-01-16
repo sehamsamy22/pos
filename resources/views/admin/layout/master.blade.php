@@ -34,15 +34,15 @@
 </head>
 
 
-<body class="fixed-left">
-    
-<div class="loading">    
+<body data-slidebar="dark">
+
+<div class="loading">
     <div class="lds-facebook">
         <div></div>
         <div></div>
         <div></div>
     </div>
-</div>      
+</div>
     <!-- Begin page -->
     <div id="wrapper">
 

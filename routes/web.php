@@ -127,9 +127,9 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
 
     Route::group(['prefix' => 'reports'], function () {
 
-        // Route::get('filter', ['as' => 'entries.filter', 'uses' => 'EntryController@filter']);
-        Route::get('posting/{id}', ['as' => 'entries.posting', 'uses' => 'EntryController@posting']);
-        Route::get('toAccounts/{id}', ['as' => 'entries.toAccounts', 'uses' => 'EntryController@toaccounts']);
+         Route::get('incomes', ['as' => 'reports.incomes', 'uses' => 'ReportController@incomes']);
+        Route::get('show/{date}', ['as' => 'reports.show', 'uses' => 'ReportController@show']);
+
 
     });
 });

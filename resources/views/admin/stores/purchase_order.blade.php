@@ -54,8 +54,11 @@
                     </thead>
                     <tbody>
                     @php $i = 1; @endphp
+                    @php($value = session('key') )
+
                     @foreach($storeproducts as $row)
                         @if($row->product->orders($row->product->id ,$request ?? Null)!=0)
+                            @if($value ==0)
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
@@ -89,12 +92,20 @@
 
                         </tr>
                         @endif
+                            @endif
                     @endforeach
                     </tbody>
                 </table>
 
 
 
+
     </div>
     </div>
+@endsection
+        @section('scripts')
+        <script>
+            var name=<?php echo $value?>;
+
+        </script>
 @endsection

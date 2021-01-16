@@ -35,8 +35,6 @@
                     </ul>
 
                     <div class="tab-content">
-
-
                         <div role="tabpanel" id="menu1" class="tab-pane active">
 
                             <div class="col-lg-12">

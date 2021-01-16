@@ -22,13 +22,10 @@
                 <form action="" method="get" accept-charset="utf-8" >
                     @csrf
                   <div class="form-group col-sm-4">
-                      <label for="from"> الفترة من </label>
-                      {!! Form::date("from",request('from'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة من ',"id"=>'from'])!!}
+                      <label for="from">  التاريخ </label>
+                      {!! Form::date("date",request('date'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة من ',"id"=>'from'])!!}
                   </div>
-                  <div class="form-group col-sm-4">
-                      <label for="to"> الفترة إلي </label>
-                      {!! Form::date("to",request('to'),['class'=>'inlinedatepicker form-control inline-control','placeholder'=>' الفترة إلي ',"id"=>'to'])!!}
-                  </div>
+
 
                   <div class="form-group col-sm-4">
                      <label for="">   </label>
@@ -36,39 +33,30 @@
                   </div>
                   </form>
                   <div class="clearfix"></div>
-
-
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>تاريخ الفاتوره</th>
-                        <th>  اجمالى المبيعات</th>
-                        <th>   اجمالى الاشتركات</th>
-                        <th>   اجمالى الايراد </th>
+                        <th>  اجمالى الايردات</th>
+                        <th>   اجمالى المصروفات</th>
+                        <th>   اجمالى الربح </th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php $i = 1; @endphp
-                    @foreach($incomes as $row)
+
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->date}}</td>
-                            <td>{{$row->total}}</td>
-                            <td>{{$row->payed}}</td>
+                            <td>{{$data['incomes']}}</td>
+                            <td> {{$data['purchases']}}</td>
+                            <td> {{$data['profit']}}</td>
                             <td>
-                                @if($row->total >$row->payed)
-                                <a href="{{route('dashboard.sales.payment',$row->id)}}" class="label label-success"> دفع</a>
-                                @endif
-                                <a href="{{route('dashboard.sales.show',$row->id)}}" class="label label-warning">عرض الفاتوره</a>
-                                <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
-                                {!!Form::open( ['route' => ['dashboard.sales.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
-                                {!!Form::close() !!}
+                                <a href="{{route('dashboard.reports.show',request('date')??Carbon\Carbon::today())}}" class="label label-warning"> تفاصيل </a>
                             </td>
                         </tr>
-                    @endforeach
                     </tbody>
+
                 </table>
 
 

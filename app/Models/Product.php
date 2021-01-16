@@ -7,6 +7,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 class Product extends Model
 {
@@ -103,6 +104,7 @@ class Product extends Model
                     foreach ($daterange as $date) {
                         $dates[] = $date->format("D");
                     }
+                    $diffdays=\Carbon\Carbon::parse( $from )->diffInDays( $to );
                 } // بداية نهاية
                 elseif ($subscription->start >= $from && $to >= $subscription->end) {
                     $begin = new DateTime($subscription->start);
@@ -111,6 +113,8 @@ class Product extends Model
                     foreach ($daterange as $date) {
                         $dates[] = $date->format("D");
                     }
+                    $diffdays=\Carbon\Carbon::parse( $from )->diffInDays( $to );
+
                     // dd( $dates);
                 } elseif ($subscription->start <= $from && $to >= $subscription->end) {//من للنهاية
                     $begin = new DateTime($from);
@@ -119,6 +123,8 @@ class Product extends Model
                     foreach ($daterange as $date) {
                         $dates[] = $date->format("D");
                     }
+                    $diffdays=\Carbon\Carbon::parse( $from )->diffInDays( $to );
+
                 } elseif ($subscription->start >= $from & $to <= $subscription->end) {//بداية الى
                     $begin = new DateTime($subscription->start);
                     $end = new DateTime($to . ' +1 day');
@@ -126,6 +132,8 @@ class Product extends Model
                     foreach ($daterange as $date) {
                         $dates[] = $date->format("D");
                     }
+                    $diffdays=\Carbon\Carbon::parse( $from )->diffInDays( $to );
+
                 }
                 $days = array('Sat' => 0, 'Sun' => 0, 'Mon' => 0, 'Tue' => 0, 'Wed' => 0, 'Thu' => 0, 'Fri' => 0);
                 foreach ($dates as $date) {
@@ -145,6 +153,9 @@ class Product extends Model
                         $days['Fri'] = 1;
                     }
                 }
+
+              //---------------------validation_days--------------
+
 //-------------------------array2--------------------------
 
                 $all = array('Sat' => 0, 'Sun' => 0, 'Mon' => 0, 'Tue' => 0, 'Wed' => 0, 'Thu' => 0, 'Fri' => 0);
@@ -191,6 +202,16 @@ class Product extends Model
             }
             $total=$product_count_sat+$product_count_sun+$product_count_mon+$product_count_tue+$product_count_wed+$product_count_thu+$product_count_fri;
         }
+
+//
+
+            if ($diffdays > 7){
+
+                session(['key' => 1]);
+                alert()->warning('الفتره اكبر من 7ايام !')->autoclose(5000);
+            }else{
+                session(['key' => 0]);
+            }
 
         return $total;
     }
