@@ -1,5 +1,5 @@
 @foreach($meals as $key => $meal)
-<div class="col-sm-3 col-xs-3  pull-left">
+<div class="col-sm-12 col-xs-12  pull-left">
     <div class="form-group form-float">
         <div class="checkbox checkbox-success checkbox-inline">
             <input type="checkbox" id="inlineCheckbox{{$meal->id}}"

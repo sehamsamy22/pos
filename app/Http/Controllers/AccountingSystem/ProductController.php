@@ -67,6 +67,10 @@ class ProductController extends Controller
                 'barcode'=>'00'. $product->id,
             ]);
         }
+        StoreProduct::create([
+            'product_id'=> $product->id,
+            'quantity' =>0
+        ]);
         return redirect()->route('dashboard.products.index')->with('success', 'تم اضافه صنف  جديد');
 
     }
