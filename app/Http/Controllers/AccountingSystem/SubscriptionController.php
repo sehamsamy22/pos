@@ -33,9 +33,9 @@ class SubscriptionController extends Controller
      */
     public function create()
     {
-        $types=TypeMeal::pluck('name','id')->toArray();
-
-        return view('admin.subscriptions.create',compact('types'));
+        $types=TypeMeal::all();
+        $typesArray=TypeMeal::pluck('name')->toArray();
+        return view('admin.subscriptions.create',compact('types','typesArray'));
 
     }
 
@@ -131,12 +131,12 @@ class SubscriptionController extends Controller
     }
 
 
-    public function getMealInputs($id){
-
+    public function getMealInputs(Request $request,$id){
+        $num=$request['num'];
         $meals=Meal::where('type_id',$id)->get();;
         return response()->json([
             'status'=>true,
-            'data'=>view('admin.subscriptions.meals',compact('meals'))->render()
+            'data'=>view('admin.subscriptions.meals',compact('meals','num'))->render()
         ]);
     }
     public  function subscription_disactive(Request  $request,$id){

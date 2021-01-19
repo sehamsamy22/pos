@@ -53,12 +53,16 @@
     @include('admin.layout.form_validation_js')
 
 <script>
-    $("#type_id").on('change', function() {
-        var id = $(this).val();
 
+    $(document).on('change', 'select[name="type_id"]', function () {
+        var id = $(this).val();
+        var idd = this.id;
+        console.log(idd);
+        console.log("df"+id);
         $.ajax({
             url:"/dashboard/getMealInputs/"+id,
             type:"get",
+            data:{num:idd}
 
         }).done(function (data) {
 
@@ -69,23 +73,20 @@
     });
 </script>
 <script>
-
 var bigData = [];
-
-function myFun(event) {
+function myFun(event,id) {
     event.preventDefault();
-    var values = $("input[name='meal[]']:checked")
-              .map(function(){
 
+    var values = $("input[name='meal[" + id + "]']:checked")
+
+              .map(function(){
                 var data = {};
                 data.meal_id = $(this).val();
                 data.meal_name = $(this).data('name');
                 data.meal_type= $(this).data('type');
-                data.meal_price= $(this).data('price');
+                // data.meal_price= $(this).data('price');
                   return data;
                 }).get();
-
-
         swal({
             title: "تم إضافة الوجبة نجاح",
             text: "",
@@ -94,36 +95,28 @@ function myFun(event) {
             buttons: ["موافق"],
             dangerMode: true,
         })
+    $('.meals-inpusts').empty();
         bigData.push(values);
         $("#mealsTable-wrap").show();
-
-        var appendMeals = values.map(function(meal) {
-            console.log(meal);
+    var appendMeals=[];
+         appendMeals[id] = values.map(function(meal) {
             return (`
-        <tr class="single-meal">
-            <td class="prod-nam">${meal.meal_name}</td>
-            <td class="prod-type">${meal.meal_type}</td>
-            <td class="prod-price">${meal.meal_price}</td>
+            <ul>
 
-               <td>
+            <li>
+           ${meal.meal_type}: ${meal.meal_name}
+            </li>
+            </ul>
 
-                <a href="#" data-toggle="tooltip" class="delete-this-row" data-original-title="حذف">
-                    <i class="fa fa-trash-o" style="margin-left: 10px"></i>
-                </a>
-            </td>
-           <input type="hidden" name="meals[]" value="${meal.meal_id}" >
-
-        </tr>
         `);
         });
+        // console.log(appendMeals);
+console.log(id);
+   $('#add-meals'+id).append(appendMeals[id]);
+    $('#show-meals'+id).append(appendMeals[id]);
 
-
-        $('.add-meals').append(appendMeals);
-
-
-        $('.delete-this-row').click(function(e) {
+    $('.delete-this-row').click(function(e) {
             var $this = $(this);
-
             var row_index = $(this).parents('tr').index();
             e.preventDefault();
             swal({
@@ -144,7 +137,6 @@ function myFun(event) {
             });
         });
 }
-
 
 </script>
 

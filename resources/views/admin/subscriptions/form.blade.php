@@ -48,56 +48,9 @@
         </div>
     </div>
 </div>
-{{--  <!-- $table->enum('type', ['breakfast','mini_breakfast' ,'lunch','mini_lunch','dinner','mini_dinner']); -->  --}}
-
-{{--  <div class="col-sm-12 col-xs-12  pull-left">
-<label class="text-muted font-13 m-b-15 m-t-20">الواجبات</label>
-     @foreach($types as $key => $type)
-    <div class="checkbox checkbox-success checkbox-inline">
-        <input type="checkbox" id="inlineCheckbox{{$type->id}}" value="{{ $type->id }}" name="meal[]">
-        <label for="inlineCheckbox{{$type->id}}">  {{ $type->name }} </label>
-    </div>
-
-    @endforeach
-</div>  --}}
 
 
 <!-- unit table-->
-<div class="table-striped"  id="mealsTable-wrap">
-    <span>الواجبات </span>
-    <table class="table table-striped table-bordered"  style="background-color: #5b69bc59">
-    <thead>
-        <tr>
-            <th> اسم الوجبه</th>
-            <th> نوع الوجبه</th>
-            <th> سعر الوجبه</th>
-
-            <th>العمليات</th>
-        </tr>
-    </thead>
-
-    <tbody class="add-meals">
-        @if(isset($subscription))
-
-        @foreach($subscription->meals as $key => $value)
-       <tr  id="single-meal{{$value->id}}" >
-           <td>{{ $value->meal->ar_name }}</td>
-           <td>{{ $value->meal->typeMeal->name }}</td>
-           <td>{{ $value->meal->price }}</td>
-            <td>
-                <a href="#" onclick="Delete({{$value->id}})" data-toggle="tooltip" data-id="{{$value->id}}" id='delete-form'{{$value->id}}, class="delete-this-row_"  data-original-title="حذف">
-                    <i class="fa fa-trash-o" style="margin-left: 10px"></i>
-                </a>
-
-{{--                {!!Form::open( ['route' => ['dashboard.subscriptions-meal.destroy',$value->id] ,'id'=>'delete-form'.$value->id, 'method' => 'Delete']) !!}--}}
-{{--                {!!Form::close() !!}</td>--}}
-        </tr>
-        @endforeach
-        @endif
-    </tbody>
-
-</table>
-</div>
 
 
 <div class="col-sm-12 col-xs-12  pull-right">
@@ -111,46 +64,34 @@
 
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
-        <label class="form-label"> وصف  الخطه</label>
+        <label class="form-label"> وصف الخطه </label>
         <div class="form-line">
             {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'  وصف  الخطه',])!!}
         </div>
     </div>
 </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" role="tab" aria-controls="menu1" href="#menu1">الأسبوع الاول</a></li>
+        <li><a data-toggle="tab" role="tab" aria-controls="menu2" href="#menu2">الأسبوع الثانى</a></li>
+        <li><a data-toggle="tab" role="tab" aria-controls="menu3" href="#menu3"> الأسبوع الثالث</a></li>
+        <li><a data-toggle="tab" role="tab" aria-controls="menu3" href="#menu4"> الأسبوع الرابع</a></li>
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">اضافة وجبات للخطة </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-                <div class="col-sm-12 col-xs-12 ">
-                    <div class="form-group form-float">
-                    <label class="form-label"> نوع الوجبة</label>
-                    <div class="form-line" >
-                        {!! Form::select("type_id",$types,null,['class'=>'form-control js-example-basic-single','placeholder'=>' اختر  نوع الوجبة  ','id'=>'type_id'])!!}
-
-                    </div>
-                </div>
+    </ul>
+        <div class="tab-content">
+            <div role="tabpanel" id="menu1" class="tab-pane active">
+                @include('admin.subscriptions.week_one')
             </div>
+            <div role="tabpanel" id="menu2" class="tab-pane">
+                @include('admin.subscriptions.week_two')
+            </div>
+            <div role="tabpanel" id="menu3" class="tab-pane">
+                @include('admin.subscriptions.week_three')
+            </div>
+            <div role="tabpanel" id="menu4" class="tab-pane">
+                @include('admin.subscriptions.week_four')
+            </div>
+        </div>
 
-            <div class="meals-inpusts"></div>
-
-       </div>
-      <div class="modal-footer">
-        {{--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  --}}
-        <button type="button" class="btn btn-primary" onclick="myFun(event)" data-dismiss="modal">أضافة </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="form-group text-right m-b-0">
     <button class="btn btn-primary waves-effect" type="submit">حفظ</button>
