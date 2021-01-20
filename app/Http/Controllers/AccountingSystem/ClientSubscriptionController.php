@@ -28,27 +28,26 @@ class ClientSubscriptionController extends Controller
         $measurements=Measurement::all();
         $subscriptions=Subscription::all();
         $clients=Client::pluck('name','id')->toArray();
-
-        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','clients'));
+        $types=TypeMeal::all();
+        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','clients','types'));
 
     }
     public function store(ClientSubscriptionRequest $request){
 
         $request['end'] =date("Y-m-d", strtotime($request['end']));
-
-
         $clientSubsription=ClientSubscriptions::create($request->all());
         $clientSubsription->update([
             'reminder'=>$clientSubsription->total-$clientSubsription->payed,
-
         ]);
         if(isset($request['meals'])){
-            foreach ($request['meals']  as $mealkey=>$types){
-                foreach($types as $daykey=>$mael){
+            foreach ($request['meals']  as $key=>$meals){
+                $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
+                foreach($meals as $daykey=>$mael){
                     Dietsystem::create([
                         'client_subscription_id'=>$clientSubsription->id,
                         'meal_id'=>$mael,
-                        'day_No'=>$daykey
+                        'day_No'=>$key_array[1],
+                        'week'=>$key_array[0],
                     ]);
                }
             }
@@ -143,14 +142,24 @@ class ClientSubscriptionController extends Controller
     public  function getMealTable($id){
 
         $subscription=Subscription::find($id);
-        $subscriptionMeal=SubscriptionMeal::where('subscription_id',$id)->pluck('meal_id','id')->toArray();
-        $meals=TypeMeal::whereIn('id',$subscriptionMeal)->get();
+        $MealsWeek1=SubscriptionMeal::where('subscription_id',$id)
+           ->where('week','1')->pluck('meal_id','id')->toArray();
+        $MealsWeek2=SubscriptionMeal::where('subscription_id',$id)
+            ->where('week','2')->pluck('meal_id','id')->toArray();
+        $MealsWeek3=SubscriptionMeal::where('subscription_id',$id)
+            ->where('week','3')->pluck('meal_id','id')->toArray();
+        $MealsWeek4=SubscriptionMeal::where('subscription_id',$id)
+            ->where('week','4')->pluck('meal_id','id')->toArray();
+//        $meals=TypeMeal::whereIn('id',$subscriptionMeal)->get();
         $types=TypeMeal::all();
 
               return response()->json([
                 'status'=>true,
                 'price'=>$subscription->price,
-                'data'=>view('admin.clients_subscriptions.meals',compact('meals','types','id'))->render()
+                'week1'=>view('admin.clients_subscriptions.week1',compact('types','id'))->render(),
+                  'week2'=>view('admin.clients_subscriptions.week2',compact('types','id'))->render(),
+                  'week3'=>view('admin.clients_subscriptions.week3',compact('types','id'))->render(),
+                  'week4'=>view('admin.clients_subscriptions.week4',compact('types','id'))->render(),
             ]);
      }
 

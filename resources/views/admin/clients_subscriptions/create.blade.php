@@ -46,6 +46,7 @@
 
     @include('admin.layout.form_validation_js')
     <script>
+
         $("#start_date").on('change', function() {
             var start_date = $(this).val();
             var id = $('#subscription_id').val();
@@ -77,30 +78,24 @@
                 type:"get",
 
             }).done(function (data) {
+               $('#menu1').empty();
+               $('#menu1').html(data.week1);
+                $('#menu2').empty();
+                $('#menu2').html(data.week2);
+                $('#menu3').empty();
+                $('#menu3').html(data.week3);
+                $('#menu4').empty();
+                $('#menu4').html(data.week4);
 
-           $('.table_meals').empty();
-           $('.table_meals').html(data.data);
            $('#price').val(data.price);
            var static_tax=$('#tax').val();
            var price = $('#price').val();
           $('#total').val(Number(price)+Number(price) * (Number(static_tax) / 100));
             $('#amount_required').val($('#total').val());
-          //  $("div > input[type=radio]").click(function() {
-          //   var thisParent = $(this).closest("div");
-          //   var prevClicked = thisParent.find(":checked");
-          //   var currentObj = $(this);
-          //   prevClicked.each(function() {
-          //     if (!$(currentObj).is($(this))) {
-          //       $(this).prop("checked", false);
-          //     }
-          //   });
-          // });
                 $("input:radio[name^='disableRow']").prop("checked", false);
-
                 $("input:radio[name^='disableRow']").on("change", function(){
                     $(this).closest("td").find("input:radio").prop("disabled", this.checked);
                 });
-
         var price2 = $('#price').val();
        $('#amount_required').val($('#total').val());
           var taxx=$("#tax").val();
@@ -109,20 +104,17 @@
           var tax_val=$('#tax_val').val(tax_.toFixed(2) );
          $('#payed').val(total);
                 $("#reminder").val('0');
-
                 $("#payed").change(function() {
                    var payed=$(this).val();
                    var reminder= Number($("#amount_required").val()) - Number(payed);
                    $("#reminder").val(reminder.toFixed(2));
                });
-
                $("#tax").on('change', function() {
                 var tax = $(this).val();
                var price = $('#price').val();
             $('#total').val(Number(price)+Number(price) * (Number(tax) / 100));
             $('#amount_required').val($('#total').val());
             $('#payed').val($('#total').val());
-
                    $("#payed").change(function() {
                       var payed=$(this).val();
                       var reminder= Number($("#amount_required").val()) - Number(payed);

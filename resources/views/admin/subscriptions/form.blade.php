@@ -79,16 +79,20 @@
     </ul>
         <div class="tab-content">
             <div role="tabpanel" id="menu1" class="tab-pane active">
-                @include('admin.subscriptions.week_one')
+                @php($week=1)
+                @include('admin.subscriptions.week')
             </div>
             <div role="tabpanel" id="menu2" class="tab-pane">
-                @include('admin.subscriptions.week_two')
+                @php($week=2)
+                @include('admin.subscriptions.week')
             </div>
             <div role="tabpanel" id="menu3" class="tab-pane">
-                @include('admin.subscriptions.week_three')
+                @php($week=3)
+                @include('admin.subscriptions.week')
             </div>
             <div role="tabpanel" id="menu4" class="tab-pane">
-                @include('admin.subscriptions.week_four')
+                @php($week=4)
+                @include('admin.subscriptions.week')
             </div>
         </div>
 

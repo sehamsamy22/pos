@@ -99,22 +99,31 @@ function myFun(event,id) {
         bigData.push(values);
         $("#mealsTable-wrap").show();
     var appendMeals=[];
+    var appendMealShow=[];
          appendMeals[id] = values.map(function(meal) {
             return (`
+            <ul>
+            <li>
+           ${meal.meal_type}: ${meal.meal_name}
+            </li>
+            </ul>
+           <input type="hidden" name="meals[${id}][]" value="${meal.meal_id}" >
+
+
+        `);
+        });
+    appendMealShow[id] = values.map(function(meal) {
+        return (`
             <ul>
 
             <li>
            ${meal.meal_type}: ${meal.meal_name}
             </li>
             </ul>
-
         `);
-        });
-        // console.log(appendMeals);
-console.log(id);
+    });
    $('#add-meals'+id).append(appendMeals[id]);
-    $('#show-meals'+id).append(appendMeals[id]);
-
+    $('#show-meals'+id).append(appendMealShow[id]);
     $('.delete-this-row').click(function(e) {
             var $this = $(this);
             var row_index = $(this).parents('tr').index();

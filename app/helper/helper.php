@@ -4,6 +4,7 @@
 //Json array response
 
 use App\Models\AccountingSystem\AccountingAccount;
+use App\Models\SubscriptionMeal;
 use App\Models\Unit;
 use Carbon\Carbon;
 class MyHelper{
@@ -43,6 +44,59 @@ class MyHelper{
   function unit($unit_=null){
     $unit=Unit::where('name',$unit_)->first();
     return $unit->id??Null;
+}
+function meals($id,$week,$day,$type_id){
+    $subscriptionMeal=SubscriptionMeal::where('subscription_id',$id)
+        ->where('week',$week)->where('day',$day)->pluck('meal_id','id')->toArray();
+        $meals=\App\Models\Meal::whereIn('id',$subscriptionMeal)->get();
+    return $meals;
+}
+
+function mealsWeek1($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','1')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+}
+
+function mealsWeek2($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','2')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+}
+function mealsWeek3($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','3')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+}
+function mealsWeek4($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','4')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+}
+
+
+function mealsWeek5($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','5')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+}
+function mealsWeek6($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','6')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+}
+function mealsWeek7($id,$day,$type_id){
+    $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
+        ->where('week','7')->where('day_No',$day)->pluck('meal_id','id')->toArray();
+    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+    return $meals;
+
 }
 function responseJson($status, $msg, $data = null, $state = 200)
 {

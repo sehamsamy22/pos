@@ -48,14 +48,20 @@ class SubscriptionController extends Controller
     public function store(SubscriptionRequest $request)
     {
 
-        // dd($request->all());
+//    dd($request->all());
       $subscription= Subscription::create($request->all());
         if (isset($request['meals'])){
-              foreach($request['meals'] as $id) {
-                  SubscriptionMeal::create([
-                      'subscription_id' => $subscription->id,
-                      'meal_id' => $id
-                  ]);
+              foreach($request['meals'] as $key=>$meals) {
+                  $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
+               foreach ($meals as $meal ){
+                   SubscriptionMeal::create([
+                       'subscription_id' => $subscription->id,
+                       'meal_id' => $meal,
+                       'week'=>$key_array[0],
+                       'day'=>$key_array[1],
+                   ]);
+               }
+
               }
       }
         return redirect()->route('dashboard.subscriptions.index')->with('success', 'تم اضافه نوع اشتراك  جديد');

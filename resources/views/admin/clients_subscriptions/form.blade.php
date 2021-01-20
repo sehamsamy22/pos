@@ -47,29 +47,54 @@
         </div>
     </div>
 </div>
+<div class="clearfix"></div>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" role="tab" aria-controls="menu1" href="#menu1">الأسبوع الاول</a></li>
+    <li><a data-toggle="tab" role="tab" aria-controls="menu2" href="#menu2">الأسبوع الثانى</a></li>
+    <li><a data-toggle="tab" role="tab" aria-controls="menu3" href="#menu3"> الأسبوع الثالث</a></li>
+    <li><a data-toggle="tab" role="tab" aria-controls="menu3" href="#menu4"> الأسبوع الرابع</a></li>
 
-<table  class="table table-striped table-bordered" style="  font-size: 10px;">
-    <thead>
-    <tr>
-        <th></th>
-        <th>السبت </th>
-        <th>الاحد </th>
-        <th>الاتنين </th>
-        <th>الثلاثاء </th>
-        <th>الاربعاء </th>
-        <th>الخميس </th>
-        <th>الجمعه </th>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" id="menu1" class="tab-pane active">
+        <input type="hidden" >
+        <table  class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th>اليوم الاول </th>
+                <th>اليوم التانى </th>
+                <th>اليوم الثالث </th>
+                <th>اليوم الرابع </th>
+                <th>اليوم الخامس </th>
+                <th>اليوم السادس </th>
+                <th>اليوم السابع </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($types as $key => $type)
+                <tr>
+                    <td style="font-weight: 600;">{{ $type->name }}</td>
+                    @for($i=1;$i<=7;$i++)
+                        <td>
 
+                        </td>
+                    @endfor
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div role="tabpanel" id="menu2" class="tab-pane">
 
+    </div>
+    <div role="tabpanel" id="menu3" class="tab-pane">
 
-    </tr>
-    </thead>
-    <tbody class="table_meals">
+    </div>
+    <div role="tabpanel" id="menu4" class="tab-pane">
 
-
-
-    </tbody>
-</table>
+    </div>
+</div>
 
 <div class="col-sm-4 col-xs-4 pull-left">
     <div class="form-group form-float">

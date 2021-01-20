@@ -12,7 +12,6 @@
     </tr>
     </thead>
     <tbody>
-    @php($week=2)
     @foreach($types as $key => $type)
         <tr>
             <td style="font-weight: 600;">{{ $type->name }}</td>
@@ -34,7 +33,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">اضافة وجبات للخطة </h5>
+                                <h5 class="modal-title" id="exampleModalLabel">اضافة وجبات  {{$type->name}}  </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -45,16 +44,23 @@
 
                                 <div class="col-sm-12 col-xs-12 ">
                                     <div class="form-group form-float">
-                                        <label class="form-label"> نوع الوجبة</label>
-                                        <div class="form-line" >
-                                            {!! Form::select("type_id",$typesArray,null,['class'=>'form-control js-example-basic-single','placeholder'=>' اختر  نوع الوجبة  ','id'=>$week.$i.$type->id ])!!}
-
-                                        </div>
+                                        @foreach($type->meals as $key => $meal)
+                                            <div class="col-sm-12 col-xs-12  pull-left">
+                                                <div class="form-group form-float">
+                                                    <div class="checkbox checkbox-success checkbox-inline">
+                                                        <input type="checkbox"
+                                                               data-name="{{ $meal->ar_name }}" value="{{ $meal->id }}"
+                                                               data-price="{{ $meal->price }}"
+                                                               data-type="{{ $meal->typeMeal->name }}" name="meal[{{$week}}{{$i}}{{$type->id}}]">
+                                                        <label >  {{ $meal->ar_name }} </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="meals-inpusts"></div>
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -68,7 +74,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">عرض وجبات الخطة </h5>
+                                <h5 class="modal-title" id="exampleModalLabel">عرض وجبات {{$type->name}}  </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
