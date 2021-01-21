@@ -74,9 +74,8 @@ else{
 //
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id')->toArray();
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
-//         dd($products);
+//            dd($products);
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
-//        dd($storeproducts);
          }else
         {
             $storeproducts=[];

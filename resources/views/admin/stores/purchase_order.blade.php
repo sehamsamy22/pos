@@ -55,7 +55,6 @@
                     <tbody>
                     @php $i = 1; @endphp
                     @php($value = session('key') )
-
                     @foreach($storeproducts as $row)
                         @if($row->product->orders($row->product->id ,$request ?? Null)!=0)
                             @if($value ==0)
@@ -65,7 +64,7 @@
                             <td>{{$row->product->barcode}}</td>
                             <td>{{round($row->product->avg_cost() ,3)}}</td>
                             <td>{{$row->quantity}}</td>
-{{--                            @dd($row->product->sumation($row->product->id,$request))--}}
+{{--                            @dd($row->product->orders($row->product->id,$request))--}}
                                 @if($request)
                                 <td>{{$row->product->orders($row->product->id,$request)}}</td>
                                 <td>
