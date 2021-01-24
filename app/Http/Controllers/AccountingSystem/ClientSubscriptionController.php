@@ -110,12 +110,12 @@ class ClientSubscriptionController extends Controller
     public function add_subscription($id)
     {
         $measurements=Measurement::all();
-        $subscriptions=Subscription::pluck('name','id')->toArray();
+        $subscriptions=Subscription::all();
         $clients=Client::pluck('name','id')->toArray();
 
         $client = Client::find($id);
-
-        return view('admin.clients_subscriptions.create',compact('measurements','subscriptions','clients','client'));
+        $types=TypeMeal::all();
+        return view('admin.clients_subscriptions.create',compact('measurements','types','subscriptions','clients','client'));
 
     }
 

@@ -20,11 +20,13 @@
     <div class="form-group form-float">
         <label class="form-label">  نوع الاشتراك</label>
         <div class="form-line">
+{{--            @dd($subscriptions)--}}
 {{--            {!! Form::select("subscription_id",$subscriptions,null,['class'=>'form-control ','placeholder'=>'اختر نوع الاشتراك' ,'id'=>'subscription_id'])!!}--}}
             <select name="subscription_id" class="form-control  js-example-basic-single" id="subscription_id">
+
                         <option disabled selected>إختار نوع الاشتراك</option>
                         @foreach($subscriptions as $subscription)
-                            <option value="{{$subscription->id}}" data-num="{{$subscription->duration}}"
+                            <option value="{{$subscription->id}}" data-num="{{ $subscription->duration }}"
                             @if(isset($clientSubsription)) {{$clientSubsription->subscription_id == $subscription->id ? 'selected' :'' }} @endif  >{{$subscription->name }}</option>
                         @endforeach
                     </select>

@@ -44,7 +44,7 @@
                     @foreach($visits as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->client->name}}</td>
+                            <td>{{$row->client->name ??''}}</td>
                             <td>{{$row->date}}</td>
 
                             <td>

@@ -46,7 +46,7 @@
                         <div class="form-group form-float">
                             <label class="form-label">اسم العميل</label>
                             <div class="form-line">
-                                {!! Form::select("client_id",$clients,isset($client)?$client->id:null,['class'=>'form-control js-example-basic-single','placeholder'=>'اختر   اسم العميل '])!!}
+                                {!! Form::select("client_id",$clients,isset($client)?$client->id:null,['class'=>'form-control js-example-basic-single','placeholder'=>'اختر   اسم العميل ','data-parsley-required-message'=>'من فضلك ادخل  اسم العميل ','required'=>''])!!}
                             </div>
                         </div>
                     </div>

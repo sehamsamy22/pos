@@ -7,12 +7,12 @@
         </ul>
     </div>
 @endif
-@dd($client)
+{{--@dd($client)--}}
 <div class="col-sm-6 col-xs-6 pull-left">
     <div class="form-group form-float">
         <label class="form-label">   اسم العميل</label>
         <div class="form-line">
-            {!! Form::select("client_id",$clients,Null,['class'=>'form-control','placeholder'=>'اختر   اسم العميل '])!!}
+            {!! Form::select("client_id",$clients,Null,['class'=>'form-control','placeholder'=>'اختر اسم العميل ','data-parsley-required-message'=>'من فضلك ادخل  اسم العميل ','required'=>''])!!}
         </div>
     </div>
 </div>
