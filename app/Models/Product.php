@@ -7,6 +7,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class Product extends Model
@@ -31,7 +32,7 @@ class Product extends Model
     }
 
     public function  avg_cost(){
-        $productcosts=PurchaseItem::where('product_id',$this->id)->sum('price');
+        $productcosts=PurchaseItem::where('product_id',$this->id)->sum(DB::raw('quantity * price'));
         $productquantits=PurchaseItem::where('product_id',$this->id)->sum('quantity');
 //        dd($productquantits);
         if ($productquantits!=0){
@@ -43,7 +44,9 @@ class Product extends Model
     }
 
     public function   getAvgCostAttribute(){
-        $productcosts=PurchaseItem::where('product_id',$this->id)->sum('price');
+//        dd("Ygh");
+        $productcosts=PurchaseItem::where('product_id',$this->id)->sum(DB::raw('quantity * price'));
+
         $productquantits=PurchaseItem::where('product_id',$this->id)->sum('quantity');
 //        dd($productquantits);
         if ($productquantits!=0){

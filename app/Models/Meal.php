@@ -67,7 +67,7 @@ class Meal extends Model
                     $day = $date % 7;
                     $week = intval(ceil($date / 7));
                 } else {
-                    $day = $date;
+                    $day = intval($date);
                     $week = 1;
                 }
 
