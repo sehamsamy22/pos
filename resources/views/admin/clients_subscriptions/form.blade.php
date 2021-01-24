@@ -44,6 +44,7 @@
 <div class="col-sm-6 col-xs-6 pull-left">
     <div class="form-group form-float">
         <label class="form-label">  بداية الاشتراك</label>
+
         <div class="form-line">
             <input type="date" class="form-control" name="start" id="start_date" value={{ \Carbon\Carbon::now()}}>
         </div>
