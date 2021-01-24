@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Account;
 use App\Models\Entry;
 use App\Models\EntryAccount;
+use App\Models\ProductLog;
 use App\Models\Purchase;
 
 class PurchaseObserver
@@ -109,7 +110,10 @@ class PurchaseObserver
      */
     public function deleted(Purchase $purchase)
     {
-        //
+        $logs=ProductLog::where('operation','purchases')->where('bill_id',$purchase->id)->get();
+        foreach ($logs as $log){
+            $log->delete();
+        }
     }
 
     /**

@@ -55,6 +55,7 @@
                         $sanad=0;
  @endphp
                     @foreach($logs as $row)
+                        @if( isset($row->purchase->id ))
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->product->ar_name}}</td>
@@ -85,12 +86,13 @@
                             </td>
                             <td>
                                 @if($row->operation=='purchases')
+
                               <a href="{{route('dashboard.purchases.show',$row->bill_id)}}">
-                                    تم الشراء  بفاتوره مشتريات رقم {{ $row->purchase->num }}
+                                    تم الشراء  بفاتوره مشتريات رقم {{ $row->purchase->InvoiceNumber??'' }}
                             </a>
                             @elseif($row->operation=='sales')
                             <a href="{{route('dashboard.sales.show',$row->bill_id)}}">
-                                تم البيع  بفاتوره مبيعات رقم {{ $row->sale->num }}
+                                تم البيع  بفاتوره مبيعات رقم {{ $row->sale->InvoiceNumber??'' }}
                              </a>
                              @else
                              <a href="{{route('dashboard.revenues.store_out_sanad_show',$row->id)}}">
@@ -101,6 +103,7 @@
                             <td>{{$row->created_at}}</td>
 
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                     <tfoot>

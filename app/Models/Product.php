@@ -76,6 +76,7 @@ class Product extends Model
     {
         $from = $request['from'];
         $to = $request['to'];
+
         //-------------------------array1--------------------------
         $subscriptions_arr = ClientSubscriptions::where('active', '1')->get();
         $product_count = 0;
@@ -85,6 +86,7 @@ class Product extends Model
         foreach ($daterange as $date) {
             $dates[] = $date->format("d");
         }
+
         foreach ($subscriptions_arr as $subscription) {
             $meals_Period = [];
             foreach ($dates as $key => $date) {
@@ -92,13 +94,16 @@ class Product extends Model
                     $day = $date % 7;
                     $week = intval(ceil($date / 7));
                 } else {
-                    $day = $date;
+                    $day = intval($date);
                     $week = 1;
                 }
 
+
                 $meals_Day = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', $day)->where('week', $week)->pluck('meal_id', 'id')->toArray();
+
                 array_push($meals_Period, $meals_Day);
             }
+
             foreach ($meals_Period as $key => $meals) {
                 foreach ($meals as $meal) {
                     $mealproduct = MealProduct::where('meal_id', $meal)->where('product_id', $this->id)->first();
@@ -109,7 +114,7 @@ class Product extends Model
             }
 
         }
-
+//dd($product_count);
         return $product_count;
     }
 }

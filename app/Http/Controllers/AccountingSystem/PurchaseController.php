@@ -140,9 +140,10 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        $purchase->delete();
+        Purchase::find($id)->delete();
+//        $purchase->delete();
         return redirect()->route('dashboard.purchases.index')->with('success', __('تم الحذف بنجاح'));
 
     }

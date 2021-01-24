@@ -6,8 +6,11 @@
         .erro{
             color: red;
         }
+        .meals_span{
+            float: left;
+        }
         .deleteRecord{
-          margin-right: 200px;
+       float: right;
         }
 
     </style>
@@ -121,7 +124,7 @@ function myFun(event,id) {
 
 
             <li>
-           ${meal.meal_type}: ${meal.meal_name}
+          <span class="meals_span"> ${meal.meal_type}: ${meal.meal_name}</span>
            <button class="btn btn-danger deleteRecord  delete-this-row" id="${meal.meal_id} ">حذف</button>
 
             </li>

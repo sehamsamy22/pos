@@ -104,7 +104,7 @@
 @endsection
         @section('scripts')
         <script>
-            var name=<?php echo $value?>;
+            var name=<?php echo $value;?>;
 
         </script>
 @endsection
