@@ -41,6 +41,13 @@
                             <div class="modal-body">
                                 <div class="col-sm-12 col-xs-12" >
                                     <ul id="add-meals{{$week}}{{$i}}{{$type->id}}">
+                                    @foreach($subscription->meals_week_edit($week,$i,$type->id) as $meal)
+                                                @if($meal->meal->type_id==$type->id)
+                                            <li> {{$meal->meal->typeMeal->name}}:{{$meal->meal->ar_name}}
+                                            </li>
+                                            @endif
+
+                                    @endforeach
                                     </ul>
                                 </div>
 
@@ -83,7 +90,19 @@
                             </div>
                             <div class="modal-body">
                                 <div class="col-sm-12 col-xs-12" >
-                                    <ul id="show-meals{{$week}}{{$i}}{{$type->id}}">
+                                    <ul id="show-meals{{$week}}{{$i}}{{$type->id}}" >
+                                    @foreach($subscription->meals_week_edit($week,$i,$type->id) as $meal)
+                                            @if($meal->meal->type_id==$type->id)
+
+                                            <li id="{{$meal->id}}">  {{$meal->meal->typeMeal->name}}:{{$meal->meal->ar_name}}
+
+                                                <button class="btn btn-danger deleteRecord" style="margin-right:200px; " data-id="{{ $meal->id }}" >حذف </button>
+
+
+                                            </li>
+                                            @endif
+
+                                    @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -98,3 +117,5 @@
     @endforeach
     </tbody>
 </table>
+
+

@@ -93,9 +93,9 @@ class SubscriptionController extends Controller
      */
     public function edit(Subscription $subscription)
     {
-        $types=TypeMeal::pluck('name','id')->toArray();
-        // $meals=Meal::all();
-        return view('admin.subscriptions.edit', compact('subscription','types'));
+        $types=TypeMeal::all();
+        $typesArray=TypeMeal::pluck('name')->toArray();
+        return view('admin.subscriptions.edit', compact('subscription','types','typesArray'));
 
     }
 
@@ -110,13 +110,18 @@ class SubscriptionController extends Controller
     {
 //     dd($subscription);
         $subscription->update($request->all());
-        if (isset($request['meals'])) {
-            foreach ($request['meals'] as $id) {
+        if (isset($request['meals'])){
+            foreach($request['meals'] as $key=>$meals) {
+                $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
+                foreach ($meals as $meal ){
+                    SubscriptionMeal::create([
+                        'subscription_id' => $subscription->id,
+                        'meal_id' => $meal,
+                        'week'=>$key_array[0],
+                        'day'=>$key_array[1],
+                    ]);
+                }
 
-                SubscriptionMeal::create([
-                    'subscription_id' => $subscription->id,
-                    'meal_id' => $id
-                ]);
             }
         }
 
@@ -131,11 +136,20 @@ class SubscriptionController extends Controller
      */
     public function destroy($id)
     {
-        dd("dsfsdf");
+
        Subscription::find($id)->delete();
         return redirect()->route('dashboard.subscriptions.index')->with('success', __('تم الحذف بنجاح'));
     }
 
+   public function deleteMeal($id){
+
+       SubscriptionMeal::find($id)->delete($id);
+
+       return response()->json([
+           'success' => 'Record deleted successfully!'
+       ]);
+
+   }
 
     public function getMealInputs(Request $request,$id){
         $num=$request['num'];

@@ -6,6 +6,10 @@
         .erro{
             color: red;
         }
+        .deleteRecord{
+          margin-right: 200px;
+        }
+
     </style>
 @endsection
 
@@ -102,11 +106,11 @@ function myFun(event,id) {
     var appendMealShow=[];
          appendMeals[id] = values.map(function(meal) {
             return (`
-            <ul>
+
             <li>
            ${meal.meal_type}: ${meal.meal_name}
             </li>
-            </ul>
+
            <input type="hidden" name="meals[${id}][]" value="${meal.meal_id}" >
 
 
@@ -114,19 +118,21 @@ function myFun(event,id) {
         });
     appendMealShow[id] = values.map(function(meal) {
         return (`
-            <ul>
+
 
             <li>
            ${meal.meal_type}: ${meal.meal_name}
+           <button class="btn btn-danger deleteRecord  delete-this-row" id="${meal.meal_id} ">حذف</button>
+
             </li>
-            </ul>
+
         `);
     });
    $('#add-meals'+id).append(appendMeals[id]);
     $('#show-meals'+id).append(appendMealShow[id]);
     $('.delete-this-row').click(function(e) {
             var $this = $(this);
-            var row_index = $(this).parents('tr').index();
+            var row_index = $(this).parents('li').index();
             e.preventDefault();
             swal({
                 title: "هل أنت متأكد ",
@@ -136,7 +142,7 @@ function myFun(event,id) {
                 dangerMode: true,
             }).then(function(isConfirm) {
                 if (isConfirm===true) {
-                    $this.parents('tr').remove();
+                    $this.parents('li').remove();
                     bigData.splice(row_index, 1);
                 } else {
                     swal("تم االإلفاء", "حذف   الوجبة  تم الغاؤه", 'info', {

@@ -12,4 +12,8 @@ class Subscription extends Model
     public function meals(){
         return $this->hasMany(SubscriptionMeal::class,'subscription_id');
     }
+    public  function meals_week_edit($week,$i,$type){
+        $meals=SubscriptionMeal::where('subscription_id',$this->id)->where('week',$week)->where('day',$i)->get();
+        return $meals;
+    }
 }

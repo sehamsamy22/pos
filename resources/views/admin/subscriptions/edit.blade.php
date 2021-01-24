@@ -41,12 +41,16 @@
 @section('scripts')
 
     <script>
-        $("#type_id").on('change', function() {
-            var id = $(this).val();
 
+        $(document).on('change', 'select[name="type_id"]', function () {
+            var id = $(this).val();
+            var idd = this.id;
+            console.log(idd);
+            console.log("df"+id);
             $.ajax({
                 url:"/dashboard/getMealInputs/"+id,
                 type:"get",
+                data:{num:idd}
 
             }).done(function (data) {
 
@@ -57,23 +61,20 @@
         });
     </script>
     <script>
-
         var bigData = [];
-
-        function myFun(event) {
+        function myFun(event,id) {
             event.preventDefault();
-            var values = $("input[name='meal[]']:checked")
-                .map(function(){
 
+            var values = $("input[name='meal[" + id + "]']:checked")
+
+                .map(function(){
                     var data = {};
                     data.meal_id = $(this).val();
                     data.meal_name = $(this).data('name');
                     data.meal_type= $(this).data('type');
-                    data.meal_price= $(this).data('price');
+                    // data.meal_price= $(this).data('price');
                     return data;
                 }).get();
-
-
             swal({
                 title: "تم إضافة الوجبة نجاح",
                 text: "",
@@ -82,34 +83,39 @@
                 buttons: ["موافق"],
                 dangerMode: true,
             })
+            $('.meals-inpusts').empty();
             bigData.push(values);
             $("#mealsTable-wrap").show();
-
-            var appendMeals = values.map(function(meal) {
-                console.log(meal);
+            var appendMeals=[];
+            var appendMealShow=[];
+            appendMeals[id] = values.map(function(meal) {
                 return (`
-        <tr class="single-meal">
-            <td class="prod-nam">${meal.meal_name}</td>
-            <td class="prod-type">${meal.meal_type}</td>
-            <td class="prod-price">${meal.meal_price}</td>
 
-               <td>
+            <li>
+           ${meal.meal_type}: ${meal.meal_name}
+            </li>
 
-                <a href="#" data-toggle="tooltip" class="delete-this-row" data-original-title="حذف">
-                    <i class="fa fa-trash-o" style="margin-left: 10px"></i>
-                </a>
-            </td>
-           <input type="hidden" name="meals[]" value="${meal.meal_id}" >
+           <input type="hidden" name="meals[${id}][]" value="${meal.meal_id}" >
 
-        </tr>
+
         `);
             });
+            appendMealShow[id] = values.map(function(meal) {
+                return (`
 
 
-            $('.add-meals').append(appendMeals);
+            <li>
+           ${meal.meal_type}: ${meal.meal_name}
+            <button class="btn btn-danger deleteRecord  delete-this-row" id="${meal.meal_id} ">حذف</button>
+            </li>
+
+        `);
+            });
+            $('#add-meals'+id).append(appendMeals[id]);
+            $('#show-meals'+id).append(appendMealShow[id]);
             $('.delete-this-row').click(function(e) {
                 var $this = $(this);
-                var row_index = $(this).parents('tr').index();
+                var row_index = $(this).parents('li').index();
                 e.preventDefault();
                 swal({
                     title: "هل أنت متأكد ",
@@ -118,8 +124,8 @@
                     buttons: ["الغاء", "موافق"],
                     dangerMode: true,
                 }).then(function(isConfirm) {
-                    if (isConfirm) {
-                        $this.parents('tr').remove();
+                    if (isConfirm===true) {
+                        $this.parents('li').remove();
                         bigData.splice(row_index, 1);
                     } else {
                         swal("تم االإلفاء", "حذف   الوجبة  تم الغاؤه", 'info', {
@@ -128,34 +134,25 @@
                     }
                 });
             });
-
         }
 
-
     </script>
+
     <script>
-        function Delete(id) {
-            // var id=id;
-            // var id = $(this).data('id');
-            $.ajax({
-                type: 'get',
-                url: '{{ route('dashboard.subscriptions-meal.destroy') }}',
-                data: {id: id},
-                dataType: 'json',
-                success: function (data) {
-
-                    document.getElementById("single-meal"+id).remove();
-
-                    swal("تم الحذف", "تم  حذف المكون", 'danger', {
-                        buttons: 'موافق',
-                        dangerMode: true,
-
-                    });
-
-
-                }
+        $(".deleteRecord").click(function(e){
+            e.preventDefault();
+            var id = $(this).data("id");
+            $.ajax(
+                {
+                    url: "/dashboard/deleteMeal/"+id,
+                    type: 'GET',
+                }).done(function (data) {
+                swal("  تم المسح", " تم مسح الوجبة", 'success', {
+                    buttons: 'موافق'
+                });
+                $("#"+id).remove();
             });
-        };
-    </script>
 
+        });
+    </script>
 @endsection

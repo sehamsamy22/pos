@@ -40,9 +40,6 @@
     <div class="form-group form-float">
         <label class="form-label"> عدد الوجبات</label>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-        اخترالوجبات
-        </button>
         <div class="form-line">
             {!! Form::text("num_meals",null,['class'=>'form-control','placeholder'=>' عدد الوجبات','data-parsley-required-message'=>'من فضلك ادخل السعر  ','required'=>''])!!}
         </div>
@@ -80,19 +77,35 @@
         <div class="tab-content">
             <div role="tabpanel" id="menu1" class="tab-pane active">
                 @php($week=1)
+                @if(!isset($subscription))
                 @include('admin.subscriptions.week')
+                @else
+                @include('admin.subscriptions.week_edit')
+                @endif
             </div>
             <div role="tabpanel" id="menu2" class="tab-pane">
                 @php($week=2)
-                @include('admin.subscriptions.week')
+                @if(!isset($subscription))
+                    @include('admin.subscriptions.week')
+                @else
+                    @include('admin.subscriptions.week_edit')
+                @endif
             </div>
             <div role="tabpanel" id="menu3" class="tab-pane">
                 @php($week=3)
-                @include('admin.subscriptions.week')
+                @if(!isset($subscription))
+                    @include('admin.subscriptions.week')
+                @else
+                    @include('admin.subscriptions.week_edit')
+                @endif
             </div>
             <div role="tabpanel" id="menu4" class="tab-pane">
                 @php($week=4)
-                @include('admin.subscriptions.week')
+                @if(!isset($subscription))
+                    @include('admin.subscriptions.week')
+                @else
+                    @include('admin.subscriptions.week_edit')
+                @endif
             </div>
         </div>
 

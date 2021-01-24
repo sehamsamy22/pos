@@ -80,6 +80,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
     Route::get('/getMealInputs/{id}', 'SubscriptionController@getMealInputs');
     Route::get('/subscription_meal', 'SubscriptionController@subscription_meal')->name('subscriptions-meal.destroy');
+    Route::GET('deleteMeal/{id}', 'SubscriptionController@deleteMeal');
 
     Route::post('/subscription_disactive/{id}', 'SubscriptionController@subscription_disactive')->name('subscriptions.dis_active');
     Route::get('/subscription_active/{id}', 'SubscriptionController@subscription_active')->name('subscriptions.active');
