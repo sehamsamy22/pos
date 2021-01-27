@@ -112,7 +112,6 @@ class ClientSubscriptionController extends Controller
         $measurements=Measurement::all();
         $subscriptions=Subscription::all();
         $clients=Client::pluck('name','id')->toArray();
-
         $client = Client::find($id);
         $types=TypeMeal::all();
         return view('admin.clients_subscriptions.create',compact('measurements','types','subscriptions','clients','client'));
@@ -120,9 +119,10 @@ class ClientSubscriptionController extends Controller
     }
 
     public function dietsystems($id){
-             $types=TypeMeal::all();
-            $dietsystems=Dietsystem::where('client_subscription_id',$id)->get();
-            $clientSubsription=ClientSubscriptions::find($id);
+        $clientSubsription=ClientSubscriptions::find($id);
+        $types=TypeMeal::all();
+        $dietsystems=Dietsystem::where('client_subscription_id',$clientSubsription->id)->get();
+
         return view('admin.clients_subscriptions.dietsystems',compact('dietsystems','clientSubsription','types'));
 
     }
@@ -166,17 +166,27 @@ class ClientSubscriptionController extends Controller
     public function dietsystems_update(Request $request,$id){
 
         $dietsystems=Dietsystem::where('client_subscription_id',$id)->delete();
-        foreach ($request['meals']  as $mealkey=>$types){
-            foreach($types as $daykey=>$mael){
-                Dietsystem::create([
-                    'client_subscription_id'=>$id,
-                    'meal_id'=>$mael,
-                    'day_No'=>$daykey
-                ]);
+        if(isset($request['meals'])) {
+            foreach ($request['meals'] as $key => $meals) {
+                $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
+                foreach ($meals as $daykey => $mael) {
+                    Dietsystem::create([
+                        'client_subscription_id' => $id,
+                        'meal_id' => $mael,
+                        'day_No' => $key_array[1],
+                        'week' => $key_array[0],
+                    ]);
+                }
             }
         }
-
         return back()->with('success', 'تم تعديل النظام الغذائى بنجاخ ');
     }
+    public function dietsystems_edit($id){
+        $clientSubsription=ClientSubscriptions::find($id);
+        $types=TypeMeal::all();
+        $dietsystems=Dietsystem::where('client_subscription_id',$id)->get();
 
+        return view('admin.clients_subscriptions.dietsystems_edit',compact('dietsystems','clientSubsription','types'));
+
+    }
 }

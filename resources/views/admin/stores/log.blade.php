@@ -44,6 +44,7 @@
                         <th>الكميه </th>
                         <th>النوع </th>
                         <th>العملية   </th>
+                        <th>سعر المنتج   </th>
                         <th>تاريخ العملية  </th>
 
                     </tr>
@@ -100,6 +101,8 @@
                              </a>
                              @endif
                             </td>
+                            <td>{{$row->product->price}}</td>
+
                             <td>{{$row->created_at}}</td>
 
                         </tr>
