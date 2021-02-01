@@ -23,6 +23,10 @@ class Meal extends Model
     {
         return $this->hasMany(MealProduct::class, 'meal_id');
     }
+    public function sizes()
+    {
+        return $this->hasMany(Size::class, 'meal_id');
+    }
 
     public function typeMeal()
     {
