@@ -19,13 +19,13 @@
             @for($i=1;$i<=7;$i++)
                 <td>
                     @foreach(meal_sizes($id,$week,$i,$type->id) as $size)
-                        @if($type->id == $meal->type_id)
+                        @if($type->id == $size->meal->type_id)
 
                             <li style="list style:none">
                                 <input type="radio" id="{{$size->meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$week}}{{$i}}{{$type->id}}][]"   value="{{$size->id}}">
                                 {{$size->name}}
                             </li>
-                        @endisset
+                        @endif
                     @endforeach
                 </td>
             @endfor
