@@ -18,13 +18,13 @@
             <td style="font-weight: 600;">{{ $type->name }}</td>
             @for($i=1;$i<=7;$i++)
                 <td>
-                    @foreach(meals($id,$week,$i,$type->id) as $meal)
+                    @foreach(meal_sizes($id,$week,$i,$type->id) as $size)
                         @if($type->id == $meal->type_id)
 
-                        <li style="list style:none">
-                            <input type="radio" id="{{$meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$week}}{{$i}}{{$type->id}}][]"   value="{{$meal->id}}">
-                            {{$meal->ar_name}}
-                        </li>
+                            <li style="list style:none">
+                                <input type="radio" id="{{$size->meal->id}}_{{$i}}" class="{{$i}}" name="meals[{{$week}}{{$i}}{{$type->id}}][]"   value="{{$size->id}}">
+                                {{$size->name}}
+                            </li>
                         @endisset
                     @endforeach
                 </td>

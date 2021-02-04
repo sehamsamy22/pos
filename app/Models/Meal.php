@@ -81,12 +81,12 @@ public  function existInSystem($sub,$week,$day,$type){
                     $week = 1;
                 }
 
-                $meals_Day = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', $day)->where('week', $week)->pluck('meal_id', 'id')->toArray();
+                $meals_Day = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', $day)->where('week', $week)->pluck('size_id', 'id')->toArray();
                 array_push($meals_Period, $meals_Day);
             }
             foreach ($meals_Period as $key => $meals) {
                 foreach ($meals as $meal) {
-                    if ($meal == $this->id) {
+                    if ($meal == $this->meal_id) {
                         $meal_count++;
                     }
                 }

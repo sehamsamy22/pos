@@ -102,14 +102,14 @@ class Product extends Model
                 }
 
 
-                $meals_Day = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', $day)->where('week', $week)->pluck('meal_id', 'id')->toArray();
+                $meals_Day = Dietsystem::where('client_subscription_id', $subscription->id)->where('day_No', $day)->where('week', $week)->pluck('size_id', 'id')->toArray();
 
                 array_push($meals_Period, $meals_Day);
             }
 
             foreach ($meals_Period as $key => $meals) {
                 foreach ($meals as $meal) {
-                    $mealproduct = MealProduct::where('meal_id', $meal)->where('product_id', $this->id)->first();
+                    $mealproduct = MealProduct::where('size_id', $meal)->where('product_id', $this->id)->first();
                     if (isset($mealproduct)) {
                         $product_count += $mealproduct->quantity;
                     }

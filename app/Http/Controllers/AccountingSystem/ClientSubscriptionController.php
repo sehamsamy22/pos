@@ -40,14 +40,16 @@ class ClientSubscriptionController extends Controller
             'reminder'=>$clientSubsription->total-$clientSubsription->payed,
         ]);
         if(isset($request['meals'])){
-            foreach ($request['meals']  as $key=>$meals){
+            foreach ($request['meals']  as $key=>$sizes){
                 $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
-                foreach($meals as $daykey=>$mael){
+                foreach($sizes as $daykey=>$size){
                     Dietsystem::create([
                         'client_subscription_id'=>$clientSubsription->id,
-                        'meal_id'=>$mael,
+                        'size_id'=>$size->id,
                         'day_No'=>$key_array[1],
                         'week'=>$key_array[0],
+                        'meal_id'=>$size->meal->id,
+
                     ]);
                }
             }

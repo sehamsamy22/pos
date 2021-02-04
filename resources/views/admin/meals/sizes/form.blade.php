@@ -88,6 +88,35 @@
         </thead>
         <tbody class="add-components">
 
+        @if (isset($size))
+            @foreach($size->products as $product)
+                <tr  id="single-product{{$product->id}}" >
+                    <input type="hidden" name="old_product[]" value={{ $product->product->id }}>
+                    <input type="hidden" name="old_product_quantity[]" value={{ $product->quantity }}>
+
+
+
+                    <td class="component-name">{{$product->product->ar_name}}</td>
+                    <td class="component-qty"> {{$product->quantity}}</td>
+                    <td class="component-unit">
+
+                        {{$product->product->units->name ??''}}
+                    </td>
+                    <td class="component-avgcost"> {{$product->avg_cost ??'0'}}</td>
+
+                    <td>
+
+                        <a href="#"  onclick="Delete({{$product->id}})" data-toggle="tooltip" data-id="{{$product->id}}" id='delete-form'{{$product->id}}, class="delete-this-row-component" id="" data-original-title="حذف">
+                            <i class="fa fa-trash-o" style="margin-left: 10px"></i>
+
+                        </a>
+                    </td>
+                </tr>
+
+
+            @endforeach
+        @endif
+
 
         </tbody>
         <tfoot>
@@ -95,8 +124,8 @@
             <td colspan="2"></td>
             <td><span style="    font-size: large;">السعر التقريبى</span>  </td>
             <td class="Approx_price">
-                @if(isset($meal)){{round($meal->approx_price,3)}} @endif
-                <input type="hidden" name="approx_price" id="total" @if(isset($meal)) value="{{round($meal->approx_price,3)}}" @endif>
+                @if(isset($size)){{round($size->size_price,3)}} @endif
+                <input type="hidden" name="approx_price" id="total" @if(isset($size)) value="{{round($size->size_price,3)}}" @endif>
             </td>
 
             <td> </td>

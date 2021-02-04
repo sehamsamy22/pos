@@ -98,7 +98,10 @@ class MealSizeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $size=Size::find($id);
+        $meal=Meal::find($size->id);
+        $products=Product::all();
+        return view('admin.meals.sizes.edit',compact('size','meal','products'));
     }
 
     /**
@@ -110,7 +113,7 @@ class MealSizeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

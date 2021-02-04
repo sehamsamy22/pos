@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Revenue;
 use App\Models\Sale;
 use App\Models\SaleItem;
+use App\Models\Size;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -60,8 +61,6 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-//  dd($request->all());
-
         $sale=Sale::create([
             'user_id'=>Auth::id(),
             'client_id'=>$request['client_id'],
@@ -73,7 +72,6 @@ class SaleController extends Controller
             'payed'=>$request['payed'],
             'payment_type'=>$request['payment_type'],
         ]);
-
         $meals = collect($request['meal_id']);
         $qtys = collect($request['quantity']);
         $prices = collect($request['prices']);
@@ -169,6 +167,13 @@ class SaleController extends Controller
         $meals=Meal::where('sub_category_id',$id)->get();
         return response()->json([
             'data'=>view('admin.sales.meals')->with('meals',$meals)->render()
+        ]);
+    }
+
+    public  function  getAllsizes($id){
+        $sizes=Size::where('meal_id',$id)->get();
+        return response()->json([
+            'data'=>view('admin.sales.sizes')->with('sizes',$sizes)->render()
         ]);
     }
 }

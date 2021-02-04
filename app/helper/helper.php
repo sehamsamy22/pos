@@ -51,7 +51,13 @@ function meals($id,$week,$day,$type_id){
         $meals=\App\Models\Meal::whereIn('id',$subscriptionMeal)->get();
     return $meals;
 }
-
+function meal_sizes($id,$week,$day,$type_id){
+    $subscriptionMeal=SubscriptionMeal::where('subscription_id',$id)
+        ->where('week',$week)->where('day',$day)->pluck('meal_id','id')->toArray();
+    $meal_sizes=\App\Models\Size::whereIn('id',$subscriptionMeal)->get();
+//    dd($meal_sizes);
+    return $meal_sizes;
+}
 function mealsWeek1($id,$day,$type_id){
     $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
         ->where('week','1')->where('day_No',$day)->pluck('meal_id','id')->toArray();

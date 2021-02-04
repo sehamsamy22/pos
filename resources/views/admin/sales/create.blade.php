@@ -257,8 +257,6 @@
                         });
             //**************   subcategory click ***********************
   $(document).on('click','.subcategory_btn',function(e){
-
-
    e.preventDefault();
                 var id=$(this).data('id');
                 $.ajax({
@@ -279,7 +277,34 @@
 
                            });
                                 });
-                    $(".meal_btn").on('click', function(e) {
+
+                }).fail(function (error) {
+                    console.log(error);
+                });
+            });
+            //**************   meals click ***********************
+            $(document).on('click','.meal_btn',function(e){
+                e.preventDefault();
+                var id=$(this).data('id');
+                $.ajax({
+                    url:"/dashboard/getAllSizes/"+id,
+                    type:"get",
+                }).done(function (data) {
+
+                    $('.categories').empty();
+                    $('.categories').html(data.data);
+                    $(document).on('click','#reload',function(){
+
+                        $.ajax({
+                            url:"/dashboard/getAllcategoriesSale/",
+                            type:"get",
+                        }).done(function (data) {
+                            $('.cat').empty().append();
+                            $('.cat').html(data.data);
+
+                        });
+                    });
+                    $(".size_btn").on('click', function(e) {
                         e.preventDefault();
                         var meal_id = $(this).data('id');
                         var meal_name = $(this).data('name');
@@ -328,18 +353,18 @@
                                 $(this).text('0');
                             }
                             var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
-                        //     $.ajax({
-                        //         url:"/dashboard/checkquantity/"+meal_id,
-                        //         type:"get",
-                        //         data:{quantity:theQuantity }
-                        //     }).done(function (data) {
-                        //     if(data.data=='false'){
-                        //         swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
-                        //             buttons: 'موافق'
-                        //         });
-                        //     }
-                        //
-                        // });
+                            //     $.ajax({
+                            //         url:"/dashboard/checkquantity/"+meal_id,
+                            //         type:"get",
+                            //         data:{quantity:theQuantity }
+                            //     }).done(function (data) {
+                            //     if(data.data=='false'){
+                            //         swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
+                            //             buttons: 'موافق'
+                            //         });
+                            //     }
+                            //
+                            // });
                             var quantityXprice = Number(meal_price) * Number(theQuantity);
                             $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice.toFixed(2));
 
@@ -356,7 +381,7 @@
                             var tax_val= Number(AmountBeforeDiscount) * (Number(bill_tax) / 100);
                             $('#tax_val').val(tax_val.toFixed(2));
                             $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
-                           var amount_tax=AmountBeforeDiscount+tax_val;
+                            var amount_tax=AmountBeforeDiscount+tax_val;
                             $("#total").val(amount_tax.toFixed(2));
                             $('#amount_required').val(amount_tax.toFixed(2));
                             $('#payed').val(amount_tax.toFixed(2));
@@ -387,19 +412,18 @@
                                     var reminder= Number($("#amount_required").val()) - Number(payed);
                                     $("#reminder").val(reminder.toFixed(2));
                                 });
-                               });
+                            });
 
 
 
 
                         }
-                     });
+                    });
 
                 }).fail(function (error) {
                     console.log(error);
                 });
             });
-
 
         }).fail(function (error) {
             console.log(error);
