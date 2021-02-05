@@ -142,17 +142,18 @@ else{
     }
 
     public function ready_meals(Request $request,$id){
-        $meal=Meal::find($id);
+        $mealSize=Size::find($id);
         if ($request->has('from') && $request->has('to')) {
 //            dd("sadas");
-            $readymeal = ReadyMeal::where('meal_id', $id)->whereBetween('created_at',[$request['from'],$request['to']])->first();
+            $readymeal = ReadyMeal::where('size_id', $id)->whereBetween('created_at',[$request['from'],$request['to']])->first();
             if (isset($readymeal)) {
                 $readymeal->update([
                     'quantity' => $readymeal->quantity + $request['quantity'],
                 ]);
             } else {
                 ReadyMeal::create([
-                    'meal_id' => $meal->id,
+                    'meal_id' => $mealSize->id,
+                    'size_id' =>$mealSize->meal->id,
                     'quantity' => $request['quantity'],
                     'date' => Carbon::today(),
                 ]);

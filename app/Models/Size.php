@@ -68,5 +68,11 @@ class Size extends Model
         return $meal_count;
 
     }
+    public function readymeals($id, $request)
+    {
+        $qty = ReadyMeal::where('size_id', $id)
+            ->whereBetween('date', [$request['from'], $request['to']])->sum('quantity');
+        return $qty;
+    }
 
 }

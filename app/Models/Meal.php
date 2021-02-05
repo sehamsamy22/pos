@@ -33,11 +33,7 @@ class Meal extends Model
         return $this->belongsTo(TypeMeal::class, 'type_id');
     }
 
-    public function readymeals($id, $request)
-    {
-        $qty = ReadyMeal::where('meal_id', $id)->whereBetween('date', [$request['from'], $request['to']])->sum('quantity');
-        return $qty;
-    }
+
 
 public  function existInSystem($sub,$week,$day,$type){
         $exist=Dietsystem::where('client_subscription_id',$sub)->where('meal_id',$this->id)->where('day_No',$day)->where('week',$week)->first();

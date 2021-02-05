@@ -118,8 +118,8 @@
                                                    value={{$row->orders($row->id ,$request ?? Null) }}  readonly></td>
                                         <td>
 
-{{--                                            <input type='number' class="form-control" id="readyquantity{{$row->id}}"--}}
-{{--                                                   value="{{$row->readymeals($row->id ,$request ?? Null) }}" readonly>--}}
+                                            <input type='number' class="form-control" id="readyquantity{{$row->id}}"
+                                                   value="{{$row->readymeals($row->id ,$request ?? Null) }}" readonly>
                                         </td>
 
                                         <td class="ready_btn{{$row->id}}">
