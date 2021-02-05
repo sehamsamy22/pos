@@ -196,7 +196,7 @@
                                                                     @if($type->id == $size->meal->type_id)
                                                                         <li style="list style:none">
 
-                                                                            {{$meal->name}}
+                                                                            {{$size->name}}
                                                                         </li>
                                                                     @endif
                                                                 @endforeach
