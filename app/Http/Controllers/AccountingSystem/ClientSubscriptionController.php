@@ -11,6 +11,7 @@ use App\Models\Meal;
 use App\Models\Measurement;
 use App\Models\Revenue;
 use App\Models\Revnue;
+use App\Models\Size;
 use App\Models\SubscriptionMeal;
 use App\Models\Subscription;
 use App\Models\TypeMeal;
@@ -43,12 +44,13 @@ class ClientSubscriptionController extends Controller
             foreach ($request['meals']  as $key=>$sizes){
                 $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
                 foreach($sizes as $daykey=>$size){
+                    $sizemeal=Size::find($size);
                     Dietsystem::create([
                         'client_subscription_id'=>$clientSubsription->id,
-                        'size_id'=>$size->id,
+                        'size_id'=>$size,
                         'day_No'=>$key_array[1],
                         'week'=>$key_array[0],
-                        'meal_id'=>$size->meal->id,
+                        'meal_id'=>$sizemeal->meal->id,
 
                     ]);
                }

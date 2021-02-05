@@ -86,11 +86,11 @@
                                                         <td style="font-weight: 600;">{{ $type->name }}</td>
                                                         @for($i=1;$i<=7;$i++)
                                                             <td>
-                                                                @foreach(mealsWeek1($clientSubsription->id,$i,$type->id) as $meal)
-                                                                    @if($type->id == $meal->type_id)
+                                                                @foreach(mealsWeek1($clientSubsription->id,$i,$type->id) as $size)
+                                                                    @if($type->id == $size->meal->type_id)
                                                                         <li style="list style:none">
 
-                                                                            {{$meal->ar_name}}
+                                                                            {{$size->name}}
                                                                         </li>
                                                                     @endif
                                                                 @endforeach
@@ -122,10 +122,10 @@
                                                         @for($i=1;$i<=7;$i++)
                                                             <td>
                                                                 @foreach(mealsWeek2($clientSubsription->id,$i,$type->id) as $meal)
-                                                                    @if($type->id == $meal->type_id)
+                                                                    @if($type->id == $size->meal->type_id)
                                                                         <li style="list style:none">
 
-                                                                            {{$meal->ar_name}}
+                                                                            {{$size->name}}
                                                                         </li>
                                                                     @endif
                                                                 @endforeach
@@ -157,10 +157,10 @@
                                                         <td style="font-weight: 600;">{{ $type->name }}</td>
                                                         @for($i=1;$i<=7;$i++)
                                                             <td>
-                                                                @foreach(mealsWeek3($clientSubsription->id,$i,$type->id) as $meal)
-                                                                    @if($type->id == $meal->type_id)
+                                                                @foreach(mealsWeek3($clientSubsription->id,$i,$type->id) as $size)
+                                                                    @if($type->id == $size->meal->type_id)
                                                                         <li style="list style:none">
-                                                                            {{$meal->ar_name}}
+                                                                            {{$size->name}}
                                                                         </li>
                                                                     @endif
                                                                 @endforeach
@@ -192,11 +192,11 @@
                                                         <td style="font-weight: 600;">{{ $type->name }}</td>
                                                         @for($i=1;$i<=7;$i++)
                                                             <td>
-                                                                @foreach(mealsWeek4($clientSubsription->id,$i,$type->id) as $meal)
-                                                                    @if($type->id == $meal->type_id)
+                                                                @foreach(mealsWeek4($clientSubsription->id,$i,$type->id) as $size)
+                                                                    @if($type->id == $size->meal->type_id)
                                                                         <li style="list style:none">
 
-                                                                            {{$meal->ar_name}}
+                                                                            {{$meal->name}}
                                                                         </li>
                                                                     @endif
                                                                 @endforeach

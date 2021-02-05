@@ -60,27 +60,28 @@ function meal_sizes($id,$week,$day,$type_id){
 }
 function mealsWeek1($id,$day,$type_id){
     $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
-        ->where('week','1')->where('day_No',$day)->pluck('meal_id','id')->toArray();
-    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+        ->where('week','1')->where('day_No',$day)->pluck('size_id','id')->toArray();
+    $meals=\App\Models\Size::whereIn('id',$systemMeal)->get();
+
     return $meals;
 }
 
 function mealsWeek2($id,$day,$type_id){
     $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
-        ->where('week','2')->where('day_No',$day)->pluck('meal_id','id')->toArray();
-    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+        ->where('week','2')->where('day_No',$day)->pluck('size_id','id')->toArray();
+    $meals=\App\Models\Size::whereIn('id',$systemMeal)->get();
     return $meals;
 }
 function mealsWeek3($id,$day,$type_id){
     $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
-        ->where('week','3')->where('day_No',$day)->pluck('meal_id','id')->toArray();
-    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+        ->where('week','3')->where('day_No',$day)->pluck('size_id','id')->toArray();
+    $meals=\App\Models\Size::whereIn('id',$systemMeal)->get();
     return $meals;
 }
 function mealsWeek4($id,$day,$type_id){
     $systemMeal=\App\Models\Dietsystem::where('client_subscription_id',$id)
-        ->where('week','4')->where('day_No',$day)->pluck('meal_id','id')->toArray();
-    $meals=\App\Models\Meal::whereIn('id',$systemMeal)->get();
+        ->where('week','4')->where('day_No',$day)->pluck('size_id','id')->toArray();
+    $meals=\App\Models\Size::whereIn('id',$systemMeal)->get();
     return $meals;
 }
 
