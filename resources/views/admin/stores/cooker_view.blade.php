@@ -105,21 +105,21 @@
                             </thead>
                             <tbody>
                             @php $i = 1; @endphp
-                            @foreach($meals as $row)
+                            @foreach($sizes as $row)
                                 @if($row->orders($row->id ,$request ?? Null)!=0)
                                 <form id="formready-{{$row->id}}">
                                     @csrf
 
                                     <tr>
                                         <td>{{$i++}}</td>
-                                        <td>{{$row->ar_name}}</td>
+                                        <td>{{$row->name}}</td>
                                         <td>
                                             <input type='number' class="form-control" name='quantity'
                                                    value={{$row->orders($row->id ,$request ?? Null) }}  readonly></td>
                                         <td>
 
-                                            <input type='number' class="form-control" id="readyquantity{{$row->id}}"
-                                                   value="{{$row->readymeals($row->id ,$request ?? Null) }}" readonly>
+{{--                                            <input type='number' class="form-control" id="readyquantity{{$row->id}}"--}}
+{{--                                                   value="{{$row->readymeals($row->id ,$request ?? Null) }}" readonly>--}}
                                         </td>
 
                                         <td class="ready_btn{{$row->id}}">

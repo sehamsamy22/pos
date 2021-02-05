@@ -39,18 +39,6 @@ class Meal extends Model
         return $qty;
     }
 
-//    function quantity_meal($meals, $meal_count, $ferq)
-//    {
-//
-//        foreach ($meals as $meal) {
-//            if ($meal == $this->id) {
-//                $meal_count++;
-//            }
-//        }
-//
-//        return $meal_count;
-//    }
-
 public  function existInSystem($sub,$week,$day,$type){
         $exist=Dietsystem::where('client_subscription_id',$sub)->where('meal_id',$this->id)->where('day_No',$day)->where('week',$week)->first();
        return $exist;

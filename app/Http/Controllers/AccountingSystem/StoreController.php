@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductLog;
 use App\Models\ReadyMeal;
 use App\Models\ReceivedProduct;
+use App\Models\Size;
 use App\Models\StoreProduct;
 use App\Models\Subscription;
 use App\Models\SubscriptionMeal;
@@ -89,20 +90,20 @@ else{
         if ($request->has('from') && $request->has('to')) {
             $subcriptipns_id=ClientSubscriptions::where('active','1')
             ->pluck('id')->toArray();
-            $meals_=Dietsystem::whereIn('client_subscription_id',$subcriptipns_id)
-                ->pluck('meal_id','id')->toArray();
-            $meals=Meal::whereIn('id',$meals_)->get();
-            $meals_id=Meal::whereIn('id',$meals_)->pluck('id','id')->toArray();
-            $products=MealProduct::whereIn('meal_id',$meals_id)->pluck('product_id','id')->toArray();
+            $sizes_=Dietsystem::whereIn('client_subscription_id',$subcriptipns_id)
+                ->pluck('size_id','id')->toArray();
+            $sizes=Size::whereIn('id',$sizes_)->get();
+            $sizes_id=Size::whereIn('id',$sizes_)->pluck('id','id')->toArray();
+            $products=MealProduct::whereIn('size_id',$sizes_id)->pluck('product_id','id')->toArray();
             $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
 //        dd($meals);
         }else
         {
             $storeproducts=[];
-            $meals=[];
+            $sizes=[];
 
         }
-        return view('admin.stores.cooker_view',compact('storeproducts','meals','request'));
+        return view('admin.stores.cooker_view',compact('storeproducts','sizes','request'));
 
     }
 
