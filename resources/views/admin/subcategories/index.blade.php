@@ -42,7 +42,7 @@
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->name}}</td>
-                            <td>{{$row->category->name}}</td>
+                            <td>{{$row->category->name ??''}}</td>
                             <td>@if(isset($row->image))<img src="{!! getimg($row->image)!!}" style="width:100px; height:100px"> @endif</td>
 
                             <td>
