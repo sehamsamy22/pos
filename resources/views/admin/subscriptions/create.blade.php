@@ -9,9 +9,9 @@
         .meals_span{
             float: left;
         }
-        .deleteRecord{
-       float: right;
-        }
+       /* .deleteRecord{*/
+       /*float: right;*/
+       /* }*/
 
     </style>
 @endsection
@@ -109,12 +109,12 @@ function myFun(event,id) {
     var appendMealShow=[];
          appendMeals[id] = values.map(function(meal) {
             return (`
+           <input type="hidden" name="meals[${id}][]" value="${meal.meal_id}" >
 
             <li>
            ${meal.meal_type}: ${meal.meal_name}
             </li>
 
-           <input type="hidden" name="meals[${id}][]" value="${meal.meal_id}" >
 
 
         `);
@@ -132,7 +132,7 @@ function myFun(event,id) {
         `);
     });
    $('#add-meals'+id).append(appendMeals[id]);
-    $('#show-meals'+id).append(appendMealShow[id]);
+    $('#show-meals'+id).empty().append(appendMealShow[id]);
     $('.delete-this-row').click(function(e) {
             var $this = $(this);
             var row_index = $(this).parents('li').index();
