@@ -111,6 +111,7 @@ class MealController extends Controller
         $units=Unit::pluck('name','id')->toArray();
         $types=TypeMeal::pluck('name','id')->toArray();
         $subcategory=SubCategory::find($meal->sub_category_id);
+        dd($subcategory->category_id);
         $categoryId=$subcategory->category_id;
         return view('admin.meals.edit',compact('meal','categories','products','categoryId','types','units'));
 
