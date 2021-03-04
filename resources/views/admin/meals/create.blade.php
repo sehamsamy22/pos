@@ -90,7 +90,17 @@
                     buttons: ["موافق"],
                     dangerMode: true,
                 })
+                // $('#exampleModalLabel').modal('hide');
+                $('#exampleModal').on('hidden.bs.modal', function (e) {
 
+                    $(this)
+                        .find("input,textarea,select")
+                        .val('')
+                        .end()
+                        .find("input[type=checkbox], input[type=radio]")
+                        .prop("checked", "")
+                        .end();
+                })
                 bigDataComponent.push(component_data);
                 $("#componentTable-wrap").show();
                 var  unit;
@@ -126,6 +136,7 @@
 
                 $(".Approx_price").html(TotalValue.toFixed(2));
                 $("#total").val(TotalValue.toFixed(2));
+
                 /////////////////////////////////////////////////////
                 $('.delete-this-row-component').click(function(e) {
                     var $this = $(this);
