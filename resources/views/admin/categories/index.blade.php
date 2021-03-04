@@ -71,7 +71,7 @@
                     console.log(item_id);
                     swal({
                         title: "هل أنت متأكد ",
-                        text: "هل تريد حذف هذا المستخدم ؟",
+                        text: "هل تريد حذف هذا التصنيف ؟",
                         icon: "warning",
                         buttons: ["الغاء", "موافق"],
                         dangerMode: true,
@@ -81,7 +81,7 @@
                             document.getElementById('delete-form'+item_id).submit();
                         }
                         else{
-                            swal("تم االإلفاء", "حذف  المستخدم  تم الغاؤه",'info',{buttons:'موافق'});
+                            swal("تم االإلفاء", "حذف  التصنيف  تم الغاؤه",'info',{buttons:'موافق'});
                         }
                     });
                 }
