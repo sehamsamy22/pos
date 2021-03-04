@@ -72,7 +72,7 @@
                     console.log(item_id);
                     swal({
                         title: "هل أنت متأكد ",
-                        text: "هل تريد حذف هذا المستخدم ؟",
+                        text: "هل تريد حذف هذا التصنيف الفرعى ؟",
                         icon: "warning",
                         buttons: ["الغاء", "موافق"],
                         dangerMode: true,
