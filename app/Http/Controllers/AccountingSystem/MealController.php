@@ -110,7 +110,7 @@ class MealController extends Controller
         $products=Product::all();
         $units=Unit::pluck('name','id')->toArray();
         $types=TypeMeal::pluck('name','id')->toArray();
-        dd($meal->sub_category_id);
+
         $subcategory=SubCategory::findOrFail($meal->sub_category_id);
         dd($subcategory);
         $categoryId=$subcategory->category_id;
