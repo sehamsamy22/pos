@@ -111,7 +111,7 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-pizza"></i><span>إدارة المخزون </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>قائمةالأصناف</a></li>
+{{--                        <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>قائمةالأصناف</a></li>--}}
                         <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>قائمة المنتجات </a></li>
                         <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  المخزون </a></li>
                         <li><a href="{{route('dashboard.revenues.store_out_index')}}"><i class="zmdi zmdi-view-list"></i> سندات الاخراج </a></li>
