@@ -45,14 +45,14 @@
         </div>
     </div>
 </div>  --}}
-<div class="col-sm-6 col-xs-6  pull-left">
-    <div class="form-group form-float">
-        <label class="form-label">    نوع الوجبة</label>
-        <div class="form-line">
-            {!! Form::select("type_id",$types,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  نوع الوجبة  ','id'=>'type_id'])!!}
-        </div>
-    </div>
-</div>
+{{--<div class="col-sm-6 col-xs-6  pull-left">--}}
+{{--    <div class="form-group form-float">--}}
+{{--        <label class="form-label">    نوع الوجبة</label>--}}
+{{--        <div class="form-line">--}}
+{{--            {!! Form::select("type_id",$types,null,['class'=>'form-control js-example-basic-single','required','placeholder'=>' اختر  نوع الوجبة  ','id'=>'type_id'])!!}--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <div class="clearfix"></div>
 {{--<div class="col-sm-12 col-xs-12  pull-right">--}}
 {{--    <div class="form-group form-float">--}}
@@ -177,122 +177,46 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="">مكونات الوجبة </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <label> اسم المكون</label>
-                <span class="required--in">*</span>
+{{--<!-- Modal -->--}}
+{{--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+{{--    <div class="modal-dialog" role="document">--}}
+{{--        <div class="modal-content">--}}
+{{--            <div class="modal-header">--}}
+{{--                <h5 class="modal-title" id="">مكونات الوجبة </h5>--}}
+{{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                    <span aria-hidden="true">&times;</span>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+{{--            <div class="modal-body">--}}
+{{--                <label> اسم المكون</label>--}}
+{{--                <span class="required--in">*</span>--}}
 {{--                {!! Form::select("product_id",$products,null,['class'=>'form-control js-example-basic-single','id'=>'component_name'])!!}--}}
 
-                <select class="form-control js-example-basic-single"
-                        id="component_name"
-                        data-parsley-trigger="select"
-                        name="product_id[]"
-                        data-parsley-required-message="ادخل اسم الصنف">
-                    <option value="" selected disabled>اختر الصنف</option>
-                    @foreach ($products  as $product)
-                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name ??''}}"  data-avgcost="{{$product->avg_cost}}" value="{{$product->id}}">{{$product->ar_name}}</option>
-                    @endforeach
-                </select>
-                <label>الوحدة</label>
-                <input type="text" class="form-control" id="unit" disabled>
+{{--                <select class="form-control js-example-basic-single"--}}
+{{--                        id="component_name"--}}
+{{--                        data-parsley-trigger="select"--}}
+{{--                        name="product_id[]"--}}
+{{--                        data-parsley-required-message="ادخل اسم الصنف">--}}
+{{--                    <option value="" selected disabled>اختر الصنف</option>--}}
+{{--                    @foreach ($products  as $product)--}}
+{{--                        <option  data-price="{{$product->price}}" id="component_name" data-unit="{{$product->units->name ??''}}"  data-avgcost="{{$product->avg_cost}}" value="{{$product->id}}">{{$product->ar_name}}</option>--}}
+{{--                    @endforeach--}}
+{{--                </select>--}}
+{{--                <label>الوحدة</label>--}}
+{{--                <input type="text" class="form-control" id="unit" disabled>--}}
 
-                <label> الكمية</label>
-                <span class="required--in">*</span>
-                <input type="text" class="form-control" id="component_quantity">
+{{--                <label> الكمية</label>--}}
+{{--                <span class="required--in">*</span>--}}
+{{--                <input type="text" class="form-control" id="component_quantity">--}}
 {{--                <label> الوحدة </label>--}}
 {{--                <span class="required--in">*</span>--}}
 {{--                {!! Form::select("unit",['kilo'=>'كيلو','gram'=>'جرام','liter'=>'لتر'],null,['class'=>'form-control js-example-basic-single','id'=>'main_unit'])!!}--}}
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="myFun2(event)">اضافة </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="clearfix"></div>
-<!-- component table-->
-<div class="table-striped" id="componentTable-wrap">
-    <table class="table table-striped table-bordered" >
-        <thead>
-        <tr>
-            <th> اسم الصنف</th>
-            <th>الكمية</th>
-            <th>الوحدة </th>
-            <th>متوسط التكلفة </th>
-            <th>العمليات</th>
-        </tr>
-        </thead>
-        <tbody class="add-components">
-        @if (isset($meal))
-            @foreach($meal->products as $product)
-                    <tr  id="single-product{{$product->id}}" >
-                        <input type="hidden" name="old_product[]" value={{ $product->product->id }}>
-                        <input type="hidden" name="old_product_quantity[]" value={{ $product->quantity }}>
+{{--            </div>--}}
 
-
-
-                        <td class="component-name">{{$product->product->ar_name}}</td>
-                        <td class="component-qty"> {{$product->quantity}}</td>
-                        <td class="component-unit">
-{{--                            @if($product->product->unit=='kilo')--}}
-{{--                             كيلو--}}
-{{--                            @elseif($product->product->unit=='gram')--}}
-{{--                            جرام--}}
-{{--                            @elseif($product->product->unit=='liter')--}}
-{{--                            لتر--}}
-{{--                            @elseif($product->product->unit=='unit')--}}
-{{--                            حبة--}}
-{{--                            @elseif($product->product->unit=='backet')--}}
-{{--                            حبة--}}
-{{--                            @endif--}}
-                            {{$product->product->units->name ??''}}
-                        </td>
-                        <td class="component-avgcost"> {{$product->avg_cost ??'0'}}</td>
-
-                        <td>
-
-                            <a href="#"  onclick="Delete({{$product->id}})" data-toggle="tooltip" data-id="{{$product->id}}" id='delete-form'{{$product->id}}, class="delete-this-row-component" id="" data-original-title="حذف">
-                                <i class="fa fa-trash-o" style="margin-left: 10px"></i>
-{{--                                {!!Form::open( ['route' => ['dashboard.meals-products.destroy',$produ1
-ct->id] ,'id'=>'delete-form'.$product->id, 'method' => 'Delete']) !!}--}}
-{{--                                {!!Form::close() !!}--}}
-                            </a>
-                        </td>
-                    </tr>
-
-
-            @endforeach
-        @endif
-
-
-        </tbody>
-        <tfoot>
-        <tr style="background-color: #aec9dc;">
-            <td colspan="2"></td>
-            <td><span style="    font-size: large;">السعر التقريبى</span>  </td>
-            <td class="Approx_price">
-                @if(isset($meal)){{round($meal->approx_price,3)}} @endif
-                <input type="hidden" name="approx_price" id="total" @if(isset($meal)) value="{{round($meal->approx_price,3)}}" @endif>
-            </td>
-
-            <td> </td>
-
-        </tr>
-        </tfoot>
-    </table>
-</div>
-<!-- end table-->
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <div class="form-group  col-sm-12">
     <button class="btn btn-primary waves-effect col-sm-12" type="submit">حفظ</button>

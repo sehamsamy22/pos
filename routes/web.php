@@ -66,6 +66,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('store-out-show/{id}', 'RevenueController@store_out_show')->name('revenues.store_out_sanad_show');
 
     route::resource('revenues', 'RevenueController');
+    route::resource('discounts', 'DiscountController');
     route::any('/filter-payments', 'RevenueController@index')->name('revenues.filter');
     route::any('/filter-entriy', 'EntryController@filter')->name('entries.filter');
     route::get('client_log/{id}', 'StoreController@client_log')->name('stores.client_log');
