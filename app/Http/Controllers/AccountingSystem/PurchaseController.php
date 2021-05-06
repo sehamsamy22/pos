@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RevenueOperation;
+use App\Models\Discount;
+use App\Models\Meal;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseItem;
@@ -45,9 +47,10 @@ class PurchaseController extends Controller
     public function create()
     {
         $suppliers=Supplier::pluck('name','id')->toArray();
-        $products=Product::all();
+        $meals=Meal::all();
+        $discounts=Discount::all();
         $purchaselast=Purchase::latest()->first();
-        return view('admin.purchases.create',compact('suppliers','products','purchaselast'));
+        return view('admin.purchases.create',compact('suppliers','meals','purchaselast','discounts'));
 
     }
 
@@ -71,19 +74,21 @@ class PurchaseController extends Controller
                 'total'=>$request['total'],
                 'payed'=>$request['payed'],
                 'reminder'=>$request['total']-$request['payed'],
-            ]);
-        $products = collect($request['product_id']);
+               'discount_id'=>$request['discount_id'],
+
+         ]);
+        $meals = collect($request['meal_id']);
         $qtys = collect($request['quantity']);
         $prices = collect($request['prices']);
         $itemTax = collect($request['taxs']);
         $discounts= collect($request['discounts']);
 
-        $items = $products->zip($qtys,$prices,$itemTax,$discounts);
+        $items = $meals->zip($qtys,$prices,$itemTax,$discounts);
 
         foreach ($items  as $item){
             PurchaseItem::create([
                 'purchase_id'=>$purchase->id,
-                'product_id'=>$item[0],
+                'meal_id'=>$item[0],
                 'quantity'=>$item[1],
                 'total_price'=>$item[1]*$item[2],
                 'tax'=>$item[3],

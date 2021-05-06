@@ -108,7 +108,13 @@
                                         <label class="form-label"> نسبةالخصم</label>
                                         <span class="required--in">%</span>
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="discount" id="discount">
+                                            <select name="discount_id"  class="form-control" id="discount" >
+                                                @foreach($discounts as $discount)
+                                                    <option  value="{{$discount->id}}"     data-value="{{$discount->value}}"
+                                                    > {{$discount->name}}</option>
+                                                @endforeach
+                                            </select>
+{{--                                            <input type="text" class="form-control" name="discount" id="discount">--}}
                                         </div>
                                     </div>
                                 </div>
@@ -392,7 +398,8 @@
                                 $("#reminder").val(reminder.toFixed(2));
                             });
                             $("#discount").change(function() {
-                                var discount=$(this).val();
+                                var selectedDiscount = $(this).find(":selected");
+                                var discount = selectedDiscount.data('value');
                                 var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
                                 var all= Number(AmountBeforeDiscount)-Number(discount_val)
 

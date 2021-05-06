@@ -53,6 +53,7 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
+
 <div class="clearfix"></div>
 {{--<div class="col-sm-12 col-xs-12  pull-right">--}}
 {{--    <div class="form-group form-float">--}}

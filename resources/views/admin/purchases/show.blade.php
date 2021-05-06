@@ -73,7 +73,7 @@
                                             <table class="table m-t-30">
                                                 <thead>
                                                 <tr><th>#</th>
-                                                    <th>اسم الصنف</th>
+                                                    <th>اسم المنتج</th>
                                                     <th>الوحدة</th>
                                                     <th>الكمية</th>
                                                     <th>السعر </th>
@@ -87,10 +87,10 @@
                                                 @foreach($items as $row)
                                                 <tr>
                                                     <td>{{$i++}}</td>
-                                                    <td>{{$row->product->ar_name}}</td>
-                                                    <td>@if($row->product->unit=='kilo')
+                                                    <td>{{$row->meal->ar_name}}</td>
+                                                    <td>@if($row->meal->unit=='kilo')
                                                             كيلو
-                                                        @elseif($row->product->unit=='gram')
+                                                        @elseif($row->meal->unit=='gram')
                                                             جرام
                                                         @else
                                                             لتر

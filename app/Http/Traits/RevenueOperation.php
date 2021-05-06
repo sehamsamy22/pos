@@ -11,7 +11,7 @@ use App\Models\ProductLog;
 use App\Models\Revenue;
 use App\Models\RevenueProduct;
 use App\Models\Sale;
-use App\Models\StoreProduct;
+use App\Models\StoreMeal;
 use Illuminate\Http\Request;
 
 trait RevenueOperation
@@ -352,7 +352,7 @@ trait RevenueOperation
             foreach($request['quantity'] as $product_id=>$quantity )
             {
 
-                $storeProduct=StoreProduct::where('product_id',$product_id)->first();
+                $storeProduct=StoreMeal::where('product_id',$product_id)->first();
                 if($storeProduct->quantity-$quantity >0){
                     $storeProduct->update([
                         'quantity'=>$storeProduct->quantity -$quantity,

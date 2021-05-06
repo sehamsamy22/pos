@@ -150,6 +150,13 @@ function allstores()
     return $stores;
 }
 
+//function discounts()
+//{
+//    $discounts = \App\Models\Discount::all()->mapWithKeys(function ($q) {
+//        return [$q['id'] => $q['name']];
+//    });
+//    return $discounts;
+//}
 
 function stores_to($id=Null)
 

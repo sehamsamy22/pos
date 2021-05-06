@@ -74,18 +74,18 @@
                     <div class="col-sm-4 col-xs-4  pull-right">
                         <div class="form-group form-float">
                             <div class="form-line">
-                                <select class="form-control js-example-basic-single product_id"  name="product_id" placeholder="اختر اسم الصنف" >
-                                    <option value="" > بحث باركود الصنف</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{$product->id}}"
-                                                data-name="{{$product->ar_name}}"
-                                                data-price="{{$product->price}}"
-                                                data-lastprice="{{$product->lastPrice() }}"
-                                                data-barcode="{{$product->barcode}}"
-                                                data-unit="{{$product->units->name ??''}}"
+                                <select class="form-control js-example-basic-single meal_id"  name="meal_id" placeholder="اختر اسم المنتج" >
+                                    <option value="" > بحث باركود المنتج</option>
+                                    @foreach ($meals as $meal)
+                                        <option value="{{$meal->id}}"
+                                                data-name="{{$meal->ar_name}}"
+                                                data-price="{{$meal->price}}"
+                                                data-lastprice="{{$meal->lastPrice() }}"
+                                                data-barcode="{{$meal->barcode}}"
+                                                data-unit="{{$meal->units->name ??''}}"
                                             {{--                                                data-link= "{{route('dashboard.products.show',['id'=>$product->id])}}"--}}
                                         >
-                                            {{$product->barcode}}
+                                            {{$meal->barcode}}
                                         </option>
                                     @endforeach
 
@@ -96,18 +96,18 @@
                     <div class="col-sm-4 col-xs-4  pull-right">
                         <div class="form-group form-float">
                             <div class="form-line">
-                                <select class="form-control js-example-basic-single product_id"  name="product_id" placeholder="اختر اسم الصنف" >
-                                    <option value="" > بحث بإسم الصنف</option>
-                                @foreach ($products as $product)
-                                        <option value="{{$product->id}}"
-                                                data-name="{{$product->ar_name}}"
-                                                data-price="{{$product->price}}"
-                                                data-lastprice="{{$product->lastPrice() }}"
-                                                data-barcode="{{$product->barcode}}"
-                                                data-unit="{{$product->units->name ??''}}"
+                                <select class="form-control js-example-basic-single meal_id"  name="meal_id" placeholder="اختر اسم المنتج" >
+                                    <option value="" > بحث بإسم المنتج</option>
+                                @foreach ($meals as $meal)
+                                        <option value="{{$meal->id}}"
+                                                data-name="{{$meal->ar_name}}"
+                                                data-price="{{$meal->price}}"
+                                                data-lastprice="{{$meal->lastPrice() }}"
+                                                data-barcode="{{$meal->barcode}}"
+                                                data-unit="{{$meal->units->name ??''}}"
 {{--                                                data-link= "{{route('dashboard.products.show',['id'=>$product->id])}}"--}}
                                         >
-                                            {{$product->ar_name}}
+                                            {{$meal->ar_name}}
                                         </option>
                                 @endforeach
                                 </select>
@@ -119,7 +119,7 @@
                         <thead>
                         <tr>
                             <th  width="40">م</th>
-                            <th rowspan="2"  width="70">اسم الصنف</th>
+                            <th rowspan="2"  width="70">اسم المنتج</th>
                             <th rowspan="2"  width="70">الوحدة</th>
                             <th rowspan="2"  width="70">الكمية</th>
                             <th rowspan="3"  width="70">سعر الوحدة</th>
@@ -151,7 +151,14 @@
                                 <label class="form-label"> نسبةالخصم</label>
                                 <span class="required--in">%</span>
                                 <div class="form-line">
-                                    <input type="text" class="form-control" name="bill_discount" id="bill_discount">
+                                    <select name="discount_id"  class="form-control" id="bill_discount" >
+                                        @foreach($discounts as $discount)
+                                        <option  value="{{$discount->id}}"     data-value="{{$discount->value}}"
+                                        > {{$discount->name}}</option>
+                                        @endforeach
+                                    </select>
+
+{{--                                    <input type="text" class="form-control" name="bill_discount" id="bill_discount">--}}
                                 </div>
                             </div>
                             <div class="form-group form-float">
@@ -260,7 +267,7 @@
        var rowNum = 0;
        var unit;
 
-       $(".product_id").on('change', function() {
+       $(".meal_id").on('change', function() {
         var id = $(this).val();
         rowNum++;
         var selectedProduct = $(this).find(":selected");
@@ -282,7 +289,7 @@
        // }
         $(".bill-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
 							<td class="row-num" width="40">${rowNum}</td>
-                            <input type="hidden" name="product_id[${ProductId}]" value="${ProductId}">
+                            <input type="hidden" name="meal_id[${ProductId}]" value="${ProductId}">
 							<td class="product-name " width="190">${productName}-${barCode}</td>
 							<td class="product-unit " width="70">${productUnit}</td>
 							<td class="product-quantity " width="40">
@@ -414,8 +421,10 @@
 
                $("#amountBeforeDariba1").val(amountBeforeDariba);
                $("#bill_discount").change(function() {
-                   var bill_discount=$(this).val();
-                   $('#bill_discount').val(bill_discount);
+                   var selectedDiscount = $(this).find(":selected");
+                   var bill_discount = selectedDiscount.data('value');
+
+                   $('#bill_discount').val(Number(bill_discount));
                     var discount_val= (Number(amountBeforeDariba)*(Number(bill_discount))/100);
                     var new_bill_tax=((Number(amountBeforeDariba)-Number(discount_val))*bill_tax)/100;
                    $("#tax").val(Number(new_bill_tax).toFixed(2));

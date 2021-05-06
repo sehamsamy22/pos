@@ -26,7 +26,6 @@
 
 
                 <h4 class="header-title m-t-0 m-b-30">بيانات التصنيف الفرعى</h4>
-
                 <div class="row">
 
 

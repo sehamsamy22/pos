@@ -64,7 +64,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('store-out-index', 'RevenueController@store_out_index')->name('revenues.store_out_index');
     route::any('store-out-index', 'RevenueController@store_out_index')->name('revenues.store_out_filter');
     route::get('store-out-show/{id}', 'RevenueController@store_out_show')->name('revenues.store_out_sanad_show');
-
+    route::resource('inventories', 'InventoryController');
     route::resource('revenues', 'RevenueController');
     route::resource('discounts', 'DiscountController');
     route::any('/filter-payments', 'RevenueController@index')->name('revenues.filter');

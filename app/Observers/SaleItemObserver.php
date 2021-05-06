@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\ProductLog;
 use App\Models\SaleItem;
-use App\Models\StoreProduct;
+use App\Models\StoreMeal;
 
 class SaleItemObserver
 {
@@ -17,27 +17,20 @@ class SaleItemObserver
     public function created(SaleItem $saleItem)
     {
         // dd($saleItem->meal->products);
-        foreach ($saleItem->meal->products as $mealproduct) {
-
-            $storeProduct = StoreProduct::where('product_id', $mealproduct->product_id)->first();
-            if ($storeProduct) {
-
-                if ($storeProduct->quantity - $saleItem->quantity > 0) {
-
-                    $storeProduct->quantity -= $mealproduct->quantity * $saleItem->quantity;
-
-                    $storeProduct->update([
-                        'quantity' => $storeProduct->quantity > 0 ? $storeProduct->quantity : 0
-                    ]);
-                }
-
-                ProductLog::create([
-                    'product_id' => $mealproduct->product_id,
-                    'bill_id' => $saleItem->sale_id,
-                    'operation' => 'sales',
-                    'quantity' => $mealproduct->quantity
+        {
+            $storeMeal=StoreMeal::where('meal_id',$saleItem->meal_id)->first();
+            if(isset($storeMeal)){
+                $storeMeal->quantity -=$saleItem->quantity;
+                $storeMeal->update([
+                    'quantity'=>$storeMeal->quantity
                 ]);
             }
+//                ProductLog::create([
+//                    'product_id' => $mealproduct->product_id,
+//                    'bill_id' => $saleItem->sale_id,
+//                    'operation' => 'sales',
+//                    'quantity' => $mealproduct->quantity
+//                ]);
 
 
         }
@@ -87,7 +80,7 @@ class SaleItemObserver
     {
         foreach($saleItem->meal->products() as $mealproduct){
 
-            $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
+            $storeProduct=StoreMeal::where('product_id',$mealproduct->product_id)->first();
                 $storeProduct->quantity +=$mealproduct->quantity*$saleItem->quantity;
                 $storeProduct->update([
                     'quantity'=>$storeProduct->quantity

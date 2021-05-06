@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AccountingSystem;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\Discount;
 use App\Models\Meal;
 use App\Models\Product;
 use App\Models\Revenue;
@@ -49,7 +50,8 @@ class SaleController extends Controller
         $products=Product::all();
         $categories=Category::all();
         $salelast=Sale::latest()->first();
-        return view('admin.sales.create',compact('clients','products','categories','salelast'));
+        $discounts=Discount::all();
+        return view('admin.sales.create',compact('clients','products','discounts','categories','salelast'));
 
     }
 
@@ -71,6 +73,8 @@ class SaleController extends Controller
             'total'=>$request['total'],
             'payed'=>$request['payed'],
             'payment_type'=>$request['payment_type'],
+            'discount_id'=>$request['discount_id'],
+
         ]);
         $meals = collect($request['meal_id']);
         $qtys = collect($request['quantity']);

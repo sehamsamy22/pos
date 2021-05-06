@@ -10,7 +10,7 @@ use App\Models\Meal;
 use App\Models\MealProduct;
 use App\Models\Product;
 use App\Models\Size;
-use App\Models\StoreProduct;
+use App\Models\StoreMeal;
 use App\Models\SubCategory;
 use App\Models\TypeMeal;
 use App\Models\Unit;
@@ -210,7 +210,7 @@ class MealController extends Controller
         $status='ture';
 
         foreach($meal->products as $mealproduct){
-            $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
+            $storeProduct=StoreMeal::where('product_id',$mealproduct->product_id)->first();
             if($storeProduct->quantity < $request['quantity'] * $mealproduct->quantity ){
                 $status='false';
             }

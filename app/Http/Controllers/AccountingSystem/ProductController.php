@@ -7,7 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Imports\ProductsImport;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\StoreProduct;
+use App\Models\StoreMeal;
 use App\Models\SubCategory;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -67,7 +67,7 @@ class ProductController extends Controller
                 'barcode'=>'00'. $product->id,
             ]);
         }
-        StoreProduct::create([
+        StoreMeal::create([
             'product_id'=> $product->id,
             'quantity' =>0
         ]);

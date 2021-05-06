@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\ProductLog;
 use App\Models\PurchaseItem;
-use App\Models\StoreProduct;
+use App\Models\StoreMeal;
 
 class PurchaseItemObserver
 {
@@ -16,25 +16,25 @@ class PurchaseItemObserver
      */
     public function created(PurchaseItem $purchaseItem)
     {
-       $storeProduct=StoreProduct::where('product_id',$purchaseItem->product_id)->first();
-       if(isset($storeProduct)){
-           $storeProduct->quantity +=$purchaseItem->quantity;
-           $storeProduct->update([
-            'quantity'=>$storeProduct->quantity
+       $storeMeal=StoreMeal::where('meal_id',$purchaseItem->meal_id)->first();
+       if(isset($storeMeal)){
+           $storeMeal->quantity +=$purchaseItem->quantity;
+           $storeMeal->update([
+            'quantity'=>$storeMeal->quantity
         ]);
        }else{
-           StoreProduct::create([
-               'product_id'=>$purchaseItem->product_id,
+           StoreMeal::create([
+               'meal_id'=>$purchaseItem->meal_id,
                'quantity'=>$purchaseItem->quantity,
            ]);
        }
 
-       ProductLog::create([
-        'product_id'=>$purchaseItem->product_id,
-        'bill_id'=>$purchaseItem->purchase_id,
-        'operation'=>'purchases',
-        'quantity'=>$purchaseItem->quantity
-       ]);
+//       ProductLog::create([
+//        'product_id'=>$purchaseItem->meal_id,
+//        'bill_id'=>$purchaseItem->purchase_id,
+//        'operation'=>'purchases',
+//        'quantity'=>$purchaseItem->quantity
+//       ]);
     }
 
     /**
@@ -78,15 +78,15 @@ class PurchaseItemObserver
      */
     public function forceDeleted(PurchaseItem $purchaseItem)
     {
-        $storeProduct=StoreProduct::where('product_id',$purchaseItem->product_id)->first();
-        if(isset($storeProduct)){
-            if ($storeProduct->quantity > $purchaseItem->quantity) {
-                $storeProduct->quantity -= $purchaseItem->quantity;
-                $storeProduct->update([
-                    'quantity'=>$storeProduct->quantity
+        $storeMeal=StoreMeal::where('meal_id',$purchaseItem->meal_id)->first();
+        if(isset($storeMeal)){
+            if ($storeMeal->quantity > $purchaseItem->quantity) {
+                $storeMeal->quantity -= $purchaseItem->quantity;
+                $storeMeal->update([
+                    'quantity'=>$storeMeal->quantity
                 ]);
-            }elseif ($storeProduct->quantity = $purchaseItem->quantity){
-                $storeProduct->delete();
+            }elseif ($storeMeal->quantity = $purchaseItem->quantity){
+                $storeMeal->delete();
             }
 
     }

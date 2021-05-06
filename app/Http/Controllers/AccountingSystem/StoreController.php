@@ -15,7 +15,7 @@ use App\Models\ProductLog;
 use App\Models\ReadyMeal;
 use App\Models\ReceivedProduct;
 use App\Models\Size;
-use App\Models\StoreProduct;
+use App\Models\StoreMeal;
 use App\Models\Subscription;
 use App\Models\SubscriptionMeal;
 use App\Observers\ClientObsever;
@@ -27,29 +27,8 @@ class StoreController extends Controller
 {
     public function index(Request $request)
     {
-        $categories=Category::pluck('name','id')->toArray();
-
-        if($request->has('sub_category_id')){
-            $allstoreproducts=StoreProduct::all();
-            $cat=$request['sub_category_id'];
-
-            $storeproducts
-            = $allstoreproducts->filter(function($storeproduct) use ($cat)
-            {
-              if ($storeproduct->product->sub_category_id==$cat)
-                   return $storeproduct ;
-                 else
-                   return null;
-
-        });
-
-        }
-else{
-            $storeproducts=StoreProduct::all();
-        }
-
-
-        return view('admin.stores.index',compact('storeproducts','categories'))
+        $storeMeals=StoreMeal::all();
+        return view('admin.stores.index',compact('storeMeals'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -76,7 +55,7 @@ else{
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id')->toArray();
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
 //            dd($products);
-            $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+            $storeproducts=StoreMeal::whereIn('product_id',$products)->get();
          }else
         {
             $storeproducts=[];
@@ -95,7 +74,7 @@ else{
             $sizes=Size::whereIn('id',$sizes_)->get();
             $sizes_id=Size::whereIn('id',$sizes_)->pluck('id','id')->toArray();
             $products=MealProduct::whereIn('size_id',$sizes_id)->pluck('product_id','id')->toArray();
-            $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+            $storeproducts=StoreMeal::whereIn('product_id',$products)->get();
 //        dd($meals);
         }else
         {
@@ -109,7 +88,7 @@ else{
 
     public function receive_products(Request $request,$id){
 
-        $store_product=StoreProduct::find($id);
+        $store_product=StoreMeal::find($id);
 //        dd($request['received_quantity']);
         ///=======================store auantity update===================
         if($store_product->quantity > 0){
