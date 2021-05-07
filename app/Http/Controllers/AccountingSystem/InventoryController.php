@@ -10,6 +10,7 @@ use App\Models\Discount;
 use App\Models\Inventory;
 use App\Models\InventoryMeal;
 use App\Models\Meal;
+use App\Models\StoreMeal;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
@@ -58,6 +59,11 @@ class InventoryController extends Controller
               'meal_id'=>$key,
               "quantity"=>Meal::find($key)->quantity(),
               "real_quantity"=>$real,
+          ]);
+
+          $storeMeal=StoreMeal::where('meal_id',$key)->first();
+          $storeMeal->update([
+              "quantity"=>$real,
           ]);
       }
 

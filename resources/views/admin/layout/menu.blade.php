@@ -138,7 +138,8 @@
                             {{--                        <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>قائمةالأصناف</a></li>--}}
                             <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>قائمة
                                     المنتجات </a></li>
-                                                    <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i>عرض  المخزون </a></li>
+                                                    <li><a href="{{route('dashboard.inventories.index')}}"><i class="zmdi zmdi-view-list"></i>  تقارير الجرد </a></li>
+                            <li><a href="{{route('dashboard.stores.index')}}"><i class="zmdi zmdi-view-list"></i> جرد المخزون </a></li>
                             <li><a href="{{route('dashboard.revenues.store_out_index')}}"><i
                                         class="zmdi zmdi-view-list"></i> سندات الاخراج </a></li>
                         </ul>
