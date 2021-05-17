@@ -66,9 +66,7 @@ class InventoryController extends Controller
               "quantity"=>$real,
           ]);
       }
-
         return redirect()->route('dashboard.inventories.index')->with('success', 'تم اضافة الخصم');
-
     }
     public  function show($id){
         $inventory=Inventory::find($id);
