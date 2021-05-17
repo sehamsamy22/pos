@@ -54,24 +54,7 @@ class MealSizeController extends Controller
             'size_price'=>$request['size_price'],
             'meal_id'=>$meal->id
         ]);
-        if(isset($request['component_names'])) {
-            $components = collect($request['component_names'])->zip(collect($request['qtys']), collect($request['avg_cost']));
-        }
-        $sum=0;
-            foreach ($components as $component){
-                MealProduct::create([
-                    'meal_id'=>$meal->id,
-                    'product_id'=>$component[0],
-                    'quantity'=>$component[1],
-                    'avg_cost'=>$component[2],
-                    'size_id'=>$size->id
-                ]);
-                $product=Product::find($component[0]);
-                $sum+=$product->avg_cost*$component[1];
-            }
-            $meal->update([
-                'approx_price'=>$sum,
-            ]);
+
         return back()->with('success', __('تم اضافة الحجم للمنتج بنجاح '));
 
 
