@@ -96,6 +96,10 @@ class MealSizeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $type=Size::findOrfail($id);
+        $type->update($request->all());
+        return back()->with('success', __('تم تعديل الحجم للمنتج بنجاح '));
+
 
     }
 
