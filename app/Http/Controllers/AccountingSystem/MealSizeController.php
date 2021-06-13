@@ -96,10 +96,9 @@ class MealSizeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $type=Size::findOrfail($id);
-        $type->update($request->all());
-        return back()->with('success', __('تم تعديل الحجم للمنتج بنجاح '));
-
+        $size=Size::findOrfail($id);
+        $size->update($request->all());
+        return redirect()->route('dashboard.sizes.index',[$size->meal->id])->with('success', __('تم التعديل'));
 
     }
 

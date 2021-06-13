@@ -40,6 +40,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('areas', 'AreaController');
     route::resource('roles', 'RoleController');
     route::resource('sizes', 'MealSizeController');
+    route::get('sizes/{id}', 'MealSizeController@index')->name('sizes.index');
 
     route::resource('clients_subscriptions', 'ClientSubscriptionController');
     route::resource('visits', 'VisitController');
