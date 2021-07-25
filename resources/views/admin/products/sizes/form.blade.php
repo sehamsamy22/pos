@@ -7,7 +7,7 @@
         </ul>
     </div>
 @endif
-<input type="hidden" name="meal_id" value="{{$meal->id}}">
+<input type="hidden" name="product_id" value="{{$product->id}}">
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">
         <label class="form-label"> اسم الحجم</label>

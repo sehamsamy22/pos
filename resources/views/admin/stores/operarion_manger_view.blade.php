@@ -169,9 +169,9 @@
                         url:"/dashboard/meal_print/"+id,
                         success: function(data)
                         {
-                            $('.meals').empty();
-                         $('.meals').append(data.data);
-                            $('.meals').hide();
+                            $('.products').empty();
+                         $('.products').append(data.data);
+                            $('.products').hide();
                         }
                     });
                 })

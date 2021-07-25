@@ -288,7 +288,7 @@
                     console.log(error);
                 });
             });
-            //**************   meals click ***********************
+            //**************   products click ***********************
             $(document).on('click','.meal_btn',function(e){
                 e.preventDefault();
                 var id=$(this).data('id');

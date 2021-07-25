@@ -22,7 +22,7 @@ class Meal extends Model
     }
 
     public function  quantity(){
-       $meal=StoreMeal::where('meal_id',$this->id)->first();
+       $meal=StoreProduct::where('meal_id',$this->id)->first();
         return $meal->quantity;
     }
     public function subcategory()
@@ -30,10 +30,7 @@ class Meal extends Model
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
 
-    public function products()
-    {
-        return $this->hasMany(MealProduct::class, 'meal_id');
-    }
+
     public function sizes()
     {
         return $this->hasMany(Size::class, 'meal_id');

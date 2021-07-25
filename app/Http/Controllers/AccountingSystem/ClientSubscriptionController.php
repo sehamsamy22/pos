@@ -40,8 +40,8 @@ class ClientSubscriptionController extends Controller
         $clientSubsription->update([
             'reminder'=>$clientSubsription->total-$clientSubsription->payed,
         ]);
-        if(isset($request['meals'])){
-            foreach ($request['meals']  as $key=>$sizes){
+        if(isset($request['products'])){
+            foreach ($request['products']  as $key=>$sizes){
                 $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
                 foreach($sizes as $daykey=>$size){
                     $sizemeal=Size::find($size);
@@ -154,7 +154,7 @@ class ClientSubscriptionController extends Controller
             ->where('week','3')->pluck('meal_id','id')->toArray();
         $MealsWeek4=SubscriptionMeal::where('subscription_id',$id)
             ->where('week','4')->pluck('meal_id','id')->toArray();
-//        $meals=TypeMeal::whereIn('id',$subscriptionMeal)->get();
+//        $products=TypeMeal::whereIn('id',$subscriptionMeal)->get();
         $types=TypeMeal::all();
 
               return response()->json([
@@ -170,8 +170,8 @@ class ClientSubscriptionController extends Controller
     public function dietsystems_update(Request $request,$id){
 
         $dietsystems=Dietsystem::where('client_subscription_id',$id)->delete();
-        if(isset($request['meals'])) {
-            foreach ($request['meals'] as $key => $meals) {
+        if(isset($request['products'])) {
+            foreach ($request['products'] as $key => $meals) {
                 $key_array = preg_split('//', $key, -1, PREG_SPLIT_NO_EMPTY);
                 foreach ($meals as $daykey => $mael) {
                     Dietsystem::create([

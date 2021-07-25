@@ -8,9 +8,10 @@ use App\Models\Area;
 use App\Models\Category;
 use App\Models\Discount;
 use App\Models\Inventory;
-use App\Models\InventoryMeal;
+use App\Models\InventoryProduct;
 use App\Models\Meal;
-use App\Models\StoreMeal;
+use App\Models\Product;
+use App\Models\StoreProduct;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
@@ -53,15 +54,17 @@ class InventoryController extends Controller
             "bond_num" => $request['bond_num'],
             "description" =>$request['description'],
         ]);
+
       foreach ($request['real_quantity'] as $key=>$real){
-          InventoryMeal::create([
+
+          InventoryProduct::create([
               'inventory_id'=>$inventory->id,
-              'meal_id'=>$key,
-              "quantity"=>Meal::find($key)->quantity(),
+              'size_id'=>$key,
+              "quantity"=>Product::find($key)->quantity,
               "real_quantity"=>$real,
           ]);
 
-          $storeMeal=StoreMeal::where('meal_id',$key)->first();
+          $storeMeal=StoreProduct::where('meal_id',$key)->first();
           $storeMeal->update([
               "quantity"=>$real,
           ]);

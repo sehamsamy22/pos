@@ -25,14 +25,13 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('categories', 'CategoryController');
     route::resource('subcategories', 'SubCategoryController');
     route::resource('products', 'ProductController');
-    route::resource('meals', 'MealController');
     route::resource('suppliers', 'SupplierController');
-    Route::get('/getAllSubcategories/{id}', 'MealController@getAllSubcategories');
-    Route::get('/getProduct/{id}', 'MealController@getProduct');
+    Route::get('/getAllSubcategories/{id}', 'ProductController@getAllSubcategories');
+    Route::get('/getProduct/{id}', 'ProductController@getProduct');
     route::resource('types_meal', 'TypeMealController');
 
-    Route::post('/product','MealController@getAjaxProductQty')->name('meals.getAjaxProductQty');
-    Route::get('/meals-products', 'MealController@delete_product')->name('meals-products.destroy');
+    Route::post('/product','ProductController@getAjaxProductQty')->name('products.getAjaxProductQty');
+    Route::get('/products-products', 'ProductController@delete_product')->name('products-products.destroy');
     route::resource('subscriptions', 'SubscriptionController');
     route::resource('measurements', 'MeasurementController');
     route::resource('clients', 'ClientController');
@@ -55,7 +54,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::get('pay-subscription/{id}', 'RevenueController@payment_subscription')->name('clients_subscriptions.payment');
     route::get('pay-sale/{id}', 'RevenueController@payment_sale')->name('sales.payment');
 
-    route::get('/checkquantity/{id}', 'MealController@checkquantity');
+    route::get('/checkquantity/{id}', 'ProductController@checkquantity');
 
     route::get('receipt', 'RevenueController@receipt')->name('revenues.receipt');
     route::get('store-out', 'RevenueController@store_out')->name('revenues.store_out');
@@ -76,8 +75,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('copy/{id}', 'SubscriptionController@copy')->name('subscriptions.copy');
     Route::post('importProduct', 'ProductController@importProduct')->name('products.importProduct');
 
-    Route::get('importViewMeal', 'MealController@importView')->name('meals.importViewMeal');
-    Route::post('importMeal', 'MealController@importMeal')->name('meals.importMeal');
+    Route::get('importViewMeal', 'ProductController@importView')->name('products.importViewMeal');
+    Route::post('importMeal', 'ProductController@importMeal')->name('products.importMeal');
 
     Route::get('/getEndDate/{id}', 'ClientSubscriptionController@getEndDateAjex');
     Route::get('/getMealTable/{id}', 'ClientSubscriptionController@getMealTable');
@@ -88,7 +87,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::post('/subscription_disactive/{id}', 'SubscriptionController@subscription_disactive')->name('subscriptions.dis_active');
     Route::get('/subscription_active/{id}', 'SubscriptionController@subscription_active')->name('subscriptions.active');
 
-    //=============================sales
+  //=============================sales
     route::resource('sales', 'SaleController');
     Route::get('/getAllSubcategoriesSale/{id}', 'SaleController@getAllSubcategories');
     Route::get('/getAllcategoriesSale', 'SaleController@getAllcategories');

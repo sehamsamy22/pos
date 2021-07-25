@@ -19,7 +19,7 @@ class CreateSaleItemsTable extends Migration
             $table->unsignedBigInteger('sale_id')->nullable();
             $table->foreign('sale_id')->references('id')->on('sales');
             $table->unsignedBigInteger('meal_id')->nullable();
-            $table->foreign('meal_id')->references('id')->on('meals');
+            $table->foreign('meal_id')->references('id')->on('products');
             $table->string('quantity')->nullable();
             $table->string('total_price')->nullable();
             $table->timestamps();

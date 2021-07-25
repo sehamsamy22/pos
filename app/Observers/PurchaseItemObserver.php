@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\ProductLog;
 use App\Models\PurchaseItem;
-use App\Models\StoreMeal;
+use App\Models\StoreProduct;
 
 class PurchaseItemObserver
 {
@@ -16,14 +16,14 @@ class PurchaseItemObserver
      */
     public function created(PurchaseItem $purchaseItem)
     {
-       $storeMeal=StoreMeal::where('meal_id',$purchaseItem->meal_id)->first();
+       $storeMeal=StoreProduct::where('meal_id',$purchaseItem->meal_id)->first();
        if(isset($storeMeal)){
            $storeMeal->quantity +=$purchaseItem->quantity;
            $storeMeal->update([
             'quantity'=>$storeMeal->quantity
         ]);
        }else{
-           StoreMeal::create([
+           StoreProduct::create([
                'meal_id'=>$purchaseItem->meal_id,
                'quantity'=>$purchaseItem->quantity,
            ]);
@@ -78,7 +78,7 @@ class PurchaseItemObserver
      */
     public function forceDeleted(PurchaseItem $purchaseItem)
     {
-        $storeMeal=StoreMeal::where('meal_id',$purchaseItem->meal_id)->first();
+        $storeMeal=StoreProduct::where('meal_id',$purchaseItem->meal_id)->first();
         if(isset($storeMeal)){
             if ($storeMeal->quantity > $purchaseItem->quantity) {
                 $storeMeal->quantity -= $purchaseItem->quantity;

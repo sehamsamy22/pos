@@ -11,7 +11,7 @@ use App\Models\Product;
 use App\Models\Revenue;
 use App\Models\RevenueProduct;
 use App\Models\Sale;
-use App\Models\StoreMeal;
+use App\Models\StoreProduct;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -140,7 +140,7 @@ class RevenueController extends Controller
         return view('admin.revenues.receipt',compact('revenue','suppliers'));
     }
     public function store_out(){
-        $stores=StoreMeal::pluck('product_id','id')->toArray();
+        $stores=StoreProduct::pluck('product_id','id')->toArray();
         $products=Product::whereIn('id',$stores)->pluck('ar_name','id')->toArray();
         $revenue=Revenue::latest()->first();
         return view('admin.revenues.store_out_sanad',compact('revenue','products'));

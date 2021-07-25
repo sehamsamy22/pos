@@ -15,7 +15,7 @@ class AddMealIdToPurchaseItemsTable extends Migration
     {
         Schema::table('purchase_items', function (Blueprint $table) {
             $table->unsignedBigInteger('meal_id')->nullable();
-            $table->foreign('meal_id')->references('id')->on('meals');
+            $table->foreign('meal_id')->references('id')->on('products');
         });
     }
 

@@ -59,13 +59,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($storeMeals as $row)
+                        @foreach($products as $row)
                             <tr>
                                 <td>{{$i++}}</td>
-                                <td>{{$row->meal->ar_name}}</td>
+                                <td>{{$row->size->product->ar_name}}</td>
                                 <td>{{$row->quantity}}</td>
                                 <td>
-                                    <input type="text" name="real_quantity[{{$row->meal_id}}]">
+                                    <input type="text" name="real_quantity[{{$row->size->product_id}}]">
                                 </td>
                             </tr>
                         @endforeach
@@ -82,6 +82,7 @@
         @section('scripts')
 
             @include('admin.layout.form_validation_js')
+
             <script>
                 $("#category_id").on('change', function () {
                     var id = $(this).val();

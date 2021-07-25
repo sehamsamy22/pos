@@ -11,6 +11,6 @@ class Inventory extends Model
     ];
     public function meals()
     {
-        return $this->hasMany(InventoryMeal::class, 'inventory_id');
+        return $this->hasMany(InventoryProduct::class, 'inventory_id');
     }
 }

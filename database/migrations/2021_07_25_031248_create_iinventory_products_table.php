@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInventoryMealsTable extends Migration
+class CreateIinventoryProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateInventoryMealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventory_meals', function (Blueprint $table) {
+        Schema::create('inventory_products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('inventory_id')->nullable();
             $table->foreign('inventory_id')->references('id')->on('inventories');
-            $table->unsignedBigInteger('meal_id')->nullable();
-            $table->foreign('meal_id')->references('id')->on('products');
+            $table->unsignedBigInteger('size_id')->nullable();
+            $table->foreign('size_id')->references('id')->on('sizes');
             $table->string('quantity')->nullable();
             $table->string('real_quantity')->nullable();
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateInventoryMealsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventory_products');
+        Schema::dropIfExists('iinventory_products');
     }
 }

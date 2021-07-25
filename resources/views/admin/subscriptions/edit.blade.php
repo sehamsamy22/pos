@@ -54,8 +54,8 @@
 
             }).done(function (data) {
 
-                $('.meals-inpusts').empty();
-                $('.meals-inpusts').html(data.data);
+                $('.products-inpusts').empty();
+                $('.products-inpusts').html(data.data);
 
             });
         });
@@ -83,7 +83,7 @@
                 buttons: ["موافق"],
                 dangerMode: true,
             })
-            $('.meals-inpusts').empty();
+            $('.products-inpusts').empty();
             bigData.push(values);
             $("#mealsTable-wrap").show();
             var appendMeals=[];
@@ -111,8 +111,8 @@
 
         `);
             });
-            $('#add-meals'+id).append(appendMeals[id]);
-            $('#show-meals'+id).append(appendMealShow[id]);
+            $('#add-products'+id).append(appendMeals[id]);
+            $('#show-products'+id).append(appendMealShow[id]);
             $('.delete-this-row').click(function(e) {
                 var $this = $(this);
                 var row_index = $(this).parents('li').index();

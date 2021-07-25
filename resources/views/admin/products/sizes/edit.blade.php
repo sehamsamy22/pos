@@ -29,7 +29,7 @@
                 <div class="row">
 
                     {!!Form::model($size , ['route' => ['dashboard.sizes.update' ,  $size->id] , 'method' => 'PATCH' ,'files'=>true]) !!}
-                    @include('admin.meals.sizes.form')
+                    @include('admin.products.sizes.form')
                     {!!Form::close() !!}
 
                 </div><!-- end row -->

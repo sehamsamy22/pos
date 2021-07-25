@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTypeToMealsTable extends Migration
+class RenameTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class AddTypeToMealsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::rename('meals', 'products');
 
-            $table->unsignedBigInteger('type_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('meal_types');
-
-        });
     }
 
     /**
@@ -28,8 +24,6 @@ class AddTypeToMealsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

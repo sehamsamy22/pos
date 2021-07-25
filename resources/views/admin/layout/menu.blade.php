@@ -136,7 +136,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
                             {{--                        <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>قائمةالأصناف</a></li>--}}
-                            <li><a href="{{route('dashboard.meals.index')}}"><i class="zmdi zmdi-view-list"></i>قائمة
+                            <li><a href="{{route('dashboard.products.index')}}"><i class="zmdi zmdi-view-list"></i>قائمة
                                     المنتجات </a></li>
                             <li><a href="{{route('dashboard.inventories.index')}}"><i class="zmdi zmdi-view-list"></i>
                                     تقارير الجرد </a></li>

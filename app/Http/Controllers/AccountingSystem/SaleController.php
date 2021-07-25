@@ -170,7 +170,7 @@ class SaleController extends Controller
     public  function  getAllMeals($id){
         $meals=Meal::where('sub_category_id',$id)->get();
         return response()->json([
-            'data'=>view('admin.sales.meals')->with('meals',$meals)->render()
+            'data'=>view('admin.sales.products')->with('products',$meals)->render()
         ]);
     }
 

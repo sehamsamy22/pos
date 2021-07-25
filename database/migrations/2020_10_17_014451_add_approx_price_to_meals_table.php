@@ -13,7 +13,7 @@ class AddApproxPriceToMealsTable extends Migration
      */
     public function up()
     {
-        Schema::table('meals', function (Blueprint $table) {
+        Schema::table('products', function (Blueprint $table) {
             $table->decimal('approx_price', 8, 4)->nullable();
 
         });
@@ -26,7 +26,7 @@ class AddApproxPriceToMealsTable extends Migration
      */
     public function down()
     {
-        Schema::table('meals', function (Blueprint $table) {
+        Schema::table('products', function (Blueprint $table) {
             //
         });
     }

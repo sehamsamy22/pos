@@ -16,7 +16,7 @@ class CreateStoreMealsTable extends Migration
         Schema::create('store_meals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('meal_id')->nullable();
-            $table->foreign('meal_id')->references('id')->on('meals');
+            $table->foreign('meal_id')->references('id')->on('products');
             $table->string('quantity')->nullable();
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ class CreateMealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('ar_name')->nullable();
             $table->string('en_name')->nullable();
@@ -39,6 +39,6 @@ class CreateMealsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meals');
+        Schema::dropIfExists('products');
     }
 }

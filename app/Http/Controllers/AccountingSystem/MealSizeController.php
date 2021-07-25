@@ -29,30 +29,32 @@ class MealSizeController extends Controller
      */
     public function create()
     {
-        $meal=Meal::findOrFail(\request('meal_id'));
-        return view('admin.meals.sizes.create')->with('meal',$meal)
-            ->with('products',Product::all());
+
+        $product = Product::findOrFail(\request('id'));
+
+        return view('admin.products.sizes.create')->with('product', $product)
+            ->with('products', Product::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-//        dd($request->all());
+
         $validated = $request->validate([
             'name' => 'required|string',
             'size_price' => 'required|numeric|min:0',
-            'meal_id' => 'required|exists:meals,id',
+            'product_id' => 'required|exists:products,id',
         ]);
-        $meal=Meal::find($request['meal_id']);
-        $size=Size::create([
-            'name'=>$meal->ar_name .'-'.$request['name'],
-            'size_price'=>$request['size_price'],
-            'meal_id'=>$meal->id
+        $product = Product::find($request['product_id']);
+        $size = Size::create([
+            'name' => $product->ar_name . '-' . $request['name'],
+            'size_price' => $request['size_price'],
+            'product_id' => $product->id
         ]);
 
         return back()->with('success', __('تم اضافة الحجم للمنتج بنجاح '));
@@ -63,49 +65,49 @@ class MealSizeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $meal=Meal::find($id);
-        $sizes=Size::where('meal_id',$id)->get();
-        return view('admin.meals.sizes.index',compact('meal','sizes'));
+        $product = Product::find($id);
+        $sizes = Size::where('product_id', $id)->get();
+        return view('admin.products.sizes.index', compact('product', 'sizes'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $size=Size::find($id);
-        $meal=Meal::find($size->id);
-        $products=Product::all();
-        return view('admin.meals.sizes.edit',compact('size','meal','products'));
+        $size = Size::find($id);
+        $meal = Meal::find($size->id);
+        $products = Product::all();
+        return view('admin.products.sizes.edit', compact('size', 'meal', 'products'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $size=Size::findOrfail($id);
+        $size = Size::findOrfail($id);
         $size->update($request->all());
-        return redirect()->route('dashboard.sizes.index',[$size->meal->id])->with('success', __('تم التعديل'));
+        return redirect()->route('dashboard.sizes.index', [$size->meal->id])->with('success', __('تم التعديل'));
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

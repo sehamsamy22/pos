@@ -10,12 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class Product extends Model
+class
+Product extends Model
 {
     protected $fillable = [
-        'ar_name', 'en_name','unit','calories','price','image','barcode','sub_category_id','unit_id'
+        'ar_name', 'en_name', 'sub_category_id', 'price', 'status', 'type_id', 'description', 'image', 'calories', 'discount', 'tax', 'approx_price', 'barcode', 'unit_id','barcode'
     ];
     protected $appends = ['avg_cost'];
+
+    public function sizes()
+    {
+        return $this->hasMany(Size::class, 'product_id');
+    }
+
     public function subcategory(){
         return $this->belongsTo(SubCategory::class,'sub_category_id');
     }

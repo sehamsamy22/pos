@@ -15,7 +15,7 @@ use App\Models\ProductLog;
 use App\Models\ReadyMeal;
 use App\Models\ReceivedProduct;
 use App\Models\Size;
-use App\Models\StoreMeal;
+use App\Models\StoreProduct;
 use App\Models\Subscription;
 use App\Models\SubscriptionMeal;
 use App\Observers\ClientObsever;
@@ -27,8 +27,8 @@ class StoreController extends Controller
 {
     public function index(Request $request)
     {
-        $storeMeals=StoreMeal::all();
-        return view('admin.stores.index',compact('storeMeals'))
+        $products=StoreProduct::all();
+        return view('admin.stores.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -55,7 +55,7 @@ class StoreController extends Controller
             $allmeals=Meal::whereIn('id',$meals_)->pluck('id')->toArray();
             $products=MealProduct::whereIn('meal_id',$allmeals)->pluck('product_id','id')->toArray();
 //            dd($products);
-            $storeproducts=StoreMeal::whereIn('product_id',$products)->get();
+            $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
          }else
         {
             $storeproducts=[];
@@ -74,8 +74,8 @@ class StoreController extends Controller
             $sizes=Size::whereIn('id',$sizes_)->get();
             $sizes_id=Size::whereIn('id',$sizes_)->pluck('id','id')->toArray();
             $products=MealProduct::whereIn('size_id',$sizes_id)->pluck('product_id','id')->toArray();
-            $storeproducts=StoreMeal::whereIn('product_id',$products)->get();
-//        dd($meals);
+            $storeproducts=StoreProduct::whereIn('product_id',$products)->get();
+//        dd($products);
         }else
         {
             $storeproducts=[];
@@ -88,7 +88,7 @@ class StoreController extends Controller
 
     public function receive_products(Request $request,$id){
 
-        $store_product=StoreMeal::find($id);
+        $store_product=StoreProduct::find($id);
 //        dd($request['received_quantity']);
         ///=======================store auantity update===================
         if($store_product->quantity > 0){

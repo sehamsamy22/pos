@@ -4,11 +4,15 @@ namespace App\Http\Controllers\AccountingSystem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
-use App\Imports\ProductsImport;
+use App\Imports\MealsImport;
 use App\Models\Category;
+use App\Models\Meal;
+use App\Models\MealProduct;
 use App\Models\Product;
-use App\Models\StoreMeal;
+use App\Models\Size;
+use App\Models\StoreProduct;
 use App\Models\SubCategory;
+use App\Models\TypeMeal;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,18 +24,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request  $request)
+    public function index()
     {
+        $products = Product::all();
 
-        $categories=Category::pluck('name','id')->toArray();
-        if($request->has('sub_category_id')) {
-            $products = Product::where('sub_category_id',$request['sub_category_id'])->get();
-
-        }else{
-            $products = Product::all();
-        }
-        return view('admin.products.index',compact('products','categories'))
+        return view('admin.products.index', compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
 
     /**
@@ -41,121 +40,146 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories=Category::pluck('name','id')->toArray();
-        $units=Unit::pluck('name','id')->toArray();
-
-        return view('admin.products.create',compact('categories','units'));
+        $units = Unit::pluck('name', 'id')->toArray();
+        return view('admin.products.create', compact('units'))
+            ->with('categories', Category::pluck('name', 'id')->toArray())
+            ->with('types', TypeMeal::pluck('name', 'id')->toArray());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
     {
         $requests = $request->except('image');
-
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
-        $product=Product::create($requests);
-        if($product->barcode == Null){
-
-            $product->update([
-                'barcode'=>'00'. $product->id,
-            ]);
-        }
-        StoreMeal::create([
-            'product_id'=> $product->id,
-            'quantity' =>0
+        $product = Product::create($requests);
+        $size = Size::create([
+            'name' => $request['ar_name'] . '-' . $request['name'],
+            'size_price' => $request['size_price'],
+            'meal_id' => $product->id
         ]);
-        return redirect()->route('dashboard.products.index')->with('success', 'تم اضافه صنف  جديد');
-
+        return redirect('dashboard/products')->with('success', 'تم اضافه المنتج  ');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Meal $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-
         return view('admin.products.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $products
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
-        $categories=Category::pluck('name','id')->toArray();
-        $subcategory=SubCategory::find($product->sub_category_id);
-        $categoryId=$subcategory->category_id;
-        $units=Unit::pluck('name','id')->toArray();
-        return view('admin.products.edit', compact('product','categories','categoryId','units'));
+        $categories = Category::pluck('name', 'id')->toArray();
+        $products = Product::all();
+        $units = Unit::pluck('name', 'id')->toArray();
+        $types = TypeMeal::pluck('name', 'id')->toArray();
+
+        $subcategory = SubCategory::findOrFail($product->sub_category_id);
+        $categoryId = $subcategory->category_id;
+        return view('admin.products.edit', compact('product', 'categories', 'products', 'categoryId', 'types', 'units'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $products
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Meal $meal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-//dd($request->all());
-        $rules=[
-            "ar_name" => "required|string|min:1|max:255",
-           "en_name" => "required|string|min:1|max:255",
-           'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-           "price" => "required",
-//           "barcode" => "required|string|unique:products,barcode,{$id}"
-        ];
-        $message= [
-            'ar_name.required'=>"الإسم باللغه العربية مطلوب",
-           'en_name.required'=>"الإسم باللغه الانجليزية مطلوب",
-           'unit.required'=>"الوحدة مطلوبة",
-           'image.required'=>"صورة الصنف مطلوبة",
-           'price.required'=>"سعر الصنف مطلوب",
-           'barcode.required'=>"باركود الصنف مطلوب",
-           'barcode.unique'=>"باركود الصنف موجود مسبقا",
-
-         ];
-        $this->validate($request,$rules,$message);
         $requests = $request->except('image');
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'photos');
         }
         $product->update($requests);
         return redirect()->route('dashboard.products.index')->with('success', __('تم التعديل'));
+
     }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $products
+     * @param \App\Models\Meal $meal
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         Product::find($id)->delete();
-        return redirect()->route('dashboard.categories.index')->with('success', __('تم الحذف بنجاح'));
+        return redirect()->route('dashboard.products.index')->with('success', __('تم الحذف بنجاح'));
 
     }
-    public function importView(){
+
+    public function getAllSubcategories($id)
+    {
+        $subcategories = SubCategory::where('category_id', $id)->pluck('name', 'id')->toArray();
+        return response()->json([
+            'status' => true,
+            'data' => view('admin.products.subcategories')->with('subcategories', $subcategories)->render()
+        ]);
+    }
+
+    public function getAjaxProductQty(Request $request)
+    {
+        $product = Product::find($request->id);
+        return response()->json([
+            'data' => $product->qty
+        ]);
+    }
+
+    public function getProduct($id)
+    {
+        $product = Product::find($id);
+        return response()->json([
+            'data' => $product->units->name
+        ]);
+    }
+
+    public function checkquantity(Request $request, $id)
+    {
+        $meal = Meal::find($id);
+        $status = 'ture';
+
+        foreach ($meal->products as $mealproduct) {
+            $storeProduct = StoreProduct::where('product_id', $mealproduct->product_id)->first();
+            if ($storeProduct->quantity < $request['quantity'] * $mealproduct->quantity) {
+                $status = 'false';
+            }
+        }
+        return response()->json([
+            'data' => $status,
+        ]);
+    }
+
+    public function importView()
+    {
         return view('admin.products.importView');
     }
-    public function importProduct()
+
+    public function importMeal()
     {
-        Excel::import(new ProductsImport,request()->file('file'));
-        return redirect()->route('dashboard.products.index')->with('success', __('تم رقع الاصناف'));
+        Excel::import(new MealsImport, request()->file('file'));
+//        return back();
+        return redirect()->route('dashboard.products.index')->with('success', __('تم رقع المنتجات'));
 
     }
+
 }

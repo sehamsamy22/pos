@@ -19,7 +19,7 @@ class CreateSubscriptionsMealsTable extends Migration
             $table->foreign('subscription_id')->references('id')->on('subscriptions');
 
             $table->unsignedBigInteger('meal_id')->nullable();
-            $table->foreign('meal_id')->references('id')->on('meals');
+            $table->foreign('meal_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

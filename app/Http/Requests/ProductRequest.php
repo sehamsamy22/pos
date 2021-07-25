@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,27 +24,23 @@ class ProductRequest extends FormRequest
     public function rules()
     {
 
-       return[
-
+       return [
+            'sub_category_id' => 'required|nullable|integer|exists:sub_categories,id',
             "ar_name" => "required|string|min:1|max:255",
-           "en_name" => "required|string|min:1|max:255",
-           'image' => 'sometimes|file|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-           "price" => "required",
-           "barcode" => "sometimes|nullable|unique:products,barcode"
-        ];
+            "en_name" => "required|string|min:1|max:255",
+            "image" => 'nullable|image',
 
-    }
-    public function messages()
+        ];
+        }
+        public function messages()
     {
-      return [
-           'ar_name.required'=>"الإسم باللغه العربية مطلوب",
-          'en_name.required'=>"الإسم باللغه الانجليزية مطلوب",
-          'image.required'=>"صورة الصنف مطلوبة",
-          'price.required'=>"سعر الصنف مطلوب",
-//          'barcode.required'=>"باركود الصنف مطلوب",
-          'barcode.unique'=>"باركود الصنف موجود مسبقا",
-
+       return [
+            'ar_name.required'=>"الإسم باللغه العربية مطلوب",
+            'en_name.required'=>"الإسم باللغه الانجليزية مطلوب",
+            // 'image.image'=>"الصورة مطلوبة",
+            'sub_category_id.required'=>" التصنيف الفرعى مطلوب",
         ];
+
 
 
     }

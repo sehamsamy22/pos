@@ -9,7 +9,7 @@
         {{-- @dd($products) --}}
     @foreach ($products as $product)
 
-        @php($store_product=\App\Models\StoreMeal::where('product_id',$product->id)->first())
+        @php($store_product=\App\Models\StoreProduct::where('product_id',$product->id)->first())
     <tr class="parent-tr">
         <td>{{$product->ar_name}}
 

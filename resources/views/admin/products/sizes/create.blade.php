@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title','إنشاء  وجبة جديد')
+@section('title','إنشاء حجم جديد')
 
 @section('styles')
     <style>
@@ -14,34 +14,20 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.meals.index')}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >رجوع لإدارة المنتجات والوجبات<span class="m-l-5"><i class="fa fa-reply"></i></span></a>
+                <a href="{{route('dashboard.sizes.show',$product->id)}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >رجوع للاحجام   <span class="m-l-5"><i class="fa fa-reply"></i></span></a>
             </div>
-            <h4 class="page-title">إضافة وجبة جديد</h4>
+            <h4 class="page-title">إضافة حجم جديد</h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-
-
-                <h4 class="header-title m-t-0 m-b-30">بيانات  الوجبة</h4>
-
+                <h4 class="header-title m-t-0 m-b-30">بيانات الحجم</h4>
                 <div class="row">
-
-
-
-                    {!!Form::open( ['route' => 'dashboard.meals.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
-
-
-                    @include('admin.meals.form')
-
-
+                    {!!Form::open( ['route' => 'dashboard.sizes.store' ,'class'=>'form phone_validate', 'method' => 'Post','files' => true,'id'=>'form']) !!}
+                    @include('admin.products.sizes.form')
                     {!!Form::close() !!}
-
-
-
-
 
                 </div><!-- end row -->
             </div>
@@ -49,23 +35,7 @@
     </div>
 @endsection
 @section('scripts')
-
     @include('admin.layout.form_validation_js')
-    <script>
-        $("#category_id").on('change', function() {
-            var id = $(this).val();
-            $.ajax({
-                url:"/dashboard/getAllSubcategories/"+id,
-                type:"get",
-            }).done(function (data) {
-                $('.subcategories').empty();
-                $('.subcategories').html(data.data);
-            }).fail(function (error) {
-                console.log(error);
-            });
-        });
-    </script>
-
     <script>
         var bigDataComponent = [];
         $("#componentTable-wrap").show();
@@ -90,30 +60,14 @@
                     buttons: ["موافق"],
                     dangerMode: true,
                 })
-                // $('#exampleModalLabel').modal('hide');
-                $('#exampleModal').on('hidden.bs.modal', function (e) {
 
-                    $(this)
-                        .find("input,textarea,select")
-                        .val('')
-                        .end()
-                        .find("input[type=checkbox], input[type=radio]")
-                        .prop("checked", "")
-                        .end();
-                })
                 bigDataComponent.push(component_data);
                 $("#componentTable-wrap").show();
                 var  unit;
                 var TotalValue=0;
                 var appendComponent = bigDataComponent.map(function(component) {
                     TotalValue += parseFloat(component.Approx_price) ;
-                    // if(component.component_unit=='kilo'){
-                    // unit ='كيلو';
-                    // }else if(component.component_unit=='gram'){
-                    //      unit='جرام';
-                    // }else{
-                    //     unit='لتر';
-                    // }
+
                     return (`
             <tr class="single-product">
                 <td class="component-name">${component.component_name}</td>
@@ -136,7 +90,6 @@
 
                 $(".Approx_price").html(TotalValue.toFixed(2));
                 $("#total").val(TotalValue.toFixed(2));
-
                 /////////////////////////////////////////////////////
                 $('.delete-this-row-component').click(function(e) {
                     var $this = $(this);
@@ -172,9 +125,6 @@
                 });
                 document.getElementById("component_name").val = " ";
                 document.getElementById("component_quantity").val = " ";
-
-
-
             } else {
                 swal({
                     title: "من فضلك قم بملئ كل البيانات المميزة بالعلامة الحمراء",
@@ -185,9 +135,6 @@
                 })
             } ///if_end
         }
-
-
-
     </script>
 
     <script>
@@ -198,14 +145,6 @@
                 type:"get",
             }).done(function (data) {
 
-               // var unit_val;
-               // if(data.data=='kilo'){
-               //     unit_val='كيلو'  ;
-               // }else if(data.data=='gram'){
-               //     unit_val='جرام'  ;
-               // }else{
-               //     unit_val='لتر'  ;
-               // }
                 $('#unit').val(data.data);
             }).fail(function (error) {
                 console.log(error);

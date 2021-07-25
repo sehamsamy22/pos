@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\ProductLog;
 use App\Models\SaleItem;
-use App\Models\StoreMeal;
+use App\Models\StoreProduct;
 
 class SaleItemObserver
 {
@@ -18,7 +18,7 @@ class SaleItemObserver
     {
         // dd($saleItem->meal->products);
         {
-            $storeMeal=StoreMeal::where('meal_id',$saleItem->meal_id)->first();
+            $storeMeal=StoreProduct::where('meal_id',$saleItem->meal_id)->first();
             if(isset($storeMeal)){
                 $storeMeal->quantity -=$saleItem->quantity;
                 $storeMeal->update([
@@ -80,7 +80,7 @@ class SaleItemObserver
     {
         foreach($saleItem->meal->products() as $mealproduct){
 
-            $storeProduct=StoreMeal::where('product_id',$mealproduct->product_id)->first();
+            $storeProduct=StoreProduct::where('product_id',$mealproduct->product_id)->first();
                 $storeProduct->quantity +=$mealproduct->quantity*$saleItem->quantity;
                 $storeProduct->update([
                     'quantity'=>$storeProduct->quantity
