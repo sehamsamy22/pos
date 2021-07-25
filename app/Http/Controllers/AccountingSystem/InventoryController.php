@@ -56,16 +56,14 @@ class InventoryController extends Controller
         ]);
 
       foreach ($request['real_quantity'] as $key=>$real){
-
+          $storeProduct=StoreProduct::where('size_id',$key)->first();
           InventoryProduct::create([
               'inventory_id'=>$inventory->id,
               'size_id'=>$key,
-              "quantity"=>Product::find($key)->quantity,
+              "quantity"=>$storeProduct->quantity,
               "real_quantity"=>$real,
           ]);
-
-          $storeMeal=StoreProduct::where('meal_id',$key)->first();
-          $storeMeal->update([
+          $storeProduct->update([
               "quantity"=>$real,
           ]);
       }

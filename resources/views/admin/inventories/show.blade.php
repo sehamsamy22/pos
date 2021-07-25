@@ -33,10 +33,10 @@
                     </thead>
                     <tbody>
                     @php $i = 1; @endphp
-                    @foreach($inventory->meals as $row)
+                    @foreach($inventory->sizes as $row)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->meal->ar_name}}</td>
+                            <td>{{$row->size->name}}</td>
                             <td>{{$row->quantity}}</td>
                             <td>{{$row->real_quantity}}</td>
                             <td>

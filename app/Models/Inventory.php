@@ -9,7 +9,7 @@ class Inventory extends Model
     protected $fillable = [
         'date','bond_num','description'
     ];
-    public function meals()
+    public function sizes()
     {
         return $this->hasMany(InventoryProduct::class, 'inventory_id');
     }

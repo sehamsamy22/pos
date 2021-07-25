@@ -62,10 +62,10 @@
                         @foreach($products as $row)
                             <tr>
                                 <td>{{$i++}}</td>
-                                <td>{{$row->size->product->ar_name}}</td>
+                                <td>{{$row->size->name}}</td>
                                 <td>{{$row->quantity}}</td>
                                 <td>
-                                    <input type="text" name="real_quantity[{{$row->size->product_id}}]">
+                                    <input type="text" name="real_quantity[{{$row->size_id}}]">
                                 </td>
                             </tr>
                         @endforeach
