@@ -1,12 +1,12 @@
 <fieldset class="cat" >
-    <legend >  المنتجات او  الوجبات </legend>
-    @foreach($meals as $meal)
+    <legend >  المنتجات  </legend>
+    @foreach($products as $product)
         <a href=""   class=" btn btn-primary meal_btn"
-           data-id="{{$meal->id}}"
-           data-name="{{$meal->ar_name}}"
-           data-price="{{$meal->price}}"
+           data-id="{{$product->id}}"
+           data-name="{{$product->ar_name}}"
+           data-price="{{$product->price}}"
 
-        >{{$meal->ar_name}}</a>
+        >{{$product->ar_name}}</a>
     @endforeach
 
     <button type="button" class="btn btn-danger" id="reload" style="display: block">الرجوع للاصناف الرئيسيه

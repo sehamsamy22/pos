@@ -168,14 +168,14 @@ class SaleController extends Controller
 
 
     public  function  getAllMeals($id){
-        $meals=Meal::where('sub_category_id',$id)->get();
+        $products=Product::where('sub_category_id',$id)->get();
         return response()->json([
-            'data'=>view('admin.sales.products')->with('products',$meals)->render()
+            'data'=>view('admin.sales.products')->with('products',$products)->render()
         ]);
     }
 
     public  function  getAllsizes($id){
-        $sizes=Size::where('meal_id',$id)->get();
+        $sizes=Size::where('product_id',$id)->get();
         return response()->json([
             'data'=>view('admin.sales.sizes')->with('sizes',$sizes)->render()
         ]);
