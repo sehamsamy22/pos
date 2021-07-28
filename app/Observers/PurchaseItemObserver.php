@@ -16,15 +16,15 @@ class PurchaseItemObserver
      */
     public function created(PurchaseItem $purchaseItem)
     {
-       $storeMeal=StoreProduct::where('meal_id',$purchaseItem->meal_id)->first();
-       if(isset($storeMeal)){
-           $storeMeal->quantity +=$purchaseItem->quantity;
-           $storeMeal->update([
-            'quantity'=>$storeMeal->quantity
+       $storeProduct=StoreProduct::where('size_id',$purchaseItem->size_id)->first();
+       if(isset($storeProduct)){
+           $storeProduct->quantity +=$purchaseItem->quantity;
+           $storeProduct->update([
+            'quantity'=>$storeProduct->quantity
         ]);
        }else{
            StoreProduct::create([
-               'meal_id'=>$purchaseItem->meal_id,
+               'size_id'=>$purchaseItem->size_id,
                'quantity'=>$purchaseItem->quantity,
            ]);
        }

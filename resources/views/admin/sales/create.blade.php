@@ -312,18 +312,18 @@
                     });
                     $(".size_btn").on('click', function(e) {
                         e.preventDefault();
-                        var meal_id = $(this).data('id');
+                        var size_id = $(this).data('id');
                         var meal_name = $(this).data('name');
                         var meal_price = $(this).data('price');
                         rowNum++;
                         $(".sales-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
                            <td class="row-num" width="40">${rowNum}</td>
-                           <input type="hidden" name="meal_id[${meal_id}]" value="${meal_id}">
+                           <input type="hidden" name="size_id[${size_id}]" value="${size_id}">
                            <td class="meal-name " width="900">${meal_name}</td>
                            <td class="meal-quantity " width="40">
-                               <input type="text" placeholder="الكمية" value="1" id="quantity" class="form-control" name="quantity[${meal_id}]">
+                               <input type="text" placeholder="الكمية" value="1" id="quantity" class="form-control" name="quantity[${size_id}]">
                            </td>
-                               <input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${meal_id}]">
+                               <input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${size_id}]">
                            </td>
                          <td class="meal_price" width="70">${meal_price}</td>
 

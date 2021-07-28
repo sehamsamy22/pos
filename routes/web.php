@@ -93,6 +93,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getAllcategoriesSale', 'SaleController@getAllcategories');
     Route::get('/getAllMeals/{id}', 'SaleController@getAllMeals');
     Route::get('/getAllSizes/{id}', 'SaleController@getAllsizes');
+    Route::get('/getAllPurchaseSizes/{id}', 'PurchaseController@getAllPurchaseSizes');
+
     //===============================stores
     route::get('stores', 'StoreController@index')->name('stores.index');
     route::get('stores/{id}', 'StoreController@show')->name('stores.show');

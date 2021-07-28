@@ -74,7 +74,6 @@
                                                 <thead>
                                                 <tr><th>#</th>
                                                     <th>اسم المنتج</th>
-                                                    <th>الوحدة</th>
                                                     <th>الكمية</th>
                                                     <th>السعر </th>
                                                     <th>الخصم</th>
@@ -87,18 +86,9 @@
                                                 @foreach($items as $row)
                                                 <tr>
                                                     <td>{{$i++}}</td>
-                                                    <td>{{$row->meal->ar_name}}</td>
-                                                    <td>@if($row->meal->unit=='kilo')
-                                                            كيلو
-                                                        @elseif($row->meal->unit=='gram')
-                                                            جرام
-                                                        @else
-                                                            لتر
-                                                        @endif
-                                                    </td>
+                                                    <td>{{$row->meal->name}}</td>
                                                     <td> {{$row->quantity}}</td>
                                                     <td> {{$row->price}}</td>
-
                                                     <td> {{$row->discount}}</td>
                                                     <td> {{$row->tax}}</td>
                                                     <td> {{$row->total_price - $row->discount +$row->tax}}</td>

@@ -86,10 +86,10 @@
                                                 @foreach($items as $row)
                                                     <tr>
                                                         <td>{{$i++}}</td>
-                                                        <td>{{$row->meal->ar_name}}</td>
+                                                        <td>{{$row->size->name}}</td>
 
                                                         <td> {{$row->quantity}}</td>
-                                                        <td> {{$row->meal->price}}</td>
+                                                        <td> {{$row->size->size_price}}</td>
 
 {{--                                                        <td> {{$row->discount}}</td>--}}
 {{--                                                        <td> {{$row->tax}}</td>--}}
