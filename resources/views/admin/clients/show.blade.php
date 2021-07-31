@@ -33,9 +33,6 @@
 
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" role="tab" aria-controls="menu1" href="#menu1">  بيانات العميل </a></li>
-                        <li><a data-toggle="tab" role="tab" aria-controls="menu2" href="#menu2">  سجل الاشتركات العميل </a></li>
-                        <li><a data-toggle="tab" role="tab" aria-controls="menu3" href="#menu3"> سجل زيات وقياسات العميل </a></li>
-
 
                     </ul>
 
@@ -89,66 +86,6 @@
                                 </div>
                             </div>
 
-                        </div>
-
-                        <div role="tabpanel" id="menu2" class="tab-pane">
-                            <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>اسم الخطة</th>
-                                    <th>السعر </th>
-                                    <th>مده الخطة</th>
-                                    <th>عدد الوجبات </th>
-                                    <th>بداية الخطة</th>
-                                    <th>نهاية الخطة</th>
-                                    <th> عمليات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @php $i = 1; @endphp
-                                @foreach($subscriptions as $row)
-                                    <tr>
-                                        <td>{{$i++}}</td>
-                                        <td>{{$row->subscription->name}}</td>
-                                        <td>{{$row->subscription->price}}</td>
-                                        <td>{{$row->subscription->duration}}</td>
-                                        <td>{{$row->subscription->num_meals}}</td>
-                                        <td>{{$row->start}}</td>
-                                        <td>{{$row->end}}</td>
-
-                                        <td>
-                                       <a href="{{route('dashboard.dietsystems.show',$row->id)}}" class="label label-danger">عرض  النظام الغذائى</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div role="tabpanel" id="menu3" class="tab-pane">
-                            @foreach($visits as $visit)
-                            <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <caption > <h3>{{$visit->date}}</h3></caption>
-                                <thead>
-                                <tr>
-                                    <th>القياس</th>
-                                    <th>القيمة</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @php $i = 1; @endphp
-                            @foreach($visit->measurements as $key=>$row)
-                                    <tr>
-                                        <td>{{$row->measurement->name}}</td>
-                                        <td>{{$row->value}}
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            @endforeach
                         </div>
                     </div>
 
