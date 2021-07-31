@@ -22,7 +22,7 @@
                     </button>
                 </li>
                 <li>
-                    <h4 class="page-title"> نظام التجاره ادارة مراكز التغذيه</h4>
+                    <h4 class="page-title"> نظام التجاره </h4>
                 </li>
             </ul>
 
