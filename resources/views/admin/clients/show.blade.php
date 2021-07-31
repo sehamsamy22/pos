@@ -13,12 +13,7 @@
     <!-- Page Title -->
     <div class="row">
         <div class="col-sm-12">
-            <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.visits.add_visit',$client->id)}}" class="btn btn-custom dropdown-toggle waves-effect waves-light" >  تسجيل زيارة جديدة<span class="m-l-5"><i class="fa fa-add"></i></span></a>
-            </div>
-            <div class="btn-group pull-right m-t-15">
-                <a href="{{route('dashboard.clients_subscriptions.add_subscription',$client->id)}}" class="btn btn-success dropdown-toggle waves-effect waves-light"  style="margin-left: 20px;">  تسجيل اشتراك جديد<span class="m-l-5"><i class="fa fa-add"></i></span></a>
-            </div>
+
             <h4 class="page-title">الصفحة الشخصية</h4>
         </div>
     </div>
