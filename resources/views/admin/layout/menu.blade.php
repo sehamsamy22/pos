@@ -76,8 +76,8 @@
                                                 class="zmdi zmdi-view-list"></i> التصنيفات الفرعية</a></li>
                                     <li><a href="{{route('dashboard.units.index')}}"><i class="zmdi zmdi-view-list"></i>
                                             تعريف الوحدات </a></li>
-                                    {{--                                    <li><a href="{{route('dashboard.areas.index')}}"><i class="zmdi zmdi-view-list"></i>--}}
-                                    {{--                                            تعريف المناطق </a></li>--}}
+                                    <li><a href="{{route('dashboard.clients.index')}}"><i class="zmdi zmdi-view-list"></i>
+                                          قائمة العملاء</a></li>
 
                                 </ul>
                             </li>

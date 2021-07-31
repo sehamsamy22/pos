@@ -62,7 +62,7 @@ class ProductController extends Controller
         $size = Size::create([
             'name' => $request['ar_name'] . '-' . $request['name'],
             'size_price' => $request['size_price'],
-            'meal_id' => $product->id
+            'product_id' => $product->id
         ]);
         return redirect('dashboard/products')->with('success', 'تم اضافه المنتج  ');
     }
