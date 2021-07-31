@@ -7,6 +7,7 @@
         </ul>
     </div>
 @endif
+{{--@dd($product->id)--}}
 <input type="hidden" name="product_id" value="{{$product->id}}">
 <div class="col-sm-12 col-xs-12  pull-right">
     <div class="form-group form-float">

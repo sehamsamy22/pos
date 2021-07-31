@@ -84,9 +84,9 @@ class MealSizeController extends Controller
     public function edit($id)
     {
         $size = Size::find($id);
-        $meal = Meal::find($size->id);
+        $product = Product::find($size->product->id);
         $products = Product::all();
-        return view('admin.products.sizes.edit', compact('size', 'meal', 'products'));
+        return view('admin.products.sizes.edit', compact('size', 'product', 'products'));
     }
 
     /**
@@ -100,7 +100,7 @@ class MealSizeController extends Controller
     {
         $size = Size::findOrfail($id);
         $size->update($request->all());
-        return redirect()->route('dashboard.sizes.index', [$size->meal->id])->with('success', __('تم التعديل'));
+        return redirect()->route('dashboard.sizes.index', [$size->product->id])->with('success', __('تم التعديل'));
 
     }
 
