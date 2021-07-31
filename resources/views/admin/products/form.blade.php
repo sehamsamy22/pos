@@ -12,7 +12,7 @@
     <div class="form-group form-float">
         <label class="form-label"> اسم المنتج باللغة العربية</label>
         <div class="form-line">
-            {!! Form::text("ar_name",null,['class'=>'form-control','placeholder'=>'اسم الوجبة','data-parsley-required-message'=>'من فضلك ادخل المنتج  ','required'=>''])!!}
+            {!! Form::text("ar_name",null,['class'=>'form-control','placeholder'=>'اسم المنتج','data-parsley-required-message'=>'من فضلك ادخل المنتج  ','required'=>''])!!}
         </div>
     </div>
 </div>
@@ -21,21 +21,13 @@
     <div class="form-group form-float">
         <label class="form-label"> اسم المنتج باللغة الانجليزية</label>
         <div class="form-line">
-            {!! Form::text("en_name",null,['class'=>'form-control','placeholder'=>'اسم الوجبة','data-parsley-required-message'=>'من فضلك ادخل الصنف  ','required'=>''])!!}
+            {!! Form::text("en_name",null,['class'=>'form-control','placeholder'=>'اسم المنتج','data-parsley-required-message'=>'من فضلك ادخل الصنف  ','required'=>''])!!}
         </div>
     </div>
 </div>
 
 
 
-<div class="col-sm-6 col-xs-6  pull-left">
-    <div class="form-group form-float">
-        <label class="form-label"> السعرات الحرارية بالمنتج</label>
-        <div class="form-line">
-            {!! Form::text("calories",null,['class'=>'form-control',])!!}
-        </div>
-    </div>
-</div>
 
 {{--  <div class="col-sm-6 col-xs-6  pull-right">
     <div class="form-group form-float">
@@ -130,7 +122,7 @@
     <div class="form-group form-float">
         <label class="form-label">  الباركود</label>
         <div class="form-line">
-            {!! Form::text("barcode",null,['class'=>'form-control',])!!}
+            {!! Form::text("barcode",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل  باركودالصنف  ','required'=>''])!!}
         </div>
     </div>
 </div>
