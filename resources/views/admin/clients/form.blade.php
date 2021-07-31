@@ -38,7 +38,7 @@
     <div class="form-group form-float">
         <label class="form-label">  الجوال</label>
         <div class="form-line">
-            {!! Form::text("phone",null,['class'=>'form-control','placeholder'=>'الجوال'])!!}
+            {!! Form::text("phone",null,['class'=>'form-control','placeholder'=>'الجوال','data-parsley-type-message'=>'من  فضللك ادخل الجوال','required'=>''])!!}
         </div>
     </div>
 </div>
