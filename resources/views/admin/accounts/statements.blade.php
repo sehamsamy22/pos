@@ -69,7 +69,7 @@
 
                         <td>
 
-                            {!! $row->entry->code!!}
+                            {!! $row->entry->code ??''!!}
                         </td>
                         <td>
                             {!! $row->entry->source!!}
