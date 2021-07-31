@@ -37,12 +37,10 @@ class ClientController extends Controller
     {
         $measurements=Measurement::all();
         $subscriptions=Subscription::pluck('name','id')->toArray();
-        $breakfasts=Meal::where('type','breakfast')->get();
-        $lunches=Meal::where('type','lunch')->get();
-        $dinners=Meal::where('type','dinner')->get();
+
         $areas=Area::pluck('name','id')->toArray();
 
-        return view('admin.clients.create',compact('measurements','subscriptions','breakfasts','lunches','dinners','areas'));
+        return view('admin.clients.create',compact('measurements','subscriptions','areas'));
 
     }
 
