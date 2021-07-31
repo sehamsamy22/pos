@@ -58,7 +58,7 @@
 {{--</div>--}}
 
 
-@if(isset($meal))
+@if(isset($product))
 <div class="col-sm-6 col-xs-6  pull-left">
     <div class="form-group form-float">
         <label class="form-label">   التصنيف الرئيسى</label>
@@ -80,13 +80,13 @@
         </div>
     </div>
  @endif
-@if(isset($meal))
+@if(isset($product))
 <div class="col-sm-6 col-xs-6  pull-left subcategories">
     <div class="form-group form-float">
         <label class="form-label">   التصنيف الفرعى</label>
         <div class="form-line">
             <select name="sub_category_id" class="form-control js-example-basic-single" >
-                <option value="{{$meal->sub_category_id}}">{{$meal->subcategory->name}}</option>
+                <option value="{{$product->sub_category_id}}">{{$product->subcategory->name}}</option>
             </select>
         </div>
     </div>
@@ -143,11 +143,11 @@
         </div>
     </div>
 </div>
-@if( isset($meal))
+@if( isset($product))
     <div class="col-sm-3 col-xs-3 pull-left">
         <div class="form-group form-float">
             <label>صوره المنتج  : </label>
-            <img src="{{getimg($meal->image)}}" style="width:100px; height:100px">
+            <img src="{{getimg($product->image)}}" style="width:100px; height:100px">
         </div>
     </div>
 @endif
