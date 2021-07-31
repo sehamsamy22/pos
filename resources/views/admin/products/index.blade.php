@@ -50,7 +50,6 @@
                             <td>{{$i++}}</td>
                             <td>{{$row->ar_name}}</td>
                             <td>{{$row->barcode}}</td>
-                            <td>{{$row->price}}</td>
                             <td>
                                 <a class="btn btn-danger" href="{{route('dashboard.sizes.show',$row->id)}}">{{$row->sizes->count()}}</a>
                             </td>
