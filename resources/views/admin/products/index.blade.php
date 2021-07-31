@@ -29,7 +29,7 @@
         <div class="col-sm-12">
             <div class="card-box table-responsive">
 
-                <h4 class="header-title m-t-0 m-b-30">كل  المنتجات والوجبات  </h4>
+                <h4 class="header-title m-t-0 m-b-30">كل  المنتجات  </h4>
 
 
                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -37,8 +37,7 @@
                     <tr>
                         <th>#</th>
                         <th>الإسم </th>
-                        <th>  السعر</th>
-                        <th> النوع </th>
+                        <th>الباركود </th>
                         <th>الاحجام </th>
                         <th>  الصورة</th>
                         <th style="width: 250px;" >العمليات المتاحة</th>
@@ -50,8 +49,8 @@
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->ar_name}}</td>
+                            <td>{{$row->barcode}}</td>
                             <td>{{$row->price}}</td>
-                            <td>{{$row->typeMeal->name ??'' }}  </td>
                             <td>
                                 <a class="btn btn-danger" href="{{route('dashboard.sizes.show',$row->id)}}">{{$row->sizes->count()}}</a>
                             </td>
