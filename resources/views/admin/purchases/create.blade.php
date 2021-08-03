@@ -143,7 +143,7 @@
                                         <select name="discount_id" class="form-control" id="bill_discount">
                                             @foreach($discounts as $discount)
                                                 <option value="{{$discount->id}}" data-value="{{$discount->value}}"
-                                                > {{$discount->name}} -{{$discount->value}}%</option>
+                                                > {{$discount->name}} {{$discount->value}}%</option>
                                             @endforeach
                                         </select>
 
