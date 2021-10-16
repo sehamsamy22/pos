@@ -181,5 +181,10 @@ class ProductController extends Controller
         return redirect()->route('dashboard.products.index')->with('success', __('تم رقع المنتجات'));
 
     }
+    public function getBarcode($id)
+    {
+        $product = Product::find($id);
+        return view('admin.products.barcode', compact('product'));
+    }
 
 }

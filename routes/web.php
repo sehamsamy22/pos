@@ -28,6 +28,7 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     route::resource('suppliers', 'SupplierController');
     Route::get('/getAllSubcategories/{id}', 'ProductController@getAllSubcategories');
     Route::get('/getProduct/{id}', 'ProductController@getProduct');
+    Route::get('/barcode/{id}', 'ProductController@getBarcode')->name('products.barcode');
     route::resource('types_meal', 'TypeMealController');
 
     Route::post('/product','ProductController@getAjaxProductQty')->name('products.getAjaxProductQty');

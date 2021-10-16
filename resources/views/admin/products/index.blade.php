@@ -49,12 +49,16 @@
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$row->ar_name}}</td>
-                            <td>{{$row->barcode}}</td>
+                            <td>
+                                {!! DNS1D::getBarcodeHTML($row->barcode ,"C128",1.4,22) !!}
+                                {{$row->barcode }}
+                            </td>
                             <td>
                                 <a class="btn btn-danger" href="{{route('dashboard.sizes.show',$row->id)}}">{{$row->sizes->count()}}</a>
                             </td>
                             <td><img src="{!! getimg($row->image)!!}" style="width:100px; height:100px"> </td>
                             <td>
+                                <a href="{{route('dashboard.products.barcode',$row->id)}}" class="label label-success">طباعة</a>
                                 <a href="{{route('dashboard.products.edit',$row->id)}}" class="label label-warning">تعديل</a>
                                 <a href="#" onclick="Delete({{$row->id}})" data-toggle="tooltip" data-original-title="حذف" class="label label-danger"> حذف</a>
                                 {!!Form::open( ['route' => ['dashboard.products.destroy',$row->id] ,'id'=>'delete-form'.$row->id, 'method' => 'Delete']) !!}
