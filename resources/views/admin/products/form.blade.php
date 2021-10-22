@@ -122,7 +122,8 @@
     <div class="form-group form-float">
         <label class="form-label">  الباركود</label>
         <div class="form-line">
-            {!! Form::text("barcode",null,['class'=>'form-control','data-parsley-required-message'=>'من فضلك ادخل  باركودالصنف  ','required'=>''])!!}
+            <?php  $rand=rand(1000,10000); ?>
+            {!! Form::text("barcode",$rand,['class'=>'form-control',])!!}
         </div>
     </div>
 </div>
