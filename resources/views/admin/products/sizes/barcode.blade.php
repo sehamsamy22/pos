@@ -110,8 +110,10 @@ background-color: #000 !important;
                  <input type="button" onclick="printDiv('printableArea')" value="طباعة" />
                     <div id="printableArea" class="subpage">
                         <div class="img">
+                            @if(isset($row->barcode))
                                 {!! DNS1D::getBarcodeHTML($size->barcode ,"C128",1.4,22) !!}
                                     <b>  {{$size->barcode}}</b><br>
+                                    @endif
                                     <b>  {{$size->name}}</b><br>
                                     <b>  {{$size->size_price}}</b>
                         </div>
