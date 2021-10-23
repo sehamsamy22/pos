@@ -47,9 +47,9 @@
                             <td>{{$row->size_price}}</td>
                             <td>{{$row->purchase_price}}</td>
                             <td>
-                                @isset($row->barcode)
+                                @if(isset($row->barcode))
                                 {!! DNS1D::getBarcodeHTML($row->barcode ,"C128",1.4,22) !!}
-                                @endisset
+                                @endif
                                 {{$row->barcode}}
                             </td>
                             <td>{{$row->quantity}}</td>
