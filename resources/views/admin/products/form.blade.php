@@ -123,7 +123,7 @@
         <label class="form-label">  الباركود</label>
         <div class="form-line">
             <?php  $rand=rand(1000,10000); ?>
-            {!! Form::text("barcode",$rand,['class'=>'form-control',])!!}
+            {!! Form::text("barcode",isset($product)?$product->barcode:$rand,['class'=>'form-control',])!!}
         </div>
     </div>
 </div>
@@ -152,23 +152,6 @@
         </div>
     </div>
 @endif
-<div class="clearfix"></div>
-<div class="col-sm-6 col-xs-6  pull-left">
-    <div class="form-group form-float">
-        <label class="form-label">  اسم الحجم </label>
-        <div class="form-line">
-            {!! Form::text("name",null,['class'=>'form-control ','placeholder'=>'  اسم الحجم','data-parsley-required-message'=>'من فضلك ادخل اسم الحجم  ','required'=>''])!!}
-        </div>
-    </div>
-</div>
-<div class="col-sm-6 col-xs-6  pull-left">
-    <div class="form-group form-float">
-        <label class="form-label"> سعر الحجم</label>
-        <div class="form-line">
-            {!! Form::text("size_price",null,['class'=>'form-control ','placeholder'=>' سعر الحجم','data-parsley-required-message'=>'من فضلك ادخل سعر المنتج  ','required'=>'','id'=>'demo1'])!!}
-        </div>
-    </div>
-</div>
 
 
 <div class="form-group  col-sm-12">

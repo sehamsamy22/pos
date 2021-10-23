@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\StoreProduct;
 
 class MealSizeController extends Controller
 {
@@ -44,17 +44,26 @@ class MealSizeController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required|string',
             'size_price' => 'required|numeric|min:0',
+            'purchase_price' => 'required|numeric|min:0',
+            'quantity' => 'required|numeric|min:0',
+            'barcode' => 'required|string|unique:sizes,barcode',
             'product_id' => 'required|exists:products,id',
         ]);
         $product = Product::find($request['product_id']);
         $size = Size::create([
             'name' => $product->ar_name . '-' . $request['name'],
             'size_price' => $request['size_price'],
+            'purchase_price' => $request['purchase_price'],
+            'quantity' => $request['quantity'],
+            'barcode' => $request['barcode'],
             'product_id' => $product->id
+        ]);
+        $storeProduct=StoreProduct::create([
+                'size_id'=> $size->id,
+                'quantity'=>$size->quantity
         ]);
 
         return back()->with('success', __('تم اضافة الحجم للمنتج بنجاح '));
@@ -100,6 +109,7 @@ class MealSizeController extends Controller
     {
         $size = Size::findOrfail($id);
         $size->update($request->all());
+        
         return redirect()->route('dashboard.sizes.index', [$size->product->id])->with('success', __('تم التعديل'));
 
     }
@@ -115,5 +125,10 @@ class MealSizeController extends Controller
         Size::find($id)->delete();
         return back()->with('success', __('تم حذف الحجم للمنتج بنجاح '));
 
+    }
+    public function getBarcode($id)
+    {
+        $size = Size::find($id);
+        return view('admin.products.sizes.barcode', compact('size'));
     }
 }
