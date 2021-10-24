@@ -1,5 +1,5 @@
 <fieldset class="cat" >
-    <legend > أحجام الوجبات </legend>
+    <legend > أحجام المنتجات </legend>
     @foreach($sizes as $size)
         <a href=""   class=" btn btn-primary size_btn"
            data-id="{{$size->id}}"

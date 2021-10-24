@@ -183,4 +183,12 @@ class SaleController extends Controller
             'data' => view('admin.sales.sizes')->with('sizes', $sizes)->render()
         ]);
     }
+
+    public  function barcode_search($q){
+        $size = Size::where('barcode', $q)->first();
+        return response()->json([
+            'success' => true,
+            'data'=>  $size
+        ]);
+    }
 }

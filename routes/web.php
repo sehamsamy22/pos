@@ -30,6 +30,8 @@ Route::group(['namespace' => 'AccountingSystem', 'prefix' => 'dashboard', 'middl
     Route::get('/getProduct/{id}', 'ProductController@getProduct');
     Route::get('/barcode/{id}', 'ProductController@getBarcode')->name('products.barcode');
     Route::get('/size-barcode/{id}', 'MealSizeController@getBarcode')->name('sizes.barcode');
+    //////////////////////////////////////////////
+    Route::get('barcode_search_sale/{name}', 'SaleController@barcode_search');
 
     route::resource('types_meal', 'TypeMealController');
 

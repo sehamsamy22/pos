@@ -58,6 +58,15 @@
                         </div>
                     </div>
 
+                    <div class="col-sm-4 col-xs-4 pull-left">
+                        <div class="form-group form-float">
+                            <label class="form-label">باركود المنتج</label>
+                            <div class="form-line">
+                                <input class="form-control" type="text" id="barcode_search">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="clearfix"></div>
 
                         <div class="categories">
@@ -74,7 +83,7 @@
                             <div class="adds-maels">
                             <fieldset>
                                 <legend> عدد الوجبات: <span class="counter">0</span></legend>
-                            <table  class="table table-striped table-bordered sales-table" >
+                            <table  class="table table-striped table-bordered sales-table " >
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -150,10 +159,10 @@
                             </div>
                         </div>
 
-                    <div class="col-sm-12 col-xs-12 card text-right" >
+                    <div class="col-sm-12 col-xs-12 card text-right  submit" >
                         <button type="button" class="btn btn-purple waves-effect w-md m-b-5">فاتوره جديده</button>
 
-                        <button type="button" class="btn btn-inverse waves-effect w-md m-b-5" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button type="button" class="btn btn-inverse waves-effect w-md m-b-5 finalTb" data-toggle="modal" data-target="#exampleModalCenter">
                             حفظ</button>
 
                     </div>
@@ -208,7 +217,7 @@
                             </div>
                             <div class="modal-footer">
                                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button> --}}
-                                <button type="submit" class="btn btn-primary"  onclick="document.getElementById('form').submit();" data-dismiss="modal"> حفظ </button>
+                                <button type="submit" class="btn btn-primary"  id="submit" onclick="document.getElementById('form').submit(); " data-dismiss="modal"> حفظ </button>
                             </div>
                         </div>
                     </div>
@@ -223,9 +232,10 @@
     </div>
 @endsection
 @section('scripts')
+
+    <script src="{{asset('admin/assets/js/scanner.js')}}"></script>
 @include('admin.layout.form_validation_js')
     <script src="{{asset('admin/assets/js/jquery.datetimepicker.full.min.js')}}"></script>
-
 
     <script>
         $(document).ready(function() {
@@ -233,13 +243,130 @@
             $('.inlinedatepicker').datetimepicker({defaultDate :new Date()});
             $('.inlinedatepicker').text(new Date().toLocaleString());
             $('.inlinedatepicker').val(new Date().toLocaleString());
+
+                  //	For Ajax Search By Product Bar Code
+
         });
      //**************  category click ***********************
 
-     var  rowNum=0;
+     $("#barcode_search").on('change', function(e){
+        var barcode = $(this).val();
+        e.preventDefault();
+            $.ajax({
+                url: "/dashboard/barcode_search_sale/" + barcode,
+                type: "GET",
+                dataType: 'json',
+               success: function (data) {
+                var rowNum=0;
 
+                var size_id = data.data.id;
+                var meal_name = data.data.name;
+                var meal_price =data.data.size_price ;
+                rowNum++;
+                $(".sales-table tbody").append(`<tr class="single-row-wrapper" id="row${rowNum}" ">
+                   <td class="row-num" width="40">${rowNum}</td>
+                   <input type="hidden" name="size_id[${size_id}]" value="${size_id}">
+                   <td class="meal-name " width="900">${meal_name}</td>
+                   <td class="meal-quantity " width="40">
+                       <input type="text" placeholder="الكمية" value="1" id="quantity" class="form-control" name="quantity[${size_id}]">
+                   </td>
+                       <input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${size_id}]">
+                   </td>
+                 <td class="meal_price" width="70">${meal_price}</td>
+                   <td class="bill-operations-td" width="160">
+                       <button type="button"
+                               class="btn btn-danger"
+                                data-html="true"
+                               data-container="body"
+                               role="button"
+                               data-id="${rowNum}"
+                       </button>
+                       <a href="#" title="مسح" class="remove-prod-from-list" style="color: white"><span class="ti-close"></span></a>
+                   </td>
+               </tr>
+                 `);
+                calcInfo();
+                //**************    Calc while changing table body ***********************
+                $(".sales-table tbody").change(calcInfo);
+                //**************    Calc while removing a product ************************
+                $(".remove-prod-from-list").on('click', function (e) {
+                    $(this).parents("tr").remove();
+                    calcInfo();
+                    var trLen = $(".meal_btn  tbody tr").length;
+                    if (trLen === 0) {
+                        $('table tfoot').addClass('tempDisabled');
+                    }
+                });
+
+                $(".meal-quantity").change(function() {
+                    if (($(this).val()) < 0) {
+                        $(this).val(0);
+                        $(this).text('0');
+                    }
+                    var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
+
+                    var quantityXprice = Number(meal_price) * Number(theQuantity);
+                    $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice.toFixed(2));
+
+                });
+
+                $('.counter').html(rowNum);
+                //****************** Calc function************************
+                function calcInfo() {
+                    var AmountBeforeDiscount = 0;
+                    $(".meal_price").each(function () {
+                        AmountBeforeDiscount += Number($(this).text());
+                    });
+                    var bill_tax=$('#bill_tax').val();
+                    var tax_val= Number(AmountBeforeDiscount) * (Number(bill_tax) / 100);
+                    $('#tax_val').val(tax_val.toFixed(2));
+                    $("#AmountBeforeDiscount").val(AmountBeforeDiscount.toFixed(2));
+                    var amount_tax=AmountBeforeDiscount+tax_val;
+                    $("#total").val(amount_tax.toFixed(2));
+                    $('#amount_required').val(amount_tax.toFixed(2));
+                    $('#payed').val(amount_tax.toFixed(2));
+                    $("#reminder").val('0');
+                    $("#payed").change(function() {
+                        var payed=$(this).val();
+                        var reminder= Number($("#amount_required").val()) - Number(payed);
+                        $("#reminder").val(reminder.toFixed(2));
+                    });
+                    $("#discount").change(function() {
+                        var selectedDiscount = $(this).find(":selected");
+                        var discount = selectedDiscount.data('value');
+                        var discount_val= Number(AmountBeforeDiscount) * (Number(discount) / 100);
+                        var all= Number(AmountBeforeDiscount)-Number(discount_val)
+
+                        $("#total_after_discount").val(all.toFixed(2));
+
+                        var tax_val_new= Number(all) * (Number(bill_tax) / 100);
+                        $('#tax_val').val(tax_val_new.toFixed(2));
+                        var  total_finaly=all+tax_val_new;
+                        $("#total").val(total_finaly.toFixed(2));
+                        $('#amount_required').val($('#total').val());
+                        var allmount=$('#total').val();
+
+                        $('#payed').val(allmount);
+                        $("#reminder").val(0);
+                        $("#payed").change(function() {
+                            var payed=$(this).val();
+                            var reminder= Number($("#amount_required").val()) - Number(payed);
+                            $("#reminder").val(reminder.toFixed(2));
+                        });
+                    });
+
+
+
+
+                }
+            },
+            error: function (data) {
+                console.log("Error: ", data);
+            }
+            });
+    });
+      var  rowNum=0;
   //   $(".category_btn").on('click',category);
-
      function category (e,id) {
         e.preventDefault();
       //  var id=$(e).data('id');
@@ -326,8 +453,6 @@
                                <input type="hidden" class="form-control" step="any" value="${meal_price}" name="prices[${size_id}]">
                            </td>
                          <td class="meal_price" width="70">${meal_price}</td>
-
-
                            <td class="bill-operations-td" width="160">
                                <button type="button"
                                        class="btn btn-danger"
@@ -339,7 +464,7 @@
                                <a href="#" title="مسح" class="remove-prod-from-list" style="color: white"><span class="ti-close"></span></a>
                            </td>
                        </tr>
-                   `);
+                         `);
                         calcInfo();
                         //**************    Calc while changing table body ***********************
                         $(".sales-table tbody").change(calcInfo);
@@ -359,18 +484,7 @@
                                 $(this).text('0');
                             }
                             var theQuantity = $(this).parents("tr.single-row-wrapper").find(".meal-quantity input").val();
-                            //     $.ajax({
-                            //         url:"/dashboard/checkquantity/"+meal_id,
-                            //         type:"get",
-                            //         data:{quantity:theQuantity }
-                            //     }).done(function (data) {
-                            //     if(data.data=='false'){
-                            //         swal("   ", " الكميه غير متوفره الان بالمخزن", 'danger', {
-                            //             buttons: 'موافق'
-                            //         });
-                            //     }
-                            //
-                            // });
+
                             var quantityXprice = Number(meal_price) * Number(theQuantity);
                             $(this).parents('.single-row-wrapper').find(".meal_price").text(quantityXprice.toFixed(2));
 
@@ -437,6 +551,50 @@
         });
     }
 
+    function confirmSubmit(event){
+        var feloos = Number($("tr#remaindedAmount span.dynamic-span").text());
+        if (feloos >= 0 ) {
+            event.preventDefault();
+            swal({
+                title: "تنبيه !",
+                text: "هل أنت متأكد من الحفظ ؟",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                buttons: ['لا', 'نعم']
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("جار الحفظ !", {
+                            icon: "success",
+                            buttons : false
+                        });
+                        $("#sllForm").submit();
+                    } else {
+                        swal({
+                            title : 'الغاء الحفظ',
+                            text : 'تم إلغاء الحفظ !',
+                            icon : 'success',
+                            buttons : false,
+                            timer : 1500
+                        });
+                    }
+                });
+        } else {
+            event.preventDefault();
+            swal({
+                title : "تنبيه !",
+                text: "عفوا , لابد من استيفاء المبلوغ المطلوب دفعه قبل حفظ الفاتورة",
+                icon: "warning",
+                buttons : false,
+                timer : 1500
+            })
+        }
+    }
+
+     $(" button[type='submit']").click(function(event){
+        confirmSubmit(event)
+    })
     </script>
     <script>
         @if(!empty(\Illuminate\ Support\ Facades\ Session::has('sale_id')))
@@ -447,5 +605,6 @@
         ).print();
         @endif
     </script>
+
 
 @endsection
